@@ -1,10 +1,13 @@
 import numpy as np
 import os
 import sys
+import xmltodict
+
+import matplotlib.pyplot as plt
 
 from collections import defaultdict
 from scipy.integrate import solve_ivp
-import matplotlib.pyplot as plt
+import igraph as ig
 
 # hide runtime warnings (divide by zero, multiply by inf)
 # This is a bad idea...
@@ -15,8 +18,65 @@ warnings.filterwarnings("ignore", message="invalid value encountered in multiply
 # https://github.com/hklarner/PyBoolNet/blob/master/Docs/Sphinx/source/Development.rst
 PyBoolNet_path = os.path.join(os.path.abspath("."), "PyBoolNet/")
 sys.path.insert(0, PyBoolNet_path)
+import PyBoolNet
 from PyBoolNet import QuineMcCluskey as QMC
 from PyBoolNet import AspSolver
+
+
+def import_graphml(path, inhibitor_symbol="white_diamond", activator_symbol="standard"):
+    # load graph
+    g = ig.Graph.Read_GraphML(path)
+
+    # add edge attributes (i.e. activator or inhibitor)
+    with open(path) as f:
+        d = xmltodict.parse(f.read())
+
+    D = {}
+    N = {}
+
+    for v in d["graphml"]["graph"]["node"]:
+        N[v["@id"]] = v["data"]["y:ShapeNode"]["y:NodeLabel"]["#text"]
+
+    for e in d["graphml"]["graph"]["edge"]:
+        if e["data"]["y:PolyLineEdge"]['y:Arrows']['@target'] == activator_symbol:
+            D[e["@id"]] = "+"
+        elif e["data"]["y:PolyLineEdge"]['y:Arrows']['@target'] == inhibitor_symbol:
+            D[e["@id"]] = "-"
+        else: 
+            print(e["@id"])
+
+    for e in g.es():
+        e["type"] = D[e["id"]]
+
+    for v in g.vs():
+        v["id"] = N[v["id"]]
+
+    g_dict = {node["id"]:{} for node in g.vs()}
+    for e in g.es():
+        source = g.vs()[e.source]["id"]
+        target = g.vs()[e.target]["id"]
+        sign = e["type"]
+        g_dict[target][source] = sign
+    
+    return g_dict
+
+def import_bnet(path):
+    primes = PyBoolNet.FileExchange.bnet2primes(path)
+    intgraph = PyBoolNet.InteractionGraphs.primes2igraph(primes)
+    # standard dictionary
+    g_dict = {node:{} for node in primes.keys()}
+    for node, d in intgraph.adjacency():
+        for other_node, sub_d in d.items():
+            sign = next(iter(sub_d["sign"]))
+            if sign == 1:
+                g_dict[other_node][node] = "+"
+            elif sign == -1:
+                g_dict[other_node][node] = "-"
+            else:
+                print(node, other_node)
+                break
+    
+    return g_dict
 
 class SquadRegulatoryNetwork:
     
@@ -45,8 +105,11 @@ class SquadRegulatoryNetwork:
             return v
 
     def _omega(self, x):
-        '''Equation 2 of Di Cara et al (2007) 
-           http://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-8-462'''
+        '''
+        Equation 2 of Di Cara et al (2007) 
+        http://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-8-462
+        Based on Andre Blejec
+        '''
 
         x = self._ensure_ndarray(x)
 
@@ -69,7 +132,14 @@ class SquadRegulatoryNetwork:
         return (  -np.exp(0.5*h) + np.exp(-h*(w-0.5))  ) / \
                (  (1-np.exp(0.5*h))*(1+np.exp(-h*(w-0.5)))  ) - gamma*x
 
-    def _get_system(self, h=50, gamma=1, off=[]):  
+    def _ensure_finite(self, value):
+        if np.isfinite(value):
+            return value
+        if value < 0:
+            return 0
+        return 1
+    
+    def _get_system(self, h, gamma, off=[]):  
 
         def dxdt(t, x_array, *args):
             w = self._omega(x_array)
@@ -100,19 +170,19 @@ class SquadRegulatoryNetwork:
                     print("Warning: Issue with edge: ", node, other_node)
         return self._ensure_ndarray(Act), self._ensure_ndarray(Inh)
 
-    def _get_node_bool_func(self, args, node):
+    def _get_node_bool_func(self, args, node, tmp_keys):
         def func(*func_input):        
-            state = np.ones(n)
+            state = np.ones(self.n)
             for other_node, other_node_state in zip(args, func_input):
-                state[keys[other_node]] = other_node_state
+                state[self.keys[other_node]] = other_node_state
 
-            col_ones = np.ones((n))
-            if Inh[keys[node],:].dot(col_ones):
-                inh = Inh[keys[node],:].dot(state) > 0
+            col_ones = np.ones((self.n))
+            if self.Inh[self.keys[node],:].dot(col_ones):
+                inh = self.Inh[self.keys[node],:].dot(state) > 0
             else:
                 inh = 0
-            if Act[keys[node],:].dot(col_ones):
-                act = Act[keys[node],:].dot(state) > 0
+            if self.Act[self.keys[node],:].dot(col_ones):
+                act = self.Act[self.keys[node],:].dot(state) > 0
             else:
                 act = 1
             node_state = act * (1-inh)
@@ -120,7 +190,7 @@ class SquadRegulatoryNetwork:
             #print(node, state, inh, act, node_state)
             return node_state
 
-        func.depends = [pyboolvar[node] for node in args]
+        func.depends = [tmp_keys[node] for node in args]
         
         return func
 
@@ -132,8 +202,8 @@ class SquadRegulatoryNetwork:
             return pyboolvar, pyboolvar_rev
         
         elif direction == 'backward':
-            orig_d = {}
-            for node, d in d.items():
+            new_d = {}
+            for node, d in orig_d.items():
                 node = rev_d[node]
                 p_rev = []
                 for sublist in d:
@@ -145,19 +215,18 @@ class SquadRegulatoryNetwork:
                             sub_d_rev[other_node] = state
                         sublist_rev.append(sub_d_rev)
                     p_rev.append(sublist_rev)
-                orig_d[node] = p_rev
-            return orig_d
+                new_d[node] = p_rev
+            return new_d
 
     def bool_steady_states(self):
         
-        # need to change variable names because pf pyboolnet errors
-        tmp_keys, tmp_key_rev = self._rename_variables(self.keys(), {}, 'forward')
+        # need to change variable names because of pyboolnet errors
+        tmp_keys, tmp_key_rev = self._rename_variables(self.keys, {}, 'forward')
 
         funcs = {tmp_keys[node]:1 for node in self.boolean_graph.keys()}
         for node, d in self.boolean_graph.items():
-            print(node)
             args = list(d.keys())
-            func = self._get_node_bool_func(args, node)
+            func = self._get_node_bool_func(args, node, tmp_keys)
             funcs[tmp_keys[node]] = func
         primes = QMC.functions2primes(funcs)
         primes = self._rename_variables(primes, tmp_key_rev, 'backward')
@@ -171,7 +240,11 @@ class SquadRegulatoryNetwork:
                            t_min=0, t_max=30, 
                            initial_state=0, 
                            plot=True,
-                           gamma=1, h=50):
+                           gamma=1, h=10):
+        '''
+        gamma -> decay rate
+        h -> gain(?)
+        '''
         
         all_results = []
 
@@ -179,10 +252,33 @@ class SquadRegulatoryNetwork:
         if not (initial_state == 0):
             for node, value in initial_state.items():
                 initial_state_array[self.keys[node]] = value
-
-
+        
+        gamma_array = np.ones(self.n)
+        if type(gamma) in [int, float]:
+            gamma_array = gamma_array * gamma
+        else:
+            if 'default' in gamma.keys():
+                gamma_array = gamma_array * gamma['default']
+            for node, value in gamma.items():
+                if node == 'default': 
+                    pass
+                else:
+                    gamma_array[self.keys[node]] = value            
+        
+        h_array = np.ones(self.n)
+        if type(h) in [int, float]:
+            h_array = h_array * h
+        else: 
+            if 'default' in h.keys():
+                h_array = h_array * h['default']
+            for node, value in h.items():
+                if node == 'default': 
+                    pass
+                else:                
+                    h_array[self.keys[node]] = value                   
+                
         # fetch the system of eqn
-        dxdt = self._get_system(h=h, gamma=gamma)
+        dxdt = self._get_system(h=h_array, gamma=gamma_array)
 
         # 1. copy events to new dict
         # 2. set a duration for all events
@@ -228,22 +324,21 @@ class SquadRegulatoryNetwork:
                         # ending a pertubation (put back dx/dt of this node)
                         s += " "*10 + "{node} -> released\n".format(node=node)
                         off_nodes.remove(self.keys[node])
+                        dxdt = self._get_system(h=h_array, gamma=gamma_array, off=off_nodes)
 
                     else:
                         # starting a pertubation
                         initial_state_array[self.keys[node]] = perturb['perturbation']
                         s += " "*10 + "{node} -> {perturb_value:.2f} (duration {duration:2d})\n".format(\
                                                            node=node,                              
-                                                           perturb_value=perturb['perturbation'], duration=perturb["duration"])
+                                                           perturb_value=perturb['perturbation'], 
+                                                           duration=perturb["duration"])
 
                         if perturb['duration'] > 0:
                             # dt/dt of this node should be 0 for "duration"
                             off_nodes.add(self.keys[node])
-                            dxdt = self._get_system(h=h, gamma=gamma, off=off_nodes)
-
+                            dxdt = self._get_system(h=h_array, gamma=gamma_array, off=off_nodes)
                 print(s)
-
-
 
         combined_t = np.concatenate([result.t for result in all_results])
         combined_y = np.concatenate([result.y for result in all_results], axis=1).T
@@ -251,3 +346,5 @@ class SquadRegulatoryNetwork:
         if plot: 
             lines = plt.plot(combined_t, combined_y, '-')
             plt.legend(lines, self.boolean_graph.keys())
+            
+        return combined_t, combined_y
