@@ -55,7 +55,7 @@ class SquadRegulatoryNetwork:
         a[~np.isfinite(a)] = 1
 
         Bx = self.Inh.dot(x)
-        b = _ensure_ndarray( self._b1 * Bx/(1+Bx) )
+        b = ensure_ndarray( self._b1 * Bx/(1+Bx) )
         b[~np.isfinite(b)] = 0
 
         o = ensure_ndarray(a * (1-b))
@@ -209,12 +209,12 @@ class SquadRegulatoryNetwork:
         # fetch the system of eqn
         dxdt = self._get_system(h=h_array, gamma=gamma_array)
 
-        # 1. copy events to new dict
-        # 2. set a duration for all events
+        # 1. copy node_events to new dict
+        # 2. set a duration for all node_events
         # 3. add end of each pertubation as an event (so that dx/dt of the node can be reset)
         events_d = defaultdict(dict)
-        for event_t  in events.keys():
-            for node, perturb in events[event_t].items():
+        for event_t  in node_events.keys():
+            for node, perturb in node_events[event_t].items():
                 events_d[event_t][node] = perturb
                 events_d[event_t][node]["reset"] = False
                 if not ("duration" in perturb):
@@ -275,5 +275,6 @@ class SquadRegulatoryNetwork:
         if plot: 
             lines = plt.plot(combined_t, combined_y, '-')
             plt.legend(lines, self.boolean_graph.keys())
+            plt.ylim([-0.01, 1.01])
             
         return combined_t, combined_y
