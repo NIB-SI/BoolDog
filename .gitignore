@@ -6,6 +6,9 @@ __pycache__/
 # C extensions
 *.so
 
+# install 
+squad_reboot.egg-info
+
 # Jupyter notebooks
 .ipynb_checkpoints
 

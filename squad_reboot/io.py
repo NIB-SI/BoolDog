@@ -4,6 +4,10 @@ import sys
 import xmltodict
 import igraph as ig
 
+from PyBoolNet import FileExchange, InteractionGraphs
+
+
+
 def import_graphml(path, inhibitor_symbol="white_diamond", activator_symbol="standard"):
     # load graph
     g = ig.Graph.Read_GraphML(path)
@@ -43,8 +47,8 @@ def import_graphml(path, inhibitor_symbol="white_diamond", activator_symbol="sta
     return g_dict
 
 def import_bnet(path):
-    primes = PyBoolNet.FileExchange.bnet2primes(path)
-    intgraph = PyBoolNet.InteractionGraphs.primes2igraph(primes)
+    primes = FileExchange.bnet2primes(path)
+    intgraph = InteractionGraphs.primes2igraph(primes)
     # standard dictionary
     g_dict = {node:{} for node in primes.keys()}
     for node, d in intgraph.adjacency():

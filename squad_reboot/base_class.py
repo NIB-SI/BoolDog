@@ -17,6 +17,8 @@ from PyBoolNet import QuineMcCluskey as QMC
 from PyBoolNet import AspSolver
 
 
+from .utils import *
+
 class SquadRegulatoryNetwork:
     
     def __init__(self, g):
@@ -37,12 +39,6 @@ class SquadRegulatoryNetwork:
         self._B1 = self.Inh.dot(col_ones)
         self._b1 = (1+self._B1)/self._B1 
         
-    def _ensure_ndarray(self, v):
-        if not type(v) == np.ndarray:
-            return np.array([*v])
-        else:
-            return v
-
     def _omega(self, x):
         '''
         Equation 2 of Di Cara et al (2007) 
@@ -50,19 +46,19 @@ class SquadRegulatoryNetwork:
         Based on Andre Blejec
         '''
 
-        x = self._ensure_ndarray(x)
+        x = ensure_ndarray(x)
 
         col_ones = np.ones((self.n))
 
         Ax = self.Act.dot(x)
-        a = self._ensure_ndarray( self._a1 * Ax/(1+Ax) )
+        a = ensure_ndarray( self._a1 * Ax/(1+Ax) )
         a[~np.isfinite(a)] = 1
 
         Bx = self.Inh.dot(x)
-        b = self._ensure_ndarray( self._b1 * Bx/(1+Bx) )
+        b = _ensure_ndarray( self._b1 * Bx/(1+Bx) )
         b[~np.isfinite(b)] = 0
 
-        o = self._ensure_ndarray(a * (1-b))
+        o = ensure_ndarray(a * (1-b))
         o[np.where(self._A1 + self._B1 ==0)] = 0 
 
         return o
@@ -70,14 +66,7 @@ class SquadRegulatoryNetwork:
     def _dxdt_transform(self, x, w, h, gamma):
         return (  -np.exp(0.5*h) + np.exp(-h*(w-0.5))  ) / \
                (  (1-np.exp(0.5*h))*(1+np.exp(-h*(w-0.5)))  ) - gamma*x
-
-    def _ensure_finite(self, value):
-        if np.isfinite(value):
-            return value
-        if value < 0:
-            return 0
-        return 1
-    
+   
     def _get_system(self, h, gamma, off=[]):  
 
         def dxdt(t, x_array, *args):
@@ -107,7 +96,7 @@ class SquadRegulatoryNetwork:
                     Inh[self.keys[node], self.keys[other_node]] = 1
                 else:
                     print("Warning: Issue with edge: ", node, other_node)
-        return self._ensure_ndarray(Act), self._ensure_ndarray(Inh)
+        return ensure_ndarray(Act), ensure_ndarray(Inh)
 
     def _get_node_bool_func(self, args, node, tmp_keys):
         def func(*func_input):        
