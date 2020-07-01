@@ -43,16 +43,4 @@ g.dynamic_simulation(t_max=30, gamma=1, h=10)
 
 ---
 
-## Dependencies: 
 
-### Not included
-
-* numpy
-* xmltodict
-* scipy
-* python-igraph
-* matplotlib
-
-### Included 
-
-* PyBoolNet
