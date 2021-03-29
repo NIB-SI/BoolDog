@@ -1,4 +1,3 @@
-from .io import import_graphml
-from .io import import_bnet
 
-from .base_class import SquadRegulatoryNetwork
+from .bool_graph import BooleanGraph
+from .base import RegulatoryNetwork

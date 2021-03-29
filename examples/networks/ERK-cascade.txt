@@ -1,0 +1,58 @@
+angiotensin II → Gq-coupled AT1receptor [1]
+5,00
+carbachol → Gi
+-coupled M2 receptor [1]
+10,00
+Epac → PKC [2] 10,00
+ERK 1/2 dim 2P → p90RSK [1] 0,01
+ERK 1/2 dim 2P → p70S6K [1] 0,01
+ERK 1/2 dim 2P Λ Gβγ → ERK 1/2 dim 3P [1]
+ERK 1/2 dim 2P –І AND:
+100,00
+AND –І ERK 1/2 dim 3P: 1,00
+Gβγ→ ERK 1/2 dim 3P: 100,00
+ERK 1/2 dim 3P → Elk1 [1] 8,00
+ERK 1/2 dim 3P → MSK1 [1] 7,00
+ERK 1/2 dim 3P → c-Myc [1] 6,00
+Gi
+-coupled M2 receptor → Ras (GTP bound) [1]
+10,00
+Gi
+-coupled M2 receptor → PKC [3] 10,00
+Gq-coupled AT1receptor → Gβγ [1]
+10,00
+Gq-coupled AT1receptor → Ras (GTP bound) [1]
+1,00
+Gq-coupled AT1receptor → PKC [4] 10,00
+GRK2 -І
+Gs
+-coupled β1-adrenergic
+receptor [5]
+0,10
+Gs
+-coupled β 1-adrenergic
+receptor → Ras (GTP bound) [6]
+1,00
+Gs
+-coupled β1-adrenergic
+receptor → Gβγ [6]
+10,00
+Gs
+-coupled β1-adrenergic
+receptor → Epac [2]
+10,00
+hypertrophic stimulus → angiotensin II [1] 1,00
+hypertrophic stimulus → isoproterenol [6] 10,00
+isoproterenol →
+Gs
+-coupled β1-adrenergic
+receptor [6]
+10,00
+MEK 1/2 → ERK 1/2 dim 2P [1] 0,001
+non-hypertrophic stimulus → carbachol [1] 10,00
+PKC -І RKIP [7] 10,00
+PKC → RKIP dim [7] 10,00
+Raf1 → MEK 1/2 [1] 1,00
+Ras (GTP bound) → Raf1 [1] 10,00
+RKIP -І Raf1 [7] 0,01
+RKIP dim -І GRK2 [7] 30

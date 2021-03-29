@@ -48,18 +48,10 @@ def import_graphml(path, inhibitor_symbol="white_diamond", activator_symbol="sta
 
 def import_bnet(path):
     primes = FileExchange.bnet2primes(path)
-    intgraph = InteractionGraphs.primes2igraph(primes)
-    # standard dictionary
-    g_dict = {node:{} for node in primes.keys()}
-    for node, d in intgraph.adjacency():
-        for other_node, sub_d in d.items():
-            sign = next(iter(sub_d["sign"]))
-            if sign == 1:
-                g_dict[other_node][node] = "+"
-            elif sign == -1:
-                g_dict[other_node][node] = "-"
-            else:
-                print(node, other_node)
-                break
-    
-    return g_dict
+    return primes 
+
+def import_primes(path):
+    primes = FileExchange.read_primes(path)
+    return primes
+
+
