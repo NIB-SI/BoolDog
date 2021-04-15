@@ -6,8 +6,8 @@ __pycache__/
 # C extensions
 *.so
 
-# install 
-squad_reboot.egg-info
+# install
+*.egg-info
 
 # Jupyter notebooks
 .ipynb_checkpoints
@@ -18,3 +18,10 @@ ipython_config.py
 
 # Project specific
 development*
+
+# sphinx documentation
+docs/build
+docs/source/*
+!docs/source/conf.py
+!docs/source/index.rst
+!docs/source/installation.rst

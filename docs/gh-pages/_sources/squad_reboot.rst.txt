@@ -1,0 +1,53 @@
+squad\_reboot package
+=====================
+
+Submodules
+----------
+
+squad\_reboot.base module
+-------------------------
+
+.. automodule:: squad_reboot.base
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+squad\_reboot.bool\_graph module
+--------------------------------
+
+.. automodule:: squad_reboot.bool_graph
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+squad\_reboot.io module
+-----------------------
+
+.. automodule:: squad_reboot.io
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+squad\_reboot.ode module
+------------------------
+
+.. automodule:: squad_reboot.ode
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+squad\_reboot.utils module
+--------------------------
+
+.. automodule:: squad_reboot.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: squad_reboot
+   :members:
+   :undoc-members:
+   :show-inheritance:
