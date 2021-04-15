@@ -7,8 +7,30 @@ def ensure_ndarray(v):
         return v
 
 
-def parameter_to_array(parameter, n, graph_keys, default=1):
-    parameter_array = np.ones(n) * default
+def parameter_to_array(parameter, graph_keys, default=1):
+    '''
+    Parameter argument to numpy array
+
+    Parameters
+    ----------
+    parameter : int, float or dict
+        if int of float, returns an array of length n with values parameter
+        if dict, returns an array of length n with values set according to
+        parameter (nodes indexed by graph_keys), and the rest set to default
+
+    graph_keys : dict
+
+	default : int or float, optional
+        default value for parameters not set in parameter dict
+
+    Returns
+    ----------
+
+    parameter_array: numpy array
+        array of length n
+    '''
+
+    parameter_array = np.ones(len(graph_keys)) * default
     if isinstance(parameter, (int, float)):
         parameter_array = parameter_array * parameter
     elif isinstance(parameter, dict):
@@ -25,6 +47,11 @@ def parameter_to_array(parameter, n, graph_keys, default=1):
 
 
 def file_writeable(path):
+    '''
+    Checks if path is writable. If not, attempts to print reason, and raises
+    an Exception.
+    '''
+
     if path.exists():
         print(f'{path} already exists and will be overwritten')
     try:
