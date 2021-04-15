@@ -1,4 +1,0 @@
-[submodule "PyBoolNet"]
-	path = PyBoolNet
-	url = https://github.com/carissableker/PyBoolNet.git
-	branch = master
