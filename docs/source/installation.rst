@@ -18,7 +18,7 @@ Install directly:
 
 .. code=block::bash
 
-   pip in
+   pip insall git+https://github.com/NIB-SI/squad-reboot.git
 
 
 Uninstall

@@ -1,0 +1,17 @@
+License
+
+Licensing options for Synthetica
+
+The commercial license enables you to use and distribute Synthetica together with your commercial application.
+The General Public License (GPL) is no longer supported. But you can use and distribute Synthetica and any of our Synthetica-Themes together with a non-commercial application for free.
+
+Commercial License
+A commercial license is required if you want to embed or distribute Synthetica together with a commercial application or if you derive a look and feel based on Synthetica. Commercial licenses gain access to product support. Use the Purchase section to order a commercial license. For a site license or source code license (also suitable for derived look and feels) please contact sales@javasoft.de.
+
+The General Public License (GPL) is no longer supported. Non-commercial applications are permitted to use and distribute Synthetica and Synthetica-Themes together with the application for free.
+
+Your application is non-commerical if you can answer all of the following questions with 'NO'. The term 'application' represents the software you've developed and which makes use of Synthetica or Synthetica based look and feels.
+
+Do you, or any third party sell the application?
+Do you get paid (directly or indirectly) for the development of the application?
+Do you earn money by providing or distributing the application?

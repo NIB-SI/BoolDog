@@ -1,7 +1,0 @@
-#!/usr//bin/env bash
-
-export LD_LIBRARY_PATH="/squad/lib/:$LD_LIBRARY_PATH"
-
-java -jar /squad/Squad.jar
-
-exit 0
