@@ -1,0 +1,17 @@
+booldog package
+===============
+
+.. automodule:: booldog
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   booldog.base
+   booldog.bool_graph
+   booldog.ode

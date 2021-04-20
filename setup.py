@@ -5,9 +5,9 @@ import os
 
 
 setup(
-    name='squad-reboot',
+    name='BoolDoG',
     version="0.0.1",
-    packages=['squad_reboot'],
+    packages=['booldog'],
     install_requires=[
     	'PyBoolNet @ git+https://github.com/hklarner/PyBoolNet@2.31.0',
     	'xmltodict>=0.12',
@@ -18,7 +18,7 @@ setup(
     	],
     author='Carissa Bleker',
     author_email='carissarobyn.bleker@nib.si',
-    url='https://github.com/NIB-SI/squad-reboot',
-    description='Python implemetation of SQUAD algorithm',
+    url='https://github.com/NIB-SI/BoolDoG',
+    description='A Python package for analyses of Boolean and semi-qualitative Boolean networks.',
     license='MIT'
 )

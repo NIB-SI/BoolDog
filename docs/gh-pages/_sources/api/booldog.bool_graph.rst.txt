@@ -1,0 +1,7 @@
+booldog.bool\_graph module
+==========================
+
+.. automodule:: booldog.bool_graph
+   :members:
+   :undoc-members:
+   :show-inheritance:

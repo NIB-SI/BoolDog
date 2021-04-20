@@ -5,14 +5,14 @@ import xmltodict
 import igraph as ig
 
 import numpy as np
-from .utils.utils import *
+from .utils import *
 
 
 from PyBoolNet import FileExchange
 from pathlib import Path
 
 #from PyBoolNet import QuineMcCluskey as QMC
-from .utils import QMC
+from . import QMC
 
 format_classes = {'primes':0,
                   'bnet':0,

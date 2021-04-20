@@ -27,22 +27,6 @@ class RegulatoryNetwork(BooleanGraph):
     A class to represent a regulatory network.
     Inherits from BooleanGraph.
 
-    Attributes
-    ----------
-    n : int
-        The number of nodes/variables in the network.
-    boolean_graph : BooleanGraph
-        The associated Boolean graph representation of the network.
-    is_interaction : Bool
-        If the graph is an interaction network, and not a Boolean graph.
-
-    Methods
-    ----------
-    boolean_simulation
-
-    transform_bool_to_continuous
-
-    continuous_simulation
     '''
 
     def __init__(self, graph, **kwargs):
@@ -100,28 +84,12 @@ class RegulatoryNetwork(BooleanGraph):
        export=False,
        ode_system=None,
        **kwargs):
-        '''
-        Run continuous semi-qualitative simulation.
+        '''Run continuous semi-qualitative simulation.
 
         Parameters
         ----------
-        node_events : dict, optional
-            List of node events with a dictionary defining each event.
-            Dictionary keys are:
-                time: time at which the event occurs
-                node: node which is perturbed
-                value:  value at which the node is set
-                duration: (optional) duration for which the node is fixed
-                        if longer than 1, (i.e. not a point perturbation)
-
-            Example - at timepoint 10, node X is set to 0.25 for 5 time-steps.
-              and at timepoint 12, node Y and Z are set to 1 for 1
-              timesteps:
-                node_events = [
-                    {'time':10, 'node':'X', 'value':.25, 'duration':5},
-                    {'time':12, 'node':'Y', 'value':1},
-                    {'time':12, 'node':'X', 'value':1}
-                ]
+        node_events : list of dict, optional
+            List of node events with a dictionary defining each event.See notes for description of event definitions.
 
         edge_events : dict, optional
             Disrupt connections #TODO not implemented
@@ -161,6 +129,27 @@ class RegulatoryNetwork(BooleanGraph):
             Time-points.
         y : numpy array
             Value of the solution at time-points.
+
+        Notes
+        -----
+        Format of the `node_events` parameter:
+        The node events are passed as a list of dictionaries defining each event.
+        Dictionary keys are:
+            time: time at which the event occurs
+            node: node which is perturbed
+            value:  value at which the node is set
+            duration: (optional) duration for which the node is fixed
+                    if longer than 1, (i.e. not a point perturbation)
+
+        Example - at timepoint 10, node X is set to 0.25 for 5 time-steps.
+          and at timepoint 12, node Y and Z are set to 1 for 1
+          timesteps::
+
+            node_events = [
+                {'time':10, 'node':'X', 'value':.25, 'duration':5},
+                {'time':12, 'node':'Y', 'value':1},
+                {'time':12, 'node':'X', 'value':1}
+            ]
 
         '''
 

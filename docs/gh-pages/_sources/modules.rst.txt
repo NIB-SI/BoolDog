@@ -1,7 +1,0 @@
-squad_reboot
-============
-
-.. toctree::
-   :maxdepth: 4
-
-   squad_reboot

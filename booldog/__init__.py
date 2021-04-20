@@ -2,12 +2,14 @@
 # Author: Carissa Bleker
 # Contact: carissarobyn.bleker@nib.si
 
-"""A Python package for analyses of Boolean and semi-qualitative
-Boolean networks"""
+"""`booldog` A Python package for analyses of Boolean and semi-qualitative Boolean networks"""
 
 
 
-
-from .bool_graph import BooleanGraph
 from .base import RegulatoryNetwork
-from .ode import ODE, ode_transforms
+from .bool_graph import BooleanGraph
+from .ode import ODE
+
+# sphinx stuff
+__all__ = ['RegulatoryNetwork', 'BooleanGraph', 'ODE']
+RegulatoryNetwork.__module__ = "booldog"

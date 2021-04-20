@@ -1,0 +1,7 @@
+booldog.ode module
+==================
+
+.. automodule:: booldog.ode
+   :members:
+   :undoc-members:
+   :show-inheritance:

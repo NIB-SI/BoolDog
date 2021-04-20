@@ -9,8 +9,8 @@ Download and install:
 
 .. code-block:: bash
 
-   git clone https://github.com/NIB-SI/squad-reboot.git
-   cd squad-reboot
+   git clone https://github.com/NIB-SI/BoolDoG.git
+   cd BoolDoG
    pip install .
 
 
@@ -18,7 +18,7 @@ Install directly:
 
 .. code=block::bash
 
-   pip in
+   pip insall git+https://github.com/NIB-SI/sBoolDoG.git
 
 
 Uninstall
@@ -26,8 +26,7 @@ Uninstall
 
 .. code-block:: bash
 
-   pip uninstall squad_reboot
-   pip uninstall PyBoolNet
+   pip uninstall booldog
 
 
 Dependencies
@@ -42,3 +41,4 @@ The following dependencies are required:
 * matplotlib
 * pygraphviz (optional)
 * PyBoolNet
+* networkx

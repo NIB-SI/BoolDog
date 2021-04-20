@@ -8,7 +8,7 @@ from PyBoolNet import AspSolver
 from PyBoolNet import InteractionGraphs
 from PyBoolNet import StateTransitionGraphs
 
-from . import io
+from .utils import io
 from .utils.utils import *
 
 
@@ -21,25 +21,15 @@ class BooleanGraph:
 
     n : int
         The number of nodes/variables in the graph
+    primes
 
-    Methods
-    ----------
+    nodes
 
-    primes_to_matrices
-
-    interactions_to_matrices
-
-    generate_states
-
-    plot_state_transitions
-
-    steady_states
-
+    index
     '''
 
     def __init__(self, graph, data_format='bnet', **kwargs):
-        '''
-        Initialise a Boolean graph.
+        '''Initialise a Boolean graph.
 
         Parameters
         ----------
@@ -70,7 +60,6 @@ class BooleanGraph:
 
     def primes_to_matrices(self):
         '''Reduce graph to Activation and Inhibition Matrices.
-        Only if graph is of type threshold (i.e. SQUAD) does this make sense.
 
         Returns
         ----------
@@ -82,6 +71,7 @@ class BooleanGraph:
 
         Notes
         ----------
+        Only if graph is of type threshold (i.e. SQUAD) does this make sense.
         Used in SquadODE
         Create logic matrices
 
@@ -106,7 +96,7 @@ class BooleanGraph:
         return ensure_ndarray(Act), ensure_ndarray(Inh)
 
     def generate_states(self, fixed={}):
-        ''' Generate all possible states of the graph.
+        '''Generate all possible states of the graph.
 
         Parameters
         ----------
@@ -222,9 +212,10 @@ class BooleanGraph:
             stg.graph["node"]["width"] = 0.45
             StateTransitionGraphs.stg2image(stg, fig, LayoutEngine="dot")
 
-
-
     def steady_states(self):
+        '''Returns all steady states of the Boolean graph.
+
+        '''
         steady_states = AspSolver.steady_states(self.primes)
         return steady_states
 
@@ -232,5 +223,5 @@ class BooleanGraph:
         #TODO
         pass
 
-    def __len__(self    ):
+    def __len__(self):
         return self.n

@@ -1,21 +1,25 @@
-# squad-reboot
+# BoolDoG <img src="docs/figures/logo.png" raw=true alt="BoolDoG icon"  width="80" align="right" >
 
-Python based squad algorithm.
+A Python package for analyses of Boolean and semi-qualitative Boolean networks.
+
+## Documentation
+
+[nib-si.github.io/BoolDoG](https://nib-si.github.io/BoolDoG)
 
 ## Installation
 
 To install:
 
 ```bash
-git clone https://github.com/NIB-SI/squad-reboot.git
-cd squad-reboot
-pip install . 
+    git clone https://github.com/NIB-SI/BoolDoG.git
+    cd BoolDoG
+    pip install .
 ```
 
 To remove:
 
 ```bash
-pip uninstall squad_reboot
+pip uninstall booldog
 ```
 
 ### Dependencies:
@@ -25,16 +29,17 @@ pip uninstall squad_reboot
 * scipy
 * python-igraph
 * matplotlib
+* pygraphviz (optional)
 * PyBoolNet
-* pygraphviz
+* networkx
 
 ## Usage
 
 See test-notebook.ipynb.
 
 ```python
-import squad_reboot
-g = squad_reboot.RegulatoryNetwork("./examples/Athaliana.graphml", "graphml")
+import booldog
+g = booldog.RegulatoryNetwork("./examples/Athaliana.graphml", "graphml")
 g.continuous_simulation(t_max=30, gamma=1, h=10)
 ```
 

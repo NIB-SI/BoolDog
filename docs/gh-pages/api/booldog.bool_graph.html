@@ -1,0 +1,349 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>booldog.bool_graph module &mdash; BoolDoG 0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="booldog.ode module" href="booldog.ode.html" />
+    <link rel="prev" title="booldog.base module" href="booldog.base.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #009739" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> BoolDoG
+          
+
+          
+            
+            <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../example.html">Example</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="booldog.html">booldog package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="booldog.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="booldog.base.html">booldog.base module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">booldog.bool_graph module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="booldog.ode.html">booldog.ode module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">BoolDoG</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="booldog.html">booldog package</a> &raquo;</li>
+        
+      <li>booldog.bool_graph module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api/booldog.bool_graph.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-booldog.bool_graph">
+<span id="booldog-bool-graph-module"></span><h1>booldog.bool_graph module<a class="headerlink" href="#module-booldog.bool_graph" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="booldog.bool_graph.BooleanGraph">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">booldog.bool_graph.</span></code><code class="sig-name descname"><span class="pre">BooleanGraph</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'bnet'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.bool_graph.BooleanGraph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class to represent a Boolean graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>n</strong><span class="classifier">int</span></dt><dd><p>The number of nodes/variables in the graph</p>
+</dd>
+<dt><strong>primes</strong></dt><dd></dd>
+<dt><strong>nodes</strong></dt><dd></dd>
+<dt><strong>index</strong></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.bool_graph.BooleanGraph.generate_states" title="booldog.bool_graph.BooleanGraph.generate_states"><code class="xref py py-obj docutils literal notranslate"><span class="pre">generate_states</span></code></a>([fixed])</p></td>
+<td><p>Generate all possible states of the graph.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#booldog.bool_graph.BooleanGraph.plot_state_transitions" title="booldog.bool_graph.BooleanGraph.plot_state_transitions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_state_transitions</span></code></a>(fig[, …])</p></td>
+<td><p>Plot the state transition graph, from optional initial values.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.bool_graph.BooleanGraph.primes_to_matrices" title="booldog.bool_graph.BooleanGraph.primes_to_matrices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">primes_to_matrices</span></code></a>()</p></td>
+<td><p>Reduce graph to Activation and Inhibition Matrices.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#booldog.bool_graph.BooleanGraph.steady_states" title="booldog.bool_graph.BooleanGraph.steady_states"><code class="xref py py-obj docutils literal notranslate"><span class="pre">steady_states</span></code></a>()</p></td>
+<td><p>Returns all steady states of the Boolean graph.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt id="booldog.bool_graph.BooleanGraph.generate_states">
+<code class="sig-name descname"><span class="pre">generate_states</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fixed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.bool_graph.BooleanGraph.generate_states" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate all possible states of the graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>fixed</strong><span class="classifier">dict</span></dt><dd><p>A dictionary of {node:state} to be kept fixed, with
+node in graph.nodes, and state in {0, 1}.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Yields</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>state</strong><span class="classifier">np.array</span></dt><dd><p>length n array with a state of the graph.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="booldog.bool_graph.BooleanGraph.plot_state_transitions">
+<code class="sig-name descname"><span class="pre">plot_state_transitions</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.bool_graph.BooleanGraph.plot_state_transitions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the state transition graph, from optional initial values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>fig</strong><span class="classifier">str</span></dt><dd><p>File name of generated figure</p>
+</dd>
+<dt><strong>initial_values</strong><span class="classifier">int, str, list, dict</span></dt><dd><p>Initial state, see Notes for format</p>
+</dd>
+<dt><strong>new_style</strong><span class="classifier">bool</span></dt><dd><p>Whether to use booldog style, or PyBoolNet style (default) to
+plot the state transition graph. Requires pygraphviz (If not
+installed, will default to PyBoolNet version.)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This is a wrapper for PyBoolNet.StateTransitionGraphs.primes2stg,
+and therefore takes the same argument format for initial states.</p>
+<p>From PyBoolNet documentation:
+&gt; Either a list of states in dict or str format</p>
+<blockquote>
+<div><p>init = [“000”, “111”]
+init = [“000”, {“v1”:1,”v2”:1,”v3”:1}]</p>
+</div></blockquote>
+<p>&gt; or as a function that is called on every state and must return
+&gt; either True or False to indicate whether the state ought to be initial:</p>
+<blockquote>
+<div><p>init = lambda x: x[“v1”]&gt;=x[“v2”]</p>
+</div></blockquote>
+<p>&gt; or by a subspace in which case all the states contained in it are
+&gt; initial:</p>
+<blockquote>
+<div><p>init = “–1”
+init = {“v3”:1}</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="booldog.bool_graph.BooleanGraph.primes_to_matrices">
+<code class="sig-name descname"><span class="pre">primes_to_matrices</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#booldog.bool_graph.BooleanGraph.primes_to_matrices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reduce graph to Activation and Inhibition Matrices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Act</strong><span class="classifier">np.array</span></dt><dd><p>n * n matrix with entry m_{i, j} = 1 iff node_j activates node_i</p>
+</dd>
+<dt><strong>Inh</strong><span class="classifier">np.array</span></dt><dd><p>n * n matrix with entry m_{i, j} = 1 iff node_j inhibits node_i</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Only if graph is of type threshold (i.e. SQUAD) does this make sense.
+Used in SquadODE
+Create logic matrices</p>
+<p>TODO: these can be made sparse matrices without much effort
+see <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/sparse.html">https://docs.scipy.org/doc/scipy/reference/sparse.html</a> to
+use e.g. dok_matrix</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="booldog.bool_graph.BooleanGraph.steady_states">
+<code class="sig-name descname"><span class="pre">steady_states</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#booldog.bool_graph.BooleanGraph.steady_states" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns all steady states of the Boolean graph.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="booldog.ode.html" class="btn btn-neutral float-right" title="booldog.ode module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="booldog.base.html" class="btn btn-neutral float-left" title="booldog.base module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Carissa Bleker.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

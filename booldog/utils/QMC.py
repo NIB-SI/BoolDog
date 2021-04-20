@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 '''
 This is a modification of PyBoolNet.QuineMcCluskey module,
 specifically the function functions2mindnf, ca line 130.
