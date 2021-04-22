@@ -1,4 +1,4 @@
-# BoolDoG <img src="docs/figures/logo.png" raw=true alt="BoolDoG icon"  width="80" align="right" >
+# BoolDoG <img src="docs/figures/logo.png" raw=true alt="BoolDoG icon"  width="240" align="right" >
 
 A Python package for analyses of Boolean and semi-qualitative Boolean networks.
 
