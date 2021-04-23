@@ -1,8 +1,0 @@
-SQUAD Quick start
-
-1. Unzip Squad2.zip.
-2. Type chmod +x Squad2 and run it (Linux), or click on Squad2.bat (Windows). 
-3. To load a file, click on Load Network and select the THelper_network.xml file from the embedded samples folder.
-4. To identify the steady states of the network, click on Run Analysis, the steady stes identified will appear in the following panel.
-5. To perform the dynamic simulation, click on Initialize and then Run, you will see a plot with the results of the simulation.
-6. The initial values for the simulation can be edited through the nodes table or by selecting another initial steady-state with the Load State button.
