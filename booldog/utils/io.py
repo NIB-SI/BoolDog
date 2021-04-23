@@ -1,6 +1,8 @@
 import os
 import sys
 
+import re
+
 import xmltodict
 import igraph as ig
 
@@ -20,8 +22,7 @@ format_classes = {'primes':0,
                   'graphml':0
                   }
 
-def read_boolean_graph(graph, in_format, default=1):
-
+def read_boolean_graph(graph, in_format, default=1, **kwargs):
 
     if not (in_format in format_classes):
        raise ValueError(f"'in_format' arguments must be in "\
@@ -57,13 +58,15 @@ def read_boolean_graph(graph, in_format, default=1):
         primes = FileExchange.bnet2primes(graph)
 
     elif (in_format == 'graphml') and (os.path.isfile(graph)):
-        primes = import_graphml(path, **kwargs)
+        interactions = import_graphml(graph, **kwargs)
+        g = SquadInteractions(interactions, default=default)
+        primes, nodes, index, n = g.primes, g.nodes, g.index, g.n
 
     else:
         raise NotImplementedError(f"import of {in_format} from {type(graph)} "\
                                   f"is not implemented. ")
 
-    if not (in_format == 'interactions'):
+    if not (in_format in ['interactions', 'graphml']):
         nodes = tuple(sorted(primes.keys())) # tuple (i.e. immutable)
         index = {i:node for node, i in enumerate(nodes)}
         n = len(nodes)
@@ -124,30 +127,45 @@ class SquadInteractions:
 
     def squad_update_funcs(self, data, default=1):
         # TODO remove dep on act and inh
-        funcs = {node:default for node in data.keys()}
+
+        funcs = {}
 
         Act, Inh = self.interactions_to_matrices(data)
 
         for node, d in data.items():
             args = list(d.keys())
 
-            def func(*func_input):
-                state = np.ones(self.n)
-                for other_node, other_node_state in zip(args, func_input):
-                    state[self.index[other_node]] = other_node_state
+            if len(args) == 0:
+                def func(input, node=node, args=args):
+                    return input
+                func.node = node
+                func.depends = [func.node]
+            else:
+                def func(*func_input, node=node, args=args):
+                    if len(func_input) != len(args):
+                        print("an issue happened #1")
+                        print(node, func.depends, args, func_input)
 
-                col_ones = np.ones((self.n))
-                if Inh[self.index[node],:].dot(col_ones):
+                    state = np.ones(self.n)
+                    for other_node, other_node_state in zip(args, func_input):
+                        state[self.index[other_node]] = other_node_state
+
+                    # col_ones = np.ones((self.n))
+                    # if Inh[self.index[node],:].dot(col_ones):
+                    #     inh = Inh[self.index[node],:].dot(state) < 0
+                    # else:
+                    #     inh = 0
+                    # if Act[self.index[node],:].dot(col_ones):
+                    #     act = Act[self.index[node],:].dot(state) > 0
+                    # else:
+                    #     act = 1
+                    # node_state = act * (1-inh)
                     inh = Inh[self.index[node],:].dot(state) > 0
-                else:
-                    inh = 0
-                if Act[self.index[node],:].dot(col_ones):
                     act = Act[self.index[node],:].dot(state) > 0
-                else:
-                    act = 1
-                node_state = act * (1-inh)
-                return node_state
-            func.depends = args
+                    node_state = act * (1-inh)
+                    return node_state
+                func.node = node
+                func.depends = args
 
             funcs[node] = func
 
@@ -181,7 +199,7 @@ def import_graphml(path, inhibitor_symbol="white_diamond", activator_symbol="sta
         elif symbol == inhibitor_symbol:
             D[e["@id"]] = "-"
         else:
-            print("Issue with edge ", e["@id"], "symbol not activator or inhibitor", symbol)
+            print(f"Issue with edge ", e["@id"], "arrow symbol \n\t\t{symbol} \n not recognized as activator or inhibitor, perhaps you need to define the 'inhibitor_symbol' ({inhibitor_symbol}) or 'activator_symbol' ({activator_symbol}) in keyword arguments. ")
 
     for e in g.es():
         e["type"] = D[e["id"]]
@@ -189,11 +207,20 @@ def import_graphml(path, inhibitor_symbol="white_diamond", activator_symbol="sta
     for v in g.vs():
         v["id"] = N[v["id"]]
 
+    pattern = re.compile(r'[^a-zA-Z0-9\-_]')
+    search = pattern.search
+    for node in g.vs():
+        if bool(search(node['id'])):
+            print(f"Warning: node names can only contain `{pattern.pattern}`  {node['id']}")
+            old_id = node['id']
+            node['id'] = re.sub(pattern, '', node['id'])
+            print(f"Warning: renaming node {old_id} --> {node['id']}")
+
     g_dict = {node["id"]:{} for node in g.vs()}
     for e in g.es():
         source = g.vs()[e.source]["id"]
         target = g.vs()[e.target]["id"]
         sign = e["type"]
-        g_dict[target][source] = sign
+        g_dict[source][target] = sign
 
     return g_dict

@@ -19,11 +19,7 @@ Modified::
 
 
 The modification allows the functions in `Functions` argument to accept input
-as an n-length array/list, where n is the number of nodes in the graph (i.e.
-the complete graph state). This is even though the node may in reality only depend on a smaller number of nodes.
-
-In PyBoolNet, when giving a function with n arguments, it will then assume the
-function/node depends on the entire graph.
+as an k-length list, where k is the number of nodes the node may depend on.
 
 This modification simplifies function creation when using and matrix
 multiplication of "Activation" and "Inhibition" matrices when defining node
@@ -89,6 +85,7 @@ import PyBoolNet.FileExchange
 # modified here 2 lines CB
 import PyBoolNet
 BASE = os.path.join(os.path.dirname(PyBoolNet.__file__))
+
 fname_nusmvkeywords = os.path.join(BASE, "Dependencies", "nusmvkeywords.json")
 with open(fname_nusmvkeywords) as f:
             NUSMVKEYWORDS = f.read()

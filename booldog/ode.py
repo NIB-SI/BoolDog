@@ -1,17 +1,17 @@
 
 import numpy as np
+from itertools import product
+
 from .utils.utils import *
 from .bool_graph import BooleanGraph
+
+
 
 ##############################
 #      GENERAL FUNCTIONS     #
 ##############################
 
-def hill(x_array, n, k):
-    return x_array**n / (x_array**n + k**n)
 
-def normalised_hill(x_array, n, k):
-    return hill(x_array, n, k) / hill(1, n, k)
 
 ##############################
 #        CHILD CLASS         #
@@ -101,8 +101,8 @@ def ODE(graph, transform, **kwargs):
             return t - event_t
         event_function.terminal = True
 
-        def update(self, off_nodes=[]):
-            self._get_system(off_nodes=[],  **kwargs)
+        def update(self, off_nodes=None):
+            self.dxdt =  self._get_system(off_nodes=off_nodes)
 
 
     return ODE(graph, transform, **kwargs)
@@ -137,7 +137,7 @@ class BoolCubeODE():
     signaling. BMC Systems Biology, 3(1), 98.
     https://doi.org/10.1186/1752-0509-3-98
     '''
-    def __init__(self, transform, tau=1, n=3, k=0.5):
+    def __init__(self, transform, tau=1, n=3, k=0.5, **kwargs):
         ''' Initialise BoolCube ODE system.
 
         Parameters
@@ -174,30 +174,39 @@ class BoolCubeODE():
                            "k":self.param_k,
                            "tau":self.param_tau}
 
-
-        off_nodes = set(np.where(self.param_tau ==0)[0])
-
-
         if transform in ('boolecube', 'boolcube'):
-            self.dxdt =  self._get_system(lambda x, n, k: x,
-                                          tau, n=n, k=k,
-                                          off_nodes=off_nodes)
+            transform_function = self.identity
 
         elif transform in ('hill', 'hillcube'):
-            self.dxdt =  self._get_system(hill,
-                                          tau, n=n, k=k,
-                                          off_nodes=off_nodes)
+            transform_function = self.hill
 
         elif transform in ('normalisedhill', 'normalisedhillcube'):
-            self.dxdt =  self._get_system(normalised_hill,
-                                          tau, n=n, k=k,
-                                          off_nodes=off_nodes)
+            transform_function = self.normalised_hill
 
         else:
             raise TypeError(f"Unknown transform {transform}. ")
 
+        self.dxdt =  self._get_system(transform_function)
 
-    def _get_system(self, transform_function, tau, off_nodes=[],  **kwargs):
+    def hill(self, x_array):
+        return x_array**self.param_n / \
+               (x_array**self.param_n + self.param_k**self.param_n)
+
+    def normalised_hill(self, x_array):
+        return self.hill(x_array) / self.hill(1)
+
+    def identity(self, x_array):
+        return x_array
+
+    def _get_system(self, transform_function, off_nodes=None):
+
+        if off_nodes is None:
+            off_nodes = set()
+        else:
+            off_nodes = set(off_nodes)
+
+        off_nodes.update(np.where(self.param_tau ==0)[0])
+
 
         B1 = self.homologue_b1()
 
@@ -205,8 +214,7 @@ class BoolCubeODE():
             x_array[x_array < 0] = 0
             x_array[x_array > 1] = 1
 
-            x_array = transform_function(x_array, **kwargs)
-            b = B1(x_array)
+            b = B1(transform_function(x_array))
             d = 1/self.param_tau * ( b  - x_array)
             for i in off_nodes:
                 d[i] = 0
@@ -214,37 +222,90 @@ class BoolCubeODE():
 
         return dxdt
 
-    def homologue_b1(self):
+    def homologue_b1(self, verbose=False):
         ''' Create function to calculate the multivariate polynomial
         interpolation of Boolean functions
 
         Returns
         ----------
-
         B1 : function
 
         '''
-        spaces = set()
-        sums = []
+        # spaces = set()
+        # sums = []
+        # all_B1s = ['0']*self.boolean_graph.n
+        # for node in self.boolean_graph.nodes: # iterate over all nodes
+        #     for prime_dict in self.boolean_graph.primes[node][1]:
+        #         for x_bool in self.boolean_graph.generate_states(
+        #                                     fixed=prime_dict):
+        #             if not (tuple(x_bool) in spaces):
+        #                 spaces.add(tuple(x_bool))
+        #                 product = []
+        #                 for i, b in enumerate(x_bool):
+        #                     if b ==0:
+        #                         product.append(f'(1-x[{i}])')
+        #                     else:
+        #                         product.append(f'x[{i}]')
+        #             sums.append('*'.join(product))
+        #     B1 = " + ".join(sums)
+        #     if B1 != '':
+        #         all_B1s[self.boolean_graph.index[node]]  = B1
+
         all_B1s = ['0']*self.boolean_graph.n
         for node in self.boolean_graph.nodes: # iterate over all nodes
+            parents = self.boolean_graph.get_parents(node)
+
+            states = []
+            spaces = set()
             for prime_dict in self.boolean_graph.primes[node][1]:
-                for x_bool in self.boolean_graph.generate_states(
-                                            fixed=prime_dict):
-                    if not tuple(x_bool) in spaces:
-                        spaces.add(tuple(x_bool))
-                        product = []
-                        for i, b in enumerate(x_bool):
-                            if b ==0:
-                                product.append(f'(1-x[{i}])')
-                            else:
-                                product.append(f'x[{i}]')
-                    sums.append('*'.join(product))
+
+                fixed_parents = prime_dict.keys()
+                free_parents = parents - set(fixed_parents)
+
+                if len(free_parents) > 0:
+                    for x in product([0, 1], repeat=len(free_parents)):
+                        this_state = prime_dict.copy()
+                        for parent, parent_state in zip(free_parents, x):
+                            this_state[parent] = parent_state
+                        str_rep = "".join([str(this_state[node]) if node in this_state else "-" for node in self.boolean_graph.nodes])
+                        if not str_rep in spaces:
+                            states.append(this_state)
+                            spaces.add(str_rep)
+                else:
+                    states.append(prime_dict)
+
+            sums = []
+            str_sums = []
+
+            terms = []
+            str_terms = []
+
+            for state in states:
+                subterms = []
+                str_subterms  = []
+                for this_node, this_node_state in state.items():
+                    if this_node_state == 0:
+                        subterms.append(f'(1-x[{self.boolean_graph.index[this_node]}])')
+                        str_subterms.append(f'(1-x[{this_node}])')
+                    else:
+                        subterms.append(f'x[{self.boolean_graph.index[this_node]}]')
+                        str_subterms.append(f'   x[{this_node}] ')
+                term = '*'.join(subterms)
+                str_term = ' * '.join(str_subterms)
+
+                sums.append(term)
+                str_sums.append(str_term)
+
             B1 = " + ".join(sums)
+            str_B1 = "\n + ".join(str_sums)
+
             if B1 != '':
                 all_B1s[self.boolean_graph.index[node]]  = B1
 
+            if verbose:
+                print(node, str_B1)
         return eval('lambda x:' + 'np.array([' + ','.join(all_B1s) + '])')
+
 
 class SquadODE():
     ''' Use of SQUAD for the transformation of a Boolean graph to a system of ODEs.
@@ -259,9 +320,6 @@ class SquadODE():
     Act
     Inh
 
-    Methods
-    ----------
-
     References
     ----------
     [1] Di Cara, A., Garg, A., De Micheli, G., Xenarios, I., & Mendoza, L.
@@ -269,7 +327,7 @@ class SquadODE():
     BMC Bioinformatics, 8(1), 1–10. https://doi.org/10.1186/1471-2105-8-462
     '''
 
-    def __init__(self, transform, gamma=1, h=10):
+    def __init__(self, transform, gamma=1, h=10, **kwargs):
         '''Transform a Activation/Inhibition Boolean network
         into an ODE system via SQUAD transform.
 
@@ -342,6 +400,9 @@ class SquadODE():
     def _get_system(self, off_nodes=[]):
 
         def dxdt(t, x_array, *args):
+            x_array[x_array < 0] = 0
+            x_array[x_array > 1] = 1
+
             w = self._omega(x_array)
             d = self._dxdt_transform(x_array, w)
             for i in off_nodes:
@@ -360,7 +421,7 @@ class ShaoODE():
     Source: From Boolean Network Model to Continuous Model Helps in Design of
     Functional Circuits
     '''
-    def __init__(self, graph):
+    def __init__(self, graph, **kwargs):
         super().__init__(graph)
         self.dxdt = self._squad(graph, gamma, h)
 
@@ -370,7 +431,7 @@ class ShaoODE():
 
 class RacipeODE():
 
-    def __init__(self, graph, transform, gamma=1, h=10):
+    def __init__(self, graph, transform, gamma=1, h=10, **kwargs):
         '''
         Transform a Activation/Inhibition Boolean network
         into an ODE system via the RACIPE transform.

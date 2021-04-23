@@ -1,9 +1,11 @@
 import numpy as np
 import os
 import sys
+import math
 
 from pathlib import Path
 
+# plotting libraries #TODO optional import?
 import matplotlib.pyplot as plt
 
 from collections import defaultdict
@@ -21,6 +23,10 @@ warnings.filterwarnings("ignore",
 from .utils.utils import *
 from .bool_graph import BooleanGraph
 from .ode import ODE, ode_classes
+
+
+_style_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                           'utils', 'stylesheet.mplstyle')
 
 class RegulatoryNetwork(BooleanGraph):
     '''
@@ -80,7 +86,6 @@ class RegulatoryNetwork(BooleanGraph):
        t_min=0, t_max=30,
        initial_state=0,
        plot=True,
-       plot_nodes=[],
        export=False,
        ode_system=None,
        **kwargs):
@@ -164,10 +169,7 @@ class RegulatoryNetwork(BooleanGraph):
 
         all_results = []
 
-        initial_state_array = np.zeros(self.n)
-        if not (initial_state == 0):
-            for node, value in initial_state.items():
-                initial_state_array[self.index[node]] = value
+        initial_state_array = parameter_to_array(initial_state, self.index)
 
         # 1. copy node_events to new dict
         # 2. set a duration for all node_events
@@ -195,13 +197,13 @@ class RegulatoryNetwork(BooleanGraph):
         # # https://stackoverflow.com/a/50703835/4996681
         events_d[t_max] = {}
 
-        for time  in sorted(events_d.keys()):
-            print(time)
-            for node, event in events_d[time].items():
-                print(f"    {node} {event}")
+        # for time  in sorted(events_d.keys()):
+        #     print(time)
+        #     for node, event in events_d[time].items():
+        #         print(f"    {node} {event}")
 
 
-        print("initial_state: ", initial_state)
+        #print("Initial_state: ", initial_state)
 
         off_nodes = set()
         print("Status: Start")
@@ -252,33 +254,13 @@ class RegulatoryNetwork(BooleanGraph):
                                     axis=1).T
 
         if plot:
-            ymin, ymax = -0.05, 1.1
-
-            # add vertical lines at events
-            plt.vlines(x=sorted(events_d.keys())[:-1],
-                       ymin=ymin, ymax=ymax,
-                       colors='gray', ls='--', alpha=0.5)
-            plt.vlines(x=edge_events.keys(),
-                       ymin=ymin, ymax=ymax,
-                       colors='azure', ls='--', alpha=0.5)
-
-
-            if len(plot_nodes) == 0:
-                y_plot = combined_y
-                legend_labels = self.index
-            else:
-                yidx = []
-                legend_labels = []
-                for node in plot_nodes:
-                    yidx.append(self.index[node])
-                    legend_labels.append(node)
-                y_plot = combined_y[:, yidx]
-
-
-            lines = plt.plot(combined_t, y_plot, '-')
-            plt.legend(lines, legend_labels)
-
-            plt.ylim([ymin, ymax])
+            try:
+                self.plot_simulation(combined_t, combined_y,
+                                node_events=sorted(events_d.keys())[:-1],
+                                **kwargs)
+            except Exception as e:
+                print("Error in plotting")
+                print(e)
 
         if export:
             with open(export, "w") as out:
@@ -308,3 +290,133 @@ class RegulatoryNetwork(BooleanGraph):
             print(f"Saved simulation results to {export}. ")
 
         return combined_t, combined_y
+
+    def plot_simulation(self,
+        t, y,
+        node_events=None,
+        edge_events=None,
+        plot_nodes=None,
+        title=None,
+        figsize=(20, 10),
+        **kwargs):
+
+        # collect vertical lines at events
+        vlines = []
+        if node_events:
+            vlines += node_events
+        if edge_events:
+            vlines += edge_events
+
+
+        with plt.style.context(_style_path):
+            # 3 cases to plot:
+            # (1) no node list
+            # (2) one node list
+            # (3) multiple node lists
+
+            main_title = False
+
+
+            # case (1)
+            if not plot_nodes:
+                fig, axes = plt.subplots(ncols=1, nrows=1,
+                                         squeeze=False,
+                                         figsize=figsize,
+                                         constrained_layout=True)
+                legend_labels = self.index
+                self._plot_one_ax(axes[0, 0], t, y,
+                             legend_labels,
+                             vlines=vlines,
+                             title=title)
+            # case (2) and (3)
+            else:
+                if not isinstance(plot_nodes[0], list):
+                    # case (2) --> case (3)
+                    plot_nodes=[plot_nodes]
+
+                num_plots = len(plot_nodes)
+
+                if title and isinstance(title, str):
+                    main_title = title
+                    title = [None]*num_plots
+                elif  title and isinstance(title, list):
+                    if not (len(title) == len(plot_nodes)):
+                        title = [None]*num_plots
+                        print(f'Number of (sub)titles is not equal to the number '\
+                              f'of (sub)plots. Either pass the correct number of '\
+                              f'titles as a list, or a single main title as a '\
+                              f'string. \n {len(title)} (title) != '\
+                              f'{num_plots} (subplots)')
+                else:
+                    title = [None]*len(plot_nodes)
+
+                fig, axes = plt.subplots(ncols=1, nrows=num_plots,
+                                         sharex=True,
+                                         sharey=True,
+                                         squeeze=False,
+                                         figsize=figsize,
+                                         constrained_layout=True)
+
+                for i in range(num_plots):
+                    node_list = plot_nodes[i]
+                    subtitle = title[i]
+
+                    yidx = []
+                    legend_labels = []
+                    for node in node_list:
+                        yidx.append(self.index[node])
+                        legend_labels.append(node)
+                    this_y = y[:, yidx]
+
+                    ax = axes[i, 0]
+                    self._plot_one_ax(ax, t, this_y,
+                                 legend_labels,
+                                 vlines=vlines,
+                                 title=subtitle)
+
+            fig.supxlabel('Time', fontsize=18, fontweight='bold')
+            fig.supylabel("Relative concentration", x=-0.02, fontsize=18, fontweight='bold')
+            if main_title:
+                fig.suptitle(main_title)
+
+            # issues with keeping legend in figure bounds and constrained_layout
+            # see https://matplotlib.org/stable/tutorials/intermediate/constrainedlayout_guide.html#legends
+            fig.canvas.draw()
+            for ax in axes.flatten():
+                legend = ax.get_legend()
+                legend.set_in_layout(True)
+            fig.set_constrained_layout(False)
+
+    def _plot_one_ax(self,
+        ax,
+        x, y,
+        legend_labels,
+        vlines=None,
+        title=None):
+        '''Helper func that only plots on subplot axes'''
+
+        ymin, ymax = 0, 1
+        xmin, xmax = 0, max(x)
+        ax.set_ylim((ymin, ymax))
+        ax.set_xlim((xmin, xmax))
+
+        # offset spines and limit
+        ax.spines['left'].set_position(('outward', 5))
+        ax.spines['left'].set_bounds((ymin, ymax))
+        ax.spines['bottom'].set_position(('outward', 5))
+        ax.spines['bottom'].set_bounds(0, int(xmax))
+
+        if vlines:
+            ax.vlines(x=vlines,
+                   ymin=ymin, ymax=ymax,
+                   colors='gray', ls='--', alpha=0.5)
+
+        lines = ax.plot(x, y)
+        legend = ax.legend(lines, legend_labels,
+                  bbox_to_anchor=(1.01, 0.5),
+                  ncol=math.ceil(len(legend_labels)/20)
+                  )
+        legend.set_in_layout(False)
+
+        if title:
+            ax.set_title(title)

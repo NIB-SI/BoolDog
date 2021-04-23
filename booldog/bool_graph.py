@@ -1,6 +1,9 @@
 import os
 import numpy as np
+
 from itertools import product
+from collections import defaultdict
+
 from pathlib import Path
 import importlib
 
@@ -53,7 +56,7 @@ class BooleanGraph:
 
         else:
             self.primes, self.nodes, self.index, self.n =\
-                                    io.read_boolean_graph(graph, data_format)
+                                    io.read_boolean_graph(graph, data_format, **kwargs)
 
         print(f"Imported Boolean graph with {self.n} nodes")
 
@@ -83,13 +86,13 @@ class BooleanGraph:
         Inh = np.zeros((self.n, self.n)) # inhibitors
 
         intgraph = InteractionGraphs.primes2igraph(self.primes)
-        for node, d in intgraph.adjacency_iter(): #nx 1.11
+        for node, d in intgraph.adjacency(): #nx 2.x
             for other_node, sub_d in d.items():
                 sign = next(iter(sub_d["sign"]))
                 if sign == 1:
-                    Act[self.index[other_node], self.index[node]] = 1
+                    Act[self.index[node], self.index[other_node]] = 1
                 elif sign == -1:
-                    Inh[self.index[other_node], self.index[node]] = 1
+                    Inh[self.index[node], self.index[other_node]] = 1
                 else:
                     print("Warning: Issue with edge: ", node, other_node)
 
@@ -123,6 +126,7 @@ class BooleanGraph:
             # generate the free points
             free_variables = list(set(self.nodes) - set(fixed.keys()))
             num_free_variables = len(free_variables)
+            print(num_free_variables)
             for free_variable_state in product([0, 1],
                                                repeat=num_free_variables):
 
@@ -171,6 +175,9 @@ class BooleanGraph:
             init = "--1"
             init = {"v3":1}
 
+        #TODO
+        optional list of nodes to plot
+
         '''
         if initial_values is None:
             stg = StateTransitionGraphs.primes2stg(self.primes,
@@ -218,6 +225,51 @@ class BooleanGraph:
         '''
         steady_states = AspSolver.steady_states(self.primes)
         return steady_states
+
+
+    def get_parents(self, node):
+        '''Fetch regulators/inputs to a node
+
+        Parameters
+        ----------
+        node : str
+            Node name
+
+        Returns
+        ----------
+        parents : set
+            Set of parent nodes
+
+        '''
+
+        return set([key for d in self.primes[node][0] for key in d.keys()] +\
+                   [key for d in self.primes[node][1] for key in d.keys()])
+
+
+    def get_interactions(self, direction='out'):
+        '''
+        direction out: interactions[a][b]  a --> b
+        direction in:  interactions[a][b]  a <-- b
+        '''
+        interactions = defaultdict(dict)
+        intgraph = InteractionGraphs.primes2igraph(self.primes)
+
+        if direction == 'out':
+            for node, d in intgraph.adjacency(): #nx 2.x
+                for other_node, sub_d in d.items():
+                    sign = next(iter(sub_d["sign"]))
+                    interactions[node][other_node] = sign
+        elif direction == 'in':
+            for node, d in intgraph.adjacency(): #nx 2.x
+                for other_node, sub_d in d.items():
+                    sign = next(iter(sub_d["sign"]))
+                    interactions[other_node][node] = sign
+        else:
+            print(f"'Direction' should be 'in' or 'out', not {direction}")
+
+        return interactions
+
+
 
     def __print__():
         #TODO

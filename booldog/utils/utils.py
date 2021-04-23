@@ -30,7 +30,7 @@ def parameter_to_array(parameter, graph_keys, default=1):
         array of length n
     '''
 
-    parameter_array = np.ones(len(graph_keys)) * default
+    parameter_array = np.ones(len(graph_keys))
     if isinstance(parameter, (int, float)):
         parameter_array = parameter_array * parameter
     elif isinstance(parameter, dict):
@@ -41,7 +41,8 @@ def parameter_to_array(parameter, graph_keys, default=1):
                 continue
             parameter_array[graph_keys[key]] = value
     else:
-         raise TypeError("'parameters must be int, float, or dict. ")
+        print("'parameters must be int, float, or dict.")
+        parameter_array = parameter_array*default
 
     return parameter_array
 
