@@ -29,6 +29,9 @@ def parameter_to_array(parameter, graph_keys, default=1):
     parameter_array: numpy array
         array of length n
     '''
+    if isinstance(parameter, np.ndarray) and \
+        (len(parameter) == len(graph_keys)):
+        return parameter
 
     parameter_array = np.ones(len(graph_keys))
     if isinstance(parameter, (int, float)):

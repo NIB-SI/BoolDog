@@ -341,12 +341,13 @@ class RegulatoryNetwork(BooleanGraph):
                     title = [None]*num_plots
                 elif  title and isinstance(title, list):
                     if not (len(title) == len(plot_nodes)):
-                        title = [None]*num_plots
                         print(f'Number of (sub)titles is not equal to the number '\
                               f'of (sub)plots. Either pass the correct number of '\
                               f'titles as a list, or a single main title as a '\
                               f'string. \n {len(title)} (title) != '\
                               f'{num_plots} (subplots)')
+                        title = [None]*num_plots
+
                 else:
                     title = [None]*len(plot_nodes)
 

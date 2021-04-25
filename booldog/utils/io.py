@@ -9,6 +9,7 @@ import igraph as ig
 import numpy as np
 from .utils import *
 
+from collections import defaultdict
 
 from PyBoolNet import FileExchange
 from pathlib import Path
@@ -104,6 +105,19 @@ class SquadInteractions:
         self.primes = QMC.functions2primes(funcs)
 
 
+    def _make_reverse_and_complete(self, data):
+        interactions = defaultdict(dict)
+
+        for source, d in data.items():
+            for target, sign in d.items():
+                interactions[target][source] = sign
+
+        # for node in self.nodes:
+        #     regulators = interactions[node]
+        #     if len(regulators) == 0:
+        #         interactions[node][node] = '+'
+        return interactions
+
     def interactions_to_matrices(self, data):
         '''
         Only if graph is of type threshold (i.e. SQUAD) does this make sense.
@@ -115,57 +129,60 @@ class SquadInteractions:
         Act = np.zeros((self.n, self.n)) # activators
         Inh = np.zeros((self.n, self.n)) # inhibitors
 
-        for node, d in data.items():
-            for other_node, sign in d.items():
+        for target, d in data.items():
+            for source, sign in d.items():
                 if sign == "+":
-                    Act[self.index[node], self.index[other_node]] = 1
+                    Act[self.index[target], self.index[source]] = 1
                 elif sign == "-":
-                    Inh[self.index[node], self.index[other_node]] = 1
+                    Inh[self.index[target], self.index[source]] = 1
                 else:
-                    print("Warning: Issue with edge: ", node, other_node)
+                    print("Warning: Issue with edge: ", source, target)
         return ensure_ndarray(Act), ensure_ndarray(Inh)
 
-    def squad_update_funcs(self, data, default=1):
+    def squad_update_funcs(self, interactions, default=1):
         # TODO remove dep on act and inh
 
         funcs = {}
 
-        Act, Inh = self.interactions_to_matrices(data)
+        # interactions are [target][source]
+        interactions = self._make_reverse_and_complete(interactions)
 
-        for node, d in data.items():
+        Act, Inh = self.interactions_to_matrices(interactions)
+
+        for node, d in interactions.items():
             args = list(d.keys())
 
-            if len(args) == 0:
-                def func(input, node=node, args=args):
-                    return input
-                func.node = node
-                func.depends = [func.node]
-            else:
-                def func(*func_input, node=node, args=args):
-                    if len(func_input) != len(args):
-                        print("an issue happened #1")
-                        print(node, func.depends, args, func_input)
+            # if len(args) == 0:
+            #     def func(input, node=node, args=args):
+            #         return input
+            #     func.node = node
+            #     func.depends = [func.node]
+            # else:
+            def func(*func_input, node=node, args=args):
+                if len(func_input) != len(args):
+                    print("an issue happened #1")
+                    print(node, func.depends, args, func_input)
 
-                    state = np.ones(self.n)
-                    for other_node, other_node_state in zip(args, func_input):
-                        state[self.index[other_node]] = other_node_state
+                state = np.ones(self.n)
+                for other_node, other_node_state in zip(args, func_input):
+                    state[self.index[other_node]] = other_node_state
 
-                    # col_ones = np.ones((self.n))
-                    # if Inh[self.index[node],:].dot(col_ones):
-                    #     inh = Inh[self.index[node],:].dot(state) < 0
-                    # else:
-                    #     inh = 0
-                    # if Act[self.index[node],:].dot(col_ones):
-                    #     act = Act[self.index[node],:].dot(state) > 0
-                    # else:
-                    #     act = 1
-                    # node_state = act * (1-inh)
-                    inh = Inh[self.index[node],:].dot(state) > 0
-                    act = Act[self.index[node],:].dot(state) > 0
-                    node_state = act * (1-inh)
-                    return node_state
-                func.node = node
-                func.depends = args
+                # col_ones = np.ones((self.n))
+                # if Inh[self.index[node],:].dot(col_ones):
+                #     inh = Inh[self.index[node],:].dot(state) < 0
+                # else:
+                #     inh = 0
+                # if Act[self.index[node],:].dot(col_ones):
+                #     act = Act[self.index[node],:].dot(state) > 0
+                # else:
+                #     act = 1
+                # node_state = act * (1-inh)
+                inh = Inh[self.index[node],:].dot(state) > 0
+                act = Act[self.index[node],:].dot(state) > 0
+                node_state = act * (1-inh)
+                return node_state
+            func.node = node
+            func.depends = args
 
             funcs[node] = func
 
@@ -211,10 +228,10 @@ def import_graphml(path, inhibitor_symbol="white_diamond", activator_symbol="sta
     search = pattern.search
     for node in g.vs():
         if bool(search(node['id'])):
-            print(f"Warning: node names can only contain `{pattern.pattern}`  {node['id']}")
+            #print(f"Warning: node names can only contain `{pattern.pattern}`  {node['id']}")
             old_id = node['id']
             node['id'] = re.sub(pattern, '', node['id'])
-            print(f"Warning: renaming node {old_id} --> {node['id']}")
+            #print(f"Warning: renaming node {old_id} --> {node['id']}")
 
     g_dict = {node["id"]:{} for node in g.vs()}
     for e in g.es():

@@ -86,15 +86,15 @@ class BooleanGraph:
         Inh = np.zeros((self.n, self.n)) # inhibitors
 
         intgraph = InteractionGraphs.primes2igraph(self.primes)
-        for node, d in intgraph.adjacency(): #nx 2.x
-            for other_node, sub_d in d.items():
+        for source, d in intgraph.adjacency(): #nx 2.x
+            for target, sub_d in d.items():
                 sign = next(iter(sub_d["sign"]))
                 if sign == 1:
-                    Act[self.index[node], self.index[other_node]] = 1
+                    Act[self.index[target], self.index[source]] = 1
                 elif sign == -1:
-                    Inh[self.index[node], self.index[other_node]] = 1
+                    Inh[self.index[target], self.index[source]] = 1
                 else:
-                    print("Warning: Issue with edge: ", node, other_node)
+                    print("Warning: Issue with edge: ", source, target)
 
         return ensure_ndarray(Act), ensure_ndarray(Inh)
 
