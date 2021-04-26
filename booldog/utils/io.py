@@ -77,19 +77,6 @@ def read_boolean_graph(graph, in_format, default=1, **kwargs):
 
     return primes, nodes, index, n
 
-
-def write_boolean_graph(graph, out_format, outfile):
-
-    if not  (out_format in formats):
-       raise ValueError(f"'out_format' argument must be in "\
-                        f"{list(format_classes.keys())}")
-
-    outfile = Path(outfile)
-    file_writable(outfile)
-
-    #TODO
-
-
 ##############################
 #     SQUAD/INTERACTIONS     #
 ##############################
@@ -152,12 +139,6 @@ class SquadInteractions:
         for node, d in interactions.items():
             args = list(d.keys())
 
-            # if len(args) == 0:
-            #     def func(input, node=node, args=args):
-            #         return input
-            #     func.node = node
-            #     func.depends = [func.node]
-            # else:
             def func(*func_input, node=node, args=args):
                 if len(func_input) != len(args):
                     print("an issue happened #1")
@@ -167,16 +148,6 @@ class SquadInteractions:
                 for other_node, other_node_state in zip(args, func_input):
                     state[self.index[other_node]] = other_node_state
 
-                # col_ones = np.ones((self.n))
-                # if Inh[self.index[node],:].dot(col_ones):
-                #     inh = Inh[self.index[node],:].dot(state) < 0
-                # else:
-                #     inh = 0
-                # if Act[self.index[node],:].dot(col_ones):
-                #     act = Act[self.index[node],:].dot(state) > 0
-                # else:
-                #     act = 1
-                # node_state = act * (1-inh)
                 inh = Inh[self.index[node],:].dot(state) > 0
                 act = Act[self.index[node],:].dot(state) > 0
                 node_state = act * (1-inh)
@@ -192,7 +163,7 @@ class SquadInteractions:
 
 
 ##############################
-#           OTHER            #
+#         OTHER READ         #
 ##############################
 
 def import_graphml(path, inhibitor_symbol="white_diamond", activator_symbol="standard"):
@@ -228,7 +199,7 @@ def import_graphml(path, inhibitor_symbol="white_diamond", activator_symbol="sta
     search = pattern.search
     for node in g.vs():
         if bool(search(node['id'])):
-            #print(f"Warning: node names can only contain `{pattern.pattern}`  {node['id']}")
+            print(f"Warning: node names can only contain `{pattern.pattern}`  {node['id']}")
             old_id = node['id']
             node['id'] = re.sub(pattern, '', node['id'])
             #print(f"Warning: renaming node {old_id} --> {node['id']}")
@@ -241,3 +212,35 @@ def import_graphml(path, inhibitor_symbol="white_diamond", activator_symbol="sta
         g_dict[source][target] = sign
 
     return g_dict
+
+
+##############################
+#           WRITE            #
+##############################
+
+
+def write_boolean_graph(RegNet, out_format, outfile):
+
+    formats = ['bnet', 'odefy', 'squad']
+    if not  (out_format in formats):
+       raise ValueError(f"'out_format' argument must be one of "\
+                        f"{formats}")
+
+    outfile = Path(outfile)
+    file_writable(outfile)
+
+    if out_format == 'bnet':
+        FileExchange.primes2bnet(RegNet.primes,
+                                 FnameBNET=outfile,
+                                 Minimize=True)
+    elif out_format == 'squad':
+        # GATA3 -> IL-10
+        # IL-10 -> IL-10R
+        # IL-12 -> IL-12R
+        # STAT6 -| IL-12R
+        # IL-18 -> IL-18R
+        # STAT6 -| IL-18R
+        pass
+
+
+    #TODO

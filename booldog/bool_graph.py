@@ -94,7 +94,7 @@ class BooleanGraph:
                 elif sign == -1:
                     Inh[self.index[target], self.index[source]] = 1
                 else:
-                    print("Warning: Issue with edge: ", source, target)
+                    print("Warning: Issue with edge: ", target, source)
 
         return ensure_ndarray(Act), ensure_ndarray(Inh)
 

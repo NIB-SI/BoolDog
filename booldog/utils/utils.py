@@ -34,10 +34,12 @@ def parameter_to_array(parameter, graph_keys, default=1):
         return parameter
 
     parameter_array = np.ones(len(graph_keys))
+
     if isinstance(parameter, (int, float)):
         parameter_array = parameter_array * parameter
+
     elif isinstance(parameter, dict):
-        if default in parameter.keys():
+        if 'default' in parameter.keys():
             parameter_array = parameter_array * parameter['default']
         for key, value in parameter.items():
             if key == 'default':

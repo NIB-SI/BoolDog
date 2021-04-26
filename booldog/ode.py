@@ -355,6 +355,8 @@ class SquadODE():
         self.param_gamma = parameter_to_array(gamma, self.boolean_graph.index)
         self.param_h = parameter_to_array(h, self.boolean_graph.index)
 
+        print(self.param_gamma)
+        print(self.param_h)
         # matrices
         self.Act, self.Inh = self.boolean_graph.primes_to_matrices()
 
