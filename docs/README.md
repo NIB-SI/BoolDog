@@ -8,15 +8,22 @@
 
 Uses sphinx and sphinx-rtd-theme, and numpydocs for styling.
 
-    conda install sphinx numpydocs
-    pip install sphinx-rtd-theme
+     create -n docs python pip
+     conda activate docs
+     pip install -r requirements.txt 
+     pip install -r requirements-no-deps.txt --no-deps
 
 Then to make/remake docs:
 
     cd docs
     sphinx-apidoc -fMeT  --module-first -o source/api ../booldog ../booldog/utils
     make html
+
+To push remade docs to github pages site, copy the new html to the gh-pages folder
+
     cp -r build/html/* gh-pages
+
+(Then commit them and push.)
 
 ## Style guide
 

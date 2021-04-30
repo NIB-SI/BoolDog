@@ -17,46 +17,57 @@ from .bool_graph import BooleanGraph
 #        CHILD CLASS         #
 ##############################
 
-def ODE(graph, transform, **kwargs):
-    '''
-    Generate an ODE from RegulatoryNetwork/Boolean graph.
+def ODE_factory(graph, transform, **kwargs):
+    '''Create a :py:class:`booldog.ode.ODE` from :py:class:`RegulatoryNetwork`.
 
     Parameters
     ----------
+    graph : :py:class:`RegulatoryNetwork` or :py:class:`BooleanGraph`
+        Input graph.
+
     transform : str
-        One of accepted transforms. See `booldog.ode_transforms` for
-        options.
+        One of accepted transforms. See :py:data:`booldog.ode.transforms` or :ref:`Notes <tagnotesode>` for options.
 
     Other Parameters
-    ----------
+    ----------------
     **kwargs
         Additional arguments and keyword arguments passed to
-        specif parent class initializer.
+        specific parent class initializer.
 
     Returns
-    ----------
-    ode : ODE
-        An ODE object
+    -------
+    ode : :py:class:`booldog.ode.ODE`
+        A ODE system
+
+
+    .. _tagnotesode:
 
     Notes
-    ----------
+    -----
+    For specific transforms, see the relevant parent class for keyword
+    arguments (`**kwargs`).
+
+    The parent classes are defined in
+    :py:data:`booldog.ode.ode_parent_classes`.
+
     Here is a summary of key word arguments, which may be out of date. For
     more comprehensive documentation of a specific transform, see
-    `help(booldog.ode.<CLASS>)`, where <CLASS> can be determined from
-    `booldog.ode.ode_classes[<transform>]. E.g
-    `booldog.ode.ode_classes['squad']', when a SQUAD transformer is
+    `help(booldog.ode.<CLASS>)` , where <CLASS> can be determined from
+    `booldog.ode.ode_classes[<transform>]` . E.g
+    `booldog.ode.ode_classes['squad']` , when a SQUAD transformer is
     applicable.
 
     If ODE parameters are passed as an int or float, the value is assigned for
     all variables. Otherwise the parameter arguments should be a dict with a
     default' key and value pair, and key value pairs for other nodes.
 
+
     'squad'
     See [1] for additional information.
     - gamma : self-decay
     - h :  sigmoid gain
 
-    'boolcube'/'boolecube'
+    b 'boolcube'/'boolecube'
     See [2] for additional information.
 
     - tau : life-time of species
@@ -76,12 +87,34 @@ def ODE(graph, transform, **kwargs):
     signaling. BMC Systems Biology, 3(1), 98.
     https://doi.org/10.1186/1752-0509-3-98
     '''
-
-    ParentClass = ode_classes[transform]
+    transform = transform.lower()
+    if transform == 'placeholder':
+        ParentClass = SquadODE
+    elif not transform in ode_parent_classes.keys():
+        raise ValueError(f"transform' argument must be one of"\
+                         f"{list(ode_parent_classes.keys())}")
+    else:
+        ParentClass = ode_parent_classes[transform]
 
     class ODE(ParentClass):
+        '''Generic ODE class produced by factory '''
 
         def __init__(self, graph, transform, **kwargs):
+            '''Initialise ODE
+
+            Parameters
+            ----------
+            graph : :py:class:`booldog.BooleanGraph`
+            transform : str
+
+            Other Parameters
+            ----------
+            **kwargs
+                In the case `graph` is not a BooleanGraph instance, additional
+                keyword arguments passed to :py:class:`booldog.BooleanGraph`.
+            '''
+            if transform == 'placeholder':
+                return
 
             if not isinstance(graph, BooleanGraph):
                 raise TypeError(f"'graph' argument must be a BooleanGraph object."\
@@ -91,20 +124,49 @@ def ODE(graph, transform, **kwargs):
             self.n = len(graph)
             self.boolean_graph = graph
             self.transform = transform
-
             super().__init__(transform, **kwargs)
 
             print("done. ")
 
 
         def event_function(self, t, x, event_t, *args):
+            '''Event function for `events` of `solve_ivp`
+
+            Parameters
+            ----------
+            t : float
+                Timepoint of simulation
+            x : narray
+
+            event_t : float
+                Timepoint of event
+
+            *args
+                ignored
+
+            Attributes
+            ----------
+            terminal : True
+
+            '''
             return t - event_t
         event_function.terminal = True
 
         def update(self, off_nodes=None):
+            ''' Resets dxdt
+
+            Shortcut to parent classe's `_get_system`.
+
+            Parameters
+            ----------
+            off_nodes : list of int, optional
+                List of node **indices** to turn set derivative to 0,
+                i.e. these nodes will remain constant.
+            '''
             self.dxdt =  self._get_system(off_nodes=off_nodes)
 
-
+    ODE_factory.ex_class = ODE
+    ODE_factory.ex_class.__bases__ = tuple(set(ode_parent_classes.values()))
     return ODE(graph, transform, **kwargs)
 
 ##############################
@@ -113,7 +175,7 @@ def ODE(graph, transform, **kwargs):
 
 # https://github.com/krumsieklab/Odefy/blob/11d048d550a8f64250ba01f76f5a83048c8be6cf/Odefy-1.20/code/models/CreateCubeCalls.m
 class BoolCubeODE():
-    ''' Use of multivariate polynomial interpolation for the transformation of a Boolean graph to a system of ODEs.
+    '''BoolCubeODE class Use of multivariate polynomial interpolation for the transformation of a Boolean graph to a system of ODEs.
 
     Source: Transforming Boolean models to continuous models: methodology and application to T-cell receptor signaling [1].
 
@@ -124,19 +186,8 @@ class BoolCubeODE():
     param_n
     param_k
     param_dict
-
-    Methods
-    ----------
-    homologue_b1
-
-    References
-    ----------
-    [1] Wittmann, D. M., Krumsiek, J., Saez-Rodriguez, J., Lauffenburger, D.
-    A., Klamt, S., & Theis, F. J. (2009). Transforming Boolean models to
-    continuous models: Methodology and application to T-cell receptor
-    signaling. BMC Systems Biology, 3(1), 98.
-    https://doi.org/10.1186/1752-0509-3-98
     '''
+
     def __init__(self, transform, tau=1, n=3, k=0.5, **kwargs):
         ''' Initialise BoolCube ODE system.
 
@@ -163,6 +214,15 @@ class BoolCubeODE():
         for all variables. Otherwise the parameter arguments should be a dict
         with a default' key and value pair, and key value pairs for other
         nodes.
+
+        References
+        ----------
+        [1] Wittmann, D. M., Krumsiek, J., Saez-Rodriguez, J., Lauffenburger, D.
+        A., Klamt, S., & Theis, F. J. (2009). Transforming Boolean models to
+        continuous models: Methodology and application to T-cell receptor
+        signaling. BMC Systems Biology, 3(1), 98.
+        https://doi.org/10.1186/1752-0509-3-98
+
         '''
 
         self.param_n = parameter_to_array(n, self.boolean_graph.index)
@@ -174,13 +234,13 @@ class BoolCubeODE():
                            "k":self.param_k,
                            "tau":self.param_tau}
 
-        if transform in ('boolecube', 'boolcube'):
+        if transform == 'boolecube':
             transform_function = self.identity
 
-        elif transform in ('hill', 'hillcube'):
+        elif transform == 'hillcube':
             transform_function = self.hill
 
-        elif transform in ('normalisedhill', 'normalisedhillcube'):
+        elif transform == 'normalisedhillcube':
             transform_function = self.normalised_hill
 
         else:
@@ -319,12 +379,6 @@ class SquadODE():
     param_h
     Act
     Inh
-
-    References
-    ----------
-    [1] Di Cara, A., Garg, A., De Micheli, G., Xenarios, I., & Mendoza, L.
-    (2007). Dynamic simulation of regulatory networks using SQUAD.
-    BMC Bioinformatics, 8(1), 1–10. https://doi.org/10.1186/1471-2105-8-462
     '''
 
     def __init__(self, transform, gamma=1, h=10, **kwargs):
@@ -350,6 +404,12 @@ class SquadODE():
         for all variables. Otherwise the parameter arguments should be a dict
         with a default' key and value pair, and key value pairs for other
         nodes.
+
+        References
+        ----------
+        [1] Di Cara, A., Garg, A., De Micheli, G., Xenarios, I., & Mendoza, L.
+        (2007). Dynamic simulation of regulatory networks using SQUAD.
+        BMC Bioinformatics, 8(1), 1–10. https://doi.org/10.1186/1471-2105-8-462
         '''
 
         self.param_gamma = parameter_to_array(gamma, self.boolean_graph.index)
@@ -462,11 +522,22 @@ class RacipeODE():
 
 
 
-ode_classes = {'squad':SquadODE,
+ode_parent_classes = {
+               'squad':SquadODE,
                'shao':ShaoODE,
                'hillcube':BoolCubeODE,
                'normalisedhillcube':BoolCubeODE,
-               'boolcube':BoolCubeODE,
-               'boolecube':BoolCubeODE}
+               'boolecube':BoolCubeODE
+}
+''' dict : transform to parent class translation
+'''
 
-ode_transforms = set(ode_classes.keys())
+transforms = set([
+    'boolecube',
+    'hillcube',
+    'normalisedhillcube',
+    'shao',
+    'squad'
+])
+''' set : list of accepted ODE transforms
+'''

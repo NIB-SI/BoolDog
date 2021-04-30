@@ -16,19 +16,21 @@ from .utils.utils import *
 
 
 class BooleanGraph:
-    '''
-    A class to represent a Boolean graph.
+    '''A class to represent a Boolean graph.
 
     Attributes
     ----------
-
     n : int
         The number of nodes/variables in the graph
-    primes
-
-    nodes
-
-    index
+    primes : dict
+        Prime implicants of the Boolean graph. See 
+        `PyBoolNet:prime implicants 
+        <https://pyboolnet.readthedocs.io/en/latest/Manual.html#prime-implicants>`_
+        for more information. 
+    nodes : tuple of str
+        Lists node names in the graph
+    index : dict
+        Dictionary of node name to integer index for indexing arrays
     '''
 
     def __init__(self, graph, data_format='bnet', **kwargs):
@@ -38,13 +40,10 @@ class BooleanGraph:
         ----------
         graph : str or dict
             A file path to the graph or a dictionary with the graph.
-        data_format : str
+        data_format : {'primes', 'interactions', 'bnet', 'graphml'}
             String specifying data format.
 
-                * primes
-                * interactions
-                * bnet
-                * graphml
+
 
         kwargs #TODO
             Additional keyword arguments for the importer function.

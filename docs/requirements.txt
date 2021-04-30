@@ -1,0 +1,21 @@
+# BoolDoG deps
+xmltodict>=0.12
+numpy>=1.20
+scipy>=1.6
+python-igraph>=0.9.1
+networkx>=2
+matplotlib>=3.4
+
+# PyBoolNet pins repos, so put deps here and 
+# install PyBoolNEt w/o deps using --no-deps
+# https://github.com/hklarner/PyBoolNet/issues/67
+pytest
+# pyeda not compling on windows 
+# https://github.com/cjdrake/pyeda/issues/126
+# Fix? https://github.com/cjdrake/pyeda/pull/153
+pyeda==0.28.0; platform_system != "Windows"
+../deps/pyeda-0.28.0-cp39-cp39-win_amd64.whl; platform_system == "Windows"
+
+# documentation only
+sphinx-rtd-theme
+sphinx

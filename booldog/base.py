@@ -5,7 +5,7 @@ import math
 
 from pathlib import Path
 
-# plotting libraries #TODO optional import?
+# plotting library #TODO optional import?
 import matplotlib.pyplot as plt
 
 from collections import defaultdict
@@ -22,139 +22,140 @@ warnings.filterwarnings("ignore",
 
 from .utils.utils import *
 from .bool_graph import BooleanGraph
-from .ode import ODE, ode_classes
+from .ode import ODE_factory
 
-
+# path to mpl stylesheet
 _style_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),
                            'utils', 'stylesheet.mplstyle')
 
 class RegulatoryNetwork(BooleanGraph):
-    '''
-    A class to represent a regulatory network.
-    Inherits from BooleanGraph.
-
+    '''A class to represent a regulatory network.
+       
     '''
 
     def __init__(self, graph, **kwargs):
-        '''
-        Initialise a regulatory network from a Boolean graph.
+        '''Initialise a regulatory network from a Boolean graph.
 
         Parameters
         ----------
-        graph : booldog.BooleanGraph, dict or str
-            If not a BooleanGraph object, then correct input for initializing
-            a booldog.BooleanGraph.
+        graph : `booldog.BooleanGraph` or dict or str
+            If not a :py:class:`booldog.BooleanGraph` instance, then correct 
+            input for initializing a :py:class:`booldog.BooleanGraph`. 
 
         Other Parameters
         ----------
         **kwargs
-            Additional arguments and keyword arguments passed to
-            booldog.BooleanGraph. For description of these arguments see
-            help(booldog.ODE).
+            In the case `graph` is not a BooleanGraph instance, additional 
+            keyword arguments passed to :py:class:`booldog.BooleanGraph`. 
         '''
         super().__init__(graph,  **kwargs)
 
     def transform_bool_to_continuous(self, transform, **kwargs):
-        '''
-        Generate an ODE from RegulatoryNetwork/Boolean graph.
+        '''Generate an ODE from RegulatoryNetwork/Boolean graph.
 
         Parameters
         ----------
         transform : str
-            One of accepted transforms. See `booldog.ode_transforms` for
-            options.
+            One of accepted transforms. See `booldog.ode.transforms` for
+            accepted options.
 
         Other Parameters
         ----------
         **kwargs
-            Additional arguments and keyword arguments passed to
-            booldog.ODE. For description of these arguments see
-            help(booldog.ODE).
+            Additional keyword arguments passed to :py:func:`booldog.ODE`. 
         '''
-
-        transform = transform.lower()
-        if not transform in ode_classes.keys():
-            raise ValueError(f"transform' argument must be one of"\
-                             f"{list(ode_classes.keys())}")
-
-        ode_system = ODE(self, transform,**kwargs)
+        ode_system = ODE_factory(self, transform, **kwargs)
         return ode_system
 
     def continuous_simulation(self,
-       node_events={},
-       edge_events={},
-       t_min=0, t_max=30,
-       initial_state=0,
-       plot=True,
-       export=False,
-       ode_system=None,
-       **kwargs):
+        node_events={},
+        edge_events={},
+        t_min=0, t_max=30,
+        initial_state=0,
+        plot=True,
+        export=False,
+        ode_system=None,
+        **kwargs):
         '''Run continuous semi-qualitative simulation.
 
         Parameters
         ----------
-        node_events : list of dict, optional
-            List of node events with a dictionary defining each event.See notes for description of event definitions.
-
-        edge_events : dict, optional
+        node_events :  None or list of dict, optional
+            List of node events with a dictionary defining each event. 
+            See :ref:`Notes <tagnotesne>` for description of event definitions.
+        edge_events :  None or list of dict, optional
             Disrupt connections #TODO not implemented
-
-        t_min : float, optional
-
-        t_max : float, optional
-
-        initial_state : dict, optional
-
+        t_min, t_max : float, optional
+            Interval of integration, simulation starts with `t=t_min` and 
+            integrates until it reaches `t=t_max`.
+        initial_state : float or int or array or dict, optional
+            Initial state of nodes. See :ref:`Notes <tagnotesis>` for 
+            description of format. 
         plot : bool, optional
-
-        plot_nodes : list, optional
-            If list is non-empty, only plot simulation results of listed
-            nodes. Otherwise plot all nodes.
-
-        export : bool, path object or string
-            False, or path to save simulation results.
+            Whether to plot the simultion results
+        export : bool or path object or string, optional
+            False, or a file path to save simulation results. 
             Exports values to 5 decimal points.
-            #TODO describe export format.
-
-        ode_system: ODE class object, optional
-            If not set, is created
-
+        ode_system: None or :py:func:`booldog.ODE`, optional
+            If none, the ODE is created with 
+            :py:func:`transform_bool_to_continuous`
 
         Other Parameters
-        ----------
+        ----------------
         **kwargs
             If ode_system is None, additional keyword arguments are
-            passed to transform_bool_to_continuous.
+            passed to :py:func:`transform_bool_to_continuous`.
+            For description of these arguments see :py:func:`booldog.ODE`.
 
-            For description of these arguments see help(booldog.ODE).
+            If `plot=True` , additional keyword arguments are
+            passed to :py:func:`plot_simulation`. 
 
         Returns
-        ----------
-        t : numpy array
+        -------
+        t : ndarray, shape (n_time_points,)
             Time-points.
-        y : numpy array
-            Value of the solution at time-points.
+        y : ndarray, shape (n_time_points, n_nodes)
+            Values of the solution at t.
 
         Notes
         -----
-        Format of the `node_events` parameter:
-        The node events are passed as a list of dictionaries defining each event.
-        Dictionary keys are:
-            time: time at which the event occurs
-            node: node which is perturbed
-            value:  value at which the node is set
-            duration: (optional) duration for which the node is fixed
-                    if longer than 1, (i.e. not a point perturbation)
 
-        Example - at timepoint 10, node X is set to 0.25 for 5 time-steps.
-          and at timepoint 12, node Y and Z are set to 1 for 1
-          timesteps::
+        .. _tagnotesne:
 
-            node_events = [
-                {'time':10, 'node':'X', 'value':.25, 'duration':5},
-                {'time':12, 'node':'Y', 'value':1},
-                {'time':12, 'node':'X', 'value':1}
-            ]
+        Format of the `node_events` parameter
+            The node events are passed as a list of dictionaries defining each 
+            event. Dictionary keys are:
+
+            - `time`: time at which the event occurs
+            - `node`: name of node which is perturbed
+            - `value`:  value to which the node is set
+            - `duration`: (optional) duration for which the node is fixed \
+            if longer than 0, (i.e. not a point perturbation)
+
+            Example - at timepoint 10, node X is set to 0.25 for 5 time-steps.
+            and at timepoint 12, node Y and Z are set to 1 for 0
+            timesteps::
+
+                node_events = [
+                    {'time':10, 'node':'X', 'value':.25, 'duration':5},
+                    {'time':12, 'node':'Y', 'value':1},
+                    {'time':12, 'node':'X', 'value':1}
+                ]
+
+        .. _tagnotesis:
+
+        Format of the `initial_state` parameter
+            If the initial state is an int or float, the value is assigned for
+            all variables. Otherwise the parameter argument should be a dict 
+            with keys as node names and values for their initial state. In this 
+            case, if the initial state is not definied for all nodes, a 
+            `default` key with the default value should also be present in the 
+            dict. 
+        
+        Todo
+        ----
+
+        - describe export format.
 
         '''
 
@@ -196,15 +197,6 @@ class RegulatoryNetwork(BooleanGraph):
         # i.o.t. avoid using `while True`
         # # https://stackoverflow.com/a/50703835/4996681
         events_d[t_max] = {}
-
-        # for time  in sorted(events_d.keys()):
-        #     print(time)
-        #     for node, event in events_d[time].items():
-        #         print(f"    {node} {event}")
-
-
-        #print("Initial_state: ", initial_state)
-
         off_nodes = set()
         print("Status: Start")
         for event_t  in sorted(events_d.keys()):
@@ -237,8 +229,7 @@ class RegulatoryNetwork(BooleanGraph):
 
                     else:
                         # starting a perturbation
-                        initial_state_array[self.index[node]] =\
-                                             perturb['value']
+                        initial_state_array[self.index[node]] = perturb['value']
 
                         s += f"{node:>10} -> {perturb['value']:.2f} "\
                              f"(duration {perturb['duration']:2d})\n"
@@ -299,6 +290,43 @@ class RegulatoryNetwork(BooleanGraph):
         title=None,
         figsize=(20, 10),
         **kwargs):
+        """Plot simulation results.
+
+        Called by :py:func:`continous_simulation`. 
+
+        Parameters
+        ----------
+        t : ndarray, shape (n_time_points,)
+            Time-points.
+        y : ndarray, shape (n_time_points, n_nodes)
+            Values of the solution at t.
+        plot_nodes :  None or list of str or list of lists of str, optional
+            Subset of nodes to plot. If `None`, plot all nodes. If a list of 
+            lists, each sublist is plotted as a subplot. 
+        node_events : None or list of dict, optional
+            List of node events with a dictionary defining each event. 
+            See :ref:`Notes <tagnotesne>` for description of event definitions.
+        edge_events :  None or list of dict, optional
+            Disrupt connections #TODO not implemented
+        title : None or string or list of string
+            If str, main title of the plot. If a list of str, subtitles of 
+            subplots as defined by `plot_node`. In this case `plot_nodes` 
+            should be a list of lists, and `title` should be the same length as
+            `plot_nodes`. 
+        figsize : (float, float)
+            Width, height in inches.
+
+        Other Parameters
+        ----------
+        **kwargs
+            ignored
+
+        Returns
+        ----------
+        fig :  matplotlib.figure.Figure
+        axes : array of matplotlib.axes.Axes
+     
+        """
 
         # collect vertical lines at events
         vlines = []
@@ -307,7 +335,6 @@ class RegulatoryNetwork(BooleanGraph):
         if edge_events:
             vlines += edge_events
 
-
         with plt.style.context(_style_path):
             # 3 cases to plot:
             # (1) no node list
@@ -315,7 +342,6 @@ class RegulatoryNetwork(BooleanGraph):
             # (3) multiple node lists
 
             main_title = False
-
 
             # case (1)
             if not plot_nodes:
@@ -341,11 +367,12 @@ class RegulatoryNetwork(BooleanGraph):
                     title = [None]*num_plots
                 elif  title and isinstance(title, list):
                     if not (len(title) == len(plot_nodes)):
-                        print(f'Number of (sub)titles is not equal to the number '\
-                              f'of (sub)plots. Either pass the correct number of '\
-                              f'titles as a list, or a single main title as a '\
-                              f'string. \n {len(title)} (title) != '\
-                              f'{num_plots} (subplots)')
+                        print(f'WARNING: '\
+                              f'Number of (sub)titles is not equal to the '\
+                              f'number of (sub)plots. Either pass the correct '\
+                              f'number of subtitles as a list, or a single '\
+                              f'main title as a string. \n'\
+                              f'{len(title)} (title) != {num_plots} (subplots)')
                         title = [None]*num_plots
 
                 else:
@@ -376,17 +403,20 @@ class RegulatoryNetwork(BooleanGraph):
                                  title=subtitle)
 
             fig.supxlabel('Time', fontsize=18, fontweight='bold')
-            fig.supylabel("Relative concentration", x=-0.02, fontsize=18, fontweight='bold')
+            fig.supylabel("Relative concentration", x=-0.02, fontsize=18,
+                           fontweight='bold')
             if main_title:
                 fig.suptitle(main_title)
 
-            # issues with keeping legend in figure bounds and constrained_layout
-            # see https://matplotlib.org/stable/tutorials/intermediate/constrainedlayout_guide.html#legends
+            # issues with keeping legend in figure bounds 
+            # when using constrained_layout see 
+            # https://matplotlib.org/stable/tutorials/intermediate/constrainedlayout_guide.html#legends #noqa
             fig.canvas.draw()
             for ax in axes.flatten():
                 legend = ax.get_legend()
                 legend.set_in_layout(True)
             fig.set_constrained_layout(False)
+        return fig, axes
 
     def _plot_one_ax(self,
         ax,
@@ -394,7 +424,7 @@ class RegulatoryNetwork(BooleanGraph):
         legend_labels,
         vlines=None,
         title=None):
-        '''Helper func that only plots on subplot axes'''
+        '''Helper func that plots on a subplot axes'''
 
         ymin, ymax = 0, 1
         xmin, xmax = 0, max(x)

@@ -18,7 +18,7 @@ sys.path.insert(0, os.path.abspath('../..'))
 # -- Project information -----------------------------------------------------
 
 project = 'BoolDoG'
-copyright = '2021, Carissa Bleker'
+copyright = '2020-2021 National Institute of Biology, Slovenia'
 author = 'Carissa Bleker'
 
 # The full version, including alpha/beta/rc tags
@@ -32,14 +32,23 @@ release = '0.1'
 # ones.
 extensions = [
         'sphinx.ext.autodoc',
-        'numpydoc',
-        'sphinx_rtd_theme'
+        'sphinx.ext.napoleon',
+        'sphinx.ext.autosummary',
+        'sphinx_rtd_theme',
+        'sphinx.ext.todo'
 ]
 
 autodoc_default_options = {
         'inherited-members':True
 }
 
+autoclass_content = 'both'
+autodoc_member_order = 'bysource'
+
+
+# Napoleon settings
+napoleon_google_docstring = False
+napoleon_numpy_docstring = True
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -55,7 +64,7 @@ exclude_patterns = []
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 
-html_theme = 'sphinx_rtd_theme'  
+html_theme = 'sphinx_rtd_theme'
 
 html_theme_options = {
     'style_nav_header_background':'#009739'
@@ -66,5 +75,16 @@ html_logo = '../figures/logo.png'
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+#html_static_path = ['_static']
+
+def setup(app):
+
+    # i.o.t add ODE class (inside a function) to the documentation
+    import booldog
+    example = booldog.ode.ODE_factory(
+                '',
+                transform='placeholder')
+    booldog.ode.ODE = booldog.ode.ODE_factory.ex_class
+    booldog.ode.ODE.__name__ = 'ODE'
+    booldog.ode.ODE.__module__ = 'booldog.ode'
 
