@@ -166,159 +166,407 @@
             
   <div class="section" id="module-booldog.ode">
 <span id="booldog-ode-module"></span><h1>booldog.ode module<a class="headerlink" href="#module-booldog.ode" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
-<dt id="booldog.ode.BoolCubeODE">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">booldog.ode.</span></code><code class="sig-name descname"><span class="pre">BoolCubeODE</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transform</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.ode.BoolCubeODE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Use of multivariate polynomial interpolation for the transformation of a Boolean graph to a system of ODEs.</p>
-<p>Source: Transforming Boolean models to continuous models: methodology and application to T-cell receptor signaling [1].</p>
-<p class="rubric">References</p>
-<p>[1] Wittmann, D. M., Krumsiek, J., Saez-Rodriguez, J., Lauffenburger, D.
-A., Klamt, S., &amp; Theis, F. J. (2009). Transforming Boolean models to
-continuous models: Methodology and application to T-cell receptor
-signaling. BMC Systems Biology, 3(1), 98.
-<a class="reference external" href="https://doi.org/10.1186/1752-0509-3-98">https://doi.org/10.1186/1752-0509-3-98</a></p>
-<dl class="field-list simple">
-<dt class="field-odd">Attributes</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>dxdt</strong></dt><dd></dd>
-<dt><strong>param_tau</strong></dt><dd></dd>
-<dt><strong>param_n</strong></dt><dd></dd>
-<dt><strong>param_k</strong></dt><dd></dd>
-<dt><strong>param_dict</strong></dt><dd></dd>
-</dl>
-</dd>
-</dl>
-<p class="rubric">Methods</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.ode.BoolCubeODE.homologue_b1" title="booldog.ode.BoolCubeODE.homologue_b1"><code class="xref py py-obj docutils literal notranslate"><span class="pre">homologue_b1</span></code></a>()</p></td>
-<td><p>Create function to calculate the multivariate polynomial interpolation of Boolean functions</p></td>
-</tr>
-</tbody>
-</table>
-<dl class="py method">
-<dt id="booldog.ode.BoolCubeODE.homologue_b1">
-<code class="sig-name descname"><span class="pre">homologue_b1</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#booldog.ode.BoolCubeODE.homologue_b1" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create function to calculate the multivariate polynomial
-interpolation of Boolean functions</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>B1</strong><span class="classifier">function</span></dt><dd></dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
 <dl class="py function">
-<dt id="booldog.ode.ODE">
-<code class="sig-prename descclassname"><span class="pre">booldog.ode.</span></code><code class="sig-name descname"><span class="pre">ODE</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.ode.ODE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate an ODE from RegulatoryNetwork/Boolean graph.</p>
+<dt id="booldog.ode.ODE_factory">
+<code class="sig-prename descclassname"><span class="pre">booldog.ode.</span></code><code class="sig-name descname"><span class="pre">ODE_factory</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.ode.ODE_factory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a <a class="reference internal" href="#booldog.ode.ODE" title="booldog.ode.ODE"><code class="xref py py-class docutils literal notranslate"><span class="pre">booldog.ode.ODE</span></code></a> from <code class="xref py py-class docutils literal notranslate"><span class="pre">RegulatoryNetwork</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>transform</strong><span class="classifier">str</span></dt><dd><p>One of accepted transforms. See <cite>booldog.ode_transforms</cite> for
-options.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">RegulatoryNetwork</span></code> or <code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanGraph</span></code>) – Input graph.</p></li>
+<li><p><strong>transform</strong> (<em>str</em>) – One of accepted transforms. See <a class="reference internal" href="#booldog.ode.transforms" title="booldog.ode.transforms"><code class="xref py py-data docutils literal notranslate"><span class="pre">booldog.ode.transforms</span></code></a> or <a class="reference internal" href="#tagnotesode"><span class="std std-ref">Notes</span></a> for options.</p></li>
+</ul>
 </dd>
-<dt><strong>Other Parameters</strong></dt><dd></dd>
-<dt><strong>———-</strong></dt><dd></dd>
-<dt><strong>**kwargs</strong></dt><dd><p>Additional arguments and keyword arguments passed to
-specif parent class initializer.</p>
+<dt class="field-even">Other Parameters</dt>
+<dd class="field-even"><p><strong>**kwargs</strong> – Additional arguments and keyword arguments passed to specific parent
+class initializer.</p>
 </dd>
-</dl>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>ode</strong> – A ODE system</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt><strong>ode</strong><span class="classifier">ODE</span></dt><dd><p>An ODE object</p>
-</dd>
-</dl>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#booldog.ode.ODE" title="booldog.ode.ODE"><code class="xref py py-class docutils literal notranslate"><span class="pre">booldog.ode.ODE</span></code></a></p>
 </dd>
 </dl>
-<p class="rubric">Notes</p>
-<p>Here is a summary of key word arguments, which may be out of date. For
-more comprehensive documentation of a specific transform, see
-<cite>help(booldog.ode.&lt;CLASS&gt;)</cite>, where &lt;CLASS&gt; can be determined from
-<a href="#id1"><span class="problematic" id="id2">`</span></a>booldog.ode.ode_classes[&lt;transform&gt;]. E.g
-<a href="#id3"><span class="problematic" id="id4">`</span></a>booldog.ode.ode_classes[‘squad’]’, when a SQUAD transformer is
-applicable.</p>
-<p>If ODE parameters are passed as an int or float, the value is assigned for
-all variables. Otherwise the parameter arguments should be a dict with a
-default’ key and value pair, and key value pairs for other nodes.</p>
-<p>‘squad’
-See [1] for additional information.
-- gamma : self-decay
-- h :  sigmoid gain</p>
-<p>‘boolcube’/’boolecube’
-See [2] for additional information.</p>
-<ul class="simple">
+<p class="rubric" id="tagnotesode">Notes</p>
+<p>For specific transforms, see the relevant parent class for keyword
+arguments (<cite>**kwargs</cite>).</p>
+<p>The parent class per transform is defined in
+<a class="reference internal" href="#booldog.ode.ode_parent_classes" title="booldog.ode.ode_parent_classes"><code class="xref py py-data docutils literal notranslate"><span class="pre">booldog.ode.ode_parent_classes</span></code></a>.</p>
+<p>If the parameter is an int or float, the value is assigned for
+all variables. Otherwise the parameter argument should be a dict
+with keys as node names and values for their initial state. In
+this case, if the initial state is not defined for all nodes, a
+<cite>default</cite> key with the default value should also be present in the
+dict.</p>
+<p>Here follows a summary of the transform-specific keyword arguments</p>
+<blockquote>
+<div><p>‘squad’</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="#booldog.ode.SquadODE" title="booldog.ode.SquadODE"><code class="xref py py-class docutils literal notranslate"><span class="pre">booldog.ode.SquadODE</span></code></a></p></li>
+<li><p>gamma : self-decay</p></li>
+<li><p>h :  sigmoid gain</p></li>
+</ul>
+</div></blockquote>
+<p>‘boolecube’</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="#booldog.ode.BoolCubeODE" title="booldog.ode.BoolCubeODE"><code class="xref py py-class docutils literal notranslate"><span class="pre">booldog.ode.BoolCubeODE</span></code></a></p></li>
+<li><p>tau : life-time of species</p></li>
+</ul>
+</div></blockquote>
+<p>‘hillcube’</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="#booldog.ode.BoolCubeODE" title="booldog.ode.BoolCubeODE"><code class="xref py py-class docutils literal notranslate"><span class="pre">booldog.ode.BoolCubeODE</span></code></a></p></li>
 <li><p>tau : life-time of species</p></li>
 <li><p>n : Hill coefficient</p></li>
 <li><p>k : Hill dissociation constant</p></li>
 </ul>
+</div></blockquote>
+<p>‘normalisedhillcube’</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="#booldog.ode.BoolCubeODE" title="booldog.ode.BoolCubeODE"><code class="xref py py-class docutils literal notranslate"><span class="pre">booldog.ode.BoolCubeODE</span></code></a></p></li>
+<li><p>tau : life-time of species</p></li>
+<li><p>n : Hill coefficient</p></li>
+<li><p>k : Hill dissociation constant</p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py class">
+<dt id="booldog.ode.BoolCubeODE">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">booldog.ode.</span></code><code class="sig-name descname"><span class="pre">BoolCubeODE</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transform</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.ode.BoolCubeODE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>An ODE parent class.</p>
+<p>Use of multivariate polynomial interpolation for the transformation of a Boolean graph to a system of ODEs.</p>
+<dl class="py attribute">
+<dt id="booldog.ode.BoolCubeODE.dxdt">
+<code class="sig-name descname"><span class="pre">dxdt</span></code><a class="headerlink" href="#booldog.ode.BoolCubeODE.dxdt" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>function</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="booldog.ode.BoolCubeODE.param_tau">
+<code class="sig-name descname"><span class="pre">param_tau</span></code><a class="headerlink" href="#booldog.ode.BoolCubeODE.param_tau" title="Permalink to this definition">¶</a></dt>
+<dd><p>life-time of species</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>arraylike</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="booldog.ode.BoolCubeODE.param_n">
+<code class="sig-name descname"><span class="pre">param_n</span></code><a class="headerlink" href="#booldog.ode.BoolCubeODE.param_n" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hill coefficient</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>arraylike</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="booldog.ode.BoolCubeODE.param_k">
+<code class="sig-name descname"><span class="pre">param_k</span></code><a class="headerlink" href="#booldog.ode.BoolCubeODE.param_k" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hill dissociation constant</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>arraylike</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="booldog.ode.BoolCubeODE.param_dict">
+<code class="sig-name descname"><span class="pre">param_dict</span></code><a class="headerlink" href="#booldog.ode.BoolCubeODE.param_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>track parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Initialise BoolCube ODE system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>transform</strong> (<em>str</em>) – </p></li>
+<li><p><strong>tau</strong> (<em>int</em><em>, </em><em>float</em><em>, or </em><em>dict</em><em>, </em><em>optional</em>) – life-time of species</p></li>
+<li><p><strong>n</strong> (<em>int</em><em>, </em><em>float</em><em>, or </em><em>dict</em><em>, </em><em>optional</em>) – Hill coefficient</p></li>
+<li><p><strong>k</strong> (<em>int</em><em>, </em><em>float</em><em>, or </em><em>dict</em><em>, </em><em>optional</em>) – Hill dissociation constant</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Only used as Parent class.</p>
+<p>tau_i = zero –&gt; dx_i/dt = 0</p>
+<p class="rubric">References</p>
+<p>[1] Wittmann, D. M., Krumsiek, J., Saez-Rodriguez, J., Lauffenburger,
+D., A., Klamt, S., &amp; Theis, F. J. (2009). Transforming Boolean models
+to continuous models: Methodology and application to T-cell receptor
+signaling. BMC Systems Biology, 3(1), 98.
+<a class="reference external" href="https://doi.org/10.1186/1752-0509-3-98">https://doi.org/10.1186/1752-0509-3-98</a></p>
+<dl class="py method">
+<dt id="booldog.ode.BoolCubeODE.hill">
+<code class="sig-name descname"><span class="pre">hill</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_array</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.ode.BoolCubeODE.hill" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="booldog.ode.BoolCubeODE.normalised_hill">
+<code class="sig-name descname"><span class="pre">normalised_hill</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_array</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.ode.BoolCubeODE.normalised_hill" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="booldog.ode.BoolCubeODE.identity">
+<code class="sig-name descname"><span class="pre">identity</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_array</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.ode.BoolCubeODE.identity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="booldog.ode.BoolCubeODE.homologue_b1">
+<code class="sig-name descname"><span class="pre">homologue_b1</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.ode.BoolCubeODE.homologue_b1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create function to calculate the multivariate polynomial
+interpolation of Boolean functions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>B1</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>function</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="booldog.ode.SquadODE">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">booldog.ode.</span></code><code class="sig-name descname"><span class="pre">SquadODE</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transform</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.ode.SquadODE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>An ODE parent class.</p>
+<p>Use of SQUAD for the transformation of a Boolean graph to a system of ODEs.</p>
+<dl class="py attribute">
+<dt id="booldog.ode.SquadODE.dxdt">
+<code class="sig-name descname"><span class="pre">dxdt</span></code><a class="headerlink" href="#booldog.ode.SquadODE.dxdt" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>function</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="booldog.ode.SquadODE.param_gamma">
+<code class="sig-name descname"><span class="pre">param_gamma</span></code><a class="headerlink" href="#booldog.ode.SquadODE.param_gamma" title="Permalink to this definition">¶</a></dt>
+<dd><p>decay rate</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>arraylike</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="booldog.ode.SquadODE.param_h">
+<code class="sig-name descname"><span class="pre">param_h</span></code><a class="headerlink" href="#booldog.ode.SquadODE.param_h" title="Permalink to this definition">¶</a></dt>
+<dd><p>sigmoidal gain</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>arraylike</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="booldog.ode.SquadODE.Act">
+<code class="sig-name descname"><span class="pre">Act</span></code><a class="headerlink" href="#booldog.ode.SquadODE.Act" title="Permalink to this definition">¶</a></dt>
+<dd><p>activator matrix</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>arraylike</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="booldog.ode.SquadODE.Inh">
+<code class="sig-name descname"><span class="pre">Inh</span></code><a class="headerlink" href="#booldog.ode.SquadODE.Inh" title="Permalink to this definition">¶</a></dt>
+<dd><p>inhibitor matrix</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>arraylike</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Transform a Activation/Inhibition Boolean network
+into an ODE system via SQUAD transform.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>transform</strong> (<em>str</em>) – </p></li>
+<li><p><strong>gamma</strong> (<em>int</em><em>, </em><em>float</em><em>, or </em><em>dict</em><em>, </em><em>optional</em>) – decay rate</p></li>
+<li><p><strong>h</strong> (<em>int</em><em>, </em><em>float</em><em>, or </em><em>dict</em><em>, </em><em>optional</em>) – sigmoidal gain</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Only used as Parent class.</p>
 <p class="rubric">References</p>
 <p>[1] Di Cara, A., Garg, A., De Micheli, G., Xenarios, I., &amp; Mendoza, L.
 (2007). Dynamic simulation of regulatory networks using SQUAD.
 BMC Bioinformatics, 8(1), 1–10. <a class="reference external" href="https://doi.org/10.1186/1471-2105-8-462">https://doi.org/10.1186/1471-2105-8-462</a></p>
-<p>[2] Wittmann, D. M., Krumsiek, J., Saez-Rodriguez, J., Lauffenburger, D.
-A., Klamt, S., &amp; Theis, F. J. (2009). Transforming Boolean models to
-continuous models: Methodology and application to T-cell receptor
-signaling. BMC Systems Biology, 3(1), 98.
-<a class="reference external" href="https://doi.org/10.1186/1752-0509-3-98">https://doi.org/10.1186/1752-0509-3-98</a></p>
-</dd></dl>
-
-<dl class="py class">
-<dt id="booldog.ode.RacipeODE">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">booldog.ode.</span></code><code class="sig-name descname"><span class="pre">RacipeODE</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.ode.RacipeODE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 </dd></dl>
 
 <dl class="py class">
 <dt id="booldog.ode.ShaoODE">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">booldog.ode.</span></code><code class="sig-name descname"><span class="pre">ShaoODE</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.ode.ShaoODE" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">booldog.ode.</span></code><code class="sig-name descname"><span class="pre">ShaoODE</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.ode.ShaoODE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Source: From Boolean Network Model to Continuous Model Helps in Design of
 Functional Circuits</p>
 </dd></dl>
 
 <dl class="py class">
-<dt id="booldog.ode.SquadODE">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">booldog.ode.</span></code><code class="sig-name descname"><span class="pre">SquadODE</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transform</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.ode.SquadODE" title="Permalink to this definition">¶</a></dt>
+<dt id="booldog.ode.RacipeODE">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">booldog.ode.</span></code><code class="sig-name descname"><span class="pre">RacipeODE</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.ode.RacipeODE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Use of SQUAD for the transformation of a Boolean graph to a system of ODEs.</p>
-<p>Source: Dynamic simulation of regulatory networks using SQUAD [1].</p>
-<p class="rubric">References</p>
-<p>[1] Di Cara, A., Garg, A., De Micheli, G., Xenarios, I., &amp; Mendoza, L.
-(2007). Dynamic simulation of regulatory networks using SQUAD.
-BMC Bioinformatics, 8(1), 1–10. <a class="reference external" href="https://doi.org/10.1186/1471-2105-8-462">https://doi.org/10.1186/1471-2105-8-462</a></p>
+<p>Transform a Activation/Inhibition Boolean network
+into an ODE system via the RACIPE transform.</p>
+<p>If ODE parameters are passed as an int or float, the value is
+assigned for all variables
+other wise a dict with a ‘default’ key and value, and key value
+pairs for all others.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Attributes</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>dxdt</strong></dt><dd></dd>
-<dt><strong>param_gamma</strong></dt><dd></dd>
-<dt><strong>param_h</strong></dt><dd></dd>
-<dt><strong>Act</strong></dt><dd></dd>
-<dt><strong>Inh</strong></dt><dd></dd>
-</dl>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gamma</strong> (<em>float</em><em>, </em><em>dict</em>) – decay rate</p></li>
+<li><p><strong>h</strong> (<em>float</em><em>, </em><em>dict</em>) – gain(?)</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="py function">
-<dt id="booldog.ode.hill">
-<code class="sig-prename descclassname"><span class="pre">booldog.ode.</span></code><code class="sig-name descname"><span class="pre">hill</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.ode.hill" title="Permalink to this definition">¶</a></dt>
+<dl class="py data">
+<dt id="booldog.ode.ode_parent_classes">
+<code class="sig-prename descclassname"><span class="pre">booldog.ode.</span></code><code class="sig-name descname"><span class="pre">ode_parent_classes</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'boolecube':</span> <span class="pre">&lt;class</span> <span class="pre">'booldog.ode.BoolCubeODE'&gt;,</span> <span class="pre">'hillcube':</span> <span class="pre">&lt;class</span> <span class="pre">'booldog.ode.BoolCubeODE'&gt;,</span> <span class="pre">'normalisedhillcube':</span> <span class="pre">&lt;class</span> <span class="pre">'booldog.ode.BoolCubeODE'&gt;,</span> <span class="pre">'shao':</span> <span class="pre">&lt;class</span> <span class="pre">'booldog.ode.ShaoODE'&gt;,</span> <span class="pre">'squad':</span> <span class="pre">&lt;class</span> <span class="pre">'booldog.ode.SquadODE'&gt;}</span></em><a class="headerlink" href="#booldog.ode.ode_parent_classes" title="Permalink to this definition">¶</a></dt>
+<dd><p>transform to parent class translation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="booldog.ode.ODE">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">booldog.ode.</span></code><code class="sig-name descname"><span class="pre">ODE</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.ode.ODE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#booldog.ode.ShaoODE" title="booldog.ode.ShaoODE"><code class="xref py py-class docutils literal notranslate"><span class="pre">booldog.ode.ShaoODE</span></code></a>, <a class="reference internal" href="#booldog.ode.BoolCubeODE" title="booldog.ode.BoolCubeODE"><code class="xref py py-class docutils literal notranslate"><span class="pre">booldog.ode.BoolCubeODE</span></code></a>, <a class="reference internal" href="#booldog.ode.SquadODE" title="booldog.ode.SquadODE"><code class="xref py py-class docutils literal notranslate"><span class="pre">booldog.ode.SquadODE</span></code></a></p>
+<p>Generic ODE class produced by factory.</p>
+<p>Parent class is a variable, and defined by <cite>transform</cite> argument.</p>
+<p>Initialise ODE</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">booldog.BooleanGraph</span></code>) – </p></li>
+<li><p><strong>transform</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Other Parameters</dt>
+<dd class="field-even"><p><strong>**kwargs</strong> – In the case <cite>graph</cite> is not a BooleanGraph instance, additional
+keyword arguments passed to <code class="xref py py-class docutils literal notranslate"><span class="pre">booldog.BooleanGraph</span></code>.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="booldog.ode.ODE.event_function">
+<code class="sig-name descname"><span class="pre">event_function</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_t</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.ode.ODE.event_function" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event function for <cite>events</cite> of <cite>scipy.integrate.solve_ivp</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t</strong> (<em>float</em>) – Time-point of simulation</p></li>
+<li><p><strong>x</strong> (<em>narray</em>) – </p></li>
+<li><p><strong>event_t</strong> (<em>float</em>) – Time-point of event</p></li>
+<li><p><strong>*args</strong> – ignored</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="booldog.ode.ODE.terminal">
+<code class="sig-name descname"><span class="pre">terminal</span></code><a class="headerlink" href="#booldog.ode.ODE.terminal" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>True</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt id="booldog.ode.ODE.hill">
+<code class="sig-name descname"><span class="pre">hill</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_array</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.ode.ODE.hill" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py function">
-<dt id="booldog.ode.normalised_hill">
-<code class="sig-prename descclassname"><span class="pre">booldog.ode.</span></code><code class="sig-name descname"><span class="pre">normalised_hill</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.ode.normalised_hill" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt id="booldog.ode.ODE.homologue_b1">
+<code class="sig-name descname"><span class="pre">homologue_b1</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.ode.ODE.homologue_b1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create function to calculate the multivariate polynomial
+interpolation of Boolean functions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>B1</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>function</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="booldog.ode.ODE.identity">
+<code class="sig-name descname"><span class="pre">identity</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_array</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.ode.ODE.identity" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="py method">
+<dt id="booldog.ode.ODE.normalised_hill">
+<code class="sig-name descname"><span class="pre">normalised_hill</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_array</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.ode.ODE.normalised_hill" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="booldog.ode.ODE.update">
+<code class="sig-name descname"><span class="pre">update</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">off_nodes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.ode.ODE.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets dxdt</p>
+<p>Shortcut to parent class’s <cite>_get_system</cite> method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>off_nodes</strong> (<em>list of int</em><em>, </em><em>optional</em>) – List of node <strong>indices</strong> to set derivative to 0,
+i.e. these nodes will remain constant in simulation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py data">
+<dt id="booldog.ode.transforms">
+<code class="sig-prename descclassname"><span class="pre">booldog.ode.</span></code><code class="sig-name descname"><span class="pre">transforms</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'boolecube',</span> <span class="pre">'hillcube',</span> <span class="pre">'normalisedhillcube',</span> <span class="pre">'shao',</span> <span class="pre">'squad'}</span></em><a class="headerlink" href="#booldog.ode.transforms" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of accepted ODE transforms</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>set</p>
+</dd>
+</dl>
+</dd></dl>
 
 </div>
 
@@ -335,7 +583,7 @@ BMC Bioinformatics, 8(1), 1–10. <a class="reference external" href="https://do
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, Carissa Bleker.
+        &#169; Copyright 2020-2021 National Institute of Biology, Slovenia.
 
     </p>
   </div>
