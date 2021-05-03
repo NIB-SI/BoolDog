@@ -31,8 +31,8 @@ def ODE_factory(graph, transform, **kwargs):
     Other Parameters
     ----------------
     **kwargs
-        Additional arguments and keyword arguments passed to
-        specific parent class initializer.
+        Additional arguments and keyword arguments passed to specific parent
+        class initializer.
 
     Returns
     -------
@@ -47,45 +47,43 @@ def ODE_factory(graph, transform, **kwargs):
     For specific transforms, see the relevant parent class for keyword
     arguments (`**kwargs`).
 
-    The parent classes are defined in
+    The parent class per transform is defined in
     :py:data:`booldog.ode.ode_parent_classes`.
 
-    Here is a summary of key word arguments, which may be out of date. For
-    more comprehensive documentation of a specific transform, see
-    `help(booldog.ode.<CLASS>)` , where <CLASS> can be determined from
-    `booldog.ode.ode_classes[<transform>]` . E.g
-    `booldog.ode.ode_classes['squad']` , when a SQUAD transformer is
-    applicable.
 
-    If ODE parameters are passed as an int or float, the value is assigned for
-    all variables. Otherwise the parameter arguments should be a dict with a
-    default' key and value pair, and key value pairs for other nodes.
+    If the parameter is an int or float, the value is assigned for
+    all variables. Otherwise the parameter argument should be a dict
+    with keys as node names and values for their initial state. In
+    this case, if the initial state is not defined for all nodes, a
+    `default` key with the default value should also be present in the
+    dict.
 
+    Here follows a summary of the transform-specific keyword arguments
 
-    'squad'
-    See [1] for additional information.
-    - gamma : self-decay
-    - h :  sigmoid gain
+        'squad'
 
-    b 'boolcube'/'boolecube'
-    See [2] for additional information.
+            - :py:class:`booldog.ode.SquadODE`
+            - gamma : self-decay
+            - h :  sigmoid gain
 
-    - tau : life-time of species
-    - n : Hill coefficient
-    - k : Hill dissociation constant
+        'boolecube'
 
+            - :py:class:`booldog.ode.BoolCubeODE`
+            - tau : life-time of species
 
-    References
-    ----------
-    [1] Di Cara, A., Garg, A., De Micheli, G., Xenarios, I., & Mendoza, L.
-    (2007). Dynamic simulation of regulatory networks using SQUAD.
-    BMC Bioinformatics, 8(1), 1–10. https://doi.org/10.1186/1471-2105-8-462
+        'hillcube'
 
-    [2] Wittmann, D. M., Krumsiek, J., Saez-Rodriguez, J., Lauffenburger, D.
-    A., Klamt, S., & Theis, F. J. (2009). Transforming Boolean models to
-    continuous models: Methodology and application to T-cell receptor
-    signaling. BMC Systems Biology, 3(1), 98.
-    https://doi.org/10.1186/1752-0509-3-98
+            - :py:class:`booldog.ode.BoolCubeODE`
+            - tau : life-time of species
+            - n : Hill coefficient
+            - k : Hill dissociation constant
+
+        'normalisedhillcube'
+
+            - :py:class:`booldog.ode.BoolCubeODE`
+            - tau : life-time of species
+            - n : Hill coefficient
+            - k : Hill dissociation constant
     '''
     transform = transform.lower()
     if transform == 'placeholder':
@@ -97,7 +95,9 @@ def ODE_factory(graph, transform, **kwargs):
         ParentClass = ode_parent_classes[transform]
 
     class ODE(ParentClass):
-        '''Generic ODE class produced by factory '''
+        '''Generic ODE class produced by factory.
+
+        Parent class is a variable, and defined by `transform` argument. '''
 
         def __init__(self, graph, transform, **kwargs):
             '''Initialise ODE
@@ -130,16 +130,16 @@ def ODE_factory(graph, transform, **kwargs):
 
 
         def event_function(self, t, x, event_t, *args):
-            '''Event function for `events` of `solve_ivp`
+            '''Event function for `events` of `scipy.integrate.solve_ivp`.
 
             Parameters
             ----------
             t : float
-                Timepoint of simulation
+                Time-point of simulation
             x : narray
 
             event_t : float
-                Timepoint of event
+                Time-point of event
 
             *args
                 ignored
@@ -155,18 +155,20 @@ def ODE_factory(graph, transform, **kwargs):
         def update(self, off_nodes=None):
             ''' Resets dxdt
 
-            Shortcut to parent classe's `_get_system`.
+            Shortcut to parent class's `_get_system` method.
 
             Parameters
             ----------
             off_nodes : list of int, optional
-                List of node **indices** to turn set derivative to 0,
-                i.e. these nodes will remain constant.
+                List of node **indices** to set derivative to 0,
+                i.e. these nodes will remain constant in simulation.
             '''
             self.dxdt =  self._get_system(off_nodes=off_nodes)
 
+    # for sphinx documentation
     ODE_factory.ex_class = ODE
     ODE_factory.ex_class.__bases__ = tuple(set(ode_parent_classes.values()))
+
     return ODE(graph, transform, **kwargs)
 
 ##############################
@@ -175,18 +177,26 @@ def ODE_factory(graph, transform, **kwargs):
 
 # https://github.com/krumsieklab/Odefy/blob/11d048d550a8f64250ba01f76f5a83048c8be6cf/Odefy-1.20/code/models/CreateCubeCalls.m
 class BoolCubeODE():
-    '''BoolCubeODE class Use of multivariate polynomial interpolation for the transformation of a Boolean graph to a system of ODEs.
+    '''An ODE parent class.
 
-    Source: Transforming Boolean models to continuous models: methodology and application to T-cell receptor signaling [1].
+    Use of multivariate polynomial interpolation for the transformation of a Boolean graph to a system of ODEs.
 
     Attributes
     ----------
-    dxdt
-    param_tau
-    param_n
-    param_k
-    param_dict
-    '''
+    dxdt : function
+
+    param_tau : arraylike
+        life-time of species
+
+    param_n : arraylike
+        Hill coefficient
+
+    param_k : arraylike
+        Hill dissociation constant
+
+    param_dict : dict
+        track parameters
+     '''
 
     def __init__(self, transform, tau=1, n=3, k=0.5, **kwargs):
         ''' Initialise BoolCube ODE system.
@@ -210,16 +220,11 @@ class BoolCubeODE():
 
         tau_i = zero --> dx_i/dt = 0
 
-        If ODE parameters are passed as an int or float, the value is assigned
-        for all variables. Otherwise the parameter arguments should be a dict
-        with a default' key and value pair, and key value pairs for other
-        nodes.
-
         References
         ----------
-        [1] Wittmann, D. M., Krumsiek, J., Saez-Rodriguez, J., Lauffenburger, D.
-        A., Klamt, S., & Theis, F. J. (2009). Transforming Boolean models to
-        continuous models: Methodology and application to T-cell receptor
+        [1] Wittmann, D. M., Krumsiek, J., Saez-Rodriguez, J., Lauffenburger,
+        D., A., Klamt, S., & Theis, F. J. (2009). Transforming Boolean models
+        to continuous models: Methodology and application to T-cell receptor
         signaling. BMC Systems Biology, 3(1), 98.
         https://doi.org/10.1186/1752-0509-3-98
 
@@ -368,17 +373,26 @@ class BoolCubeODE():
 
 
 class SquadODE():
-    ''' Use of SQUAD for the transformation of a Boolean graph to a system of ODEs.
+    '''An ODE parent class.
 
-    Source: Dynamic simulation of regulatory networks using SQUAD [1].
+    Use of SQUAD for the transformation of a Boolean graph to a system of ODEs.
 
     Attributes
     ----------
-    dxdt
-    param_gamma
-    param_h
-    Act
-    Inh
+    dxdt : function
+
+    param_gamma : arraylike
+        decay rate
+
+    param_h : arraylike
+        sigmoidal gain
+
+    Act : arraylike
+        activator matrix
+
+    Inh : arraylike
+        inhibitor matrix
+
     '''
 
     def __init__(self, transform, gamma=1, h=10, **kwargs):
@@ -399,11 +413,6 @@ class SquadODE():
         Notes
         ----------
         Only used as Parent class.
-
-        If ODE parameters are passed as an int or float, the value is assigned
-        for all variables. Otherwise the parameter arguments should be a dict
-        with a default' key and value pair, and key value pairs for other
-        nodes.
 
         References
         ----------
@@ -472,10 +481,6 @@ class SquadODE():
             return d
 
         return dxdt
-
-
-
-
 
 
 class ShaoODE():

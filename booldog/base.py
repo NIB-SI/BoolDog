@@ -30,7 +30,7 @@ _style_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),
 
 class RegulatoryNetwork(BooleanGraph):
     '''A class to represent a regulatory network.
-       
+
     '''
 
     def __init__(self, graph, **kwargs):
@@ -39,14 +39,14 @@ class RegulatoryNetwork(BooleanGraph):
         Parameters
         ----------
         graph : `booldog.BooleanGraph` or dict or str
-            If not a :py:class:`booldog.BooleanGraph` instance, then correct 
-            input for initializing a :py:class:`booldog.BooleanGraph`. 
+            If not a :py:class:`booldog.BooleanGraph` instance, then correct
+            input for initializing a :py:class:`booldog.BooleanGraph`.
 
         Other Parameters
         ----------
         **kwargs
-            In the case `graph` is not a BooleanGraph instance, additional 
-            keyword arguments passed to :py:class:`booldog.BooleanGraph`. 
+            In the case `graph` is not a BooleanGraph instance, additional
+            keyword arguments passed to :py:class:`booldog.BooleanGraph`.
         '''
         super().__init__(graph,  **kwargs)
 
@@ -62,7 +62,7 @@ class RegulatoryNetwork(BooleanGraph):
         Other Parameters
         ----------
         **kwargs
-            Additional keyword arguments passed to :py:func:`booldog.ODE`. 
+            Additional keyword arguments passed to :py:func:`booldog.ODE`.
         '''
         ode_system = ODE_factory(self, transform, **kwargs)
         return ode_system
@@ -81,23 +81,23 @@ class RegulatoryNetwork(BooleanGraph):
         Parameters
         ----------
         node_events :  None or list of dict, optional
-            List of node events with a dictionary defining each event. 
+            List of node events with a dictionary defining each event.
             See :ref:`Notes <tagnotesne>` for description of event definitions.
         edge_events :  None or list of dict, optional
             Disrupt connections #TODO not implemented
         t_min, t_max : float, optional
-            Interval of integration, simulation starts with `t=t_min` and 
+            Interval of integration, simulation starts with `t=t_min` and
             integrates until it reaches `t=t_max`.
         initial_state : float or int or array or dict, optional
-            Initial state of nodes. See :ref:`Notes <tagnotesis>` for 
-            description of format. 
+            Initial state of nodes. See :ref:`Notes <tagnotesis>` for
+            description of format.
         plot : bool, optional
             Whether to plot the simultion results
         export : bool or path object or string, optional
-            False, or a file path to save simulation results. 
+            False, or a file path to save simulation results.
             Exports values to 5 decimal points.
         ode_system: None or :py:func:`booldog.ODE`, optional
-            If none, the ODE is created with 
+            If none, the ODE is created with
             :py:func:`transform_bool_to_continuous`
 
         Other Parameters
@@ -108,7 +108,7 @@ class RegulatoryNetwork(BooleanGraph):
             For description of these arguments see :py:func:`booldog.ODE`.
 
             If `plot=True` , additional keyword arguments are
-            passed to :py:func:`plot_simulation`. 
+            passed to :py:func:`plot_simulation`.
 
         Returns
         -------
@@ -123,7 +123,7 @@ class RegulatoryNetwork(BooleanGraph):
         .. _tagnotesne:
 
         Format of the `node_events` parameter
-            The node events are passed as a list of dictionaries defining each 
+            The node events are passed as a list of dictionaries defining each
             event. Dictionary keys are:
 
             - `time`: time at which the event occurs
@@ -146,12 +146,12 @@ class RegulatoryNetwork(BooleanGraph):
 
         Format of the `initial_state` parameter
             If the initial state is an int or float, the value is assigned for
-            all variables. Otherwise the parameter argument should be a dict 
-            with keys as node names and values for their initial state. In this 
-            case, if the initial state is not definied for all nodes, a 
-            `default` key with the default value should also be present in the 
-            dict. 
-        
+            all variables. Otherwise the parameter argument should be a dict
+            with keys as node names and values for their initial state. In
+            this case, if the initial state is not defined for all nodes, a
+            `default` key with the default value should also be present in the
+            dict.
+
         Todo
         ----
 
@@ -292,7 +292,7 @@ class RegulatoryNetwork(BooleanGraph):
         **kwargs):
         """Plot simulation results.
 
-        Called by :py:func:`continous_simulation`. 
+        Called by :py:func:`continous_simulation`.
 
         Parameters
         ----------
@@ -301,18 +301,18 @@ class RegulatoryNetwork(BooleanGraph):
         y : ndarray, shape (n_time_points, n_nodes)
             Values of the solution at t.
         plot_nodes :  None or list of str or list of lists of str, optional
-            Subset of nodes to plot. If `None`, plot all nodes. If a list of 
-            lists, each sublist is plotted as a subplot. 
+            Subset of nodes to plot. If `None`, plot all nodes. If a list of
+            lists, each sublist is plotted as a subplot.
         node_events : None or list of dict, optional
-            List of node events with a dictionary defining each event. 
+            List of node events with a dictionary defining each event.
             See :ref:`Notes <tagnotesne>` for description of event definitions.
         edge_events :  None or list of dict, optional
             Disrupt connections #TODO not implemented
         title : None or string or list of string
-            If str, main title of the plot. If a list of str, subtitles of 
-            subplots as defined by `plot_node`. In this case `plot_nodes` 
+            If str, main title of the plot. If a list of str, subtitles of
+            subplots as defined by `plot_node`. In this case `plot_nodes`
             should be a list of lists, and `title` should be the same length as
-            `plot_nodes`. 
+            `plot_nodes`.
         figsize : (float, float)
             Width, height in inches.
 
@@ -325,7 +325,7 @@ class RegulatoryNetwork(BooleanGraph):
         ----------
         fig :  matplotlib.figure.Figure
         axes : array of matplotlib.axes.Axes
-     
+
         """
 
         # collect vertical lines at events
@@ -408,8 +408,8 @@ class RegulatoryNetwork(BooleanGraph):
             if main_title:
                 fig.suptitle(main_title)
 
-            # issues with keeping legend in figure bounds 
-            # when using constrained_layout see 
+            # issues with keeping legend in figure bounds
+            # when using constrained_layout see
             # https://matplotlib.org/stable/tutorials/intermediate/constrainedlayout_guide.html#legends #noqa
             fig.canvas.draw()
             for ax in axes.flatten():

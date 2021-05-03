@@ -23,10 +23,10 @@ class BooleanGraph:
     n : int
         The number of nodes/variables in the graph
     primes : dict
-        Prime implicants of the Boolean graph. See 
-        `PyBoolNet:prime implicants 
+        Prime implicants of the Boolean graph. See
+        `PyBoolNet:prime implicants
         <https://pyboolnet.readthedocs.io/en/latest/Manual.html#prime-implicants>`_
-        for more information. 
+        for more information.
     nodes : tuple of str
         Lists node names in the graph
     index : dict
@@ -40,13 +40,12 @@ class BooleanGraph:
         ----------
         graph : str or dict
             A file path to the graph or a dictionary with the graph.
+
         data_format : {'primes', 'interactions', 'bnet', 'graphml'}
             String specifying data format.
 
-
-
-        kwargs #TODO
-            Additional keyword arguments for the importer function.
+        kwargs
+            #TODO Additional keyword arguments for the importer function.
 
         '''
         if isinstance(graph, BooleanGraph):
@@ -77,7 +76,9 @@ class BooleanGraph:
         Used in SquadODE
         Create logic matrices
 
-        TODO: these can be made sparse matrices without much effort
+        TODO
+        ----
+        these can be made sparse matrices without much effort
         see https://docs.scipy.org/doc/scipy/reference/sparse.html to
         use e.g. dok_matrix
         '''
@@ -157,24 +158,28 @@ class BooleanGraph:
         This is a wrapper for PyBoolNet.StateTransitionGraphs.primes2stg,
         and therefore takes the same argument format for initial states.
 
-        From PyBoolNet documentation:
-        > Either a list of states in dict or str format
+        **From PyBoolNet documentation:**
 
-            init = ["000", "111"]
-            init = ["000", {"v1":1,"v2":1,"v3":1}]
+        .. code-block:: text
 
-        > or as a function that is called on every state and must return
-        > either True or False to indicate whether the state ought to be initial:
+            Either a list of states in dict or str format::
 
-            init = lambda x: x["v1"]>=x["v2"]
+                init = ["000", "111"]
+                init = ["000", {"v1":1,"v2":1,"v3":1}]
 
-        > or by a subspace in which case all the states contained in it are
-        > initial:
+            or as a function that is called on every state and must return
+            either True or False to indicate whether the state ought to be initial::
 
-            init = "--1"
-            init = {"v3":1}
+                init = lambda x: x["v1"]>=x["v2"]
 
-        #TODO
+            or by a subspace in which case all the states contained in it are
+            initial::
+
+                init = "--1"
+                init = {"v3":1}
+
+        TODO
+        ----
         optional list of nodes to plot
 
         '''
@@ -219,7 +224,7 @@ class BooleanGraph:
             StateTransitionGraphs.stg2image(stg, fig, LayoutEngine="dot")
 
     def steady_states(self):
-        '''Returns all steady states of the Boolean graph.
+        '''All steady states of the Boolean graph.
 
         '''
         steady_states = AspSolver.steady_states(self.primes)
