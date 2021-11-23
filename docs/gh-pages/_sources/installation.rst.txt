@@ -29,8 +29,8 @@ Uninstall
    pip uninstall booldog
 
 
-Known issues
-============
+Known installation issues
+=========================
 
 1. Pyeda not compiling on Windows
 ---------------------------------
@@ -49,7 +49,7 @@ Then re-attempted BoolDoG installation.
 Dependencies
 ============
 
-These will be installed automatically when installing BoolDoG.
+Required dependencies will be installed automatically when installing BoolDoG.
 The following dependencies are required:
 
 * numpy
