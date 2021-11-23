@@ -1,91 +1,82 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>booldog.bool_graph module &mdash; BoolDoG 0.1 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="booldog.ode module" href="booldog.ode.html" />
     <link rel="prev" title="booldog.base module" href="booldog.base.html" /> 
+    <script type="application/ld+json" >
+{
+  "@context": "http://schema.org",
+  "@id": "https://nib-si.github.io/BoolDoG",
+  "@type": "Tool",
+  "additionalType": [],
+  "applicationCategory": "Computational science tool",
+  "author": [],
+  "codeRepository": [
+    "https://github.com/NIB-SI/BoolDoG"
+  ],
+  "dct:conformsTo": "https://bioschemas.org/profiles/Tool/0.4-DRAFT-2019_07_19",
+  "description": "A Python package for analyses of Boolean and semi-qualitative Boolean networks.",
+  "discussionUrl": [],
+  "featureList": [],
+  "inputFormat": [],
+  "license": [
+    "https://spdx.org/licenses/MIT"
+  ],
+  "name": "BoolDoG",
+  "programmingLanguage": [
+    {
+      "@id": "Python",
+      "@type": "ComputerLanguage"
+    }
+  ],
+  "provider": [
+    {
+      "@context": "http://schema.org",
+      "@type": "Organization",
+      "dct:conformsTo": "https://bioschemas.org/profiles/Organization/0.2-DRAFT-2019_07_19",
+      "description": "",
+      "name": ""
+    }
+  ],
+  "softwareVersion": "0.0.1",
+  "url": "https://github.com/NIB-SI/BoolDoG"
+}
+</script >
+
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #009739" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> BoolDoG
-          
-
-          
-            
             <img src="../_static/logo.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
-          
-
-          
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Overview</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../example.html">Example</a></li>
 </ul>
-<p class="caption"><span class="caption-text">API</span></p>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="booldog.html">booldog package</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="booldog.html#submodules">Submodules</a><ul class="current">
@@ -98,83 +89,41 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #009739" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">BoolDoG</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="booldog.html">booldog package</a> &raquo;</li>
-        
       <li>booldog.bool_graph module</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../_sources/api/booldog.bool_graph.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="module-booldog.bool_graph">
-<span id="booldog-bool-graph-module"></span><h1>booldog.bool_graph module<a class="headerlink" href="#module-booldog.bool_graph" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="module-booldog.bool_graph">
+<span id="booldog-bool-graph-module"></span><h1>booldog.bool_graph module<a class="headerlink" href="#module-booldog.bool_graph" title="Permalink to this headline"></a></h1>
 <dl class="py class">
-<dt id="booldog.bool_graph.BooleanGraph">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">booldog.bool_graph.</span></code><code class="sig-name descname"><span class="pre">BooleanGraph</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'bnet'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.bool_graph.BooleanGraph" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="booldog.bool_graph.BooleanGraph">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">booldog.bool_graph.</span></span><span class="sig-name descname"><span class="pre">BooleanGraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'bnet'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.bool_graph.BooleanGraph" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A class to represent a Boolean graph.</p>
 <dl class="py attribute">
-<dt id="booldog.bool_graph.BooleanGraph.n">
-<code class="sig-name descname"><span class="pre">n</span></code><a class="headerlink" href="#booldog.bool_graph.BooleanGraph.n" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="booldog.bool_graph.BooleanGraph.n">
+<span class="sig-name descname"><span class="pre">n</span></span><a class="headerlink" href="#booldog.bool_graph.BooleanGraph.n" title="Permalink to this definition"></a></dt>
 <dd><p>The number of nodes/variables in the graph</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -184,8 +133,8 @@
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="booldog.bool_graph.BooleanGraph.primes">
-<code class="sig-name descname"><span class="pre">primes</span></code><a class="headerlink" href="#booldog.bool_graph.BooleanGraph.primes" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="booldog.bool_graph.BooleanGraph.primes">
+<span class="sig-name descname"><span class="pre">primes</span></span><a class="headerlink" href="#booldog.bool_graph.BooleanGraph.primes" title="Permalink to this definition"></a></dt>
 <dd><p>Prime implicants of the Boolean graph. See
 <a class="reference external" href="https://pyboolnet.readthedocs.io/en/latest/Manual.html#prime-implicants">PyBoolNet:prime implicants</a>
 for more information.</p>
@@ -197,8 +146,8 @@ for more information.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="booldog.bool_graph.BooleanGraph.nodes">
-<code class="sig-name descname"><span class="pre">nodes</span></code><a class="headerlink" href="#booldog.bool_graph.BooleanGraph.nodes" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="booldog.bool_graph.BooleanGraph.nodes">
+<span class="sig-name descname"><span class="pre">nodes</span></span><a class="headerlink" href="#booldog.bool_graph.BooleanGraph.nodes" title="Permalink to this definition"></a></dt>
 <dd><p>Lists node names in the graph</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -208,8 +157,8 @@ for more information.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="booldog.bool_graph.BooleanGraph.index">
-<code class="sig-name descname"><span class="pre">index</span></code><a class="headerlink" href="#booldog.bool_graph.BooleanGraph.index" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="booldog.bool_graph.BooleanGraph.index">
+<span class="sig-name descname"><span class="pre">index</span></span><a class="headerlink" href="#booldog.bool_graph.BooleanGraph.index" title="Permalink to this definition"></a></dt>
 <dd><p>Dictionary of node name to integer index for indexing arrays</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -229,8 +178,8 @@ for more information.</p>
 </dd>
 </dl>
 <dl class="py method">
-<dt id="booldog.bool_graph.BooleanGraph.primes_to_matrices">
-<code class="sig-name descname"><span class="pre">primes_to_matrices</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#booldog.bool_graph.BooleanGraph.primes_to_matrices" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="booldog.bool_graph.BooleanGraph.primes_to_matrices">
+<span class="sig-name descname"><span class="pre">primes_to_matrices</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#booldog.bool_graph.BooleanGraph.primes_to_matrices" title="Permalink to this definition"></a></dt>
 <dd><p>Reduce graph to Activation and Inhibition Matrices.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -248,8 +197,8 @@ Create logic matrices</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="booldog.bool_graph.BooleanGraph.generate_states">
-<code class="sig-name descname"><span class="pre">generate_states</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fixed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.bool_graph.BooleanGraph.generate_states" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="booldog.bool_graph.BooleanGraph.generate_states">
+<span class="sig-name descname"><span class="pre">generate_states</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fixed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.bool_graph.BooleanGraph.generate_states" title="Permalink to this definition"></a></dt>
 <dd><p>Generate all possible states of the graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -263,8 +212,8 @@ node in graph.nodes, and state in {0, 1}.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="booldog.bool_graph.BooleanGraph.plot_state_transitions">
-<code class="sig-name descname"><span class="pre">plot_state_transitions</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.bool_graph.BooleanGraph.plot_state_transitions" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="booldog.bool_graph.BooleanGraph.plot_state_transitions">
+<span class="sig-name descname"><span class="pre">plot_state_transitions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.bool_graph.BooleanGraph.plot_state_transitions" title="Permalink to this definition"></a></dt>
 <dd><p>Plot the state transition graph, from optional initial values.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -301,14 +250,14 @@ initial::
 </dd></dl>
 
 <dl class="py method">
-<dt id="booldog.bool_graph.BooleanGraph.steady_states">
-<code class="sig-name descname"><span class="pre">steady_states</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#booldog.bool_graph.BooleanGraph.steady_states" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="booldog.bool_graph.BooleanGraph.steady_states">
+<span class="sig-name descname"><span class="pre">steady_states</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#booldog.bool_graph.BooleanGraph.steady_states" title="Permalink to this definition"></a></dt>
 <dd><p>All steady states of the Boolean graph.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="booldog.bool_graph.BooleanGraph.get_parents">
-<code class="sig-name descname"><span class="pre">get_parents</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.bool_graph.BooleanGraph.get_parents" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="booldog.bool_graph.BooleanGraph.get_parents">
+<span class="sig-name descname"><span class="pre">get_parents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.bool_graph.BooleanGraph.get_parents" title="Permalink to this definition"></a></dt>
 <dd><p>Fetch regulators/inputs to a node</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -324,62 +273,45 @@ initial::
 </dd></dl>
 
 <dl class="py method">
-<dt id="booldog.bool_graph.BooleanGraph.get_interactions">
-<code class="sig-name descname"><span class="pre">get_interactions</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">direction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'out'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.bool_graph.BooleanGraph.get_interactions" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="booldog.bool_graph.BooleanGraph.get_interactions">
+<span class="sig-name descname"><span class="pre">get_interactions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">direction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'out'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.bool_graph.BooleanGraph.get_interactions" title="Permalink to this definition"></a></dt>
 <dd><p>direction out: interactions[a][b]  a –&gt; b
 direction in:  interactions[a][b]  a &lt;– b</p>
 </dd></dl>
 
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="booldog.ode.html" class="btn btn-neutral float-right" title="booldog.ode module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="booldog.base.html" class="btn btn-neutral float-left" title="booldog.base module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="booldog.ode.html" class="btn btn-neutral float-right" title="booldog.ode module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2020-2021 National Institute of Biology, Slovenia.
-
-    </p>
+    <p>&#169; Copyright 2020-2021 National Institute of Biology, Slovenia.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

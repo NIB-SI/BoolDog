@@ -8,10 +8,11 @@
 
 Uses sphinx and sphinx-rtd-theme, and numpydocs for styling.
 
-     create -n docs python pip
-     conda activate docs
-     pip install -r requirements.txt 
-     pip install -r requirements-no-deps.txt --no-deps
+    cd docs
+    conda create -n docs python pip
+    conda activate docs
+    pip install -r requirements.txt
+    pip install -r requirements-no-deps.txt --no-deps
 
 Then to make/remake docs:
 

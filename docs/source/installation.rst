@@ -36,19 +36,20 @@ Known issues
 ---------------------------------
 This is an issue with pip and pyeda: https://github.com/cjdrake/pyeda/issues/126.
 
-There is a possible fix, not yet merged: https://github.com/cjdrake/pyeda/pull/153. 
+There is a possible fix, not yet merged: https://github.com/cjdrake/pyeda/pull/153.
 
-To solve, download the appropriate binary from `Christophe Gohlke’s pythonlibs page <https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyeda>`_, and run 
+To solve, download the appropriate binary from `Christophe Gohlke’s pythonlibs page <https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyeda>`_, and run
 
 .. code-block:: bash
 
    pip install <downladed.whl>
 
-Then re-attempted BoolDoG installation. 
+Then re-attempted BoolDoG installation.
 
 Dependencies
 ============
 
+These will be installed automatically when installing BoolDoG.
 The following dependencies are required:
 
 * numpy
@@ -59,3 +60,4 @@ The following dependencies are required:
 * pygraphviz (optional)
 * PyBoolNet
 * networkx
+
