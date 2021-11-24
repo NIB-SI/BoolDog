@@ -1,1 +1,0 @@
-https://github.com/pandas-dev/pandas/blob/02ab42f94679b6a4ef9bc93c6a903dc81465ea28/pandas/core/frame.py#L433
