@@ -21,6 +21,12 @@ Install directly:
    pip install git+https://github.com/NIB-SI/sBoolDoG.git
 
 
+Test
+----
+
+To runs tests, use
+
+
 Uninstall
 =========
 
@@ -29,8 +35,8 @@ Uninstall
    pip uninstall booldog
 
 
-Known issues
-============
+Known installation issues
+=========================
 
 1. Pyeda not compiling on Windows
 ---------------------------------
@@ -42,14 +48,14 @@ To solve, download the appropriate binary from `Christophe Gohlke’s pythonlibs
 
 .. code-block:: bash
 
-   pip install <downladed.whl>
+   pip install <downloaded.whl>
 
 Then re-attempted BoolDoG installation.
 
 Dependencies
 ============
 
-These will be installed automatically when installing BoolDoG.
+Required dependencies will be automatically installed when installing BoolDoG.
 The following dependencies are required:
 
 * numpy

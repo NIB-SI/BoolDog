@@ -20,7 +20,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="booldog.base module" href="booldog.base.html" />
-    <link rel="prev" title="Example" href="../example.html" /> 
+    <link rel="prev" title="File formats" href="../file_formats.html" /> 
     <meta name="google-site-verification" content="9jGGfgofMrQ_y61Lhymy5MZmfI6DzTOCTSV3xegf-Ec" />
     <script type="application/ld+json" >
 {
@@ -73,6 +73,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../example.html">Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../file_formats.html">File formats</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul class="current">
@@ -131,6 +132,46 @@ keyword arguments passed to <code class="xref py py-class docutils literal notra
 </dd>
 </dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="booldog.RegulatoryNetwork.boolean_simulation">
+<span class="sig-name descname"><span class="pre">boolean_simulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initial_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.RegulatoryNetwork.boolean_simulation" title="Permalink to this definition"></a></dt>
+<dd><p>Compute a Boolean simulation (or state transition)
+from optional initial values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>initial_values</strong> (<em>int</em><em>, </em><em>str</em><em>, </em><em>list</em><em>, </em><em>dict</em><em>, </em><em>optional</em>) – Initial state, see Notes for format</p></li>
+<li><p><strong>plot</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to plot the simulation results</p></li>
+<li><p><strong>export</strong> (<em>bool</em><em> or </em><em>path object</em><em> or </em><em>string</em><em>, </em><em>optional</em>) – False, or a file path to save simulation results.
+Exports valu</p></li>
+<li><p><strong>**kwargs</strong> – If <cite>plot=True</cite> , additional keyword arguments are
+passed to <a class="reference internal" href="#booldog.RegulatoryNetwork.plot_boolean_simulation" title="booldog.RegulatoryNetwork.plot_boolean_simulation"><code class="xref py py-func docutils literal notranslate"><span class="pre">plot_boolean_simulation()</span></code></a>.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This is a wrapper for pyboolnet.state_transition_graphs.primes2stg,
+and therefore takes the same argument format for initial states.</p>
+<p><strong>From PyBoolNet documentation:</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Either a list of states in dict or str format::
+
+    init = [&quot;000&quot;, &quot;111&quot;]
+    init = [&quot;000&quot;, {&quot;v1&quot;:1,&quot;v2&quot;:1,&quot;v3&quot;:1}]
+
+or as a function that is called on every state and must return
+either True or False to indicate whether the state ought to be initial::
+
+    init = lambda x: x[&quot;v1&quot;]&gt;=x[&quot;v2&quot;]
+
+or by a subspace in which case all the states contained in it are
+initial::
+
+    init = &quot;--1&quot;
+    init = {&quot;v3&quot;:1}
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="booldog.RegulatoryNetwork.continuous_simulation">
 <span class="sig-name descname"><span class="pre">continuous_simulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_events</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_events</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ode_system</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.RegulatoryNetwork.continuous_simulation" title="Permalink to this definition"></a></dt>
 <dd><p>Run continuous semi-qualitative simulation.</p>
@@ -146,7 +187,7 @@ integrates until it reaches <cite>t=t_max</cite>.</p></li>
 integrates until it reaches <cite>t=t_max</cite>.</p></li>
 <li><p><strong>initial_state</strong> (<em>float</em><em> or </em><em>int</em><em> or </em><em>array</em><em> or </em><em>dict</em><em>, </em><em>optional</em>) – Initial state of nodes. See <a class="reference internal" href="#tagnotesis"><span class="std std-ref">Notes</span></a> for
 description of format.</p></li>
-<li><p><strong>plot</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to plot the simultion results</p></li>
+<li><p><strong>plot</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to plot the simulation results</p></li>
 <li><p><strong>export</strong> (<em>bool</em><em> or </em><em>path object</em><em> or </em><em>string</em><em>, </em><em>optional</em>) – False, or a file path to save simulation results.
 Exports values to 5 decimal points.</p></li>
 <li><p><strong>ode_system</strong> (None or <code class="xref py py-func docutils literal notranslate"><span class="pre">booldog.ODE()</span></code>, optional) – If none, the ODE is created with
@@ -202,7 +243,7 @@ dict.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="booldog.RegulatoryNetwork.generate_states">
-<span class="sig-name descname"><span class="pre">generate_states</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fixed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.RegulatoryNetwork.generate_states" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">generate_states</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fixed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.RegulatoryNetwork.generate_states" title="Permalink to this definition"></a></dt>
 <dd><p>Generate all possible states of the graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -235,6 +276,25 @@ direction in:  interactions[a][b]  a &lt;– b</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.RegulatoryNetwork.plot_boolean_simulation">
+<span class="sig-name descname"><span class="pre">plot_boolean_simulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">booldog_style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_nodes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.RegulatoryNetwork.plot_boolean_simulation" title="Permalink to this definition"></a></dt>
+<dd><p>Plot the state transition graph, from optional initial values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fig</strong> (<em>str</em>) – File name of generated figure</p></li>
+<li><p><strong>initial_values</strong> (<em>int</em><em>, </em><em>str</em><em>, </em><em>list</em><em>, </em><em>dict</em>) – Initial state, see Notes for format</p></li>
+<li><p><strong>new_style</strong> (<em>bool</em>) – Whether to use booldog style, or PyBoolNet style (default) to
+plot the state transition graph. Requires pygraphviz (If not
+installed, will default to PyBoolNet version.)</p></li>
+<li><p><strong>plot_nodes</strong> (<em>None</em><em> or </em><em>list of str</em><em>, </em><em>optional</em>) – Subset of nodes to plot. If <cite>None</cite>, plot all nodes.
+Only valid if <cite>new_style</cite> is <cite>True</cite>.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -274,7 +334,7 @@ should be a list of lists, and <cite>title</cite> should be the same length as
 
 <dl class="py method">
 <dt class="sig sig-object py" id="booldog.RegulatoryNetwork.plot_state_transitions">
-<span class="sig-name descname"><span class="pre">plot_state_transitions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.RegulatoryNetwork.plot_state_transitions" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">plot_state_transitions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">booldog_style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_nodes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.RegulatoryNetwork.plot_state_transitions" title="Permalink to this definition"></a></dt>
 <dd><p>Plot the state transition graph, from optional initial values.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -284,30 +344,11 @@ should be a list of lists, and <cite>title</cite> should be the same length as
 <li><p><strong>new_style</strong> (<em>bool</em>) – Whether to use booldog style, or PyBoolNet style (default) to
 plot the state transition graph. Requires pygraphviz (If not
 installed, will default to PyBoolNet version.)</p></li>
+<li><p><strong>plot_nodes</strong> (<em>None</em><em> or </em><em>list of str</em><em>, </em><em>optional</em>) – Subset of nodes to plot. If <cite>None</cite>, plot all nodes.
+Only valid if <cite>new_style</cite> is <cite>True</cite>.</p></li>
 </ul>
 </dd>
 </dl>
-<p class="rubric">Notes</p>
-<p>This is a wrapper for PyBoolNet.StateTransitionGraphs.primes2stg,
-and therefore takes the same argument format for initial states.</p>
-<p><strong>From PyBoolNet documentation:</strong></p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Either a list of states in dict or str format::
-
-    init = [&quot;000&quot;, &quot;111&quot;]
-    init = [&quot;000&quot;, {&quot;v1&quot;:1,&quot;v2&quot;:1,&quot;v3&quot;:1}]
-
-or as a function that is called on every state and must return
-either True or False to indicate whether the state ought to be initial::
-
-    init = lambda x: x[&quot;v1&quot;]&gt;=x[&quot;v2&quot;]
-
-or by a subspace in which case all the states contained in it are
-initial::
-
-    init = &quot;--1&quot;
-    init = {&quot;v3&quot;:1}
-</pre></div>
-</div>
 </dd></dl>
 
 <dl class="py method">
@@ -437,7 +478,7 @@ dict.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../example.html" class="btn btn-neutral float-left" title="Example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../file_formats.html" class="btn btn-neutral float-left" title="File formats" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="booldog.base.html" class="btn btn-neutral float-right" title="booldog.base module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

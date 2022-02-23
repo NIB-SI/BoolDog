@@ -17,6 +17,7 @@ A Python package for analyses of Boolean and semi-qualitative Boolean networks.
 
    installation
    example
+   file_formats
 
 .. toctree::
    :caption: API

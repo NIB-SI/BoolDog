@@ -11,9 +11,9 @@ A Python package for analyses of Boolean and semi-qualitative Boolean networks.
 To install:
 
 ```bash
-    git clone https://github.com/NIB-SI/BoolDoG.git
-    cd BoolDoG
-    pip install .
+git clone https://github.com/NIB-SI/BoolDoG.git
+cd BoolDoG
+pip install .
 ```
 
 To remove:

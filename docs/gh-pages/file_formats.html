@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Python Module Index &mdash; BoolDoG 0.1 documentation</title>
+  <title>File formats &mdash; BoolDoG 0.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/icon.ico"/>
@@ -18,7 +19,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
- 
+    <link rel="next" title="booldog package" href="api/booldog.html" />
+    <link rel="prev" title="Example" href="example.html" /> 
     <meta name="google-site-verification" content="9jGGfgofMrQ_y61Lhymy5MZmfI6DzTOCTSV3xegf-Ec" />
     <script type="application/ld+json" >
 {
@@ -56,8 +58,6 @@
 }
 </script >
 
-
-
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -70,10 +70,17 @@
           </a>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="file_formats.html">File formats</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">File formats</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#boolnet">Boolnet</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sources">Sources</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#more-to-come">More to come…</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul>
@@ -94,8 +101,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Python Module Index</li>
+      <li>File formats</li>
       <li class="wy-breadcrumbs-aside">
+            <a href="_sources/file_formats.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -103,44 +111,40 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-
-   <h1>Python Module Index</h1>
-
-   <div class="modindex-jumpbox">
-   <a href="#cap-b"><strong>b</strong></a>
-   </div>
-
-   <table class="indextable modindextable">
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-b"><td></td><td>
-       <strong>b</strong></td><td></td></tr>
-     <tr>
-       <td><img src="_static/minus.png" class="toggler"
-              id="toggle-1" style="display: none" alt="-" /></td>
-       <td>
-       <a href="api/booldog.html#module-booldog"><code class="xref">booldog</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="api/booldog.base.html#module-booldog.base"><code class="xref">booldog.base</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="api/booldog.bool_graph.html#module-booldog.bool_graph"><code class="xref">booldog.bool_graph</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="api/booldog.ode.html#module-booldog.ode"><code class="xref">booldog.ode</code></a></td><td>
-       <em></em></td></tr>
-   </table>
+  <section id="file-formats">
+<h1>File formats<a class="headerlink" href="#file-formats" title="Permalink to this headline"></a></h1>
+<section id="boolnet">
+<h2>Boolnet<a class="headerlink" href="#boolnet" title="Permalink to this headline"></a></h2>
+<p>The boolnet (.bnet) format is a simple text format to represent Boolean
+networks. Each line contains a target variable and its update function. <code class="docutils literal notranslate"><span class="pre">&amp;</span></code>, <code class="docutils literal notranslate"><span class="pre">|</span></code> and <code class="docutils literal notranslate"><span class="pre">!</span></code> are respectively used for conjunction, disjunction and negation. The target is separated from the update rule by a comma.</p>
+<p>The following is an example of a boolnet file:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>A, B <span class="p">&amp;</span> <span class="o">(</span>C <span class="p">|</span> D<span class="o">)</span>
+B, !A
+C, A <span class="p">|</span> D <span class="p">&amp;</span> !B
+</pre></div>
+</div>
+<p>An optional header of <code class="docutils literal notranslate"><span class="pre">targets,</span> <span class="pre">factors</span></code> is allowed. In addition, comments start with a hash (<code class="docutils literal notranslate"><span class="pre">#</span></code>).</p>
+<p>There should only be one line per target variable.</p>
+<section id="sources">
+<h3>Sources<a class="headerlink" href="#sources" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://rdrr.io/cran/BoolNet/f/inst/doc/BoolNet_package_vignette.Snw.pdf">BoolNet package vignette</a></p></li>
+<li><p><a class="reference external" href="https://pyboolnet.readthedocs.io/en/master/quickstart.html?highlight=bnet#boolean-networks">pyboolnet documentation</a></p></li>
+</ul>
+</section>
+</section>
+<section id="more-to-come">
+<h2>More to come…<a class="headerlink" href="#more-to-come" title="Permalink to this headline"></a></h2>
+</section>
+</section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="example.html" class="btn btn-neutral float-left" title="Example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api/booldog.html" class="btn btn-neutral float-right" title="booldog package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

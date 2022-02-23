@@ -24,7 +24,8 @@ docs/build
 docs/source/*
 !docs/source/conf.py
 !docs/source/index.rst
-!!docs/source/installation.rst
+!docs/source/installation.rst
+!docs/source/file_formats.rst
 !docs/source/example.rst
 !docs/source/bioschemas.html
 !docs/source/_templates

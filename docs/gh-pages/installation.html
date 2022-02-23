@@ -72,7 +72,10 @@
               <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#install">Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install">Install</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#test">Test</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#uninstall">Uninstall</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#known-installation-issues">Known installation issues</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#pyeda-not-compiling-on-windows">1. Pyeda not compiling on Windows</a></li>
@@ -82,6 +85,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file_formats.html">File formats</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul>
@@ -126,6 +130,10 @@ pip install .
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install git+https://github.com/NIB-SI/sBoolDoG.git
 </pre></div>
 </div>
+<section id="test">
+<h3>Test<a class="headerlink" href="#test" title="Permalink to this headline"></a></h3>
+<p>To runs tests, use</p>
+</section>
 </section>
 <section id="uninstall">
 <h2>Uninstall<a class="headerlink" href="#uninstall" title="Permalink to this headline"></a></h2>
@@ -140,7 +148,7 @@ pip install .
 <p>This is an issue with pip and pyeda: <a class="reference external" href="https://github.com/cjdrake/pyeda/issues/126">https://github.com/cjdrake/pyeda/issues/126</a>.</p>
 <p>There is a possible fix, not yet merged: <a class="reference external" href="https://github.com/cjdrake/pyeda/pull/153">https://github.com/cjdrake/pyeda/pull/153</a>.</p>
 <p>To solve, download the appropriate binary from <a class="reference external" href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyeda">Christophe Gohlke’s pythonlibs page</a>, and run</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install &lt;downladed.whl&gt;
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install &lt;downloaded.whl&gt;
 </pre></div>
 </div>
 <p>Then re-attempted BoolDoG installation.</p>
@@ -148,7 +156,7 @@ pip install .
 </section>
 <section id="dependencies">
 <h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline"></a></h2>
-<p>Required dependencies will be installed automatically when installing BoolDoG.
+<p>Required dependencies will be automatically installed when installing BoolDoG.
 The following dependencies are required:</p>
 <ul class="simple">
 <li><p>numpy</p></li>
