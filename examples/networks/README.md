@@ -4,7 +4,7 @@
 
 URL: https://github.com/hklarner/PyBoolNet/tree/master/PyBoolNet/Repository
 
-| name                     | size   | inputs   | constnats   | steady states   | cyclic attractors (mints)   |
+| name                     | size   | inputs   | constants   | steady states   | cyclic attractors (mints)   |
 | ------------------------ | ------ | -------- | ----------- | --------------- | --------------------------- |
 | raf                      | 3      | 0        | 0           | 1               | 1                           |
 | randomnet_n7k3           | 7      | 0        | 0           | 10              | 0                           |

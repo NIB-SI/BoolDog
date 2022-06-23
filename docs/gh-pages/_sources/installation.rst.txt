@@ -64,6 +64,6 @@ The following dependencies are required:
 * python-igraph
 * matplotlib
 * pygraphviz (optional)
-* PyBoolNet
+* pyboolnet
 * networkx
 

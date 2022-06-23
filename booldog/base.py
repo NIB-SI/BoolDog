@@ -5,9 +5,6 @@ import math
 
 from pathlib import Path
 
-# plotting library #TODO optional import?
-import matplotlib.pyplot as plt
-
 from collections import defaultdict
 from scipy.integrate import solve_ivp
 
@@ -20,20 +17,20 @@ warnings.filterwarnings("ignore",
 warnings.filterwarnings("ignore",
     message="invalid value encountered in multiply")
 
-from .utils.utils import *
-from .bool_graph import BooleanGraph
-from .ode import ODE_factory
+from booldog.utils.utils import *
+from booldog.bool_graph import BooleanGraph
+from booldog.ode import ODE_factory
 
-# path to mpl stylesheet
-_style_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),
-                           'utils', 'stylesheet.mplstyle')
+from booldog.simulation_result import ContinousSimulationResult
 
-class RegulatoryNetwork(BooleanGraph):
+from booldog.io.write import WriteMixin
+
+class RegulatoryNetwork(BooleanGraph, WriteMixin):
     '''A class to represent a regulatory network.
 
     '''
 
-    def __init__(self, graph, **kwargs):
+    def __init__(self, primes, nodes, index, n):
         '''Initialise a regulatory network from a Boolean graph.
 
         Parameters
@@ -48,10 +45,14 @@ class RegulatoryNetwork(BooleanGraph):
             In the case `graph` is not a BooleanGraph instance, additional
             keyword arguments passed to :py:class:`booldog.BooleanGraph`.
         '''
-        super().__init__(graph,  **kwargs)
+        super().__init__(primes, nodes, index, n)
 
     def transform_bool_to_continuous(self, transform, **kwargs):
         '''Generate an ODE from RegulatoryNetwork/Boolean graph.
+
+        Note that the BooleanGraph object is kept in memory as the primes of the Boolean network. This means that importing the graph may take a while, depending on the size of the network.
+
+
 
         Parameters
         ----------
@@ -63,6 +64,12 @@ class RegulatoryNetwork(BooleanGraph):
         ----------
         **kwargs
             Additional keyword arguments passed to :py:func:`booldog.ODE`.
+
+
+        Returns
+        ----------
+
+
         '''
         ode_system = ODE_factory(self, transform, **kwargs)
         return ode_system
@@ -72,8 +79,6 @@ class RegulatoryNetwork(BooleanGraph):
         edge_events={},
         t_min=0, t_max=30,
         initial_state=0,
-        plot=True,
-        export=False,
         ode_system=None,
         **kwargs):
         '''Run continuous semi-qualitative simulation.
@@ -91,11 +96,6 @@ class RegulatoryNetwork(BooleanGraph):
         initial_state : float or int or array or dict, optional
             Initial state of nodes. See :ref:`Notes <tagnotesis>` for
             description of format.
-        plot : bool, optional
-            Whether to plot the simultion results
-        export : bool or path object or string, optional
-            False, or a file path to save simulation results.
-            Exports values to 5 decimal points.
         ode_system: None or :py:func:`booldog.ODE`, optional
             If none, the ODE is created with
             :py:func:`transform_bool_to_continuous`
@@ -112,6 +112,7 @@ class RegulatoryNetwork(BooleanGraph):
 
         Returns
         -------
+        r : object #TODO
         t : ndarray, shape (n_time_points,)
             Time-points.
         y : ndarray, shape (n_time_points, n_nodes)
@@ -159,11 +160,6 @@ class RegulatoryNetwork(BooleanGraph):
 
         '''
 
-        # check if expert path is "writable" if is not False:
-        if export:
-            export = Path(export)
-            file_writeable(export)
-
         if ode_system is None:
             # fetch the system of eqn
             ode_system = self.transform_bool_to_continuous(**kwargs)
@@ -193,8 +189,7 @@ class RegulatoryNetwork(BooleanGraph):
 
             events_d[node_event['time']][node_event['node']] = this_time_and_node
 
-        # add a last event to get to end of simulation
-        # i.o.t. avoid using `while True`
+        # add a last event to get to end of simulation i.o.t. avoid using `while True`
         # # https://stackoverflow.com/a/50703835/4996681
         events_d[t_max] = {}
         off_nodes = set()
@@ -244,210 +239,8 @@ class RegulatoryNetwork(BooleanGraph):
         combined_y = np.concatenate([result.y for result in all_results],
                                     axis=1).T
 
-        if plot:
-            try:
-                self.plot_simulation(combined_t, combined_y,
-                                node_events=sorted(events_d.keys())[:-1],
-                                **kwargs)
-            except Exception as e:
-                print("Error in plotting")
-                print(e)
+        result = ContinousSimulationResult(self, combined_t, combined_y, ode_system, node_events=node_events, edge_events=edge_events)
 
-        if export:
-            with open(export, "w") as out:
-                # write node list (for order)
-                out.write("#nodelist\t" + "\t".join(self.nodes) + "\n")
+        return result
 
-                # write transform
-                out.write("#transform\t" + ode_system.transform + "\n")
 
-                # write parameters
-                for param_name, param in ode_system.param_dict.items():
-                    out.write("#param\t" + param_name + "\t"+ \
-                              "\t".join(param.astype(str)) + "\n")
-
-                # write events
-                out.write("#node_events\t" + str(node_events) + "\n")
-
-                # write timepoints
-                out.write("time\t" + \
-                          "\t".join(combined_t.round(5).astype(str)) + "\n")
-
-                # write solution/y
-                for node, array in zip(self.nodes, combined_y.T):
-                    out.write(node + "\t" + \
-                              "\t".join(array.round(5).astype(str)) + "\n")
-
-            print(f"Saved simulation results to {export}. ")
-
-        return combined_t, combined_y
-
-    def plot_simulation(self,
-        t, y,
-        node_events=None,
-        edge_events=None,
-        plot_nodes=None,
-        title=None,
-        figsize=(20, 10),
-        **kwargs):
-        """Plot simulation results.
-
-        Called by :py:func:`continous_simulation`.
-
-        Parameters
-        ----------
-        t : ndarray, shape (n_time_points,)
-            Time-points.
-        y : ndarray, shape (n_time_points, n_nodes)
-            Values of the solution at t.
-        plot_nodes :  None or list of str or list of lists of str, optional
-            Subset of nodes to plot. If `None`, plot all nodes. If a list of
-            lists, each sublist is plotted as a subplot.
-        node_events : None or list of dict, optional
-            List of node events with a dictionary defining each event.
-            See :ref:`Notes <tagnotesne>` for description of event definitions.
-        edge_events :  None or list of dict, optional
-            Disrupt connections #TODO not implemented
-        title : None or string or list of string
-            If str, main title of the plot. If a list of str, subtitles of
-            subplots as defined by `plot_node`. In this case `plot_nodes`
-            should be a list of lists, and `title` should be the same length as
-            `plot_nodes`.
-        figsize : (float, float)
-            Width, height in inches.
-
-        Other Parameters
-        ----------
-        **kwargs
-            ignored
-
-        Returns
-        ----------
-        fig :  matplotlib.figure.Figure
-        axes : array of matplotlib.axes.Axes
-
-        """
-
-        # collect vertical lines at events
-        vlines = []
-        if node_events:
-            vlines += node_events
-        if edge_events:
-            vlines += edge_events
-
-        with plt.style.context(_style_path):
-            # 3 cases to plot:
-            # (1) no node list
-            # (2) one node list
-            # (3) multiple node lists
-
-            main_title = False
-
-            # case (1)
-            if not plot_nodes:
-                fig, axes = plt.subplots(ncols=1, nrows=1,
-                                         squeeze=False,
-                                         figsize=figsize,
-                                         constrained_layout=True)
-                legend_labels = self.index
-                self._plot_one_ax(axes[0, 0], t, y,
-                             legend_labels,
-                             vlines=vlines,
-                             title=title)
-            # case (2) and (3)
-            else:
-                if not isinstance(plot_nodes[0], list):
-                    # case (2) --> case (3)
-                    plot_nodes=[plot_nodes]
-
-                num_plots = len(plot_nodes)
-
-                if title and isinstance(title, str):
-                    main_title = title
-                    title = [None]*num_plots
-                elif  title and isinstance(title, list):
-                    if not (len(title) == len(plot_nodes)):
-                        print(f'WARNING: '\
-                              f'Number of (sub)titles is not equal to the '\
-                              f'number of (sub)plots. Either pass the correct '\
-                              f'number of subtitles as a list, or a single '\
-                              f'main title as a string. \n'\
-                              f'{len(title)} (title) != {num_plots} (subplots)')
-                        title = [None]*num_plots
-
-                else:
-                    title = [None]*len(plot_nodes)
-
-                fig, axes = plt.subplots(ncols=1, nrows=num_plots,
-                                         sharex=True,
-                                         sharey=True,
-                                         squeeze=False,
-                                         figsize=figsize,
-                                         constrained_layout=True)
-
-                for i in range(num_plots):
-                    node_list = plot_nodes[i]
-                    subtitle = title[i]
-
-                    yidx = []
-                    legend_labels = []
-                    for node in node_list:
-                        yidx.append(self.index[node])
-                        legend_labels.append(node)
-                    this_y = y[:, yidx]
-
-                    ax = axes[i, 0]
-                    self._plot_one_ax(ax, t, this_y,
-                                 legend_labels,
-                                 vlines=vlines,
-                                 title=subtitle)
-
-            fig.supxlabel('Time', fontsize=18, fontweight='bold')
-            fig.supylabel("Relative concentration", x=-0.02, fontsize=18,
-                           fontweight='bold')
-            if main_title:
-                fig.suptitle(main_title)
-
-            # issues with keeping legend in figure bounds
-            # when using constrained_layout see
-            # https://matplotlib.org/stable/tutorials/intermediate/constrainedlayout_guide.html#legends #noqa
-            fig.canvas.draw()
-            for ax in axes.flatten():
-                legend = ax.get_legend()
-                legend.set_in_layout(True)
-            fig.set_constrained_layout(False)
-        return fig, axes
-
-    def _plot_one_ax(self,
-        ax,
-        x, y,
-        legend_labels,
-        vlines=None,
-        title=None):
-        '''Helper func that plots on a subplot axes'''
-
-        ymin, ymax = 0, 1
-        xmin, xmax = 0, max(x)
-        ax.set_ylim((ymin, ymax))
-        ax.set_xlim((xmin, xmax))
-
-        # offset spines and limit
-        ax.spines['left'].set_position(('outward', 5))
-        ax.spines['left'].set_bounds((ymin, ymax))
-        ax.spines['bottom'].set_position(('outward', 5))
-        ax.spines['bottom'].set_bounds(0, int(xmax))
-
-        if vlines:
-            ax.vlines(x=vlines,
-                   ymin=ymin, ymax=ymax,
-                   colors='gray', ls='--', alpha=0.5)
-
-        lines = ax.plot(x, y)
-        legend = ax.legend(lines, legend_labels,
-                  bbox_to_anchor=(1.01, 0.5),
-                  ncol=math.ceil(len(legend_labels)/20)
-                  )
-        legend.set_in_layout(False)
-
-        if title:
-            ax.set_title(title)

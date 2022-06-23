@@ -1,0 +1,45 @@
+## font
+font.family:  sans-serif
+font.sans-serif: Ubuntu, DejaVu Sans
+
+axes.titlesize: 24
+figure.titlesize: 24
+
+axes.labelsize: 18
+axes.labelweight: bold
+
+xtick.labelsize: 16
+ytick.labelsize: 16
+
+## grig
+axes.grid: True
+axes.grid.axis: y
+grid.color:     000000
+grid.linewidth: 0.5
+grid.alpha:     0.2
+
+# spines
+axes.spines.left:   True
+axes.spines.bottom: True
+axes.spines.top:    False
+axes.spines.right:  False
+
+
+# line graph
+lines.linewidth: 3
+axes.prop_cycle: cycler('color', ['636EFA', 'EF553B', '00CC96', 'AB63FA','FFA15A', '19D3F3', 'FF6692', 'B6E880', 'FF97FF','FECB52']) + cycler('linestyle', ['-', '--', ':', '-.', '-', '--', ':', '-.', '-', '--'])
+
+# legend
+legend.loc: center left
+legend.frameon:  False
+legend.fontsize: 16
+
+
+# margins (proportional offset from data-bounds)
+axes.xmargin: 0.01
+axes.ymargin: 0.01
+
+
+# export settings
+savefig.dpi: 300
+savefig.bbox: tight

@@ -1,27 +1,32 @@
 import numpy as np
+from pathlib import Path
 
 def ensure_ndarray(v):
-    if not type(v) == np.ndarray:
-        return np.array([*v])
-    else:
-        return v
-
-
-def parameter_to_array(parameter, graph_keys, default=1):
     '''
-    Parameter argument to numpy array
+    Return numpy array of v, given array, int/float, list, tuple
+    '''
+    if isinstance(v, np.ndarray):
+        return v
+    elif isinstance(v, (int, float)):
+        return np.array([v])
+    else:
+        return np.array([*v])
+
+def parameter_to_array(parameter, graph_keys):
+    '''Parameter argument to numpy array
 
     Parameters
     ----------
-    parameter : int, float or dict
-        if int of float, returns an array of length n with values parameter
-        if dict, returns an array of length n with values set according to
-        parameter (nodes indexed by graph_keys), and the rest set to default
+    parameter : array, int, float or dict
+        if array:
+            make sure length is n
+        if int or float:
+            return an array of length n with value
+        if dict:
+            returns an array of length n with values set according to
+        keys (nodes indexed by graph_keys), and the rest set to 'default' key
 
     graph_keys : dict
-
-	default : int or float, optional
-        default value for parameters not set in parameter dict
 
     Returns
     ----------
@@ -47,19 +52,19 @@ def parameter_to_array(parameter, graph_keys, default=1):
             parameter_array[graph_keys[key]] = value
     else:
         print("'parameters must be int, float, or dict.")
-        parameter_array = parameter_array*default
-
+        parameter_array = parameter_array*1
     return parameter_array
 
 
 def file_writeable(path):
-    '''
-    Checks if path is writable. If not, attempts to print reason, and raises
+    '''Checks if path is writable. If not, attempts to print reason, and raises
     an Exception.
     '''
+    path = Path(path)
 
     if path.exists():
         print(f'{path} already exists and will be overwritten')
+
     try:
         with open(path, 'w') as f:
             pass

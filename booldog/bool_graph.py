@@ -5,15 +5,18 @@ from itertools import product
 from collections import defaultdict
 
 from pathlib import Path
-import importlib
 
-from PyBoolNet import AspSolver
-from PyBoolNet import InteractionGraphs
-from PyBoolNet import StateTransitionGraphs
+import warnings
 
-from .utils import io
-from .utils.utils import *
+from pyboolnet.trap_spaces import steady_states
+from pyboolnet.interaction_graphs import primes2igraph
+from pyboolnet.state_transition_graphs import primes2stg, stg2image
 
+
+from booldog.utils.utils import *
+
+
+from booldog.simulation_result import BooleanSimulationResult
 
 class BooleanGraph:
     '''A class to represent a Boolean graph.
@@ -33,7 +36,7 @@ class BooleanGraph:
         Dictionary of node name to integer index for indexing arrays
     '''
 
-    def __init__(self, graph, data_format='bnet', **kwargs):
+    def __init__(self, primes, nodes, index, n):
         '''Initialise a Boolean graph.
 
         Parameters
@@ -48,15 +51,9 @@ class BooleanGraph:
             #TODO Additional keyword arguments for the importer function.
 
         '''
-        if isinstance(graph, BooleanGraph):
-            self.primes, self.nodes, self.index, self.n = \
-                    graph.primes, graph.nodes, graph.index, graph.n
+        self.primes, self.nodes, self.index, self.n = primes, nodes, index, n
 
-        else:
-            self.primes, self.nodes, self.index, self.n =\
-                                    io.read_boolean_graph(graph, data_format, **kwargs)
-
-        print(f"Imported Boolean graph with {self.n} nodes")
+        logger.info(f"Created Boolean graph with {self.n} nodes")
 
 
     def primes_to_matrices(self):
@@ -85,7 +82,7 @@ class BooleanGraph:
         Act = np.zeros((self.n, self.n)) # activators
         Inh = np.zeros((self.n, self.n)) # inhibitors
 
-        intgraph = InteractionGraphs.primes2igraph(self.primes)
+        intgraph = primes2igraph(self.primes)
         for source, d in intgraph.adjacency(): #nx 2.x
             for target, sub_d in d.items():
                 sign = next(iter(sub_d["sign"]))
@@ -98,7 +95,7 @@ class BooleanGraph:
 
         return ensure_ndarray(Act), ensure_ndarray(Inh)
 
-    def generate_states(self, fixed={}):
+    def generate_states(self, fixed=None):
         '''Generate all possible states of the graph.
 
         Parameters
@@ -113,7 +110,7 @@ class BooleanGraph:
             length n array with a state of the graph.
 
         '''
-        if len(fixed) == 0:
+        if fixed is None:
             # all states = cartesion product
             return product([0, 1], repeat=self.n)
 
@@ -135,30 +132,36 @@ class BooleanGraph:
                     this_state_array[self.index[node]] = state
                 yield this_state_array
 
-    def plot_state_transitions(self, fig,
-                               initial_values=None,
-                               new_style=True):
-        '''Plot the state transition graph, from optional initial values.
+    def boolean_simulation(self,
+           initial_values=None,
+           plot=True,
+           export=False,
+           **kwargs):
+        '''Compute a Boolean simulation (or state transition)
+        from optional initial values.
 
         Parameters
         ----------
-        fig : str
-            File name of generated figure
-
-        initial_values : int, str, list, dict
+        initial_values : int, str, list, dict, optional
             Initial state, see Notes for format
+        plot : bool, optional
+            Whether to plot the simulation results
+        export : bool or path object or string, optional
+            False, or a file path to save simulation results.
+            Exports valu
 
-        new_style : bool
-            Whether to use booldog style, or PyBoolNet style (default) to
-            plot the state transition graph. Requires pygraphviz (If not
-            installed, will default to PyBoolNet version.)
+        Other Parameters
+        ----------------
+        **kwargs
+            If `plot=True` , additional keyword arguments are
+            passed to :py:func:`plot_boolean_simulation`.
 
         Notes
         ----------
-        This is a wrapper for PyBoolNet.StateTransitionGraphs.primes2stg,
+        This is a wrapper for pyboolnet.state_transition_graphs.primes2stg,
         and therefore takes the same argument format for initial states.
 
-        **From PyBoolNet documentation:**
+        **From pyboolnet documentation:**
 
         .. code-block:: text
 
@@ -177,58 +180,20 @@ class BooleanGraph:
 
                 init = "--1"
                 init = {"v3":1}
-
-        TODO
-        ----
-        optional list of nodes to plot
-
         '''
         if initial_values is None:
-            stg = StateTransitionGraphs.primes2stg(self.primes,
-                                                   "synchronous")
+            stg = primes2stg(self.primes, "synchronous")
         else:
-            stg = StateTransitionGraphs.primes2stg(self.primes,
-                                                   "synchronous",
-                                                   initial_values)
+            stg = primes2stg(self.primes, "synchronous", initial_values)
 
-        if new_style and (importlib.util.find_spec('pygraphviz') is not None):
-            import networkx as nx
-
-            rev_index = {}
-            for node in self.nodes:
-                rev_index[self.index[node]] = node
-
-
-            stg.graph['node']['shape'] = 'plaintext'
-            colors = {"1":"#80ff8a", "0":"#ff9580"}
-
-            for n in stg:
-                label = '<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="1" ><TR>'
-                for i, x in enumerate(n):
-                    label += f'<TD BGCOLOR="{colors[x]}">{rev_index[i][:5]} <BR/> {x} </TD>'
-                label += """</TR></TABLE>>"""
-                stg.nodes[n]["label"]=label
-
-            A = nx.drawing.nx_agraph.to_agraph(stg)
-            A.layout('dot')
-            A.draw(fig)
-            print(f"Saved figure to {fig}. ")
-
-        else:
-            if new_style:
-                print("pygraphviz not available, defaulting to PyBoolNet")
-
-            stg.graph["node"]["color"] = "cyan"
-            stg.graph["node"]["height"] = 0.3
-            stg.graph["node"]["width"] = 0.45
-            StateTransitionGraphs.stg2image(stg, fig, LayoutEngine="dot")
+        return BooleanSimulationResult(self, stg)
 
     def steady_states(self):
         '''All steady states of the Boolean graph.
-
         '''
-        steady_states = AspSolver.steady_states(self.primes)
-        return steady_states
+
+        all_steady_states = steady_states(self.primes)
+        return all_steady_states
 
 
     def get_parents(self, node):
@@ -275,9 +240,9 @@ class BooleanGraph:
 
 
 
-    def __print__():
+    def __repr__(self):
         #TODO
-        pass
+        return "BooleanGraph()"
 
     def __len__(self):
         return self.n

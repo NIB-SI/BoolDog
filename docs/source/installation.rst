@@ -18,7 +18,7 @@ Install directly:
 
 .. code-block:: bash
 
-   pip install git+https://github.com/NIB-SI/sBoolDoG.git
+   pip install git+https://github.com/NIB-SI/BoolDoG.git
 
 
 Test
@@ -64,6 +64,6 @@ The following dependencies are required:
 * python-igraph
 * matplotlib
 * pygraphviz (optional)
-* PyBoolNet
+* pyboolnet
 * networkx
 

@@ -1,0 +1,143 @@
+OBE1,                  OBE1
+WRKY70,                WRKY70
+
+AAO1-4XDH12,           AAO1-4XDH12
+ACH,                   ACH
+ACO124,                ACO124
+ACX1-6,                ACX1-6
+ADT1-6,                ADT1-6
+AOC1-4,                AOC1-4
+AOS,                   AOS
+ASK12,                 ASK12
+CM123,                 CM123
+CTS,                   CTS
+CUL12,                 CUL12
+CYP94BCD,              CYP94BCD
+EBF12,                 EBF12
+EDS1,                  EDS1
+EIN2i,                 EIN2i
+ETP12,                 ETP12
+GSNOR,                 GSNOR
+HMA5-8,                HMA5-8
+IPL,                   IPL
+JAM123,                JAM123
+JAR1DFL2,              JAR1DFL2
+JMT,                   JMT
+KAT125,                KAT125
+MES1-9,                MES1-9
+MFP2AIM1KCR12,         MFP2AIM1KCR12
+MOS367IMPA1-7,         MOS367IMPA1-7
+NIMIN123,              NIMIN123
+OPCL,                  OPCL
+OPR123,                OPR123
+PAAAT,                 PAAAT
+RBX,                   RBX
+RTE1,                  RTE1
+SAGT1UGT74F1,          SAGT1UGT74F1
+SAM1-4,                SAM1-4
+SAMC12,                SAMC12
+X1,                    X1
+X2,                    X2
+X3,                    X3
+X4,                    X4
+
+26S,                   SCF-ETP12&!HC-Pro | SCF-EBF12&!HC-Pro | SCF-COI1-JA-Ile&!HC-Pro | !HC-Pro&26S
+ACS1-12,               MPK6a | MPK3a
+BA2Ha,                 BA2Hi
+BA2Hi,                 ROS
+CAM,                   !HC-Pro&Ca2
+CAMTA3SR123,           CDPK | CAM
+CAT123,                SODCSDCCSFSDMSD
+CDPK,                  Ca2
+CI,                    virus
+CLH12JR1PR13THIVSP12,  MYC&!JAZ1-12
+CPB60,                 CDPK
+CRT1a1b3,              !HC-Pro&Ca2
+CTR1a,                 RTE1&!26S
+Ca2,                   R-genes
+Cu,                    HMA5-8
+CuER,                  Cu
+DAMPHAMP,              insect
+EDS1-PAD34,            PAD34&!NPR134BOP12&!MPK4a&!CAMTA3SR123 | !NPR134BOP12&MPK6a&!MPK4a&!CAMTA3SR123 | !NPR134BOP12&!MPK4a&MPK3a&!CAMTA3SR123 | !NPR134BOP12&!MPK4a&EDS1&!CAMTA3SR123
+EDS5,                  EDS1-PAD34
+EIN2a,                 EIN2i&!CTR1a
+EIN3EIL123,            !JAZ1-12&EIN2a&!CAMTA3SR123&!26S
+EIN5XRN23,             EIN2a
+ET,                    ETmACC
+ETRa,                  ETRi | ET | CRT1a1b3
+ETRi,                  CuER
+ETmACC,                ETmSAMe | ACO124
+ETmL-Met,              SAM1-4
+ETmSAMe,               ETmL-Met | ACS1-12
+GPX1-9,                SODCSDCCSFSDMSD
+HC-Pro,                virus
+ICS12,                 WRKY8&!EIN3EIL123 | WRKY48&!EIN3EIL123 | WRKY28&!EIN3EIL123 | !EIN3EIL123&EDS5 | !EIN3EIL123&CPB60
+JA,                    JMT | JAp | JAR1DFL2
+JA-Ile,                JA&!CYP94BCD
+JAZ1-12,               X2&!WRKY33&!26S | !WRKY33&MYC&!26S
+JAm1213-EOT,           JAm13-HPOT | AOC1-4
+JAm13-HPOT,            ROS | JAmPUFALA | AOS
+JAmJA-CoA,             JAmOPC4-CoA | ACH
+JAmOPC4-CoA,           KAT125 | JAmOPC6-CoA
+JAmOPC6-CoA,           MFP2AIM1KCR12 | JAmOPC8-CoA
+JAmOPC8,               OPCL | JAmOPDAp
+JAmOPC8-CoA,           JAmOPC8 | ACX1-6
+JAmOPDAc,              !SAc&JAm1213-EOT | !SAc&CTS
+JAmOPDAp,              OPR123 | JAmOPDAc
+JAmPUFALA,             LOX1-6
+JAp,                   X4 | JAmJA-CoA
+LOX1-6,                MYC | MPK4a
+MPK3a,                 MPK3i
+MPK3i,                 WAK1 | ROS | R-genes
+MPK4a,                 WAK1
+MPK6a,                 MPK6i
+MPK6i,                 WAK1 | ROS | R-genes
+MYC,                   !WRKY70&SCF-COI1-JA-Ile&!JAZ1-12&!JAM123
+NADPH-oxidaseRBOH,     !TGA1-7UGT73B1-5&!HC-Pro&CDPK
+NPR134BOP12,           TRX35&!GSNOR | MOS367IMPA1-7&!GSNOR
+NPR134BOP12nuc,        NPR134BOP12&!NIMIN123
+P3,                    virus
+PAD34,                 WRKY33 | TGA1-7UGT73B1-5
+PAL1-4,                MPK6a | MPK3a
+PCD,                   ROS&!NPR134BOP12nuc
+PR11B25,               TGA1-7UGT73B1-5
+R-genes,               virus
+RBX-CUL12,             RBX | CUL12
+ROS,                   !SODCSDCCSFSDMSD&NADPH-oxidaseRBOH&!GPX1-9&!CAT123
+SA,                    SAmOrthoCA | SAmBA | SAc | SAMC12 | SAGT1UGT74F1
+SAc,                   X3 | SAmIsoChor
+SAmBA,                 SAmTransCA | BA2Ha
+SAmChor,               ICS12 | CM123
+SAmIsoChor,            SAmChor | IPL
+SAmOrthoCA,            X1 | SAmTransCA
+SAmPheAla,             SAmPhePyr | PAL1-4
+SAmPhePyr,             SAmPrep | ADT1-6
+SAmPrep,               SAmChor | PAAAT
+SAmTransCA,            SAmPheAla | AAO1-4XDH12
+SCF,                   RBX-CUL12 | ASK12
+SCF-COI1-JA-Ile,       JA-Ile
+SCF-EBF12,             SCF&!EIN5XRN23 | !EIN5XRN23&EIN3EIL123 | !EIN5XRN23&EBF12
+SCF-ETP12,             SCF | ETRa | ETP12
+SODCSDCCSFSDMSD,       NPR134BOP12nuc
+TGA1-7UGT73B1-5,       WRKY70&!MYC | NPR134BOP12nuc&!MYC
+TRX35,                 !WRKY33&SA | !WRKY33&ROS
+VPg,                   virus
+WAK1,                  DAMPHAMP
+WRKY11,                WRKY17 | OBE1
+WRKY17,                !WRKY11&OBE1
+WRKY28,                CDPK
+WRKY33,                WRKY33 | MPK6a | MPK4a | MPK3a
+WRKY48,                CDPK
+WRKY8,                 CDPK
+insect,                insect&!CLH12JR1PR13THIVSP12
+virus,                 VPg&!PR11B25&!PCD | !PR11B25&!PCD&P3 | !PR11B25&!PCD&HC-Pro | !PR11B25&!PCD&CI
+
+ERFEDFTEMRAVORA59,     WRKY33&!ROXY19GRX480&!MYC&!HC-Pro | TGA1-7UGT73B1-5&!ROXY19GRX480&!MYC&!HC-Pro | !ROXY19GRX480&!MYC&MPK6a&!HC-Pro | !ROXY19GRX480&!MYC&MPK3a&!HC-Pro | !ROXY19GRX480&!MYC&!HC-Pro&EIN3EIL123
+JAmMeJA,               JA
+PDF12abc,              ERFEDFTEMRAVORA59
+PR34,                  MYC | EIN3EIL123
+ROXY19GRX480,          ROS
+RuBisCO,               !P3&OBE1&!DAMPHAMP&!CI
+SAmMeSA,               SA | MES1-9
+SAmSAG,                SA
+SAmSGE,                SA

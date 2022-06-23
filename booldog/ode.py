@@ -1,11 +1,10 @@
-
 import numpy as np
 from itertools import product
 
-from .utils.utils import *
-from .bool_graph import BooleanGraph
+import logging
+logger = logging.getLogger(__name__)
 
-
+from booldog.utils.utils import *
 
 ##############################
 #      GENERAL FUNCTIONS     #
@@ -87,12 +86,14 @@ def ODE_factory(graph, transform, **kwargs):
     '''
     transform = transform.lower()
     if transform == 'placeholder':
-        ParentClass = SquadODE
+        ParentClass = BoolCubeODE
     elif not transform in ode_parent_classes.keys():
         raise ValueError(f"transform' argument must be one of"\
                          f"{list(ode_parent_classes.keys())}")
     else:
         ParentClass = ode_parent_classes[transform]
+
+    logger.info(f"Creating {ParentClass} ODE object")
 
     class ODE(ParentClass):
         '''Generic ODE class produced by factory.
@@ -116,17 +117,20 @@ def ODE_factory(graph, transform, **kwargs):
             if transform == 'placeholder':
                 return
 
-            if not isinstance(graph, BooleanGraph):
-                raise TypeError(f"'graph' argument must be a BooleanGraph object."\
-                                f"not {type(graph)}. ")
+            # if not isinstance(graph, RegulatoryNetwork):
+            #     raise TypeError(f"'graph' argument must be a RegulatoryNetwork object."\
+            #                     f"not {type(graph)}. ")
 
-            print("Initialising ODE system ... ", end="")
+            parent_class_name = self.__class__.__mro__[1].__name__
+            logger.info(f"Initialising ODE system ... with class {parent_class_name}. ")
+
             self.n = len(graph)
             self.boolean_graph = graph
             self.transform = transform
+
             super().__init__(transform, **kwargs)
 
-            print("done. ")
+            logger.info("Done. ")
 
 
         def event_function(self, t, x, event_t, *args):
@@ -214,6 +218,8 @@ class BoolCubeODE():
         k : int, float, or dict, optional
             Hill dissociation constant
 
+        verbose : bool
+
         Notes
         ----------
         Only used as Parent class.
@@ -240,18 +246,22 @@ class BoolCubeODE():
                            "tau":self.param_tau}
 
         if transform == 'boolecube':
-            transform_function = self.identity
+            self.transform_function = self.identity
 
         elif transform == 'hillcube':
-            transform_function = self.hill
+            self.transform_function = self.hill
 
         elif transform == 'normalisedhillcube':
-            transform_function = self.normalised_hill
+            self.transform_function = self.normalised_hill
 
         else:
             raise TypeError(f"Unknown transform {transform}. ")
 
-        self.dxdt =  self._get_system(transform_function)
+        # returns an array function
+        self.B1 = self.homologue_b1()
+
+        # returns an array function
+        self.dxdt =  self._get_system()
 
     def hill(self, x_array):
         return x_array**self.param_n / \
@@ -263,7 +273,7 @@ class BoolCubeODE():
     def identity(self, x_array):
         return x_array
 
-    def _get_system(self, transform_function, off_nodes=None):
+    def _get_system(self, off_nodes=None):
 
         if off_nodes is None:
             off_nodes = set()
@@ -272,14 +282,11 @@ class BoolCubeODE():
 
         off_nodes.update(np.where(self.param_tau ==0)[0])
 
-
-        B1 = self.homologue_b1()
-
         def dxdt(t, x_array, *args):
             x_array[x_array < 0] = 0
             x_array[x_array > 1] = 1
 
-            b = B1(transform_function(x_array))
+            b = self.B1(self.transform_function(x_array))
             d = 1/self.param_tau * ( b  - x_array)
             for i in off_nodes:
                 d[i] = 0
@@ -287,7 +294,7 @@ class BoolCubeODE():
 
         return dxdt
 
-    def homologue_b1(self, verbose=False):
+    def homologue_b1(self):
         ''' Create function to calculate the multivariate polynomial
         interpolation of Boolean functions
 
@@ -365,174 +372,183 @@ class BoolCubeODE():
             str_B1 = "\n + ".join(str_sums)
 
             if B1 != '':
+                try:
+                    eval(f'lambda x:{B1}')
+                except RecursionError:
+                    B1 = ''
+                    print(f"The rule for node {node} is too long (depends on {len(states)} states. ")
+
                 all_B1s[self.boolean_graph.index[node]]  = B1
 
-            if verbose:
-                print(node, str_B1)
+            logger.debug('%s %i', node, len(states))
+
+
         return eval('lambda x:' + 'np.array([' + ','.join(all_B1s) + '])')
+        #return lambda x: x
+
+    def write_c_code():
+        pass
 
 
-class SquadODE():
-    '''An ODE parent class.
+# class SquadODE():
+#     '''An ODE parent class.
 
-    Use of SQUAD for the transformation of a Boolean graph to a system of ODEs.
+#     Use of SQUAD for the transformation of a Boolean graph to a system of ODEs.
 
-    Attributes
-    ----------
-    dxdt : function
+#     Attributes
+#     ----------
+#     dxdt : function
 
-    param_gamma : arraylike
-        decay rate
+#     param_gamma : arraylike
+#         decay rate
 
-    param_h : arraylike
-        sigmoidal gain
+#     param_h : arraylike
+#         sigmoidal gain
 
-    Act : arraylike
-        activator matrix
+#     Act : arraylike
+#         activator matrix
 
-    Inh : arraylike
-        inhibitor matrix
+#     Inh : arraylike
+#         inhibitor matrix
 
-    '''
+#     '''
 
-    def __init__(self, transform, gamma=1, h=10, **kwargs):
-        '''Transform a Activation/Inhibition Boolean network
-        into an ODE system via SQUAD transform.
+#     def __init__(self, transform, gamma=1, h=10, **kwargs):
+#         '''Transform a Activation/Inhibition Boolean network
+#         into an ODE system via SQUAD transform.
 
-        Parameters
-        ----------
+#         Parameters
+#         ----------
 
-        transform : str
+#         transform : str
 
-        gamma : int, float, or dict, optional
-            decay rate
+#         gamma : int, float, or dict, optional
+#             decay rate
 
-        h : int, float, or dict, optional
-            sigmoidal gain
+#         h : int, float, or dict, optional
+#             sigmoidal gain
 
-        Notes
-        ----------
-        Only used as Parent class.
+#         Notes
+#         ----------
+#         Only used as Parent class.
 
-        References
-        ----------
-        [1] Di Cara, A., Garg, A., De Micheli, G., Xenarios, I., & Mendoza, L.
-        (2007). Dynamic simulation of regulatory networks using SQUAD.
-        BMC Bioinformatics, 8(1), 1–10. https://doi.org/10.1186/1471-2105-8-462
-        '''
+#         References
+#         ----------
+#         [1] Di Cara, A., Garg, A., De Micheli, G., Xenarios, I., & Mendoza, L.
+#         (2007). Dynamic simulation of regulatory networks using SQUAD.
+#         BMC Bioinformatics, 8(1), 1–10. https://doi.org/10.1186/1471-2105-8-462
+#         '''
 
-        self.param_gamma = parameter_to_array(gamma, self.boolean_graph.index)
-        self.param_h = parameter_to_array(h, self.boolean_graph.index)
+#         self.param_gamma = parameter_to_array(gamma, self.boolean_graph.index)
+#         self.param_h = parameter_to_array(h, self.boolean_graph.index)
 
-        print(self.param_gamma)
-        print(self.param_h)
-        # matrices
-        self.Act, self.Inh = self.boolean_graph.primes_to_matrices()
+#         print(self.param_gamma)
+#         print(self.param_h)
+#         # matrices
+#         self.Act, self.Inh = self.boolean_graph.primes_to_matrices()
 
-        # needed for computations
-        col_ones = np.ones((self.n))
-        self._A1 = self.Act.dot(col_ones)
-        self._a1 = (1+self._A1)/self._A1
-        self._B1 = self.Inh.dot(col_ones)
-        self._b1 = (1+self._B1)/self._B1
+#         # needed for computations
+#         col_ones = np.ones((self.n))
+#         self._A1 = self.Act.dot(col_ones)
+#         self._a1 = (1+self._A1)/self._A1
+#         self._B1 = self.Inh.dot(col_ones)
+#         self._b1 = (1+self._B1)/self._B1
 
-        self.dxdt = self._get_system()
+#         self.dxdt = self._get_system()
 
-    def _omega(self, x):
-        '''
-        Equation (2) of Di Cara et al (2007)
-        http://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-8-462
-        Based on Andre Blejec R code.
-        '''
+#     def _omega(self, x):
+#         '''
+#         Equation (2) of Di Cara et al (2007)
+#         http://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-8-462
+#         Based on Andre Blejec R code.
+#         '''
 
-        x = ensure_ndarray(x)
+#         x = ensure_ndarray(x)
 
-        col_ones = np.ones((self.n))
+#         col_ones = np.ones((self.n))
 
-        Ax = self.Act.dot(x)
-        a = ensure_ndarray( self._a1 * Ax/(1+Ax) )
-        a[~np.isfinite(a)] = 1
+#         Ax = self.Act.dot(x)
+#         a = ensure_ndarray( self._a1 * Ax/(1+Ax) )
+#         a[~np.isfinite(a)] = 1
 
-        Bx = self.Inh.dot(x)
-        b = ensure_ndarray( self._b1 * Bx/(1+Bx) )
-        b[~np.isfinite(b)] = 0
+#         Bx = self.Inh.dot(x)
+#         b = ensure_ndarray( self._b1 * Bx/(1+Bx) )
+#         b[~np.isfinite(b)] = 0
 
-        o = ensure_ndarray(a * (1-b))
-        o[np.where(self._A1 + self._B1 ==0)] = 0
+#         o = ensure_ndarray(a * (1-b))
+#         o[np.where(self._A1 + self._B1 ==0)] = 0
 
-        return o
+#         return o
 
-    def _dxdt_transform(self, x, w):
-        ''' Equation (2) of Di Cara et al (2007) '''
-        return (-np.exp(0.5*self.param_h) + np.exp(-self.param_h*(w-0.5))) / \
-              ((1-np.exp(0.5*self.param_h))*(1+np.exp(-self.param_h*(w-0.5))))\
-                - self.param_gamma*x
+#     def _dxdt_transform(self, x, w):
+#         ''' Equation (2) of Di Cara et al (2007) '''
+#         return (-np.exp(0.5*self.param_h) + np.exp(-self.param_h*(w-0.5))) / \
+#               ((1-np.exp(0.5*self.param_h))*(1+np.exp(-self.param_h*(w-0.5))))\
+#                 - self.param_gamma*x
 
-    def _get_system(self, off_nodes=[]):
+#     def _get_system(self, off_nodes=[]):
 
-        def dxdt(t, x_array, *args):
-            x_array[x_array < 0] = 0
-            x_array[x_array > 1] = 1
+#         def dxdt(t, x_array, *args):
+#             x_array[x_array < 0] = 0
+#             x_array[x_array > 1] = 1
 
-            w = self._omega(x_array)
-            d = self._dxdt_transform(x_array, w)
-            for i in off_nodes:
-                d[i] = 0
-            return d
+#             w = self._omega(x_array)
+#             d = self._dxdt_transform(x_array, w)
+#             for i in off_nodes:
+#                 d[i] = 0
+#             return d
 
-        return dxdt
-
-
-class ShaoODE():
-    '''
-    Source: From Boolean Network Model to Continuous Model Helps in Design of
-    Functional Circuits
-    '''
-    def __init__(self, graph, **kwargs):
-        super().__init__(graph)
-        self.dxdt = self._squad(graph, gamma, h)
+#         return dxdt
 
 
+# class ShaoODE():
+#     '''
+#     Source: From Boolean Network Model to Continuous Model Helps in Design of
+#     Functional Circuits
+#     '''
+#     def __init__(self, graph, **kwargs):
+#         super().__init__(graph)
+#         self.dxdt = self._squad(graph, gamma, h)
 
 
 
-class RacipeODE():
-
-    def __init__(self, graph, transform, gamma=1, h=10, **kwargs):
-        '''
-        Transform a Activation/Inhibition Boolean network
-        into an ODE system via the RACIPE transform.
-
-        If ODE parameters are passed as an int or float, the value is
-        assigned for all variables
-        other wise a dict with a 'default' key and value, and key value
-        pairs for all others.
-
-        Parameters
-        ----------
-
-        gamma : float, dict
-            decay rate
-
-        h : float, dict
-            gain(?)
 
 
-        '''
-        super().__init__(graph)
+# class RacipeODE():
 
-        self.dxdt = self._squad(graph, gamma, h)
-        print("done. ")
+#     def __init__(self, graph, transform, gamma=1, h=10, **kwargs):
+#         '''
+#         Transform a Activation/Inhibition Boolean network
+#         into an ODE system via the RACIPE transform.
+
+#         If ODE parameters are passed as an int or float, the value is
+#         assigned for all variables
+#         other wise a dict with a 'default' key and value, and key value
+#         pairs for all others.
+
+#         Parameters
+#         ----------
+
+#         gamma : float, dict
+#             decay rate
+
+#         h : float, dict
+#             gain(?)
+#         '''
+#         super().__init__(graph)
+
+#         self.dxdt = self._squad(graph, gamma, h)
+#         print("done. ")
 
 
 
 
 ode_parent_classes = {
-               'squad':SquadODE,
-               'shao':ShaoODE,
-               'hillcube':BoolCubeODE,
-               'normalisedhillcube':BoolCubeODE,
-               'boolecube':BoolCubeODE
+    # 'squad':SquadODE,
+    # 'shao':ShaoODE,
+    'hillcube':BoolCubeODE,
+    'normalisedhillcube':BoolCubeODE,
+    'boolecube':BoolCubeODE
 }
 ''' dict : transform to parent class translation
 '''
@@ -541,8 +557,8 @@ transforms = set([
     'boolecube',
     'hillcube',
     'normalisedhillcube',
-    'shao',
-    'squad'
+    # 'shao',
+    # 'squad'
 ])
 ''' set : list of accepted ODE transforms
 '''

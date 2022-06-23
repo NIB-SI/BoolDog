@@ -1,0 +1,709 @@
+Running Sphinx v4.3.0
+making output directory... done
+INFO 2022-05-17 11:16:58,369 Creating <class 'booldog.ode.BoolCubeODE'> ODE object
+[autosummary] generating autosummary for: api/booldog.base.rst, api/booldog.bool_graph.rst, api/booldog.cli.rst, api/booldog.io.bnet_to_sif.rst, api/booldog.io.read.rst, api/booldog.io.rst, api/booldog.io.squad.rst, api/booldog.io.write.rst, api/booldog.ode.rst, api/booldog.rst, api/booldog.simulation_result.boolean.rst, api/booldog.simulation_result.continous.rst, api/booldog.simulation_result.rst, example.rst, formats.rst, index.rst, installation.rst
+Failed to import 'booldog.io.bnet_to_sif': no module named booldog.io.bnet_to_sif
+loading intersphinx inventory from https://pyboolnet.readthedocs.io/en/master/objects.inv...
+building [mo]: targets for 0 po files that are out of date
+building [html]: targets for 17 source files that are out of date
+updating environment: [new config] 17 added, 0 changed, 0 removed
+reading sources... [  5%] api/booldog
+HELLLO ODE_factory <function ODE_factory at 0x7f015a7aed40>
+HELLLO RegulatoryNetwork <class 'booldog.RegulatoryNetwork'>
+HELLLO __all__ ['RegulatoryNetwork', 'ODE_factory']
+HELLLO __builtins__ {'__name__': 'builtins', '__doc__': "Built-in functions, exceptions, and other objects.\n\nNoteworthy: None is the `nil' object; Ellipsis represents `...' in slices.", '__package__': '', '__loader__': <class '_frozen_importlib.BuiltinImporter'>, '__spec__': ModuleSpec(name='builtins', loader=<class '_frozen_importlib.BuiltinImporter'>, origin='built-in'), '__build_class__': <built-in function __build_class__>, '__import__': <built-in function __import__>, 'abs': <built-in function abs>, 'all': <built-in function all>, 'any': <built-in function any>, 'ascii': <built-in function ascii>, 'bin': <built-in function bin>, 'breakpoint': <built-in function breakpoint>, 'callable': <built-in function callable>, 'chr': <built-in function chr>, 'compile': <built-in function compile>, 'delattr': <built-in function delattr>, 'dir': <built-in function dir>, 'divmod': <built-in function divmod>, 'eval': <built-in function eval>, 'exec': <built-in function exec>, 'format': <built-in function format>, 'getattr': <built-in function getattr>, 'globals': <built-in function globals>, 'hasattr': <built-in function hasattr>, 'hash': <built-in function hash>, 'hex': <built-in function hex>, 'id': <built-in function id>, 'input': <built-in function input>, 'isinstance': <built-in function isinstance>, 'issubclass': <built-in function issubclass>, 'iter': <built-in function iter>, 'aiter': <built-in function aiter>, 'len': <built-in function len>, 'locals': <built-in function locals>, 'max': <built-in function max>, 'min': <built-in function min>, 'next': <built-in function next>, 'anext': <built-in function anext>, 'oct': <built-in function oct>, 'ord': <built-in function ord>, 'pow': <built-in function pow>, 'print': <built-in function print>, 'repr': <built-in function repr>, 'round': <built-in function round>, 'setattr': <built-in function setattr>, 'sorted': <built-in function sorted>, 'sum': <built-in function sum>, 'vars': <built-in function vars>, 'None': None, 'Ellipsis': Ellipsis, 'NotImplemented': NotImplemented, 'False': False, 'True': True, 'bool': <class 'bool'>, 'memoryview': <class 'memoryview'>, 'bytearray': <class 'bytearray'>, 'bytes': <class 'bytes'>, 'classmethod': <class 'classmethod'>, 'complex': <class 'complex'>, 'dict': <class 'dict'>, 'enumerate': <class 'enumerate'>, 'filter': <class 'filter'>, 'float': <class 'float'>, 'frozenset': <class 'frozenset'>, 'property': <class 'property'>, 'int': <class 'int'>, 'list': <class 'list'>, 'map': <class 'map'>, 'object': <class 'object'>, 'range': <class 'range'>, 'reversed': <class 'reversed'>, 'set': <class 'set'>, 'slice': <class 'slice'>, 'staticmethod': <class 'staticmethod'>, 'str': <class 'str'>, 'super': <class 'super'>, 'tuple': <class 'tuple'>, 'type': <class 'type'>, 'zip': <class 'zip'>, '__debug__': True, 'BaseException': <class 'BaseException'>, 'Exception': <class 'Exception'>, 'TypeError': <class 'TypeError'>, 'StopAsyncIteration': <class 'StopAsyncIteration'>, 'StopIteration': <class 'StopIteration'>, 'GeneratorExit': <class 'GeneratorExit'>, 'SystemExit': <class 'SystemExit'>, 'KeyboardInterrupt': <class 'KeyboardInterrupt'>, 'ImportError': <class 'ImportError'>, 'ModuleNotFoundError': <class 'ModuleNotFoundError'>, 'OSError': <class 'OSError'>, 'EnvironmentError': <class 'OSError'>, 'IOError': <class 'OSError'>, 'EOFError': <class 'EOFError'>, 'RuntimeError': <class 'RuntimeError'>, 'RecursionError': <class 'RecursionError'>, 'NotImplementedError': <class 'NotImplementedError'>, 'NameError': <class 'NameError'>, 'UnboundLocalError': <class 'UnboundLocalError'>, 'AttributeError': <class 'AttributeError'>, 'SyntaxError': <class 'SyntaxError'>, 'IndentationError': <class 'IndentationError'>, 'TabError': <class 'TabError'>, 'LookupError': <class 'LookupError'>, 'IndexError': <class 'IndexError'>, 'KeyError': <class 'KeyError'>, 'ValueError': <class 'ValueError'>, 'UnicodeError': <class 'UnicodeError'>, 'UnicodeEncodeError': <class 'UnicodeEncodeError'>, 'UnicodeDecodeError': <class 'UnicodeDecodeError'>, 'UnicodeTranslateError': <class 'UnicodeTranslateError'>, 'AssertionError': <class 'AssertionError'>, 'ArithmeticError': <class 'ArithmeticError'>, 'FloatingPointError': <class 'FloatingPointError'>, 'OverflowError': <class 'OverflowError'>, 'ZeroDivisionError': <class 'ZeroDivisionError'>, 'SystemError': <class 'SystemError'>, 'ReferenceError': <class 'ReferenceError'>, 'MemoryError': <class 'MemoryError'>, 'BufferError': <class 'BufferError'>, 'Warning': <class 'Warning'>, 'UserWarning': <class 'UserWarning'>, 'EncodingWarning': <class 'EncodingWarning'>, 'DeprecationWarning': <class 'DeprecationWarning'>, 'PendingDeprecationWarning': <class 'PendingDeprecationWarning'>, 'SyntaxWarning': <class 'SyntaxWarning'>, 'RuntimeWarning': <class 'RuntimeWarning'>, 'FutureWarning': <class 'FutureWarning'>, 'ImportWarning': <class 'ImportWarning'>, 'UnicodeWarning': <class 'UnicodeWarning'>, 'BytesWarning': <class 'BytesWarning'>, 'ResourceWarning': <class 'ResourceWarning'>, 'ConnectionError': <class 'ConnectionError'>, 'BlockingIOError': <class 'BlockingIOError'>, 'BrokenPipeError': <class 'BrokenPipeError'>, 'ChildProcessError': <class 'ChildProcessError'>, 'ConnectionAbortedError': <class 'ConnectionAbortedError'>, 'ConnectionRefusedError': <class 'ConnectionRefusedError'>, 'ConnectionResetError': <class 'ConnectionResetError'>, 'FileExistsError': <class 'FileExistsError'>, 'FileNotFoundError': <class 'FileNotFoundError'>, 'IsADirectoryError': <class 'IsADirectoryError'>, 'NotADirectoryError': <class 'NotADirectoryError'>, 'InterruptedError': <class 'InterruptedError'>, 'PermissionError': <class 'PermissionError'>, 'ProcessLookupError': <class 'ProcessLookupError'>, 'TimeoutError': <class 'TimeoutError'>, 'open': <built-in function open>, 'quit': Use quit() or Ctrl-D (i.e. EOF) to exit, 'exit': Use exit() or Ctrl-D (i.e. EOF) to exit, 'copyright': Copyright (c) 2001-2021 Python Software Foundation.
+All Rights Reserved.
+
+Copyright (c) 2000 BeOpen.com.
+All Rights Reserved.
+
+Copyright (c) 1995-2001 Corporation for National Research Initiatives.
+All Rights Reserved.
+
+Copyright (c) 1991-1995 Stichting Mathematisch Centrum, Amsterdam.
+All Rights Reserved., 'credits':     Thanks to CWI, CNRI, BeOpen.com, Zope Corporation and a cast of thousands
+    for supporting Python development.  See www.python.org for more information., 'license': Type license() to see the full license text, 'help': Type help() for interactive help, or help(object) for help about object., '__pybind11_internals_v4_gcc_libstdcpp_cxxabi1014__': <capsule object NULL at 0x7f015b046820>}
+HELLLO __cached__ /home/cbleker/research/NIB/squad/BoolDoG/booldog/__pycache__/__init__.cpython-310.pyc
+HELLLO __doc__ `booldog`: A Python package for analyses of Boolean and semi-qualitative Boolean networks
+HELLLO __file__ /home/cbleker/research/NIB/squad/BoolDoG/booldog/__init__.py
+HELLLO __loader__ <_frozen_importlib_external.SourceFileLoader object at 0x7f0170be9480>
+HELLLO __name__ booldog
+HELLLO __package__ booldog
+HELLLO __path__ ['/home/cbleker/research/NIB/squad/BoolDoG/booldog']
+HELLLO __spec__ ModuleSpec(name='booldog', loader=<_frozen_importlib_external.SourceFileLoader object at 0x7f0170be9480>, origin='/home/cbleker/research/NIB/squad/BoolDoG/booldog/__init__.py', submodule_search_locations=['/home/cbleker/research/NIB/squad/BoolDoG/booldog'])
+HELLLO base <module 'booldog.base' from '/home/cbleker/research/NIB/squad/BoolDoG/booldog/base.py'>
+HELLLO bool_graph <module 'booldog.bool_graph' from '/home/cbleker/research/NIB/squad/BoolDoG/booldog/bool_graph.py'>
+HELLLO cli <module 'booldog.cli' from '/home/cbleker/research/NIB/squad/BoolDoG/booldog/cli.py'>
+HELLLO io <module 'booldog.io' from '/home/cbleker/research/NIB/squad/BoolDoG/booldog/io/__init__.py'>
+HELLLO logging <module 'logging' from '/home/cbleker/miniconda3/envs/docs/lib/python3.10/logging/__init__.py'>
+HELLLO ode <module 'booldog.ode' from '/home/cbleker/research/NIB/squad/BoolDoG/booldog/ode.py'>
+HELLLO simulation_result <module 'booldog.simulation_result' from '/home/cbleker/research/NIB/squad/BoolDoG/booldog/simulation_result/__init__.py'>
+HELLLO sys <module 'sys' (built-in)>
+HELLLO utils <module 'booldog.utils' (<_frozen_importlib_external._NamespaceLoader object at 0x7f015a7b10c0>)>
+HELLLO __class__ <class 'type'>
+HELLLO __delattr__ <slot wrapper '__delattr__' of 'object' objects>
+HELLLO __dict__ {'__module__': 'booldog', '__doc__': 'A class to represent a regulatory network.\n\n    ', '__init__': <function RegulatoryNetwork.__init__ at 0x7f015927d900>, 'transform_bool_to_continuous': <function RegulatoryNetwork.transform_bool_to_continuous at 0x7f015927dab0>, 'continuous_simulation': <function RegulatoryNetwork.continuous_simulation at 0x7f015927dea0>, '__annotations__': {}}
+HELLLO __dir__ <method '__dir__' of 'object' objects>
+HELLLO __doc__ A class to represent a regulatory network.
+
+    
+HELLLO __eq__ <slot wrapper '__eq__' of 'object' objects>
+HELLLO __format__ <method '__format__' of 'object' objects>
+HELLLO __ge__ <slot wrapper '__ge__' of 'object' objects>
+HELLLO __getattribute__ <slot wrapper '__getattribute__' of 'object' objects>
+HELLLO __gt__ <slot wrapper '__gt__' of 'object' objects>
+HELLLO __hash__ <slot wrapper '__hash__' of 'object' objects>
+HELLLO __init__ <function RegulatoryNetwork.__init__ at 0x7f015927d900>
+HELLLO __init_subclass__ <built-in method __init_subclass__ of type object at 0x5627d561e870>
+HELLLO __le__ <slot wrapper '__le__' of 'object' objects>
+HELLLO __len__ <function BooleanGraph.__len__ at 0x7f015927d870>
+HELLLO __lt__ <slot wrapper '__lt__' of 'object' objects>
+HELLLO __module__ booldog
+HELLLO __ne__ <slot wrapper '__ne__' of 'object' objects>
+HELLLO __new__ <built-in method __new__ of type object at 0x5627d26e2980>
+HELLLO __reduce__ <method '__reduce__' of 'object' objects>
+HELLLO __reduce_ex__ <method '__reduce_ex__' of 'object' objects>
+HELLLO __repr__ <function BooleanGraph.__repr__ at 0x7f015927d7e0>
+HELLLO __setattr__ <slot wrapper '__setattr__' of 'object' objects>
+HELLLO __sizeof__ <method '__sizeof__' of 'object' objects>
+HELLLO __str__ <slot wrapper '__str__' of 'object' objects>
+HELLLO __subclasshook__ <built-in method __subclasshook__ of type object at 0x5627d561e870>
+HELLLO __weakref__ <attribute '__weakref__' of 'BooleanGraph' objects>
+HELLLO boolean_simulation <function BooleanGraph.boolean_simulation at 0x7f015927d5a0>
+HELLLO continuous_simulation <function RegulatoryNetwork.continuous_simulation at 0x7f015927dea0>
+HELLLO generate_states <function BooleanGraph.generate_states at 0x7f015927d510>
+HELLLO get_interactions <function BooleanGraph.get_interactions at 0x7f015927d750>
+HELLLO get_parents <function BooleanGraph.get_parents at 0x7f015927d6c0>
+HELLLO primes_to_matrices <function BooleanGraph.primes_to_matrices at 0x7f015927d360>
+HELLLO steady_states <function BooleanGraph.steady_states at 0x7f015927d630>
+HELLLO transform_bool_to_continuous <function RegulatoryNetwork.transform_bool_to_continuous at 0x7f015927dab0>
+reading sources... [ 11%] api/booldog.base
+HELLLO BooleanGraph <class 'booldog.bool_graph.BooleanGraph'>
+HELLLO ContinousSimulationResult <class 'booldog.simulation_result.continous.ContinousSimulationResult'>
+HELLLO ODE_factory <function ODE_factory at 0x7f015a7aed40>
+HELLLO Path <class 'pathlib.Path'>
+HELLLO RegulatoryNetwork <class 'booldog.RegulatoryNetwork'>
+HELLLO __builtins__ {'__name__': 'builtins', '__doc__': "Built-in functions, exceptions, and other objects.\n\nNoteworthy: None is the `nil' object; Ellipsis represents `...' in slices.", '__package__': '', '__loader__': <class '_frozen_importlib.BuiltinImporter'>, '__spec__': ModuleSpec(name='builtins', loader=<class '_frozen_importlib.BuiltinImporter'>, origin='built-in'), '__build_class__': <built-in function __build_class__>, '__import__': <built-in function __import__>, 'abs': <built-in function abs>, 'all': <built-in function all>, 'any': <built-in function any>, 'ascii': <built-in function ascii>, 'bin': <built-in function bin>, 'breakpoint': <built-in function breakpoint>, 'callable': <built-in function callable>, 'chr': <built-in function chr>, 'compile': <built-in function compile>, 'delattr': <built-in function delattr>, 'dir': <built-in function dir>, 'divmod': <built-in function divmod>, 'eval': <built-in function eval>, 'exec': <built-in function exec>, 'format': <built-in function format>, 'getattr': <built-in function getattr>, 'globals': <built-in function globals>, 'hasattr': <built-in function hasattr>, 'hash': <built-in function hash>, 'hex': <built-in function hex>, 'id': <built-in function id>, 'input': <built-in function input>, 'isinstance': <built-in function isinstance>, 'issubclass': <built-in function issubclass>, 'iter': <built-in function iter>, 'aiter': <built-in function aiter>, 'len': <built-in function len>, 'locals': <built-in function locals>, 'max': <built-in function max>, 'min': <built-in function min>, 'next': <built-in function next>, 'anext': <built-in function anext>, 'oct': <built-in function oct>, 'ord': <built-in function ord>, 'pow': <built-in function pow>, 'print': <built-in function print>, 'repr': <built-in function repr>, 'round': <built-in function round>, 'setattr': <built-in function setattr>, 'sorted': <built-in function sorted>, 'sum': <built-in function sum>, 'vars': <built-in function vars>, 'None': None, 'Ellipsis': Ellipsis, 'NotImplemented': NotImplemented, 'False': False, 'True': True, 'bool': <class 'bool'>, 'memoryview': <class 'memoryview'>, 'bytearray': <class 'bytearray'>, 'bytes': <class 'bytes'>, 'classmethod': <class 'classmethod'>, 'complex': <class 'complex'>, 'dict': <class 'dict'>, 'enumerate': <class 'enumerate'>, 'filter': <class 'filter'>, 'float': <class 'float'>, 'frozenset': <class 'frozenset'>, 'property': <class 'property'>, 'int': <class 'int'>, 'list': <class 'list'>, 'map': <class 'map'>, 'object': <class 'object'>, 'range': <class 'range'>, 'reversed': <class 'reversed'>, 'set': <class 'set'>, 'slice': <class 'slice'>, 'staticmethod': <class 'staticmethod'>, 'str': <class 'str'>, 'super': <class 'super'>, 'tuple': <class 'tuple'>, 'type': <class 'type'>, 'zip': <class 'zip'>, '__debug__': True, 'BaseException': <class 'BaseException'>, 'Exception': <class 'Exception'>, 'TypeError': <class 'TypeError'>, 'StopAsyncIteration': <class 'StopAsyncIteration'>, 'StopIteration': <class 'StopIteration'>, 'GeneratorExit': <class 'GeneratorExit'>, 'SystemExit': <class 'SystemExit'>, 'KeyboardInterrupt': <class 'KeyboardInterrupt'>, 'ImportError': <class 'ImportError'>, 'ModuleNotFoundError': <class 'ModuleNotFoundError'>, 'OSError': <class 'OSError'>, 'EnvironmentError': <class 'OSError'>, 'IOError': <class 'OSError'>, 'EOFError': <class 'EOFError'>, 'RuntimeError': <class 'RuntimeError'>, 'RecursionError': <class 'RecursionError'>, 'NotImplementedError': <class 'NotImplementedError'>, 'NameError': <class 'NameError'>, 'UnboundLocalError': <class 'UnboundLocalError'>, 'AttributeError': <class 'AttributeError'>, 'SyntaxError': <class 'SyntaxError'>, 'IndentationError': <class 'IndentationError'>, 'TabError': <class 'TabError'>, 'LookupError': <class 'LookupError'>, 'IndexError': <class 'IndexError'>, 'KeyError': <class 'KeyError'>, 'ValueError': <class 'ValueError'>, 'UnicodeError': <class 'UnicodeError'>, 'UnicodeEncodeError': <class 'UnicodeEncodeError'>, 'UnicodeDecodeError': <class 'UnicodeDecodeError'>, 'UnicodeTranslateError': <class 'UnicodeTranslateError'>, 'AssertionError': <class 'AssertionError'>, 'ArithmeticError': <class 'ArithmeticError'>, 'FloatingPointError': <class 'FloatingPointError'>, 'OverflowError': <class 'OverflowError'>, 'ZeroDivisionError': <class 'ZeroDivisionError'>, 'SystemError': <class 'SystemError'>, 'ReferenceError': <class 'ReferenceError'>, 'MemoryError': <class 'MemoryError'>, 'BufferError': <class 'BufferError'>, 'Warning': <class 'Warning'>, 'UserWarning': <class 'UserWarning'>, 'EncodingWarning': <class 'EncodingWarning'>, 'DeprecationWarning': <class 'DeprecationWarning'>, 'PendingDeprecationWarning': <class 'PendingDeprecationWarning'>, 'SyntaxWarning': <class 'SyntaxWarning'>, 'RuntimeWarning': <class 'RuntimeWarning'>, 'FutureWarning': <class 'FutureWarning'>, 'ImportWarning': <class 'ImportWarning'>, 'UnicodeWarning': <class 'UnicodeWarning'>, 'BytesWarning': <class 'BytesWarning'>, 'ResourceWarning': <class 'ResourceWarning'>, 'ConnectionError': <class 'ConnectionError'>, 'BlockingIOError': <class 'BlockingIOError'>, 'BrokenPipeError': <class 'BrokenPipeError'>, 'ChildProcessError': <class 'ChildProcessError'>, 'ConnectionAbortedError': <class 'ConnectionAbortedError'>, 'ConnectionRefusedError': <class 'ConnectionRefusedError'>, 'ConnectionResetError': <class 'ConnectionResetError'>, 'FileExistsError': <class 'FileExistsError'>, 'FileNotFoundError': <class 'FileNotFoundError'>, 'IsADirectoryError': <class 'IsADirectoryError'>, 'NotADirectoryError': <class 'NotADirectoryError'>, 'InterruptedError': <class 'InterruptedError'>, 'PermissionError': <class 'PermissionError'>, 'ProcessLookupError': <class 'ProcessLookupError'>, 'TimeoutError': <class 'TimeoutError'>, 'open': <built-in function open>, 'quit': Use quit() or Ctrl-D (i.e. EOF) to exit, 'exit': Use exit() or Ctrl-D (i.e. EOF) to exit, 'copyright': Copyright (c) 2001-2021 Python Software Foundation.
+All Rights Reserved.
+
+Copyright (c) 2000 BeOpen.com.
+All Rights Reserved.
+
+Copyright (c) 1995-2001 Corporation for National Research Initiatives.
+All Rights Reserved.
+
+Copyright (c) 1991-1995 Stichting Mathematisch Centrum, Amsterdam.
+All Rights Reserved., 'credits':     Thanks to CWI, CNRI, BeOpen.com, Zope Corporation and a cast of thousands
+    for supporting Python development.  See www.python.org for more information., 'license': Type license() to see the full license text, 'help': Type help() for interactive help, or help(object) for help about object., '__pybind11_internals_v4_gcc_libstdcpp_cxxabi1014__': <capsule object NULL at 0x7f015b046820>}
+HELLLO __cached__ /home/cbleker/research/NIB/squad/BoolDoG/booldog/__pycache__/base.cpython-310.pyc
+HELLLO __doc__ None
+HELLLO __file__ /home/cbleker/research/NIB/squad/BoolDoG/booldog/base.py
+HELLLO __loader__ <_frozen_importlib_external.SourceFileLoader object at 0x7f0170bead70>
+HELLLO __name__ booldog.base
+HELLLO __package__ booldog
+HELLLO __spec__ ModuleSpec(name='booldog.base', loader=<_frozen_importlib_external.SourceFileLoader object at 0x7f0170bead70>, origin='/home/cbleker/research/NIB/squad/BoolDoG/booldog/base.py')
+HELLLO defaultdict <class 'collections.defaultdict'>
+HELLLO ensure_ndarray <function ensure_ndarray at 0x7f015c814ee0>
+HELLLO file_writeable <function file_writeable at 0x7f015a7aec20>
+HELLLO math <module 'math' from '/home/cbleker/miniconda3/envs/docs/lib/python3.10/lib-dynload/math.cpython-310-x86_64-linux-gnu.so'>
+HELLLO np <module 'numpy' from '/home/cbleker/miniconda3/envs/docs/lib/python3.10/site-packages/numpy/__init__.py'>
+HELLLO os <module 'os' from '/home/cbleker/miniconda3/envs/docs/lib/python3.10/os.py'>
+HELLLO parameter_to_array <function parameter_to_array at 0x7f015a7aeb90>
+HELLLO solve_ivp <function solve_ivp at 0x7f015a7ade10>
+HELLLO sys <module 'sys' (built-in)>
+HELLLO warnings <module 'warnings' from '/home/cbleker/miniconda3/envs/docs/lib/python3.10/warnings.py'>
+reading sources... [ 17%] api/booldog.bool_graph
+HELLLO BooleanGraph <class 'booldog.bool_graph.BooleanGraph'>
+HELLLO BooleanSimulationResult <class 'booldog.simulation_result.boolean.BooleanSimulationResult'>
+HELLLO Path <class 'pathlib.Path'>
+HELLLO __builtins__ {'__name__': 'builtins', '__doc__': "Built-in functions, exceptions, and other objects.\n\nNoteworthy: None is the `nil' object; Ellipsis represents `...' in slices.", '__package__': '', '__loader__': <class '_frozen_importlib.BuiltinImporter'>, '__spec__': ModuleSpec(name='builtins', loader=<class '_frozen_importlib.BuiltinImporter'>, origin='built-in'), '__build_class__': <built-in function __build_class__>, '__import__': <built-in function __import__>, 'abs': <built-in function abs>, 'all': <built-in function all>, 'any': <built-in function any>, 'ascii': <built-in function ascii>, 'bin': <built-in function bin>, 'breakpoint': <built-in function breakpoint>, 'callable': <built-in function callable>, 'chr': <built-in function chr>, 'compile': <built-in function compile>, 'delattr': <built-in function delattr>, 'dir': <built-in function dir>, 'divmod': <built-in function divmod>, 'eval': <built-in function eval>, 'exec': <built-in function exec>, 'format': <built-in function format>, 'getattr': <built-in function getattr>, 'globals': <built-in function globals>, 'hasattr': <built-in function hasattr>, 'hash': <built-in function hash>, 'hex': <built-in function hex>, 'id': <built-in function id>, 'input': <built-in function input>, 'isinstance': <built-in function isinstance>, 'issubclass': <built-in function issubclass>, 'iter': <built-in function iter>, 'aiter': <built-in function aiter>, 'len': <built-in function len>, 'locals': <built-in function locals>, 'max': <built-in function max>, 'min': <built-in function min>, 'next': <built-in function next>, 'anext': <built-in function anext>, 'oct': <built-in function oct>, 'ord': <built-in function ord>, 'pow': <built-in function pow>, 'print': <built-in function print>, 'repr': <built-in function repr>, 'round': <built-in function round>, 'setattr': <built-in function setattr>, 'sorted': <built-in function sorted>, 'sum': <built-in function sum>, 'vars': <built-in function vars>, 'None': None, 'Ellipsis': Ellipsis, 'NotImplemented': NotImplemented, 'False': False, 'True': True, 'bool': <class 'bool'>, 'memoryview': <class 'memoryview'>, 'bytearray': <class 'bytearray'>, 'bytes': <class 'bytes'>, 'classmethod': <class 'classmethod'>, 'complex': <class 'complex'>, 'dict': <class 'dict'>, 'enumerate': <class 'enumerate'>, 'filter': <class 'filter'>, 'float': <class 'float'>, 'frozenset': <class 'frozenset'>, 'property': <class 'property'>, 'int': <class 'int'>, 'list': <class 'list'>, 'map': <class 'map'>, 'object': <class 'object'>, 'range': <class 'range'>, 'reversed': <class 'reversed'>, 'set': <class 'set'>, 'slice': <class 'slice'>, 'staticmethod': <class 'staticmethod'>, 'str': <class 'str'>, 'super': <class 'super'>, 'tuple': <class 'tuple'>, 'type': <class 'type'>, 'zip': <class 'zip'>, '__debug__': True, 'BaseException': <class 'BaseException'>, 'Exception': <class 'Exception'>, 'TypeError': <class 'TypeError'>, 'StopAsyncIteration': <class 'StopAsyncIteration'>, 'StopIteration': <class 'StopIteration'>, 'GeneratorExit': <class 'GeneratorExit'>, 'SystemExit': <class 'SystemExit'>, 'KeyboardInterrupt': <class 'KeyboardInterrupt'>, 'ImportError': <class 'ImportError'>, 'ModuleNotFoundError': <class 'ModuleNotFoundError'>, 'OSError': <class 'OSError'>, 'EnvironmentError': <class 'OSError'>, 'IOError': <class 'OSError'>, 'EOFError': <class 'EOFError'>, 'RuntimeError': <class 'RuntimeError'>, 'RecursionError': <class 'RecursionError'>, 'NotImplementedError': <class 'NotImplementedError'>, 'NameError': <class 'NameError'>, 'UnboundLocalError': <class 'UnboundLocalError'>, 'AttributeError': <class 'AttributeError'>, 'SyntaxError': <class 'SyntaxError'>, 'IndentationError': <class 'IndentationError'>, 'TabError': <class 'TabError'>, 'LookupError': <class 'LookupError'>, 'IndexError': <class 'IndexError'>, 'KeyError': <class 'KeyError'>, 'ValueError': <class 'ValueError'>, 'UnicodeError': <class 'UnicodeError'>, 'UnicodeEncodeError': <class 'UnicodeEncodeError'>, 'UnicodeDecodeError': <class 'UnicodeDecodeError'>, 'UnicodeTranslateError': <class 'UnicodeTranslateError'>, 'AssertionError': <class 'AssertionError'>, 'ArithmeticError': <class 'ArithmeticError'>, 'FloatingPointError': <class 'FloatingPointError'>, 'OverflowError': <class 'OverflowError'>, 'ZeroDivisionError': <class 'ZeroDivisionError'>, 'SystemError': <class 'SystemError'>, 'ReferenceError': <class 'ReferenceError'>, 'MemoryError': <class 'MemoryError'>, 'BufferError': <class 'BufferError'>, 'Warning': <class 'Warning'>, 'UserWarning': <class 'UserWarning'>, 'EncodingWarning': <class 'EncodingWarning'>, 'DeprecationWarning': <class 'DeprecationWarning'>, 'PendingDeprecationWarning': <class 'PendingDeprecationWarning'>, 'SyntaxWarning': <class 'SyntaxWarning'>, 'RuntimeWarning': <class 'RuntimeWarning'>, 'FutureWarning': <class 'FutureWarning'>, 'ImportWarning': <class 'ImportWarning'>, 'UnicodeWarning': <class 'UnicodeWarning'>, 'BytesWarning': <class 'BytesWarning'>, 'ResourceWarning': <class 'ResourceWarning'>, 'ConnectionError': <class 'ConnectionError'>, 'BlockingIOError': <class 'BlockingIOError'>, 'BrokenPipeError': <class 'BrokenPipeError'>, 'ChildProcessError': <class 'ChildProcessError'>, 'ConnectionAbortedError': <class 'ConnectionAbortedError'>, 'ConnectionRefusedError': <class 'ConnectionRefusedError'>, 'ConnectionResetError': <class 'ConnectionResetError'>, 'FileExistsError': <class 'FileExistsError'>, 'FileNotFoundError': <class 'FileNotFoundError'>, 'IsADirectoryError': <class 'IsADirectoryError'>, 'NotADirectoryError': <class 'NotADirectoryError'>, 'InterruptedError': <class 'InterruptedError'>, 'PermissionError': <class 'PermissionError'>, 'ProcessLookupError': <class 'ProcessLookupError'>, 'TimeoutError': <class 'TimeoutError'>, 'open': <built-in function open>, 'quit': Use quit() or Ctrl-D (i.e. EOF) to exit, 'exit': Use exit() or Ctrl-D (i.e. EOF) to exit, 'copyright': Copyright (c) 2001-2021 Python Software Foundation.
+All Rights Reserved.
+
+Copyright (c) 2000 BeOpen.com.
+All Rights Reserved.
+
+Copyright (c) 1995-2001 Corporation for National Research Initiatives.
+All Rights Reserved.
+
+Copyright (c) 1991-1995 Stichting Mathematisch Centrum, Amsterdam.
+All Rights Reserved., 'credits':     Thanks to CWI, CNRI, BeOpen.com, Zope Corporation and a cast of thousands
+    for supporting Python development.  See www.python.org for more information., 'license': Type license() to see the full license text, 'help': Type help() for interactive help, or help(object) for help about object., '__pybind11_internals_v4_gcc_libstdcpp_cxxabi1014__': <capsule object NULL at 0x7f015b046820>}
+HELLLO __cached__ /home/cbleker/research/NIB/squad/BoolDoG/booldog/__pycache__/bool_graph.cpython-310.pyc
+HELLLO __doc__ None
+HELLLO __file__ /home/cbleker/research/NIB/squad/BoolDoG/booldog/bool_graph.py
+HELLLO __loader__ <_frozen_importlib_external.SourceFileLoader object at 0x7f015a7b1840>
+HELLLO __name__ booldog.bool_graph
+HELLLO __package__ booldog
+HELLLO __spec__ ModuleSpec(name='booldog.bool_graph', loader=<_frozen_importlib_external.SourceFileLoader object at 0x7f015a7b1840>, origin='/home/cbleker/research/NIB/squad/BoolDoG/booldog/bool_graph.py')
+HELLLO defaultdict <class 'collections.defaultdict'>
+HELLLO ensure_ndarray <function ensure_ndarray at 0x7f015c814ee0>
+HELLLO file_writeable <function file_writeable at 0x7f015a7aec20>
+HELLLO np <module 'numpy' from '/home/cbleker/miniconda3/envs/docs/lib/python3.10/site-packages/numpy/__init__.py'>
+HELLLO os <module 'os' from '/home/cbleker/miniconda3/envs/docs/lib/python3.10/os.py'>
+HELLLO parameter_to_array <function parameter_to_array at 0x7f015a7aeb90>
+HELLLO primes2igraph <function primes2igraph at 0x7f015a31c3a0>
+HELLLO primes2stg <function primes2stg at 0x7f015a31c550>
+HELLLO product <class 'itertools.product'>
+HELLLO steady_states <function steady_states at 0x7f015a7cfb50>
+HELLLO stg2image <function stg2image at 0x7f015a31c670>
+HELLLO warnings <module 'warnings' from '/home/cbleker/miniconda3/envs/docs/lib/python3.10/warnings.py'>
+HELLLO __annotations__ {}
+HELLLO __class__ <class 'type'>
+HELLLO __delattr__ <slot wrapper '__delattr__' of 'object' objects>
+HELLLO __dict__ {'__module__': 'booldog.bool_graph', '__doc__': 'A class to represent a Boolean graph.\n\n    Attributes\n    ----------\n    n : int\n        The number of nodes/variables in the graph\n    primes : dict\n        Prime implicants of the Boolean graph. See\n        `PyBoolNet:prime implicants\n        <https://pyboolnet.readthedocs.io/en/latest/Manual.html#prime-implicants>`_\n        for more information.\n    nodes : tuple of str\n        Lists node names in the graph\n    index : dict\n        Dictionary of node name to integer index for indexing arrays\n    ', '__init__': <function BooleanGraph.__init__ at 0x7f015a31e0e0>, 'primes_to_matrices': <function BooleanGraph.primes_to_matrices at 0x7f015927d360>, 'generate_states': <function BooleanGraph.generate_states at 0x7f015927d510>, 'boolean_simulation': <function BooleanGraph.boolean_simulation at 0x7f015927d5a0>, 'steady_states': <function BooleanGraph.steady_states at 0x7f015927d630>, 'get_parents': <function BooleanGraph.get_parents at 0x7f015927d6c0>, 'get_interactions': <function BooleanGraph.get_interactions at 0x7f015927d750>, '__repr__': <function BooleanGraph.__repr__ at 0x7f015927d7e0>, '__len__': <function BooleanGraph.__len__ at 0x7f015927d870>, '__dict__': <attribute '__dict__' of 'BooleanGraph' objects>, '__weakref__': <attribute '__weakref__' of 'BooleanGraph' objects>, '__annotations__': {}}
+HELLLO __dir__ <method '__dir__' of 'object' objects>
+HELLLO __doc__ A class to represent a Boolean graph.
+
+    Attributes
+    ----------
+    n : int
+        The number of nodes/variables in the graph
+    primes : dict
+        Prime implicants of the Boolean graph. See
+        `PyBoolNet:prime implicants
+        <https://pyboolnet.readthedocs.io/en/latest/Manual.html#prime-implicants>`_
+        for more information.
+    nodes : tuple of str
+        Lists node names in the graph
+    index : dict
+        Dictionary of node name to integer index for indexing arrays
+    
+HELLLO __eq__ <slot wrapper '__eq__' of 'object' objects>
+HELLLO __format__ <method '__format__' of 'object' objects>
+HELLLO __ge__ <slot wrapper '__ge__' of 'object' objects>
+HELLLO __getattribute__ <slot wrapper '__getattribute__' of 'object' objects>
+HELLLO __gt__ <slot wrapper '__gt__' of 'object' objects>
+HELLLO __hash__ <slot wrapper '__hash__' of 'object' objects>
+HELLLO __init__ <function BooleanGraph.__init__ at 0x7f015a31e0e0>
+HELLLO __init_subclass__ <built-in method __init_subclass__ of type object at 0x5627d58f9740>
+HELLLO __le__ <slot wrapper '__le__' of 'object' objects>
+HELLLO __len__ <function BooleanGraph.__len__ at 0x7f015927d870>
+HELLLO __lt__ <slot wrapper '__lt__' of 'object' objects>
+HELLLO __module__ booldog.bool_graph
+HELLLO __ne__ <slot wrapper '__ne__' of 'object' objects>
+HELLLO __new__ <built-in method __new__ of type object at 0x5627d26e2980>
+HELLLO __reduce__ <method '__reduce__' of 'object' objects>
+HELLLO __reduce_ex__ <method '__reduce_ex__' of 'object' objects>
+HELLLO __repr__ <function BooleanGraph.__repr__ at 0x7f015927d7e0>
+HELLLO __setattr__ <slot wrapper '__setattr__' of 'object' objects>
+HELLLO __sizeof__ <method '__sizeof__' of 'object' objects>
+HELLLO __str__ <slot wrapper '__str__' of 'object' objects>
+HELLLO __subclasshook__ <built-in method __subclasshook__ of type object at 0x5627d58f9740>
+HELLLO __weakref__ <attribute '__weakref__' of 'BooleanGraph' objects>
+HELLLO boolean_simulation <function BooleanGraph.boolean_simulation at 0x7f015927d5a0>
+HELLLO generate_states <function BooleanGraph.generate_states at 0x7f015927d510>
+HELLLO get_interactions <function BooleanGraph.get_interactions at 0x7f015927d750>
+HELLLO get_parents <function BooleanGraph.get_parents at 0x7f015927d6c0>
+HELLLO primes_to_matrices <function BooleanGraph.primes_to_matrices at 0x7f015927d360>
+HELLLO steady_states <function BooleanGraph.steady_states at 0x7f015927d630>
+reading sources... [ 23%] api/booldog.cli
+HELLLO __builtins__ {'__name__': 'builtins', '__doc__': "Built-in functions, exceptions, and other objects.\n\nNoteworthy: None is the `nil' object; Ellipsis represents `...' in slices.", '__package__': '', '__loader__': <class '_frozen_importlib.BuiltinImporter'>, '__spec__': ModuleSpec(name='builtins', loader=<class '_frozen_importlib.BuiltinImporter'>, origin='built-in'), '__build_class__': <built-in function __build_class__>, '__import__': <built-in function __import__>, 'abs': <built-in function abs>, 'all': <built-in function all>, 'any': <built-in function any>, 'ascii': <built-in function ascii>, 'bin': <built-in function bin>, 'breakpoint': <built-in function breakpoint>, 'callable': <built-in function callable>, 'chr': <built-in function chr>, 'compile': <built-in function compile>, 'delattr': <built-in function delattr>, 'dir': <built-in function dir>, 'divmod': <built-in function divmod>, 'eval': <built-in function eval>, 'exec': <built-in function exec>, 'format': <built-in function format>, 'getattr': <built-in function getattr>, 'globals': <built-in function globals>, 'hasattr': <built-in function hasattr>, 'hash': <built-in function hash>, 'hex': <built-in function hex>, 'id': <built-in function id>, 'input': <built-in function input>, 'isinstance': <built-in function isinstance>, 'issubclass': <built-in function issubclass>, 'iter': <built-in function iter>, 'aiter': <built-in function aiter>, 'len': <built-in function len>, 'locals': <built-in function locals>, 'max': <built-in function max>, 'min': <built-in function min>, 'next': <built-in function next>, 'anext': <built-in function anext>, 'oct': <built-in function oct>, 'ord': <built-in function ord>, 'pow': <built-in function pow>, 'print': <built-in function print>, 'repr': <built-in function repr>, 'round': <built-in function round>, 'setattr': <built-in function setattr>, 'sorted': <built-in function sorted>, 'sum': <built-in function sum>, 'vars': <built-in function vars>, 'None': None, 'Ellipsis': Ellipsis, 'NotImplemented': NotImplemented, 'False': False, 'True': True, 'bool': <class 'bool'>, 'memoryview': <class 'memoryview'>, 'bytearray': <class 'bytearray'>, 'bytes': <class 'bytes'>, 'classmethod': <class 'classmethod'>, 'complex': <class 'complex'>, 'dict': <class 'dict'>, 'enumerate': <class 'enumerate'>, 'filter': <class 'filter'>, 'float': <class 'float'>, 'frozenset': <class 'frozenset'>, 'property': <class 'property'>, 'int': <class 'int'>, 'list': <class 'list'>, 'map': <class 'map'>, 'object': <class 'object'>, 'range': <class 'range'>, 'reversed': <class 'reversed'>, 'set': <class 'set'>, 'slice': <class 'slice'>, 'staticmethod': <class 'staticmethod'>, 'str': <class 'str'>, 'super': <class 'super'>, 'tuple': <class 'tuple'>, 'type': <class 'type'>, 'zip': <class 'zip'>, '__debug__': True, 'BaseException': <class 'BaseException'>, 'Exception': <class 'Exception'>, 'TypeError': <class 'TypeError'>, 'StopAsyncIteration': <class 'StopAsyncIteration'>, 'StopIteration': <class 'StopIteration'>, 'GeneratorExit': <class 'GeneratorExit'>, 'SystemExit': <class 'SystemExit'>, 'KeyboardInterrupt': <class 'KeyboardInterrupt'>, 'ImportError': <class 'ImportError'>, 'ModuleNotFoundError': <class 'ModuleNotFoundError'>, 'OSError': <class 'OSError'>, 'EnvironmentError': <class 'OSError'>, 'IOError': <class 'OSError'>, 'EOFError': <class 'EOFError'>, 'RuntimeError': <class 'RuntimeError'>, 'RecursionError': <class 'RecursionError'>, 'NotImplementedError': <class 'NotImplementedError'>, 'NameError': <class 'NameError'>, 'UnboundLocalError': <class 'UnboundLocalError'>, 'AttributeError': <class 'AttributeError'>, 'SyntaxError': <class 'SyntaxError'>, 'IndentationError': <class 'IndentationError'>, 'TabError': <class 'TabError'>, 'LookupError': <class 'LookupError'>, 'IndexError': <class 'IndexError'>, 'KeyError': <class 'KeyError'>, 'ValueError': <class 'ValueError'>, 'UnicodeError': <class 'UnicodeError'>, 'UnicodeEncodeError': <class 'UnicodeEncodeError'>, 'UnicodeDecodeError': <class 'UnicodeDecodeError'>, 'UnicodeTranslateError': <class 'UnicodeTranslateError'>, 'AssertionError': <class 'AssertionError'>, 'ArithmeticError': <class 'ArithmeticError'>, 'FloatingPointError': <class 'FloatingPointError'>, 'OverflowError': <class 'OverflowError'>, 'ZeroDivisionError': <class 'ZeroDivisionError'>, 'SystemError': <class 'SystemError'>, 'ReferenceError': <class 'ReferenceError'>, 'MemoryError': <class 'MemoryError'>, 'BufferError': <class 'BufferError'>, 'Warning': <class 'Warning'>, 'UserWarning': <class 'UserWarning'>, 'EncodingWarning': <class 'EncodingWarning'>, 'DeprecationWarning': <class 'DeprecationWarning'>, 'PendingDeprecationWarning': <class 'PendingDeprecationWarning'>, 'SyntaxWarning': <class 'SyntaxWarning'>, 'RuntimeWarning': <class 'RuntimeWarning'>, 'FutureWarning': <class 'FutureWarning'>, 'ImportWarning': <class 'ImportWarning'>, 'UnicodeWarning': <class 'UnicodeWarning'>, 'BytesWarning': <class 'BytesWarning'>, 'ResourceWarning': <class 'ResourceWarning'>, 'ConnectionError': <class 'ConnectionError'>, 'BlockingIOError': <class 'BlockingIOError'>, 'BrokenPipeError': <class 'BrokenPipeError'>, 'ChildProcessError': <class 'ChildProcessError'>, 'ConnectionAbortedError': <class 'ConnectionAbortedError'>, 'ConnectionRefusedError': <class 'ConnectionRefusedError'>, 'ConnectionResetError': <class 'ConnectionResetError'>, 'FileExistsError': <class 'FileExistsError'>, 'FileNotFoundError': <class 'FileNotFoundError'>, 'IsADirectoryError': <class 'IsADirectoryError'>, 'NotADirectoryError': <class 'NotADirectoryError'>, 'InterruptedError': <class 'InterruptedError'>, 'PermissionError': <class 'PermissionError'>, 'ProcessLookupError': <class 'ProcessLookupError'>, 'TimeoutError': <class 'TimeoutError'>, 'open': <built-in function open>, 'quit': Use quit() or Ctrl-D (i.e. EOF) to exit, 'exit': Use exit() or Ctrl-D (i.e. EOF) to exit, 'copyright': Copyright (c) 2001-2021 Python Software Foundation.
+All Rights Reserved.
+
+Copyright (c) 2000 BeOpen.com.
+All Rights Reserved.
+
+Copyright (c) 1995-2001 Corporation for National Research Initiatives.
+All Rights Reserved.
+
+Copyright (c) 1991-1995 Stichting Mathematisch Centrum, Amsterdam.
+All Rights Reserved., 'credits':     Thanks to CWI, CNRI, BeOpen.com, Zope Corporation and a cast of thousands
+    for supporting Python development.  See www.python.org for more information., 'license': Type license() to see the full license text, 'help': Type help() for interactive help, or help(object) for help about object., '__pybind11_internals_v4_gcc_libstdcpp_cxxabi1014__': <capsule object NULL at 0x7f015b046820>}
+HELLLO __cached__ /home/cbleker/research/NIB/squad/BoolDoG/booldog/__pycache__/cli.cpython-310.pyc
+HELLLO __doc__ None
+HELLLO __file__ /home/cbleker/research/NIB/squad/BoolDoG/booldog/cli.py
+HELLLO __loader__ <_frozen_importlib_external.SourceFileLoader object at 0x7f0157d142e0>
+HELLLO __name__ booldog.cli
+HELLLO __package__ booldog
+HELLLO __spec__ ModuleSpec(name='booldog.cli', loader=<_frozen_importlib_external.SourceFileLoader object at 0x7f0157d142e0>, origin='/home/cbleker/research/NIB/squad/BoolDoG/booldog/cli.py')
+HELLLO argparse <module 'argparse' from '/home/cbleker/miniconda3/envs/docs/lib/python3.10/argparse.py'>
+HELLLO os <module 'os' from '/home/cbleker/miniconda3/envs/docs/lib/python3.10/os.py'>
+HELLLO sys <module 'sys' (built-in)>
+reading sources... [ 29%] api/booldog.io
+HELLLO __all__ ['read_primes', 'read_bnet', 'read_interactions', 'read_graphml', 'read']
+HELLLO __all_exports [<function read_primes at 0x7f0157e88280>, <function read_bnet at 0x7f0157e88310>, <function read_interactions at 0x7f0157e883a0>, <function read_graphml at 0x7f0157e88430>, <function read at 0x7f0157e884c0>]
+HELLLO __builtins__ {'__name__': 'builtins', '__doc__': "Built-in functions, exceptions, and other objects.\n\nNoteworthy: None is the `nil' object; Ellipsis represents `...' in slices.", '__package__': '', '__loader__': <class '_frozen_importlib.BuiltinImporter'>, '__spec__': ModuleSpec(name='builtins', loader=<class '_frozen_importlib.BuiltinImporter'>, origin='built-in'), '__build_class__': <built-in function __build_class__>, '__import__': <built-in function __import__>, 'abs': <built-in function abs>, 'all': <built-in function all>, 'any': <built-in function any>, 'ascii': <built-in function ascii>, 'bin': <built-in function bin>, 'breakpoint': <built-in function breakpoint>, 'callable': <built-in function callable>, 'chr': <built-in function chr>, 'compile': <built-in function compile>, 'delattr': <built-in function delattr>, 'dir': <built-in function dir>, 'divmod': <built-in function divmod>, 'eval': <built-in function eval>, 'exec': <built-in function exec>, 'format': <built-in function format>, 'getattr': <built-in function getattr>, 'globals': <built-in function globals>, 'hasattr': <built-in function hasattr>, 'hash': <built-in function hash>, 'hex': <built-in function hex>, 'id': <built-in function id>, 'input': <built-in function input>, 'isinstance': <built-in function isinstance>, 'issubclass': <built-in function issubclass>, 'iter': <built-in function iter>, 'aiter': <built-in function aiter>, 'len': <built-in function len>, 'locals': <built-in function locals>, 'max': <built-in function max>, 'min': <built-in function min>, 'next': <built-in function next>, 'anext': <built-in function anext>, 'oct': <built-in function oct>, 'ord': <built-in function ord>, 'pow': <built-in function pow>, 'print': <built-in function print>, 'repr': <built-in function repr>, 'round': <built-in function round>, 'setattr': <built-in function setattr>, 'sorted': <built-in function sorted>, 'sum': <built-in function sum>, 'vars': <built-in function vars>, 'None': None, 'Ellipsis': Ellipsis, 'NotImplemented': NotImplemented, 'False': False, 'True': True, 'bool': <class 'bool'>, 'memoryview': <class 'memoryview'>, 'bytearray': <class 'bytearray'>, 'bytes': <class 'bytes'>, 'classmethod': <class 'classmethod'>, 'complex': <class 'complex'>, 'dict': <class 'dict'>, 'enumerate': <class 'enumerate'>, 'filter': <class 'filter'>, 'float': <class 'float'>, 'frozenset': <class 'frozenset'>, 'property': <class 'property'>, 'int': <class 'int'>, 'list': <class 'list'>, 'map': <class 'map'>, 'object': <class 'object'>, 'range': <class 'range'>, 'reversed': <class 'reversed'>, 'set': <class 'set'>, 'slice': <class 'slice'>, 'staticmethod': <class 'staticmethod'>, 'str': <class 'str'>, 'super': <class 'super'>, 'tuple': <class 'tuple'>, 'type': <class 'type'>, 'zip': <class 'zip'>, '__debug__': True, 'BaseException': <class 'BaseException'>, 'Exception': <class 'Exception'>, 'TypeError': <class 'TypeError'>, 'StopAsyncIteration': <class 'StopAsyncIteration'>, 'StopIteration': <class 'StopIteration'>, 'GeneratorExit': <class 'GeneratorExit'>, 'SystemExit': <class 'SystemExit'>, 'KeyboardInterrupt': <class 'KeyboardInterrupt'>, 'ImportError': <class 'ImportError'>, 'ModuleNotFoundError': <class 'ModuleNotFoundError'>, 'OSError': <class 'OSError'>, 'EnvironmentError': <class 'OSError'>, 'IOError': <class 'OSError'>, 'EOFError': <class 'EOFError'>, 'RuntimeError': <class 'RuntimeError'>, 'RecursionError': <class 'RecursionError'>, 'NotImplementedError': <class 'NotImplementedError'>, 'NameError': <class 'NameError'>, 'UnboundLocalError': <class 'UnboundLocalError'>, 'AttributeError': <class 'AttributeError'>, 'SyntaxError': <class 'SyntaxError'>, 'IndentationError': <class 'IndentationError'>, 'TabError': <class 'TabError'>, 'LookupError': <class 'LookupError'>, 'IndexError': <class 'IndexError'>, 'KeyError': <class 'KeyError'>, 'ValueError': <class 'ValueError'>, 'UnicodeError': <class 'UnicodeError'>, 'UnicodeEncodeError': <class 'UnicodeEncodeError'>, 'UnicodeDecodeError': <class 'UnicodeDecodeError'>, 'UnicodeTranslateError': <class 'UnicodeTranslateError'>, 'AssertionError': <class 'AssertionError'>, 'ArithmeticError': <class 'ArithmeticError'>, 'FloatingPointError': <class 'FloatingPointError'>, 'OverflowError': <class 'OverflowError'>, 'ZeroDivisionError': <class 'ZeroDivisionError'>, 'SystemError': <class 'SystemError'>, 'ReferenceError': <class 'ReferenceError'>, 'MemoryError': <class 'MemoryError'>, 'BufferError': <class 'BufferError'>, 'Warning': <class 'Warning'>, 'UserWarning': <class 'UserWarning'>, 'EncodingWarning': <class 'EncodingWarning'>, 'DeprecationWarning': <class 'DeprecationWarning'>, 'PendingDeprecationWarning': <class 'PendingDeprecationWarning'>, 'SyntaxWarning': <class 'SyntaxWarning'>, 'RuntimeWarning': <class 'RuntimeWarning'>, 'FutureWarning': <class 'FutureWarning'>, 'ImportWarning': <class 'ImportWarning'>, 'UnicodeWarning': <class 'UnicodeWarning'>, 'BytesWarning': <class 'BytesWarning'>, 'ResourceWarning': <class 'ResourceWarning'>, 'ConnectionError': <class 'ConnectionError'>, 'BlockingIOError': <class 'BlockingIOError'>, 'BrokenPipeError': <class 'BrokenPipeError'>, 'ChildProcessError': <class 'ChildProcessError'>, 'ConnectionAbortedError': <class 'ConnectionAbortedError'>, 'ConnectionRefusedError': <class 'ConnectionRefusedError'>, 'ConnectionResetError': <class 'ConnectionResetError'>, 'FileExistsError': <class 'FileExistsError'>, 'FileNotFoundError': <class 'FileNotFoundError'>, 'IsADirectoryError': <class 'IsADirectoryError'>, 'NotADirectoryError': <class 'NotADirectoryError'>, 'InterruptedError': <class 'InterruptedError'>, 'PermissionError': <class 'PermissionError'>, 'ProcessLookupError': <class 'ProcessLookupError'>, 'TimeoutError': <class 'TimeoutError'>, 'open': <built-in function open>, 'quit': Use quit() or Ctrl-D (i.e. EOF) to exit, 'exit': Use exit() or Ctrl-D (i.e. EOF) to exit, 'copyright': Copyright (c) 2001-2021 Python Software Foundation.
+All Rights Reserved.
+
+Copyright (c) 2000 BeOpen.com.
+All Rights Reserved.
+
+Copyright (c) 1995-2001 Corporation for National Research Initiatives.
+All Rights Reserved.
+
+Copyright (c) 1991-1995 Stichting Mathematisch Centrum, Amsterdam.
+All Rights Reserved., 'credits':     Thanks to CWI, CNRI, BeOpen.com, Zope Corporation and a cast of thousands
+    for supporting Python development.  See www.python.org for more information., 'license': Type license() to see the full license text, 'help': Type help() for interactive help, or help(object) for help about object., '__pybind11_internals_v4_gcc_libstdcpp_cxxabi1014__': <capsule object NULL at 0x7f015b046820>}
+HELLLO __cached__ /home/cbleker/research/NIB/squad/BoolDoG/booldog/io/__pycache__/__init__.cpython-310.pyc
+HELLLO __doc__  Read Boolean networks from various formats and return a RegulatoryNetwork
+object.
+
+HELLLO __file__ /home/cbleker/research/NIB/squad/BoolDoG/booldog/io/__init__.py
+HELLLO __loader__ <_frozen_importlib_external.SourceFileLoader object at 0x7f015925e0b0>
+HELLLO __name__ booldog.io
+HELLLO __package__ booldog.io
+HELLLO __path__ ['/home/cbleker/research/NIB/squad/BoolDoG/booldog/io']
+HELLLO __spec__ ModuleSpec(name='booldog.io', loader=<_frozen_importlib_external.SourceFileLoader object at 0x7f015925e0b0>, origin='/home/cbleker/research/NIB/squad/BoolDoG/booldog/io/__init__.py', submodule_search_locations=['/home/cbleker/research/NIB/squad/BoolDoG/booldog/io'])
+HELLLO e <function read at 0x7f0157e884c0>
+HELLLO read <function read at 0x7f0157e884c0>
+HELLLO read_bnet <function read_bnet at 0x7f0157e88310>
+HELLLO read_graphml <function read_graphml at 0x7f0157e88430>
+HELLLO read_interactions <function read_interactions at 0x7f0157e883a0>
+HELLLO read_primes <function read_primes at 0x7f0157e88280>
+HELLLO squad <module 'booldog.io.squad' from '/home/cbleker/research/NIB/squad/BoolDoG/booldog/io/squad.py'>
+HELLLO write <module 'booldog.io.write' from '/home/cbleker/research/NIB/squad/BoolDoG/booldog/io/write.py'>
+reading sources... [ 35%] api/booldog.io.bnet_to_sif
+reading sources... [ 41%] api/booldog.io.read
+HELLLO Path <class 'pathlib.Path'>
+HELLLO RegulatoryNetwork <class 'booldog.RegulatoryNetwork'>
+HELLLO SquadInteractions <class 'booldog.io.squad.SquadInteractions'>
+HELLLO __builtins__ {'__name__': 'builtins', '__doc__': "Built-in functions, exceptions, and other objects.\n\nNoteworthy: None is the `nil' object; Ellipsis represents `...' in slices.", '__package__': '', '__loader__': <class '_frozen_importlib.BuiltinImporter'>, '__spec__': ModuleSpec(name='builtins', loader=<class '_frozen_importlib.BuiltinImporter'>, origin='built-in'), '__build_class__': <built-in function __build_class__>, '__import__': <built-in function __import__>, 'abs': <built-in function abs>, 'all': <built-in function all>, 'any': <built-in function any>, 'ascii': <built-in function ascii>, 'bin': <built-in function bin>, 'breakpoint': <built-in function breakpoint>, 'callable': <built-in function callable>, 'chr': <built-in function chr>, 'compile': <built-in function compile>, 'delattr': <built-in function delattr>, 'dir': <built-in function dir>, 'divmod': <built-in function divmod>, 'eval': <built-in function eval>, 'exec': <built-in function exec>, 'format': <built-in function format>, 'getattr': <built-in function getattr>, 'globals': <built-in function globals>, 'hasattr': <built-in function hasattr>, 'hash': <built-in function hash>, 'hex': <built-in function hex>, 'id': <built-in function id>, 'input': <built-in function input>, 'isinstance': <built-in function isinstance>, 'issubclass': <built-in function issubclass>, 'iter': <built-in function iter>, 'aiter': <built-in function aiter>, 'len': <built-in function len>, 'locals': <built-in function locals>, 'max': <built-in function max>, 'min': <built-in function min>, 'next': <built-in function next>, 'anext': <built-in function anext>, 'oct': <built-in function oct>, 'ord': <built-in function ord>, 'pow': <built-in function pow>, 'print': <built-in function print>, 'repr': <built-in function repr>, 'round': <built-in function round>, 'setattr': <built-in function setattr>, 'sorted': <built-in function sorted>, 'sum': <built-in function sum>, 'vars': <built-in function vars>, 'None': None, 'Ellipsis': Ellipsis, 'NotImplemented': NotImplemented, 'False': False, 'True': True, 'bool': <class 'bool'>, 'memoryview': <class 'memoryview'>, 'bytearray': <class 'bytearray'>, 'bytes': <class 'bytes'>, 'classmethod': <class 'classmethod'>, 'complex': <class 'complex'>, 'dict': <class 'dict'>, 'enumerate': <class 'enumerate'>, 'filter': <class 'filter'>, 'float': <class 'float'>, 'frozenset': <class 'frozenset'>, 'property': <class 'property'>, 'int': <class 'int'>, 'list': <class 'list'>, 'map': <class 'map'>, 'object': <class 'object'>, 'range': <class 'range'>, 'reversed': <class 'reversed'>, 'set': <class 'set'>, 'slice': <class 'slice'>, 'staticmethod': <class 'staticmethod'>, 'str': <class 'str'>, 'super': <class 'super'>, 'tuple': <class 'tuple'>, 'type': <class 'type'>, 'zip': <class 'zip'>, '__debug__': True, 'BaseException': <class 'BaseException'>, 'Exception': <class 'Exception'>, 'TypeError': <class 'TypeError'>, 'StopAsyncIteration': <class 'StopAsyncIteration'>, 'StopIteration': <class 'StopIteration'>, 'GeneratorExit': <class 'GeneratorExit'>, 'SystemExit': <class 'SystemExit'>, 'KeyboardInterrupt': <class 'KeyboardInterrupt'>, 'ImportError': <class 'ImportError'>, 'ModuleNotFoundError': <class 'ModuleNotFoundError'>, 'OSError': <class 'OSError'>, 'EnvironmentError': <class 'OSError'>, 'IOError': <class 'OSError'>, 'EOFError': <class 'EOFError'>, 'RuntimeError': <class 'RuntimeError'>, 'RecursionError': <class 'RecursionError'>, 'NotImplementedError': <class 'NotImplementedError'>, 'NameError': <class 'NameError'>, 'UnboundLocalError': <class 'UnboundLocalError'>, 'AttributeError': <class 'AttributeError'>, 'SyntaxError': <class 'SyntaxError'>, 'IndentationError': <class 'IndentationError'>, 'TabError': <class 'TabError'>, 'LookupError': <class 'LookupError'>, 'IndexError': <class 'IndexError'>, 'KeyError': <class 'KeyError'>, 'ValueError': <class 'ValueError'>, 'UnicodeError': <class 'UnicodeError'>, 'UnicodeEncodeError': <class 'UnicodeEncodeError'>, 'UnicodeDecodeError': <class 'UnicodeDecodeError'>, 'UnicodeTranslateError': <class 'UnicodeTranslateError'>, 'AssertionError': <class 'AssertionError'>, 'ArithmeticError': <class 'ArithmeticError'>, 'FloatingPointError': <class 'FloatingPointError'>, 'OverflowError': <class 'OverflowError'>, 'ZeroDivisionError': <class 'ZeroDivisionError'>, 'SystemError': <class 'SystemError'>, 'ReferenceError': <class 'ReferenceError'>, 'MemoryError': <class 'MemoryError'>, 'BufferError': <class 'BufferError'>, 'Warning': <class 'Warning'>, 'UserWarning': <class 'UserWarning'>, 'EncodingWarning': <class 'EncodingWarning'>, 'DeprecationWarning': <class 'DeprecationWarning'>, 'PendingDeprecationWarning': <class 'PendingDeprecationWarning'>, 'SyntaxWarning': <class 'SyntaxWarning'>, 'RuntimeWarning': <class 'RuntimeWarning'>, 'FutureWarning': <class 'FutureWarning'>, 'ImportWarning': <class 'ImportWarning'>, 'UnicodeWarning': <class 'UnicodeWarning'>, 'BytesWarning': <class 'BytesWarning'>, 'ResourceWarning': <class 'ResourceWarning'>, 'ConnectionError': <class 'ConnectionError'>, 'BlockingIOError': <class 'BlockingIOError'>, 'BrokenPipeError': <class 'BrokenPipeError'>, 'ChildProcessError': <class 'ChildProcessError'>, 'ConnectionAbortedError': <class 'ConnectionAbortedError'>, 'ConnectionRefusedError': <class 'ConnectionRefusedError'>, 'ConnectionResetError': <class 'ConnectionResetError'>, 'FileExistsError': <class 'FileExistsError'>, 'FileNotFoundError': <class 'FileNotFoundError'>, 'IsADirectoryError': <class 'IsADirectoryError'>, 'NotADirectoryError': <class 'NotADirectoryError'>, 'InterruptedError': <class 'InterruptedError'>, 'PermissionError': <class 'PermissionError'>, 'ProcessLookupError': <class 'ProcessLookupError'>, 'TimeoutError': <class 'TimeoutError'>, 'open': <built-in function open>, 'quit': Use quit() or Ctrl-D (i.e. EOF) to exit, 'exit': Use exit() or Ctrl-D (i.e. EOF) to exit, 'copyright': Copyright (c) 2001-2021 Python Software Foundation.
+All Rights Reserved.
+
+Copyright (c) 2000 BeOpen.com.
+All Rights Reserved.
+
+Copyright (c) 1995-2001 Corporation for National Research Initiatives.
+All Rights Reserved.
+
+Copyright (c) 1991-1995 Stichting Mathematisch Centrum, Amsterdam.
+All Rights Reserved., 'credits':     Thanks to CWI, CNRI, BeOpen.com, Zope Corporation and a cast of thousands
+    for supporting Python development.  See www.python.org for more information., 'license': Type license() to see the full license text, 'help': Type help() for interactive help, or help(object) for help about object., '__pybind11_internals_v4_gcc_libstdcpp_cxxabi1014__': <capsule object NULL at 0x7f015b046820>}
+HELLLO __cached__ /home/cbleker/research/NIB/squad/BoolDoG/booldog/io/__pycache__/read.cpython-310.pyc
+HELLLO __doc__ Read functions
+
+HELLLO __file__ /home/cbleker/research/NIB/squad/BoolDoG/booldog/io/read.py
+SKIP ME!!! /home/cbleker/research/NIB/squad/BoolDoG/booldog/io/read.py
+HELLLO __loader__ <_frozen_importlib_external.SourceFileLoader object at 0x7f015925e4a0>
+HELLLO __name__ booldog.io.read
+SKIP ME!!! booldog.io.read
+HELLLO __package__ booldog.io
+HELLLO __spec__ ModuleSpec(name='booldog.io.read', loader=<_frozen_importlib_external.SourceFileLoader object at 0x7f015925e4a0>, origin='/home/cbleker/research/NIB/squad/BoolDoG/booldog/io/read.py')
+SKIP ME!!! ModuleSpec(name='booldog.io.read', loader=<_frozen_importlib_external.SourceFileLoader object at 0x7f015925e4a0>, origin='/home/cbleker/research/NIB/squad/BoolDoG/booldog/io/read.py')
+HELLLO _interactions_to_RegulatoryNetwork <function _interactions_to_RegulatoryNetwork at 0x7f0157e7be20>
+HELLLO _primes_to_RegulatoryNetwork <function _primes_to_RegulatoryNetwork at 0x7f015927e0e0>
+HELLLO boolean_normal_forms <module 'booldog.utils.boolean_normal_forms' from '/home/cbleker/research/NIB/squad/BoolDoG/booldog/utils/boolean_normal_forms.py'>
+HELLLO defaultdict <class 'collections.defaultdict'>
+HELLLO file_exchange <module 'pyboolnet.file_exchange' from '/home/cbleker/miniconda3/envs/docs/lib/python3.10/site-packages/pyboolnet/file_exchange.py'>
+HELLLO format_classes {'primes': <function read_primes at 0x7f0157e88280>, 'bnet': <function read_bnet at 0x7f0157e88310>, 'interactions': <function read_interactions at 0x7f0157e883a0>, 'graphml': <function read_graphml at 0x7f0157e88430>}
+HELLLO ig <module 'igraph' from '/home/cbleker/miniconda3/envs/docs/lib/python3.10/site-packages/igraph/__init__.py'>
+HELLLO np <module 'numpy' from '/home/cbleker/miniconda3/envs/docs/lib/python3.10/site-packages/numpy/__init__.py'>
+HELLLO os <module 'os' from '/home/cbleker/miniconda3/envs/docs/lib/python3.10/os.py'>
+HELLLO re <module 're' from '/home/cbleker/miniconda3/envs/docs/lib/python3.10/re.py'>
+HELLLO read <function read at 0x7f0157e884c0>
+HELLLO read_bnet <function read_bnet at 0x7f0157e88310>
+HELLLO read_graphml <function read_graphml at 0x7f0157e88430>
+HELLLO read_interactions <function read_interactions at 0x7f0157e883a0>
+HELLLO read_primes <function read_primes at 0x7f0157e88280>
+HELLLO sys <module 'sys' (built-in)>
+HELLLO utils <module 'booldog.utils.utils' from '/home/cbleker/research/NIB/squad/BoolDoG/booldog/utils/utils.py'>
+HELLLO xmltodict <module 'xmltodict' from '/home/cbleker/miniconda3/envs/docs/lib/python3.10/site-packages/xmltodict.py'>
+reading sources... [ 47%] api/booldog.io.squad
+HELLLO SquadInteractions <class 'booldog.io.squad.SquadInteractions'>
+HELLLO __builtins__ {'__name__': 'builtins', '__doc__': "Built-in functions, exceptions, and other objects.\n\nNoteworthy: None is the `nil' object; Ellipsis represents `...' in slices.", '__package__': '', '__loader__': <class '_frozen_importlib.BuiltinImporter'>, '__spec__': ModuleSpec(name='builtins', loader=<class '_frozen_importlib.BuiltinImporter'>, origin='built-in'), '__build_class__': <built-in function __build_class__>, '__import__': <built-in function __import__>, 'abs': <built-in function abs>, 'all': <built-in function all>, 'any': <built-in function any>, 'ascii': <built-in function ascii>, 'bin': <built-in function bin>, 'breakpoint': <built-in function breakpoint>, 'callable': <built-in function callable>, 'chr': <built-in function chr>, 'compile': <built-in function compile>, 'delattr': <built-in function delattr>, 'dir': <built-in function dir>, 'divmod': <built-in function divmod>, 'eval': <built-in function eval>, 'exec': <built-in function exec>, 'format': <built-in function format>, 'getattr': <built-in function getattr>, 'globals': <built-in function globals>, 'hasattr': <built-in function hasattr>, 'hash': <built-in function hash>, 'hex': <built-in function hex>, 'id': <built-in function id>, 'input': <built-in function input>, 'isinstance': <built-in function isinstance>, 'issubclass': <built-in function issubclass>, 'iter': <built-in function iter>, 'aiter': <built-in function aiter>, 'len': <built-in function len>, 'locals': <built-in function locals>, 'max': <built-in function max>, 'min': <built-in function min>, 'next': <built-in function next>, 'anext': <built-in function anext>, 'oct': <built-in function oct>, 'ord': <built-in function ord>, 'pow': <built-in function pow>, 'print': <built-in function print>, 'repr': <built-in function repr>, 'round': <built-in function round>, 'setattr': <built-in function setattr>, 'sorted': <built-in function sorted>, 'sum': <built-in function sum>, 'vars': <built-in function vars>, 'None': None, 'Ellipsis': Ellipsis, 'NotImplemented': NotImplemented, 'False': False, 'True': True, 'bool': <class 'bool'>, 'memoryview': <class 'memoryview'>, 'bytearray': <class 'bytearray'>, 'bytes': <class 'bytes'>, 'classmethod': <class 'classmethod'>, 'complex': <class 'complex'>, 'dict': <class 'dict'>, 'enumerate': <class 'enumerate'>, 'filter': <class 'filter'>, 'float': <class 'float'>, 'frozenset': <class 'frozenset'>, 'property': <class 'property'>, 'int': <class 'int'>, 'list': <class 'list'>, 'map': <class 'map'>, 'object': <class 'object'>, 'range': <class 'range'>, 'reversed': <class 'reversed'>, 'set': <class 'set'>, 'slice': <class 'slice'>, 'staticmethod': <class 'staticmethod'>, 'str': <class 'str'>, 'super': <class 'super'>, 'tuple': <class 'tuple'>, 'type': <class 'type'>, 'zip': <class 'zip'>, '__debug__': True, 'BaseException': <class 'BaseException'>, 'Exception': <class 'Exception'>, 'TypeError': <class 'TypeError'>, 'StopAsyncIteration': <class 'StopAsyncIteration'>, 'StopIteration': <class 'StopIteration'>, 'GeneratorExit': <class 'GeneratorExit'>, 'SystemExit': <class 'SystemExit'>, 'KeyboardInterrupt': <class 'KeyboardInterrupt'>, 'ImportError': <class 'ImportError'>, 'ModuleNotFoundError': <class 'ModuleNotFoundError'>, 'OSError': <class 'OSError'>, 'EnvironmentError': <class 'OSError'>, 'IOError': <class 'OSError'>, 'EOFError': <class 'EOFError'>, 'RuntimeError': <class 'RuntimeError'>, 'RecursionError': <class 'RecursionError'>, 'NotImplementedError': <class 'NotImplementedError'>, 'NameError': <class 'NameError'>, 'UnboundLocalError': <class 'UnboundLocalError'>, 'AttributeError': <class 'AttributeError'>, 'SyntaxError': <class 'SyntaxError'>, 'IndentationError': <class 'IndentationError'>, 'TabError': <class 'TabError'>, 'LookupError': <class 'LookupError'>, 'IndexError': <class 'IndexError'>, 'KeyError': <class 'KeyError'>, 'ValueError': <class 'ValueError'>, 'UnicodeError': <class 'UnicodeError'>, 'UnicodeEncodeError': <class 'UnicodeEncodeError'>, 'UnicodeDecodeError': <class 'UnicodeDecodeError'>, 'UnicodeTranslateError': <class 'UnicodeTranslateError'>, 'AssertionError': <class 'AssertionError'>, 'ArithmeticError': <class 'ArithmeticError'>, 'FloatingPointError': <class 'FloatingPointError'>, 'OverflowError': <class 'OverflowError'>, 'ZeroDivisionError': <class 'ZeroDivisionError'>, 'SystemError': <class 'SystemError'>, 'ReferenceError': <class 'ReferenceError'>, 'MemoryError': <class 'MemoryError'>, 'BufferError': <class 'BufferError'>, 'Warning': <class 'Warning'>, 'UserWarning': <class 'UserWarning'>, 'EncodingWarning': <class 'EncodingWarning'>, 'DeprecationWarning': <class 'DeprecationWarning'>, 'PendingDeprecationWarning': <class 'PendingDeprecationWarning'>, 'SyntaxWarning': <class 'SyntaxWarning'>, 'RuntimeWarning': <class 'RuntimeWarning'>, 'FutureWarning': <class 'FutureWarning'>, 'ImportWarning': <class 'ImportWarning'>, 'UnicodeWarning': <class 'UnicodeWarning'>, 'BytesWarning': <class 'BytesWarning'>, 'ResourceWarning': <class 'ResourceWarning'>, 'ConnectionError': <class 'ConnectionError'>, 'BlockingIOError': <class 'BlockingIOError'>, 'BrokenPipeError': <class 'BrokenPipeError'>, 'ChildProcessError': <class 'ChildProcessError'>, 'ConnectionAbortedError': <class 'ConnectionAbortedError'>, 'ConnectionRefusedError': <class 'ConnectionRefusedError'>, 'ConnectionResetError': <class 'ConnectionResetError'>, 'FileExistsError': <class 'FileExistsError'>, 'FileNotFoundError': <class 'FileNotFoundError'>, 'IsADirectoryError': <class 'IsADirectoryError'>, 'NotADirectoryError': <class 'NotADirectoryError'>, 'InterruptedError': <class 'InterruptedError'>, 'PermissionError': <class 'PermissionError'>, 'ProcessLookupError': <class 'ProcessLookupError'>, 'TimeoutError': <class 'TimeoutError'>, 'open': <built-in function open>, 'quit': Use quit() or Ctrl-D (i.e. EOF) to exit, 'exit': Use exit() or Ctrl-D (i.e. EOF) to exit, 'copyright': Copyright (c) 2001-2021 Python Software Foundation.
+All Rights Reserved.
+
+Copyright (c) 2000 BeOpen.com.
+All Rights Reserved.
+
+Copyright (c) 1995-2001 Corporation for National Research Initiatives.
+All Rights Reserved.
+
+Copyright (c) 1991-1995 Stichting Mathematisch Centrum, Amsterdam.
+All Rights Reserved., 'credits':     Thanks to CWI, CNRI, BeOpen.com, Zope Corporation and a cast of thousands
+    for supporting Python development.  See www.python.org for more information., 'license': Type license() to see the full license text, 'help': Type help() for interactive help, or help(object) for help about object., '__pybind11_internals_v4_gcc_libstdcpp_cxxabi1014__': <capsule object NULL at 0x7f015b046820>}
+HELLLO __cached__ /home/cbleker/research/NIB/squad/BoolDoG/booldog/io/__pycache__/squad.cpython-310.pyc
+HELLLO __doc__ None
+HELLLO __file__ /home/cbleker/research/NIB/squad/BoolDoG/booldog/io/squad.py
+HELLLO __loader__ <_frozen_importlib_external.SourceFileLoader object at 0x7f0157e728c0>
+HELLLO __name__ booldog.io.squad
+HELLLO __package__ booldog.io
+HELLLO __spec__ ModuleSpec(name='booldog.io.squad', loader=<_frozen_importlib_external.SourceFileLoader object at 0x7f0157e728c0>, origin='/home/cbleker/research/NIB/squad/BoolDoG/booldog/io/squad.py')
+HELLLO __class__ <class 'type'>
+HELLLO __delattr__ <slot wrapper '__delattr__' of 'object' objects>
+HELLLO __dict__ {'__module__': 'booldog.io.squad', '__init__': <function SquadInteractions.__init__ at 0x7f0157e88040>, '_make_reverse_and_complete': <function SquadInteractions._make_reverse_and_complete at 0x7f0157e880d0>, 'interactions_to_matrices': <function SquadInteractions.interactions_to_matrices at 0x7f0157e88160>, 'squad_update_funcs': <function SquadInteractions.squad_update_funcs at 0x7f0157e881f0>, '__dict__': <attribute '__dict__' of 'SquadInteractions' objects>, '__weakref__': <attribute '__weakref__' of 'SquadInteractions' objects>, '__doc__': None, '__annotations__': {}}
+HELLLO __dir__ <method '__dir__' of 'object' objects>
+HELLLO __doc__ None
+HELLLO __eq__ <slot wrapper '__eq__' of 'object' objects>
+HELLLO __format__ <method '__format__' of 'object' objects>
+HELLLO __ge__ <slot wrapper '__ge__' of 'object' objects>
+HELLLO __getattribute__ <slot wrapper '__getattribute__' of 'object' objects>
+HELLLO __gt__ <slot wrapper '__gt__' of 'object' objects>
+HELLLO __hash__ <slot wrapper '__hash__' of 'object' objects>
+HELLLO __init__ <function SquadInteractions.__init__ at 0x7f0157e88040>
+HELLLO __init_subclass__ <built-in method __init_subclass__ of type object at 0x5627d5964830>
+HELLLO __le__ <slot wrapper '__le__' of 'object' objects>
+HELLLO __lt__ <slot wrapper '__lt__' of 'object' objects>
+HELLLO __module__ booldog.io.squad
+HELLLO __ne__ <slot wrapper '__ne__' of 'object' objects>
+HELLLO __new__ <built-in method __new__ of type object at 0x5627d26e2980>
+HELLLO __reduce__ <method '__reduce__' of 'object' objects>
+HELLLO __reduce_ex__ <method '__reduce_ex__' of 'object' objects>
+HELLLO __repr__ <slot wrapper '__repr__' of 'object' objects>
+HELLLO __setattr__ <slot wrapper '__setattr__' of 'object' objects>
+HELLLO __sizeof__ <method '__sizeof__' of 'object' objects>
+HELLLO __str__ <slot wrapper '__str__' of 'object' objects>
+HELLLO __subclasshook__ <built-in method __subclasshook__ of type object at 0x5627d5964830>
+HELLLO __weakref__ <attribute '__weakref__' of 'SquadInteractions' objects>
+HELLLO _make_reverse_and_complete <function SquadInteractions._make_reverse_and_complete at 0x7f0157e880d0>
+HELLLO interactions_to_matrices <function SquadInteractions.interactions_to_matrices at 0x7f0157e88160>
+HELLLO squad_update_funcs <function SquadInteractions.squad_update_funcs at 0x7f0157e881f0>
+reading sources... [ 52%] api/booldog.io.write
+HELLLO Path <class 'pathlib.Path'>
+HELLLO SquadInteractions <class 'booldog.io.write.SquadInteractions'>
+HELLLO __builtins__ {'__name__': 'builtins', '__doc__': "Built-in functions, exceptions, and other objects.\n\nNoteworthy: None is the `nil' object; Ellipsis represents `...' in slices.", '__package__': '', '__loader__': <class '_frozen_importlib.BuiltinImporter'>, '__spec__': ModuleSpec(name='builtins', loader=<class '_frozen_importlib.BuiltinImporter'>, origin='built-in'), '__build_class__': <built-in function __build_class__>, '__import__': <built-in function __import__>, 'abs': <built-in function abs>, 'all': <built-in function all>, 'any': <built-in function any>, 'ascii': <built-in function ascii>, 'bin': <built-in function bin>, 'breakpoint': <built-in function breakpoint>, 'callable': <built-in function callable>, 'chr': <built-in function chr>, 'compile': <built-in function compile>, 'delattr': <built-in function delattr>, 'dir': <built-in function dir>, 'divmod': <built-in function divmod>, 'eval': <built-in function eval>, 'exec': <built-in function exec>, 'format': <built-in function format>, 'getattr': <built-in function getattr>, 'globals': <built-in function globals>, 'hasattr': <built-in function hasattr>, 'hash': <built-in function hash>, 'hex': <built-in function hex>, 'id': <built-in function id>, 'input': <built-in function input>, 'isinstance': <built-in function isinstance>, 'issubclass': <built-in function issubclass>, 'iter': <built-in function iter>, 'aiter': <built-in function aiter>, 'len': <built-in function len>, 'locals': <built-in function locals>, 'max': <built-in function max>, 'min': <built-in function min>, 'next': <built-in function next>, 'anext': <built-in function anext>, 'oct': <built-in function oct>, 'ord': <built-in function ord>, 'pow': <built-in function pow>, 'print': <built-in function print>, 'repr': <built-in function repr>, 'round': <built-in function round>, 'setattr': <built-in function setattr>, 'sorted': <built-in function sorted>, 'sum': <built-in function sum>, 'vars': <built-in function vars>, 'None': None, 'Ellipsis': Ellipsis, 'NotImplemented': NotImplemented, 'False': False, 'True': True, 'bool': <class 'bool'>, 'memoryview': <class 'memoryview'>, 'bytearray': <class 'bytearray'>, 'bytes': <class 'bytes'>, 'classmethod': <class 'classmethod'>, 'complex': <class 'complex'>, 'dict': <class 'dict'>, 'enumerate': <class 'enumerate'>, 'filter': <class 'filter'>, 'float': <class 'float'>, 'frozenset': <class 'frozenset'>, 'property': <class 'property'>, 'int': <class 'int'>, 'list': <class 'list'>, 'map': <class 'map'>, 'object': <class 'object'>, 'range': <class 'range'>, 'reversed': <class 'reversed'>, 'set': <class 'set'>, 'slice': <class 'slice'>, 'staticmethod': <class 'staticmethod'>, 'str': <class 'str'>, 'super': <class 'super'>, 'tuple': <class 'tuple'>, 'type': <class 'type'>, 'zip': <class 'zip'>, '__debug__': True, 'BaseException': <class 'BaseException'>, 'Exception': <class 'Exception'>, 'TypeError': <class 'TypeError'>, 'StopAsyncIteration': <class 'StopAsyncIteration'>, 'StopIteration': <class 'StopIteration'>, 'GeneratorExit': <class 'GeneratorExit'>, 'SystemExit': <class 'SystemExit'>, 'KeyboardInterrupt': <class 'KeyboardInterrupt'>, 'ImportError': <class 'ImportError'>, 'ModuleNotFoundError': <class 'ModuleNotFoundError'>, 'OSError': <class 'OSError'>, 'EnvironmentError': <class 'OSError'>, 'IOError': <class 'OSError'>, 'EOFError': <class 'EOFError'>, 'RuntimeError': <class 'RuntimeError'>, 'RecursionError': <class 'RecursionError'>, 'NotImplementedError': <class 'NotImplementedError'>, 'NameError': <class 'NameError'>, 'UnboundLocalError': <class 'UnboundLocalError'>, 'AttributeError': <class 'AttributeError'>, 'SyntaxError': <class 'SyntaxError'>, 'IndentationError': <class 'IndentationError'>, 'TabError': <class 'TabError'>, 'LookupError': <class 'LookupError'>, 'IndexError': <class 'IndexError'>, 'KeyError': <class 'KeyError'>, 'ValueError': <class 'ValueError'>, 'UnicodeError': <class 'UnicodeError'>, 'UnicodeEncodeError': <class 'UnicodeEncodeError'>, 'UnicodeDecodeError': <class 'UnicodeDecodeError'>, 'UnicodeTranslateError': <class 'UnicodeTranslateError'>, 'AssertionError': <class 'AssertionError'>, 'ArithmeticError': <class 'ArithmeticError'>, 'FloatingPointError': <class 'FloatingPointError'>, 'OverflowError': <class 'OverflowError'>, 'ZeroDivisionError': <class 'ZeroDivisionError'>, 'SystemError': <class 'SystemError'>, 'ReferenceError': <class 'ReferenceError'>, 'MemoryError': <class 'MemoryError'>, 'BufferError': <class 'BufferError'>, 'Warning': <class 'Warning'>, 'UserWarning': <class 'UserWarning'>, 'EncodingWarning': <class 'EncodingWarning'>, 'DeprecationWarning': <class 'DeprecationWarning'>, 'PendingDeprecationWarning': <class 'PendingDeprecationWarning'>, 'SyntaxWarning': <class 'SyntaxWarning'>, 'RuntimeWarning': <class 'RuntimeWarning'>, 'FutureWarning': <class 'FutureWarning'>, 'ImportWarning': <class 'ImportWarning'>, 'UnicodeWarning': <class 'UnicodeWarning'>, 'BytesWarning': <class 'BytesWarning'>, 'ResourceWarning': <class 'ResourceWarning'>, 'ConnectionError': <class 'ConnectionError'>, 'BlockingIOError': <class 'BlockingIOError'>, 'BrokenPipeError': <class 'BrokenPipeError'>, 'ChildProcessError': <class 'ChildProcessError'>, 'ConnectionAbortedError': <class 'ConnectionAbortedError'>, 'ConnectionRefusedError': <class 'ConnectionRefusedError'>, 'ConnectionResetError': <class 'ConnectionResetError'>, 'FileExistsError': <class 'FileExistsError'>, 'FileNotFoundError': <class 'FileNotFoundError'>, 'IsADirectoryError': <class 'IsADirectoryError'>, 'NotADirectoryError': <class 'NotADirectoryError'>, 'InterruptedError': <class 'InterruptedError'>, 'PermissionError': <class 'PermissionError'>, 'ProcessLookupError': <class 'ProcessLookupError'>, 'TimeoutError': <class 'TimeoutError'>, 'open': <built-in function open>, 'quit': Use quit() or Ctrl-D (i.e. EOF) to exit, 'exit': Use exit() or Ctrl-D (i.e. EOF) to exit, 'copyright': Copyright (c) 2001-2021 Python Software Foundation.
+All Rights Reserved.
+
+Copyright (c) 2000 BeOpen.com.
+All Rights Reserved.
+
+Copyright (c) 1995-2001 Corporation for National Research Initiatives.
+All Rights Reserved.
+
+Copyright (c) 1991-1995 Stichting Mathematisch Centrum, Amsterdam.
+All Rights Reserved., 'credits':     Thanks to CWI, CNRI, BeOpen.com, Zope Corporation and a cast of thousands
+    for supporting Python development.  See www.python.org for more information., 'license': Type license() to see the full license text, 'help': Type help() for interactive help, or help(object) for help about object., '__pybind11_internals_v4_gcc_libstdcpp_cxxabi1014__': <capsule object NULL at 0x7f015b046820>}
+HELLLO __cached__ /home/cbleker/research/NIB/squad/BoolDoG/booldog/io/__pycache__/write.cpython-310.pyc
+HELLLO __doc__ None
+HELLLO __file__ /home/cbleker/research/NIB/squad/BoolDoG/booldog/io/write.py
+HELLLO __loader__ <_frozen_importlib_external.SourceFileLoader object at 0x7f0157d14640>
+HELLLO __name__ booldog.io.write
+HELLLO __package__ booldog.io
+HELLLO __spec__ ModuleSpec(name='booldog.io.write', loader=<_frozen_importlib_external.SourceFileLoader object at 0x7f0157d14640>, origin='/home/cbleker/research/NIB/squad/BoolDoG/booldog/io/write.py')
+HELLLO boolean_normal_forms <module 'booldog.utils.boolean_normal_forms' from '/home/cbleker/research/NIB/squad/BoolDoG/booldog/utils/boolean_normal_forms.py'>
+HELLLO defaultdict <class 'collections.defaultdict'>
+HELLLO file_exchange <module 'pyboolnet.file_exchange' from '/home/cbleker/miniconda3/envs/docs/lib/python3.10/site-packages/pyboolnet/file_exchange.py'>
+HELLLO format_classes {'primes': 0, 'bnet': 0, 'interactions': 0, 'graphml': 0}
+HELLLO ig <module 'igraph' from '/home/cbleker/miniconda3/envs/docs/lib/python3.10/site-packages/igraph/__init__.py'>
+HELLLO import_graphml <function import_graphml at 0x7f0157d0e290>
+HELLLO np <module 'numpy' from '/home/cbleker/miniconda3/envs/docs/lib/python3.10/site-packages/numpy/__init__.py'>
+HELLLO os <module 'os' from '/home/cbleker/miniconda3/envs/docs/lib/python3.10/os.py'>
+HELLLO re <module 're' from '/home/cbleker/miniconda3/envs/docs/lib/python3.10/re.py'>
+HELLLO read_boolean_graph <function read_boolean_graph at 0x7f0157d0e050>
+HELLLO sys <module 'sys' (built-in)>
+HELLLO utils <module 'booldog.utils.utils' from '/home/cbleker/research/NIB/squad/BoolDoG/booldog/utils/utils.py'>
+HELLLO write_boolean_graph <function write_boolean_graph at 0x7f0157d0e200>
+HELLLO xmltodict <module 'xmltodict' from '/home/cbleker/miniconda3/envs/docs/lib/python3.10/site-packages/xmltodict.py'>
+HELLLO __class__ <class 'type'>
+HELLLO __delattr__ <slot wrapper '__delattr__' of 'object' objects>
+HELLLO __dict__ {'__module__': 'booldog.io.write', '__init__': <function SquadInteractions.__init__ at 0x7f0157d0e320>, '_make_reverse_and_complete': <function SquadInteractions._make_reverse_and_complete at 0x7f0157d0e3b0>, 'interactions_to_matrices': <function SquadInteractions.interactions_to_matrices at 0x7f0157d0e440>, 'squad_update_funcs': <function SquadInteractions.squad_update_funcs at 0x7f0157d0e4d0>, '__dict__': <attribute '__dict__' of 'SquadInteractions' objects>, '__weakref__': <attribute '__weakref__' of 'SquadInteractions' objects>, '__doc__': None, '__annotations__': {}}
+HELLLO __dir__ <method '__dir__' of 'object' objects>
+HELLLO __doc__ None
+HELLLO __eq__ <slot wrapper '__eq__' of 'object' objects>
+HELLLO __format__ <method '__format__' of 'object' objects>
+HELLLO __ge__ <slot wrapper '__ge__' of 'object' objects>
+HELLLO __getattribute__ <slot wrapper '__getattribute__' of 'object' objects>
+HELLLO __gt__ <slot wrapper '__gt__' of 'object' objects>
+HELLLO __hash__ <slot wrapper '__hash__' of 'object' objects>
+HELLLO __init__ <function SquadInteractions.__init__ at 0x7f0157d0e320>
+HELLLO __init_subclass__ <built-in method __init_subclass__ of type object at 0x5627d59fd9f0>
+HELLLO __le__ <slot wrapper '__le__' of 'object' objects>
+HELLLO __lt__ <slot wrapper '__lt__' of 'object' objects>
+HELLLO __module__ booldog.io.write
+HELLLO __ne__ <slot wrapper '__ne__' of 'object' objects>
+HELLLO __new__ <built-in method __new__ of type object at 0x5627d26e2980>
+HELLLO __reduce__ <method '__reduce__' of 'object' objects>
+HELLLO __reduce_ex__ <method '__reduce_ex__' of 'object' objects>
+HELLLO __repr__ <slot wrapper '__repr__' of 'object' objects>
+HELLLO __setattr__ <slot wrapper '__setattr__' of 'object' objects>
+HELLLO __sizeof__ <method '__sizeof__' of 'object' objects>
+HELLLO __str__ <slot wrapper '__str__' of 'object' objects>
+HELLLO __subclasshook__ <built-in method __subclasshook__ of type object at 0x5627d59fd9f0>
+HELLLO __weakref__ <attribute '__weakref__' of 'SquadInteractions' objects>
+HELLLO _make_reverse_and_complete <function SquadInteractions._make_reverse_and_complete at 0x7f0157d0e3b0>
+HELLLO interactions_to_matrices <function SquadInteractions.interactions_to_matrices at 0x7f0157d0e440>
+HELLLO squad_update_funcs <function SquadInteractions.squad_update_funcs at 0x7f0157d0e4d0>
+reading sources... [ 58%] api/booldog.ode
+HELLLO BoolCubeODE <class 'booldog.ode.BoolCubeODE'>
+HELLLO ODE <class 'booldog.ode.ODE_factory.<locals>.ODE'>
+HELLLO ODE_factory <function ODE_factory at 0x7f015a7aed40>
+HELLLO __builtins__ {'__name__': 'builtins', '__doc__': "Built-in functions, exceptions, and other objects.\n\nNoteworthy: None is the `nil' object; Ellipsis represents `...' in slices.", '__package__': '', '__loader__': <class '_frozen_importlib.BuiltinImporter'>, '__spec__': ModuleSpec(name='builtins', loader=<class '_frozen_importlib.BuiltinImporter'>, origin='built-in'), '__build_class__': <built-in function __build_class__>, '__import__': <built-in function __import__>, 'abs': <built-in function abs>, 'all': <built-in function all>, 'any': <built-in function any>, 'ascii': <built-in function ascii>, 'bin': <built-in function bin>, 'breakpoint': <built-in function breakpoint>, 'callable': <built-in function callable>, 'chr': <built-in function chr>, 'compile': <built-in function compile>, 'delattr': <built-in function delattr>, 'dir': <built-in function dir>, 'divmod': <built-in function divmod>, 'eval': <built-in function eval>, 'exec': <built-in function exec>, 'format': <built-in function format>, 'getattr': <built-in function getattr>, 'globals': <built-in function globals>, 'hasattr': <built-in function hasattr>, 'hash': <built-in function hash>, 'hex': <built-in function hex>, 'id': <built-in function id>, 'input': <built-in function input>, 'isinstance': <built-in function isinstance>, 'issubclass': <built-in function issubclass>, 'iter': <built-in function iter>, 'aiter': <built-in function aiter>, 'len': <built-in function len>, 'locals': <built-in function locals>, 'max': <built-in function max>, 'min': <built-in function min>, 'next': <built-in function next>, 'anext': <built-in function anext>, 'oct': <built-in function oct>, 'ord': <built-in function ord>, 'pow': <built-in function pow>, 'print': <built-in function print>, 'repr': <built-in function repr>, 'round': <built-in function round>, 'setattr': <built-in function setattr>, 'sorted': <built-in function sorted>, 'sum': <built-in function sum>, 'vars': <built-in function vars>, 'None': None, 'Ellipsis': Ellipsis, 'NotImplemented': NotImplemented, 'False': False, 'True': True, 'bool': <class 'bool'>, 'memoryview': <class 'memoryview'>, 'bytearray': <class 'bytearray'>, 'bytes': <class 'bytes'>, 'classmethod': <class 'classmethod'>, 'complex': <class 'complex'>, 'dict': <class 'dict'>, 'enumerate': <class 'enumerate'>, 'filter': <class 'filter'>, 'float': <class 'float'>, 'frozenset': <class 'frozenset'>, 'property': <class 'property'>, 'int': <class 'int'>, 'list': <class 'list'>, 'map': <class 'map'>, 'object': <class 'object'>, 'range': <class 'range'>, 'reversed': <class 'reversed'>, 'set': <class 'set'>, 'slice': <class 'slice'>, 'staticmethod': <class 'staticmethod'>, 'str': <class 'str'>, 'super': <class 'super'>, 'tuple': <class 'tuple'>, 'type': <class 'type'>, 'zip': <class 'zip'>, '__debug__': True, 'BaseException': <class 'BaseException'>, 'Exception': <class 'Exception'>, 'TypeError': <class 'TypeError'>, 'StopAsyncIteration': <class 'StopAsyncIteration'>, 'StopIteration': <class 'StopIteration'>, 'GeneratorExit': <class 'GeneratorExit'>, 'SystemExit': <class 'SystemExit'>, 'KeyboardInterrupt': <class 'KeyboardInterrupt'>, 'ImportError': <class 'ImportError'>, 'ModuleNotFoundError': <class 'ModuleNotFoundError'>, 'OSError': <class 'OSError'>, 'EnvironmentError': <class 'OSError'>, 'IOError': <class 'OSError'>, 'EOFError': <class 'EOFError'>, 'RuntimeError': <class 'RuntimeError'>, 'RecursionError': <class 'RecursionError'>, 'NotImplementedError': <class 'NotImplementedError'>, 'NameError': <class 'NameError'>, 'UnboundLocalError': <class 'UnboundLocalError'>, 'AttributeError': <class 'AttributeError'>, 'SyntaxError': <class 'SyntaxError'>, 'IndentationError': <class 'IndentationError'>, 'TabError': <class 'TabError'>, 'LookupError': <class 'LookupError'>, 'IndexError': <class 'IndexError'>, 'KeyError': <class 'KeyError'>, 'ValueError': <class 'ValueError'>, 'UnicodeError': <class 'UnicodeError'>, 'UnicodeEncodeError': <class 'UnicodeEncodeError'>, 'UnicodeDecodeError': <class 'UnicodeDecodeError'>, 'UnicodeTranslateError': <class 'UnicodeTranslateError'>, 'AssertionError': <class 'AssertionError'>, 'ArithmeticError': <class 'ArithmeticError'>, 'FloatingPointError': <class 'FloatingPointError'>, 'OverflowError': <class 'OverflowError'>, 'ZeroDivisionError': <class 'ZeroDivisionError'>, 'SystemError': <class 'SystemError'>, 'ReferenceError': <class 'ReferenceError'>, 'MemoryError': <class 'MemoryError'>, 'BufferError': <class 'BufferError'>, 'Warning': <class 'Warning'>, 'UserWarning': <class 'UserWarning'>, 'EncodingWarning': <class 'EncodingWarning'>, 'DeprecationWarning': <class 'DeprecationWarning'>, 'PendingDeprecationWarning': <class 'PendingDeprecationWarning'>, 'SyntaxWarning': <class 'SyntaxWarning'>, 'RuntimeWarning': <class 'RuntimeWarning'>, 'FutureWarning': <class 'FutureWarning'>, 'ImportWarning': <class 'ImportWarning'>, 'UnicodeWarning': <class 'UnicodeWarning'>, 'BytesWarning': <class 'BytesWarning'>, 'ResourceWarning': <class 'ResourceWarning'>, 'ConnectionError': <class 'ConnectionError'>, 'BlockingIOError': <class 'BlockingIOError'>, 'BrokenPipeError': <class 'BrokenPipeError'>, 'ChildProcessError': <class 'ChildProcessError'>, 'ConnectionAbortedError': <class 'ConnectionAbortedError'>, 'ConnectionRefusedError': <class 'ConnectionRefusedError'>, 'ConnectionResetError': <class 'ConnectionResetError'>, 'FileExistsError': <class 'FileExistsError'>, 'FileNotFoundError': <class 'FileNotFoundError'>, 'IsADirectoryError': <class 'IsADirectoryError'>, 'NotADirectoryError': <class 'NotADirectoryError'>, 'InterruptedError': <class 'InterruptedError'>, 'PermissionError': <class 'PermissionError'>, 'ProcessLookupError': <class 'ProcessLookupError'>, 'TimeoutError': <class 'TimeoutError'>, 'open': <built-in function open>, 'quit': Use quit() or Ctrl-D (i.e. EOF) to exit, 'exit': Use exit() or Ctrl-D (i.e. EOF) to exit, 'copyright': Copyright (c) 2001-2021 Python Software Foundation.
+All Rights Reserved.
+
+Copyright (c) 2000 BeOpen.com.
+All Rights Reserved.
+
+Copyright (c) 1995-2001 Corporation for National Research Initiatives.
+All Rights Reserved.
+
+Copyright (c) 1991-1995 Stichting Mathematisch Centrum, Amsterdam.
+All Rights Reserved., 'credits':     Thanks to CWI, CNRI, BeOpen.com, Zope Corporation and a cast of thousands
+    for supporting Python development.  See www.python.org for more information., 'license': Type license() to see the full license text, 'help': Type help() for interactive help, or help(object) for help about object., '__pybind11_internals_v4_gcc_libstdcpp_cxxabi1014__': <capsule object NULL at 0x7f015b046820>}
+HELLLO __cached__ /home/cbleker/research/NIB/squad/BoolDoG/booldog/__pycache__/ode.cpython-310.pyc
+HELLLO __doc__ None
+HELLLO __file__ /home/cbleker/research/NIB/squad/BoolDoG/booldog/ode.py
+HELLLO __loader__ <_frozen_importlib_external.SourceFileLoader object at 0x7f0159eb1480>
+HELLLO __name__ booldog.ode
+HELLLO __package__ booldog
+HELLLO __spec__ ModuleSpec(name='booldog.ode', loader=<_frozen_importlib_external.SourceFileLoader object at 0x7f0159eb1480>, origin='/home/cbleker/research/NIB/squad/BoolDoG/booldog/ode.py')
+HELLLO ensure_ndarray <function ensure_ndarray at 0x7f015c814ee0>
+HELLLO file_writeable <function file_writeable at 0x7f015a7aec20>
+HELLLO logger <Logger booldog.ode (INFO)>
+HELLLO logging <module 'logging' from '/home/cbleker/miniconda3/envs/docs/lib/python3.10/logging/__init__.py'>
+HELLLO np <module 'numpy' from '/home/cbleker/miniconda3/envs/docs/lib/python3.10/site-packages/numpy/__init__.py'>
+HELLLO ode_parent_classes {'hillcube': <class 'booldog.ode.BoolCubeODE'>, 'normalisedhillcube': <class 'booldog.ode.BoolCubeODE'>, 'boolecube': <class 'booldog.ode.BoolCubeODE'>}
+HELLLO parameter_to_array <function parameter_to_array at 0x7f015a7aeb90>
+HELLLO product <class 'itertools.product'>
+HELLLO transforms {'normalisedhillcube', 'hillcube', 'boolecube'}
+HELLLO __class__ <class 'type'>
+HELLLO __delattr__ <slot wrapper '__delattr__' of 'object' objects>
+HELLLO __dict__ {'__module__': 'booldog.ode', '__doc__': 'An ODE parent class.\n\n    Use of multivariate polynomial interpolation for the transformation of a Boolean graph to a system of ODEs.\n\n    Attributes\n    ----------\n    dxdt : function\n\n    param_tau : arraylike\n        life-time of species\n\n    param_n : arraylike\n        Hill coefficient\n\n    param_k : arraylike\n        Hill dissociation constant\n\n    param_dict : dict\n        track parameters\n     ', '__init__': <function BoolCubeODE.__init__ at 0x7f015927db40>, 'hill': <function BoolCubeODE.hill at 0x7f015927dbd0>, 'normalised_hill': <function BoolCubeODE.normalised_hill at 0x7f015927dc60>, 'identity': <function BoolCubeODE.identity at 0x7f015927dcf0>, '_get_system': <function BoolCubeODE._get_system at 0x7f015927dd80>, 'homologue_b1': <function BoolCubeODE.homologue_b1 at 0x7f015927de10>, '__dict__': <attribute '__dict__' of 'BoolCubeODE' objects>, '__weakref__': <attribute '__weakref__' of 'BoolCubeODE' objects>, '__annotations__': {}}
+HELLLO __dir__ <method '__dir__' of 'object' objects>
+HELLLO __doc__ An ODE parent class.
+
+    Use of multivariate polynomial interpolation for the transformation of a Boolean graph to a system of ODEs.
+
+    Attributes
+    ----------
+    dxdt : function
+
+    param_tau : arraylike
+        life-time of species
+
+    param_n : arraylike
+        Hill coefficient
+
+    param_k : arraylike
+        Hill dissociation constant
+
+    param_dict : dict
+        track parameters
+     
+HELLLO __eq__ <slot wrapper '__eq__' of 'object' objects>
+HELLLO __format__ <method '__format__' of 'object' objects>
+HELLLO __ge__ <slot wrapper '__ge__' of 'object' objects>
+HELLLO __getattribute__ <slot wrapper '__getattribute__' of 'object' objects>
+HELLLO __gt__ <slot wrapper '__gt__' of 'object' objects>
+HELLLO __hash__ <slot wrapper '__hash__' of 'object' objects>
+HELLLO __init__ <function BoolCubeODE.__init__ at 0x7f015927db40>
+HELLLO __init_subclass__ <built-in method __init_subclass__ of type object at 0x5627d5626b30>
+HELLLO __le__ <slot wrapper '__le__' of 'object' objects>
+HELLLO __lt__ <slot wrapper '__lt__' of 'object' objects>
+HELLLO __module__ booldog.ode
+HELLLO __ne__ <slot wrapper '__ne__' of 'object' objects>
+HELLLO __new__ <built-in method __new__ of type object at 0x5627d26e2980>
+HELLLO __reduce__ <method '__reduce__' of 'object' objects>
+HELLLO __reduce_ex__ <method '__reduce_ex__' of 'object' objects>
+HELLLO __repr__ <slot wrapper '__repr__' of 'object' objects>
+HELLLO __setattr__ <slot wrapper '__setattr__' of 'object' objects>
+HELLLO __sizeof__ <method '__sizeof__' of 'object' objects>
+HELLLO __str__ <slot wrapper '__str__' of 'object' objects>
+HELLLO __subclasshook__ <built-in method __subclasshook__ of type object at 0x5627d5626b30>
+HELLLO __weakref__ <attribute '__weakref__' of 'BoolCubeODE' objects>
+HELLLO _get_system <function BoolCubeODE._get_system at 0x7f015927dd80>
+HELLLO hill <function BoolCubeODE.hill at 0x7f015927dbd0>
+HELLLO homologue_b1 <function BoolCubeODE.homologue_b1 at 0x7f015927de10>
+HELLLO identity <function BoolCubeODE.identity at 0x7f015927dcf0>
+HELLLO normalised_hill <function BoolCubeODE.normalised_hill at 0x7f015927dc60>
+HELLLO __annotations__ {}
+HELLLO __class__ <class 'type'>
+HELLLO __delattr__ <slot wrapper '__delattr__' of 'object' objects>
+HELLLO __dict__ {'__module__': 'booldog.ode', '__doc__': 'Generic ODE class produced by factory.\n\n        Parent class is a variable, and defined by `transform` argument. ', '__init__': <function ODE_factory.<locals>.ODE.__init__ at 0x7f0170bef1c0>, 'event_function': <function ODE_factory.<locals>.ODE.event_function at 0x7f015927df30>, 'update': <function ODE_factory.<locals>.ODE.update at 0x7f0157e88550>, '__annotations__': {}}
+HELLLO __dir__ <method '__dir__' of 'object' objects>
+HELLLO __doc__ Generic ODE class produced by factory.
+
+        Parent class is a variable, and defined by `transform` argument. 
+HELLLO __eq__ <slot wrapper '__eq__' of 'object' objects>
+HELLLO __format__ <method '__format__' of 'object' objects>
+HELLLO __ge__ <slot wrapper '__ge__' of 'object' objects>
+HELLLO __getattribute__ <slot wrapper '__getattribute__' of 'object' objects>
+HELLLO __gt__ <slot wrapper '__gt__' of 'object' objects>
+HELLLO __hash__ <slot wrapper '__hash__' of 'object' objects>
+HELLLO __init__ <function ODE_factory.<locals>.ODE.__init__ at 0x7f0170bef1c0>
+HELLLO __init_subclass__ <built-in method __init_subclass__ of type object at 0x5627d59cb800>
+HELLLO __le__ <slot wrapper '__le__' of 'object' objects>
+HELLLO __lt__ <slot wrapper '__lt__' of 'object' objects>
+HELLLO __module__ booldog.ode
+HELLLO __ne__ <slot wrapper '__ne__' of 'object' objects>
+HELLLO __new__ <built-in method __new__ of type object at 0x5627d26e2980>
+HELLLO __reduce__ <method '__reduce__' of 'object' objects>
+HELLLO __reduce_ex__ <method '__reduce_ex__' of 'object' objects>
+HELLLO __repr__ <slot wrapper '__repr__' of 'object' objects>
+HELLLO __setattr__ <slot wrapper '__setattr__' of 'object' objects>
+HELLLO __sizeof__ <method '__sizeof__' of 'object' objects>
+HELLLO __str__ <slot wrapper '__str__' of 'object' objects>
+HELLLO __subclasshook__ <built-in method __subclasshook__ of type object at 0x5627d59cb800>
+HELLLO __weakref__ <attribute '__weakref__' of 'BoolCubeODE' objects>
+HELLLO _get_system <function BoolCubeODE._get_system at 0x7f015927dd80>
+HELLLO event_function <function ODE_factory.<locals>.ODE.event_function at 0x7f015927df30>
+HELLLO hill <function BoolCubeODE.hill at 0x7f015927dbd0>
+HELLLO homologue_b1 <function BoolCubeODE.homologue_b1 at 0x7f015927de10>
+HELLLO identity <function BoolCubeODE.identity at 0x7f015927dcf0>
+HELLLO normalised_hill <function BoolCubeODE.normalised_hill at 0x7f015927dc60>
+HELLLO update <function ODE_factory.<locals>.ODE.update at 0x7f0157e88550>
+reading sources... [ 64%] api/booldog.simulation_result
+HELLLO BooleanSimulationResult <class 'booldog.simulation_result.boolean.BooleanSimulationResult'>
+HELLLO ContinousSimulationResult <class 'booldog.simulation_result.continous.ContinousSimulationResult'>
+HELLLO __builtins__ {'__name__': 'builtins', '__doc__': "Built-in functions, exceptions, and other objects.\n\nNoteworthy: None is the `nil' object; Ellipsis represents `...' in slices.", '__package__': '', '__loader__': <class '_frozen_importlib.BuiltinImporter'>, '__spec__': ModuleSpec(name='builtins', loader=<class '_frozen_importlib.BuiltinImporter'>, origin='built-in'), '__build_class__': <built-in function __build_class__>, '__import__': <built-in function __import__>, 'abs': <built-in function abs>, 'all': <built-in function all>, 'any': <built-in function any>, 'ascii': <built-in function ascii>, 'bin': <built-in function bin>, 'breakpoint': <built-in function breakpoint>, 'callable': <built-in function callable>, 'chr': <built-in function chr>, 'compile': <built-in function compile>, 'delattr': <built-in function delattr>, 'dir': <built-in function dir>, 'divmod': <built-in function divmod>, 'eval': <built-in function eval>, 'exec': <built-in function exec>, 'format': <built-in function format>, 'getattr': <built-in function getattr>, 'globals': <built-in function globals>, 'hasattr': <built-in function hasattr>, 'hash': <built-in function hash>, 'hex': <built-in function hex>, 'id': <built-in function id>, 'input': <built-in function input>, 'isinstance': <built-in function isinstance>, 'issubclass': <built-in function issubclass>, 'iter': <built-in function iter>, 'aiter': <built-in function aiter>, 'len': <built-in function len>, 'locals': <built-in function locals>, 'max': <built-in function max>, 'min': <built-in function min>, 'next': <built-in function next>, 'anext': <built-in function anext>, 'oct': <built-in function oct>, 'ord': <built-in function ord>, 'pow': <built-in function pow>, 'print': <built-in function print>, 'repr': <built-in function repr>, 'round': <built-in function round>, 'setattr': <built-in function setattr>, 'sorted': <built-in function sorted>, 'sum': <built-in function sum>, 'vars': <built-in function vars>, 'None': None, 'Ellipsis': Ellipsis, 'NotImplemented': NotImplemented, 'False': False, 'True': True, 'bool': <class 'bool'>, 'memoryview': <class 'memoryview'>, 'bytearray': <class 'bytearray'>, 'bytes': <class 'bytes'>, 'classmethod': <class 'classmethod'>, 'complex': <class 'complex'>, 'dict': <class 'dict'>, 'enumerate': <class 'enumerate'>, 'filter': <class 'filter'>, 'float': <class 'float'>, 'frozenset': <class 'frozenset'>, 'property': <class 'property'>, 'int': <class 'int'>, 'list': <class 'list'>, 'map': <class 'map'>, 'object': <class 'object'>, 'range': <class 'range'>, 'reversed': <class 'reversed'>, 'set': <class 'set'>, 'slice': <class 'slice'>, 'staticmethod': <class 'staticmethod'>, 'str': <class 'str'>, 'super': <class 'super'>, 'tuple': <class 'tuple'>, 'type': <class 'type'>, 'zip': <class 'zip'>, '__debug__': True, 'BaseException': <class 'BaseException'>, 'Exception': <class 'Exception'>, 'TypeError': <class 'TypeError'>, 'StopAsyncIteration': <class 'StopAsyncIteration'>, 'StopIteration': <class 'StopIteration'>, 'GeneratorExit': <class 'GeneratorExit'>, 'SystemExit': <class 'SystemExit'>, 'KeyboardInterrupt': <class 'KeyboardInterrupt'>, 'ImportError': <class 'ImportError'>, 'ModuleNotFoundError': <class 'ModuleNotFoundError'>, 'OSError': <class 'OSError'>, 'EnvironmentError': <class 'OSError'>, 'IOError': <class 'OSError'>, 'EOFError': <class 'EOFError'>, 'RuntimeError': <class 'RuntimeError'>, 'RecursionError': <class 'RecursionError'>, 'NotImplementedError': <class 'NotImplementedError'>, 'NameError': <class 'NameError'>, 'UnboundLocalError': <class 'UnboundLocalError'>, 'AttributeError': <class 'AttributeError'>, 'SyntaxError': <class 'SyntaxError'>, 'IndentationError': <class 'IndentationError'>, 'TabError': <class 'TabError'>, 'LookupError': <class 'LookupError'>, 'IndexError': <class 'IndexError'>, 'KeyError': <class 'KeyError'>, 'ValueError': <class 'ValueError'>, 'UnicodeError': <class 'UnicodeError'>, 'UnicodeEncodeError': <class 'UnicodeEncodeError'>, 'UnicodeDecodeError': <class 'UnicodeDecodeError'>, 'UnicodeTranslateError': <class 'UnicodeTranslateError'>, 'AssertionError': <class 'AssertionError'>, 'ArithmeticError': <class 'ArithmeticError'>, 'FloatingPointError': <class 'FloatingPointError'>, 'OverflowError': <class 'OverflowError'>, 'ZeroDivisionError': <class 'ZeroDivisionError'>, 'SystemError': <class 'SystemError'>, 'ReferenceError': <class 'ReferenceError'>, 'MemoryError': <class 'MemoryError'>, 'BufferError': <class 'BufferError'>, 'Warning': <class 'Warning'>, 'UserWarning': <class 'UserWarning'>, 'EncodingWarning': <class 'EncodingWarning'>, 'DeprecationWarning': <class 'DeprecationWarning'>, 'PendingDeprecationWarning': <class 'PendingDeprecationWarning'>, 'SyntaxWarning': <class 'SyntaxWarning'>, 'RuntimeWarning': <class 'RuntimeWarning'>, 'FutureWarning': <class 'FutureWarning'>, 'ImportWarning': <class 'ImportWarning'>, 'UnicodeWarning': <class 'UnicodeWarning'>, 'BytesWarning': <class 'BytesWarning'>, 'ResourceWarning': <class 'ResourceWarning'>, 'ConnectionError': <class 'ConnectionError'>, 'BlockingIOError': <class 'BlockingIOError'>, 'BrokenPipeError': <class 'BrokenPipeError'>, 'ChildProcessError': <class 'ChildProcessError'>, 'ConnectionAbortedError': <class 'ConnectionAbortedError'>, 'ConnectionRefusedError': <class 'ConnectionRefusedError'>, 'ConnectionResetError': <class 'ConnectionResetError'>, 'FileExistsError': <class 'FileExistsError'>, 'FileNotFoundError': <class 'FileNotFoundError'>, 'IsADirectoryError': <class 'IsADirectoryError'>, 'NotADirectoryError': <class 'NotADirectoryError'>, 'InterruptedError': <class 'InterruptedError'>, 'PermissionError': <class 'PermissionError'>, 'ProcessLookupError': <class 'ProcessLookupError'>, 'TimeoutError': <class 'TimeoutError'>, 'open': <built-in function open>, 'quit': Use quit() or Ctrl-D (i.e. EOF) to exit, 'exit': Use exit() or Ctrl-D (i.e. EOF) to exit, 'copyright': Copyright (c) 2001-2021 Python Software Foundation.
+All Rights Reserved.
+
+Copyright (c) 2000 BeOpen.com.
+All Rights Reserved.
+
+Copyright (c) 1995-2001 Corporation for National Research Initiatives.
+All Rights Reserved.
+
+Copyright (c) 1991-1995 Stichting Mathematisch Centrum, Amsterdam.
+All Rights Reserved., 'credits':     Thanks to CWI, CNRI, BeOpen.com, Zope Corporation and a cast of thousands
+    for supporting Python development.  See www.python.org for more information., 'license': Type license() to see the full license text, 'help': Type help() for interactive help, or help(object) for help about object., '__pybind11_internals_v4_gcc_libstdcpp_cxxabi1014__': <capsule object NULL at 0x7f015b046820>}
+HELLLO __cached__ /home/cbleker/research/NIB/squad/BoolDoG/booldog/simulation_result/__pycache__/__init__.cpython-310.pyc
+HELLLO __doc__ None
+HELLLO __file__ /home/cbleker/research/NIB/squad/BoolDoG/booldog/simulation_result/__init__.py
+HELLLO __loader__ <_frozen_importlib_external.SourceFileLoader object at 0x7f015a2dff40>
+HELLLO __name__ booldog.simulation_result
+HELLLO __package__ booldog.simulation_result
+HELLLO __path__ ['/home/cbleker/research/NIB/squad/BoolDoG/booldog/simulation_result']
+HELLLO __spec__ ModuleSpec(name='booldog.simulation_result', loader=<_frozen_importlib_external.SourceFileLoader object at 0x7f015a2dff40>, origin='/home/cbleker/research/NIB/squad/BoolDoG/booldog/simulation_result/__init__.py', submodule_search_locations=['/home/cbleker/research/NIB/squad/BoolDoG/booldog/simulation_result'])
+HELLLO boolean <module 'booldog.simulation_result.boolean' from '/home/cbleker/research/NIB/squad/BoolDoG/booldog/simulation_result/boolean.py'>
+HELLLO continous <module 'booldog.simulation_result.continous' from '/home/cbleker/research/NIB/squad/BoolDoG/booldog/simulation_result/continous.py'>
+reading sources... [ 70%] api/booldog.simulation_result.boolean
+HELLLO BooleanSimulationResult <class 'booldog.simulation_result.boolean.BooleanSimulationResult'>
+HELLLO Path <class 'pathlib.Path'>
+HELLLO __builtins__ {'__name__': 'builtins', '__doc__': "Built-in functions, exceptions, and other objects.\n\nNoteworthy: None is the `nil' object; Ellipsis represents `...' in slices.", '__package__': '', '__loader__': <class '_frozen_importlib.BuiltinImporter'>, '__spec__': ModuleSpec(name='builtins', loader=<class '_frozen_importlib.BuiltinImporter'>, origin='built-in'), '__build_class__': <built-in function __build_class__>, '__import__': <built-in function __import__>, 'abs': <built-in function abs>, 'all': <built-in function all>, 'any': <built-in function any>, 'ascii': <built-in function ascii>, 'bin': <built-in function bin>, 'breakpoint': <built-in function breakpoint>, 'callable': <built-in function callable>, 'chr': <built-in function chr>, 'compile': <built-in function compile>, 'delattr': <built-in function delattr>, 'dir': <built-in function dir>, 'divmod': <built-in function divmod>, 'eval': <built-in function eval>, 'exec': <built-in function exec>, 'format': <built-in function format>, 'getattr': <built-in function getattr>, 'globals': <built-in function globals>, 'hasattr': <built-in function hasattr>, 'hash': <built-in function hash>, 'hex': <built-in function hex>, 'id': <built-in function id>, 'input': <built-in function input>, 'isinstance': <built-in function isinstance>, 'issubclass': <built-in function issubclass>, 'iter': <built-in function iter>, 'aiter': <built-in function aiter>, 'len': <built-in function len>, 'locals': <built-in function locals>, 'max': <built-in function max>, 'min': <built-in function min>, 'next': <built-in function next>, 'anext': <built-in function anext>, 'oct': <built-in function oct>, 'ord': <built-in function ord>, 'pow': <built-in function pow>, 'print': <built-in function print>, 'repr': <built-in function repr>, 'round': <built-in function round>, 'setattr': <built-in function setattr>, 'sorted': <built-in function sorted>, 'sum': <built-in function sum>, 'vars': <built-in function vars>, 'None': None, 'Ellipsis': Ellipsis, 'NotImplemented': NotImplemented, 'False': False, 'True': True, 'bool': <class 'bool'>, 'memoryview': <class 'memoryview'>, 'bytearray': <class 'bytearray'>, 'bytes': <class 'bytes'>, 'classmethod': <class 'classmethod'>, 'complex': <class 'complex'>, 'dict': <class 'dict'>, 'enumerate': <class 'enumerate'>, 'filter': <class 'filter'>, 'float': <class 'float'>, 'frozenset': <class 'frozenset'>, 'property': <class 'property'>, 'int': <class 'int'>, 'list': <class 'list'>, 'map': <class 'map'>, 'object': <class 'object'>, 'range': <class 'range'>, 'reversed': <class 'reversed'>, 'set': <class 'set'>, 'slice': <class 'slice'>, 'staticmethod': <class 'staticmethod'>, 'str': <class 'str'>, 'super': <class 'super'>, 'tuple': <class 'tuple'>, 'type': <class 'type'>, 'zip': <class 'zip'>, '__debug__': True, 'BaseException': <class 'BaseException'>, 'Exception': <class 'Exception'>, 'TypeError': <class 'TypeError'>, 'StopAsyncIteration': <class 'StopAsyncIteration'>, 'StopIteration': <class 'StopIteration'>, 'GeneratorExit': <class 'GeneratorExit'>, 'SystemExit': <class 'SystemExit'>, 'KeyboardInterrupt': <class 'KeyboardInterrupt'>, 'ImportError': <class 'ImportError'>, 'ModuleNotFoundError': <class 'ModuleNotFoundError'>, 'OSError': <class 'OSError'>, 'EnvironmentError': <class 'OSError'>, 'IOError': <class 'OSError'>, 'EOFError': <class 'EOFError'>, 'RuntimeError': <class 'RuntimeError'>, 'RecursionError': <class 'RecursionError'>, 'NotImplementedError': <class 'NotImplementedError'>, 'NameError': <class 'NameError'>, 'UnboundLocalError': <class 'UnboundLocalError'>, 'AttributeError': <class 'AttributeError'>, 'SyntaxError': <class 'SyntaxError'>, 'IndentationError': <class 'IndentationError'>, 'TabError': <class 'TabError'>, 'LookupError': <class 'LookupError'>, 'IndexError': <class 'IndexError'>, 'KeyError': <class 'KeyError'>, 'ValueError': <class 'ValueError'>, 'UnicodeError': <class 'UnicodeError'>, 'UnicodeEncodeError': <class 'UnicodeEncodeError'>, 'UnicodeDecodeError': <class 'UnicodeDecodeError'>, 'UnicodeTranslateError': <class 'UnicodeTranslateError'>, 'AssertionError': <class 'AssertionError'>, 'ArithmeticError': <class 'ArithmeticError'>, 'FloatingPointError': <class 'FloatingPointError'>, 'OverflowError': <class 'OverflowError'>, 'ZeroDivisionError': <class 'ZeroDivisionError'>, 'SystemError': <class 'SystemError'>, 'ReferenceError': <class 'ReferenceError'>, 'MemoryError': <class 'MemoryError'>, 'BufferError': <class 'BufferError'>, 'Warning': <class 'Warning'>, 'UserWarning': <class 'UserWarning'>, 'EncodingWarning': <class 'EncodingWarning'>, 'DeprecationWarning': <class 'DeprecationWarning'>, 'PendingDeprecationWarning': <class 'PendingDeprecationWarning'>, 'SyntaxWarning': <class 'SyntaxWarning'>, 'RuntimeWarning': <class 'RuntimeWarning'>, 'FutureWarning': <class 'FutureWarning'>, 'ImportWarning': <class 'ImportWarning'>, 'UnicodeWarning': <class 'UnicodeWarning'>, 'BytesWarning': <class 'BytesWarning'>, 'ResourceWarning': <class 'ResourceWarning'>, 'ConnectionError': <class 'ConnectionError'>, 'BlockingIOError': <class 'BlockingIOError'>, 'BrokenPipeError': <class 'BrokenPipeError'>, 'ChildProcessError': <class 'ChildProcessError'>, 'ConnectionAbortedError': <class 'ConnectionAbortedError'>, 'ConnectionRefusedError': <class 'ConnectionRefusedError'>, 'ConnectionResetError': <class 'ConnectionResetError'>, 'FileExistsError': <class 'FileExistsError'>, 'FileNotFoundError': <class 'FileNotFoundError'>, 'IsADirectoryError': <class 'IsADirectoryError'>, 'NotADirectoryError': <class 'NotADirectoryError'>, 'InterruptedError': <class 'InterruptedError'>, 'PermissionError': <class 'PermissionError'>, 'ProcessLookupError': <class 'ProcessLookupError'>, 'TimeoutError': <class 'TimeoutError'>, 'open': <built-in function open>, 'quit': Use quit() or Ctrl-D (i.e. EOF) to exit, 'exit': Use exit() or Ctrl-D (i.e. EOF) to exit, 'copyright': Copyright (c) 2001-2021 Python Software Foundation.
+All Rights Reserved.
+
+Copyright (c) 2000 BeOpen.com.
+All Rights Reserved.
+
+Copyright (c) 1995-2001 Corporation for National Research Initiatives.
+All Rights Reserved.
+
+Copyright (c) 1991-1995 Stichting Mathematisch Centrum, Amsterdam.
+All Rights Reserved., 'credits':     Thanks to CWI, CNRI, BeOpen.com, Zope Corporation and a cast of thousands
+    for supporting Python development.  See www.python.org for more information., 'license': Type license() to see the full license text, 'help': Type help() for interactive help, or help(object) for help about object., '__pybind11_internals_v4_gcc_libstdcpp_cxxabi1014__': <capsule object NULL at 0x7f015b046820>}
+HELLLO __cached__ /home/cbleker/research/NIB/squad/BoolDoG/booldog/simulation_result/__pycache__/boolean.cpython-310.pyc
+HELLLO __doc__ None
+HELLLO __file__ /home/cbleker/research/NIB/squad/BoolDoG/booldog/simulation_result/boolean.py
+HELLLO __loader__ <_frozen_importlib_external.SourceFileLoader object at 0x7f0159eb26b0>
+HELLLO __name__ booldog.simulation_result.boolean
+HELLLO __package__ booldog.simulation_result
+HELLLO __spec__ ModuleSpec(name='booldog.simulation_result.boolean', loader=<_frozen_importlib_external.SourceFileLoader object at 0x7f0159eb26b0>, origin='/home/cbleker/research/NIB/squad/BoolDoG/booldog/simulation_result/boolean.py')
+HELLLO _style_path /home/cbleker/research/NIB/squad/BoolDoG/booldog/simulation_result/utils/stylesheet.mplstyle
+HELLLO importlib <module 'importlib' from '/home/cbleker/miniconda3/envs/docs/lib/python3.10/importlib/__init__.py'>
+HELLLO math <module 'math' from '/home/cbleker/miniconda3/envs/docs/lib/python3.10/lib-dynload/math.cpython-310-x86_64-linux-gnu.so'>
+HELLLO np <module 'numpy' from '/home/cbleker/miniconda3/envs/docs/lib/python3.10/site-packages/numpy/__init__.py'>
+HELLLO nx <module 'networkx' from '/home/cbleker/miniconda3/envs/docs/lib/python3.10/site-packages/networkx/__init__.py'>
+HELLLO os <module 'os' from '/home/cbleker/miniconda3/envs/docs/lib/python3.10/os.py'>
+HELLLO plt <module 'matplotlib.pyplot' from '/home/cbleker/miniconda3/envs/docs/lib/python3.10/site-packages/matplotlib/pyplot.py'>
+HELLLO stg2image <function stg2image at 0x7f015a31c670>
+HELLLO sys <module 'sys' (built-in)>
+HELLLO __class__ <class 'type'>
+HELLLO __delattr__ <slot wrapper '__delattr__' of 'object' objects>
+HELLLO __dict__ {'__module__': 'booldog.simulation_result.boolean', '__doc__': 'Small class to contain simulation results', '__init__': <function BooleanSimulationResult.__init__ at 0x7f015927d3f0>, 'plot': <function BooleanSimulationResult.plot at 0x7f015927d480>, '__dict__': <attribute '__dict__' of 'BooleanSimulationResult' objects>, '__weakref__': <attribute '__weakref__' of 'BooleanSimulationResult' objects>, '__annotations__': {}}
+HELLLO __dir__ <method '__dir__' of 'object' objects>
+HELLLO __doc__ Small class to contain simulation results
+HELLLO __eq__ <slot wrapper '__eq__' of 'object' objects>
+HELLLO __format__ <method '__format__' of 'object' objects>
+HELLLO __ge__ <slot wrapper '__ge__' of 'object' objects>
+HELLLO __getattribute__ <slot wrapper '__getattribute__' of 'object' objects>
+HELLLO __gt__ <slot wrapper '__gt__' of 'object' objects>
+HELLLO __hash__ <slot wrapper '__hash__' of 'object' objects>
+HELLLO __init__ <function BooleanSimulationResult.__init__ at 0x7f015927d3f0>
+HELLLO __init_subclass__ <built-in method __init_subclass__ of type object at 0x5627d594bc30>
+HELLLO __le__ <slot wrapper '__le__' of 'object' objects>
+HELLLO __lt__ <slot wrapper '__lt__' of 'object' objects>
+HELLLO __module__ booldog.simulation_result.boolean
+HELLLO __ne__ <slot wrapper '__ne__' of 'object' objects>
+HELLLO __new__ <built-in method __new__ of type object at 0x5627d26e2980>
+HELLLO __reduce__ <method '__reduce__' of 'object' objects>
+HELLLO __reduce_ex__ <method '__reduce_ex__' of 'object' objects>
+HELLLO __repr__ <slot wrapper '__repr__' of 'object' objects>
+HELLLO __setattr__ <slot wrapper '__setattr__' of 'object' objects>
+HELLLO __sizeof__ <method '__sizeof__' of 'object' objects>
+HELLLO __str__ <slot wrapper '__str__' of 'object' objects>
+HELLLO __subclasshook__ <built-in method __subclasshook__ of type object at 0x5627d594bc30>
+HELLLO __weakref__ <attribute '__weakref__' of 'BooleanSimulationResult' objects>
+HELLLO plot <function BooleanSimulationResult.plot at 0x7f015927d480>
+reading sources... [ 76%] api/booldog.simulation_result.continous
+HELLLO ContinousSimulationResult <class 'booldog.simulation_result.continous.ContinousSimulationResult'>
+HELLLO Path <class 'pathlib.Path'>
+HELLLO __builtins__ {'__name__': 'builtins', '__doc__': "Built-in functions, exceptions, and other objects.\n\nNoteworthy: None is the `nil' object; Ellipsis represents `...' in slices.", '__package__': '', '__loader__': <class '_frozen_importlib.BuiltinImporter'>, '__spec__': ModuleSpec(name='builtins', loader=<class '_frozen_importlib.BuiltinImporter'>, origin='built-in'), '__build_class__': <built-in function __build_class__>, '__import__': <built-in function __import__>, 'abs': <built-in function abs>, 'all': <built-in function all>, 'any': <built-in function any>, 'ascii': <built-in function ascii>, 'bin': <built-in function bin>, 'breakpoint': <built-in function breakpoint>, 'callable': <built-in function callable>, 'chr': <built-in function chr>, 'compile': <built-in function compile>, 'delattr': <built-in function delattr>, 'dir': <built-in function dir>, 'divmod': <built-in function divmod>, 'eval': <built-in function eval>, 'exec': <built-in function exec>, 'format': <built-in function format>, 'getattr': <built-in function getattr>, 'globals': <built-in function globals>, 'hasattr': <built-in function hasattr>, 'hash': <built-in function hash>, 'hex': <built-in function hex>, 'id': <built-in function id>, 'input': <built-in function input>, 'isinstance': <built-in function isinstance>, 'issubclass': <built-in function issubclass>, 'iter': <built-in function iter>, 'aiter': <built-in function aiter>, 'len': <built-in function len>, 'locals': <built-in function locals>, 'max': <built-in function max>, 'min': <built-in function min>, 'next': <built-in function next>, 'anext': <built-in function anext>, 'oct': <built-in function oct>, 'ord': <built-in function ord>, 'pow': <built-in function pow>, 'print': <built-in function print>, 'repr': <built-in function repr>, 'round': <built-in function round>, 'setattr': <built-in function setattr>, 'sorted': <built-in function sorted>, 'sum': <built-in function sum>, 'vars': <built-in function vars>, 'None': None, 'Ellipsis': Ellipsis, 'NotImplemented': NotImplemented, 'False': False, 'True': True, 'bool': <class 'bool'>, 'memoryview': <class 'memoryview'>, 'bytearray': <class 'bytearray'>, 'bytes': <class 'bytes'>, 'classmethod': <class 'classmethod'>, 'complex': <class 'complex'>, 'dict': <class 'dict'>, 'enumerate': <class 'enumerate'>, 'filter': <class 'filter'>, 'float': <class 'float'>, 'frozenset': <class 'frozenset'>, 'property': <class 'property'>, 'int': <class 'int'>, 'list': <class 'list'>, 'map': <class 'map'>, 'object': <class 'object'>, 'range': <class 'range'>, 'reversed': <class 'reversed'>, 'set': <class 'set'>, 'slice': <class 'slice'>, 'staticmethod': <class 'staticmethod'>, 'str': <class 'str'>, 'super': <class 'super'>, 'tuple': <class 'tuple'>, 'type': <class 'type'>, 'zip': <class 'zip'>, '__debug__': True, 'BaseException': <class 'BaseException'>, 'Exception': <class 'Exception'>, 'TypeError': <class 'TypeError'>, 'StopAsyncIteration': <class 'StopAsyncIteration'>, 'StopIteration': <class 'StopIteration'>, 'GeneratorExit': <class 'GeneratorExit'>, 'SystemExit': <class 'SystemExit'>, 'KeyboardInterrupt': <class 'KeyboardInterrupt'>, 'ImportError': <class 'ImportError'>, 'ModuleNotFoundError': <class 'ModuleNotFoundError'>, 'OSError': <class 'OSError'>, 'EnvironmentError': <class 'OSError'>, 'IOError': <class 'OSError'>, 'EOFError': <class 'EOFError'>, 'RuntimeError': <class 'RuntimeError'>, 'RecursionError': <class 'RecursionError'>, 'NotImplementedError': <class 'NotImplementedError'>, 'NameError': <class 'NameError'>, 'UnboundLocalError': <class 'UnboundLocalError'>, 'AttributeError': <class 'AttributeError'>, 'SyntaxError': <class 'SyntaxError'>, 'IndentationError': <class 'IndentationError'>, 'TabError': <class 'TabError'>, 'LookupError': <class 'LookupError'>, 'IndexError': <class 'IndexError'>, 'KeyError': <class 'KeyError'>, 'ValueError': <class 'ValueError'>, 'UnicodeError': <class 'UnicodeError'>, 'UnicodeEncodeError': <class 'UnicodeEncodeError'>, 'UnicodeDecodeError': <class 'UnicodeDecodeError'>, 'UnicodeTranslateError': <class 'UnicodeTranslateError'>, 'AssertionError': <class 'AssertionError'>, 'ArithmeticError': <class 'ArithmeticError'>, 'FloatingPointError': <class 'FloatingPointError'>, 'OverflowError': <class 'OverflowError'>, 'ZeroDivisionError': <class 'ZeroDivisionError'>, 'SystemError': <class 'SystemError'>, 'ReferenceError': <class 'ReferenceError'>, 'MemoryError': <class 'MemoryError'>, 'BufferError': <class 'BufferError'>, 'Warning': <class 'Warning'>, 'UserWarning': <class 'UserWarning'>, 'EncodingWarning': <class 'EncodingWarning'>, 'DeprecationWarning': <class 'DeprecationWarning'>, 'PendingDeprecationWarning': <class 'PendingDeprecationWarning'>, 'SyntaxWarning': <class 'SyntaxWarning'>, 'RuntimeWarning': <class 'RuntimeWarning'>, 'FutureWarning': <class 'FutureWarning'>, 'ImportWarning': <class 'ImportWarning'>, 'UnicodeWarning': <class 'UnicodeWarning'>, 'BytesWarning': <class 'BytesWarning'>, 'ResourceWarning': <class 'ResourceWarning'>, 'ConnectionError': <class 'ConnectionError'>, 'BlockingIOError': <class 'BlockingIOError'>, 'BrokenPipeError': <class 'BrokenPipeError'>, 'ChildProcessError': <class 'ChildProcessError'>, 'ConnectionAbortedError': <class 'ConnectionAbortedError'>, 'ConnectionRefusedError': <class 'ConnectionRefusedError'>, 'ConnectionResetError': <class 'ConnectionResetError'>, 'FileExistsError': <class 'FileExistsError'>, 'FileNotFoundError': <class 'FileNotFoundError'>, 'IsADirectoryError': <class 'IsADirectoryError'>, 'NotADirectoryError': <class 'NotADirectoryError'>, 'InterruptedError': <class 'InterruptedError'>, 'PermissionError': <class 'PermissionError'>, 'ProcessLookupError': <class 'ProcessLookupError'>, 'TimeoutError': <class 'TimeoutError'>, 'open': <built-in function open>, 'quit': Use quit() or Ctrl-D (i.e. EOF) to exit, 'exit': Use exit() or Ctrl-D (i.e. EOF) to exit, 'copyright': Copyright (c) 2001-2021 Python Software Foundation.
+All Rights Reserved.
+
+Copyright (c) 2000 BeOpen.com.
+All Rights Reserved.
+
+Copyright (c) 1995-2001 Corporation for National Research Initiatives.
+All Rights Reserved.
+
+Copyright (c) 1991-1995 Stichting Mathematisch Centrum, Amsterdam.
+All Rights Reserved., 'credits':     Thanks to CWI, CNRI, BeOpen.com, Zope Corporation and a cast of thousands
+    for supporting Python development.  See www.python.org for more information., 'license': Type license() to see the full license text, 'help': Type help() for interactive help, or help(object) for help about object., '__pybind11_internals_v4_gcc_libstdcpp_cxxabi1014__': <capsule object NULL at 0x7f015b046820>}
+HELLLO __cached__ /home/cbleker/research/NIB/squad/BoolDoG/booldog/simulation_result/__pycache__/continous.cpython-310.pyc
+HELLLO __doc__ None
+HELLLO __file__ /home/cbleker/research/NIB/squad/BoolDoG/booldog/simulation_result/continous.py
+HELLLO __loader__ <_frozen_importlib_external.SourceFileLoader object at 0x7f015a3241f0>
+HELLLO __name__ booldog.simulation_result.continous
+HELLLO __package__ booldog.simulation_result
+HELLLO __spec__ ModuleSpec(name='booldog.simulation_result.continous', loader=<_frozen_importlib_external.SourceFileLoader object at 0x7f015a3241f0>, origin='/home/cbleker/research/NIB/squad/BoolDoG/booldog/simulation_result/continous.py')
+HELLLO _style_path /home/cbleker/research/NIB/squad/BoolDoG/booldog/simulation_result/utils/stylesheet.mplstyle
+HELLLO math <module 'math' from '/home/cbleker/miniconda3/envs/docs/lib/python3.10/lib-dynload/math.cpython-310-x86_64-linux-gnu.so'>
+HELLLO np <module 'numpy' from '/home/cbleker/miniconda3/envs/docs/lib/python3.10/site-packages/numpy/__init__.py'>
+HELLLO os <module 'os' from '/home/cbleker/miniconda3/envs/docs/lib/python3.10/os.py'>
+HELLLO plt <module 'matplotlib.pyplot' from '/home/cbleker/miniconda3/envs/docs/lib/python3.10/site-packages/matplotlib/pyplot.py'>
+HELLLO sys <module 'sys' (built-in)>
+HELLLO __class__ <class 'type'>
+HELLLO __delattr__ <slot wrapper '__delattr__' of 'object' objects>
+HELLLO __dict__ {'__module__': 'booldog.simulation_result.continous', '__doc__': 'Small class to contain simulation results', '__init__': <function ContinousSimulationResult.__init__ at 0x7f015927d120>, 'export': <function ContinousSimulationResult.export at 0x7f015927d1b0>, 'plot': <function ContinousSimulationResult.plot at 0x7f015927d240>, '_plot_one_ax': <function ContinousSimulationResult._plot_one_ax at 0x7f015927d2d0>, '__dict__': <attribute '__dict__' of 'ContinousSimulationResult' objects>, '__weakref__': <attribute '__weakref__' of 'ContinousSimulationResult' objects>, '__annotations__': {}}
+HELLLO __dir__ <method '__dir__' of 'object' objects>
+HELLLO __doc__ Small class to contain simulation results
+HELLLO __eq__ <slot wrapper '__eq__' of 'object' objects>
+HELLLO __format__ <method '__format__' of 'object' objects>
+HELLLO __ge__ <slot wrapper '__ge__' of 'object' objects>
+HELLLO __getattribute__ <slot wrapper '__getattribute__' of 'object' objects>
+HELLLO __gt__ <slot wrapper '__gt__' of 'object' objects>
+HELLLO __hash__ <slot wrapper '__hash__' of 'object' objects>
+HELLLO __init__ <function ContinousSimulationResult.__init__ at 0x7f015927d120>
+HELLLO __init_subclass__ <built-in method __init_subclass__ of type object at 0x5627d55cd950>
+HELLLO __le__ <slot wrapper '__le__' of 'object' objects>
+HELLLO __lt__ <slot wrapper '__lt__' of 'object' objects>
+HELLLO __module__ booldog.simulation_result.continous
+HELLLO __ne__ <slot wrapper '__ne__' of 'object' objects>
+HELLLO __new__ <built-in method __new__ of type object at 0x5627d26e2980>
+HELLLO __reduce__ <method '__reduce__' of 'object' objects>
+HELLLO __reduce_ex__ <method '__reduce_ex__' of 'object' objects>
+HELLLO __repr__ <slot wrapper '__repr__' of 'object' objects>
+HELLLO __setattr__ <slot wrapper '__setattr__' of 'object' objects>
+HELLLO __sizeof__ <method '__sizeof__' of 'object' objects>
+HELLLO __str__ <slot wrapper '__str__' of 'object' objects>
+HELLLO __subclasshook__ <built-in method __subclasshook__ of type object at 0x5627d55cd950>
+HELLLO __weakref__ <attribute '__weakref__' of 'ContinousSimulationResult' objects>
+HELLLO _plot_one_ax <function ContinousSimulationResult._plot_one_ax at 0x7f015927d2d0>
+HELLLO export <function ContinousSimulationResult.export at 0x7f015927d1b0>
+HELLLO plot <function ContinousSimulationResult.plot at 0x7f015927d240>
+reading sources... [ 82%] example
+reading sources... [ 88%] formats
+reading sources... [ 94%] index
+reading sources... [100%] installation
+
+looking for now-outdated files... none found
+pickling environment... done
+checking consistency... done
+preparing documents... done
+writing output... [  5%] api/booldog
+writing output... [ 11%] api/booldog.base
+writing output... [ 17%] api/booldog.bool_graph
+writing output... [ 23%] api/booldog.cli
+writing output... [ 29%] api/booldog.io
+writing output... [ 35%] api/booldog.io.bnet_to_sif
+writing output... [ 41%] api/booldog.io.read
+writing output... [ 47%] api/booldog.io.squad
+writing output... [ 52%] api/booldog.io.write
+writing output... [ 58%] api/booldog.ode
+writing output... [ 64%] api/booldog.simulation_result
+writing output... [ 70%] api/booldog.simulation_result.boolean
+writing output... [ 76%] api/booldog.simulation_result.continous
+writing output... [ 82%] example
+writing output... [ 88%] formats
+writing output... [ 94%] index
+writing output... [100%] installation
+
+generating indices... genindex py-modindex done
+writing additional pages... search done
+copying static files... done
+copying extra files... done
+dumping search index in English (code: en)... done
+dumping object inventory... done
+build succeeded, 5 warnings.
+
+The HTML pages are in build/html.

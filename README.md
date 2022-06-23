@@ -30,7 +30,7 @@ pip uninstall booldog
 * python-igraph
 * matplotlib
 * pygraphviz (optional)
-* PyBoolNet
+* pyboolnet
 * networkx
 
 ## Usage

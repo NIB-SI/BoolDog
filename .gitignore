@@ -18,6 +18,7 @@ ipython_config.py
 
 # Project specific
 development*
+dev*
 
 # sphinx documentation
 docs/build
