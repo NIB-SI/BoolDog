@@ -117,23 +117,22 @@ class BooleanGraph:
             # all states = cartesion product
             return product([0, 1], repeat=self.n)
 
-        else:
-            state_array = np.zeros(self.n)
-            # these are the fixed points
-            for node, state in fixed.items():
-                    state_array[self.index[node]] = state
+        state_array = np.zeros(self.n)
+        # these are the fixed points
+        for node, state in fixed.items():
+                state_array[self.index[node]] = state
 
-            # generate the free points
-            free_variables = list(set(self.nodes) - set(fixed.keys()))
-            num_free_variables = len(free_variables)
-            print(num_free_variables)
-            for free_variable_state in product([0, 1],
-                                               repeat=num_free_variables):
+        # generate the free points
+        free_variables = list(set(self.nodes) - set(fixed.keys()))
+        num_free_variables = len(free_variables)
+        print(num_free_variables)
+        for free_variable_state in product([0, 1],
+                                           repeat=num_free_variables):
 
-                this_state_array = state_array.copy()
-                for node, state in zip(free_variables, free_variable_state):
-                    this_state_array[self.index[node]] = state
-                yield this_state_array
+            this_state_array = state_array.copy()
+            for node, state in zip(free_variables, free_variable_state):
+                this_state_array[self.index[node]] = state
+            yield this_state_array
 
     def plot_state_transitions(self, fig,
                                initial_values=None,
@@ -194,11 +193,7 @@ class BooleanGraph:
         if new_style and (importlib.util.find_spec('pygraphviz') is not None):
             import networkx as nx
 
-            rev_index = {}
-            for node in self.nodes:
-                rev_index[self.index[node]] = node
-
-
+            rev_index = {self.index[node]: node for node in self.nodes}
             stg.graph['node']['shape'] = 'plaintext'
             colors = {"1":"#80ff8a", "0":"#ff9580"}
 
@@ -227,8 +222,7 @@ class BooleanGraph:
         '''All steady states of the Boolean graph.
 
         '''
-        steady_states = AspSolver.steady_states(self.primes)
-        return steady_states
+        return AspSolver.steady_states(self.primes)
 
 
     def get_parents(self, node):

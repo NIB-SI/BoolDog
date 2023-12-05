@@ -1,10 +1,7 @@
 import numpy as np
 
 def ensure_ndarray(v):
-    if not type(v) == np.ndarray:
-        return np.array([*v])
-    else:
-        return v
+    return np.array([*v]) if type(v) != np.ndarray else v
 
 
 def parameter_to_array(parameter, graph_keys, default=1):

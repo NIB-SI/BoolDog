@@ -88,7 +88,7 @@ def ODE_factory(graph, transform, **kwargs):
     transform = transform.lower()
     if transform == 'placeholder':
         ParentClass = SquadODE
-    elif not transform in ode_parent_classes.keys():
+    elif transform not in ode_parent_classes.keys():
         raise ValueError(f"transform' argument must be one of"\
                          f"{list(ode_parent_classes.keys())}")
     else:
@@ -165,6 +165,7 @@ def ODE_factory(graph, transform, **kwargs):
             '''
             self.dxdt =  self._get_system(off_nodes=off_nodes)
 
+    # for sphinx documentation
     # for sphinx documentation
     ODE_factory.ex_class = ODE
     ODE_factory.ex_class.__bases__ = tuple(set(ode_parent_classes.values()))
@@ -265,11 +266,7 @@ class BoolCubeODE():
 
     def _get_system(self, transform_function, off_nodes=None):
 
-        if off_nodes is None:
-            off_nodes = set()
-        else:
-            off_nodes = set(off_nodes)
-
+        off_nodes = set() if off_nodes is None else set(off_nodes)
         off_nodes.update(np.where(self.param_tau ==0)[0])
 
 
@@ -333,7 +330,7 @@ class BoolCubeODE():
                         for parent, parent_state in zip(free_parents, x):
                             this_state[parent] = parent_state
                         str_rep = "".join([str(this_state[node]) if node in this_state else "-" for node in self.boolean_graph.nodes])
-                        if not str_rep in spaces:
+                        if str_rep not in spaces:
                             states.append(this_state)
                             spaces.add(str_rep)
                 else:
@@ -362,12 +359,12 @@ class BoolCubeODE():
                 str_sums.append(str_term)
 
             B1 = " + ".join(sums)
-            str_B1 = "\n + ".join(str_sums)
-
             if B1 != '':
                 all_B1s[self.boolean_graph.index[node]]  = B1
 
             if verbose:
+                str_B1 = "\n + ".join(str_sums)
+
                 print(node, str_B1)
         return eval('lambda x:' + 'np.array([' + ','.join(all_B1s) + '])')
 
@@ -537,12 +534,6 @@ ode_parent_classes = {
 ''' dict : transform to parent class translation
 '''
 
-transforms = set([
-    'boolecube',
-    'hillcube',
-    'normalisedhillcube',
-    'shao',
-    'squad'
-])
+transforms = {'boolecube', 'hillcube', 'normalisedhillcube', 'shao', 'squad'}
 ''' set : list of accepted ODE transforms
 '''

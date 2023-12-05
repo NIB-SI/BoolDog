@@ -25,9 +25,9 @@ format_classes = {'primes':0,
 
 def read_boolean_graph(graph, in_format, default=1, **kwargs):
 
-    if not (in_format in format_classes):
-       raise ValueError(f"'in_format' arguments must be in "\
-                        f"{list(format_classes.keys())}")
+    if in_format not in format_classes:
+        raise ValueError(f"'in_format' arguments must be in "\
+                         f"{list(format_classes.keys())}")
 
     if not isinstance(graph, (dict, str, Path)):
        raise TypeError("'graph' argument must be a "\
@@ -67,7 +67,7 @@ def read_boolean_graph(graph, in_format, default=1, **kwargs):
         raise NotImplementedError(f"import of {in_format} from {type(graph)} "\
                                   f"is not implemented. ")
 
-    if not (in_format in ['interactions', 'graphml']):
+    if in_format not in ['interactions', 'graphml']:
         nodes = tuple(sorted(primes.keys())) # tuple (i.e. immutable)
         index = {i:node for node, i in enumerate(nodes)}
         n = len(nodes)
@@ -175,11 +175,10 @@ def import_graphml(path, inhibitor_symbol="white_diamond", activator_symbol="sta
         d = xmltodict.parse(f.read())
 
     D = {}
-    N = {}
-
-    for v in d["graphml"]["graph"]["node"]:
-        N[v["@id"]] = v["data"]["y:ShapeNode"]["y:NodeLabel"]["#text"]
-
+    N = {
+        v["@id"]: v["data"]["y:ShapeNode"]["y:NodeLabel"]["#text"]
+        for v in d["graphml"]["graph"]["node"]
+    }
     for e in d["graphml"]["graph"]["edge"]:
         symbol = e["data"]["y:PolyLineEdge"]['y:Arrows']['@target']
         if symbol == activator_symbol:
@@ -187,7 +186,11 @@ def import_graphml(path, inhibitor_symbol="white_diamond", activator_symbol="sta
         elif symbol == inhibitor_symbol:
             D[e["@id"]] = "-"
         else:
-            print(f"Issue with edge ", e["@id"], "arrow symbol \n\t\t{symbol} \n not recognized as activator or inhibitor, perhaps you need to define the 'inhibitor_symbol' ({inhibitor_symbol}) or 'activator_symbol' ({activator_symbol}) in keyword arguments. ")
+            print(
+                "Issue with edge ",
+                e["@id"],
+                "arrow symbol \n\t\t{symbol} \n not recognized as activator or inhibitor, perhaps you need to define the 'inhibitor_symbol' ({inhibitor_symbol}) or 'activator_symbol' ({activator_symbol}) in keyword arguments. ",
+            )
 
     for e in g.es():
         e["type"] = D[e["id"]]
@@ -222,9 +225,9 @@ def import_graphml(path, inhibitor_symbol="white_diamond", activator_symbol="sta
 def write_boolean_graph(RegNet, out_format, outfile):
 
     formats = ['bnet', 'odefy', 'squad']
-    if not  (out_format in formats):
-       raise ValueError(f"'out_format' argument must be one of "\
-                        f"{formats}")
+    if out_format not in formats:
+        raise ValueError(f"'out_format' argument must be one of "\
+                         f"{formats}")
 
     outfile = Path(outfile)
     file_writable(outfile)
@@ -233,14 +236,6 @@ def write_boolean_graph(RegNet, out_format, outfile):
         FileExchange.primes2bnet(RegNet.primes,
                                  FnameBNET=outfile,
                                  Minimize=True)
-    elif out_format == 'squad':
-        # GATA3 -> IL-10
-        # IL-10 -> IL-10R
-        # IL-12 -> IL-12R
-        # STAT6 -| IL-12R
-        # IL-18 -> IL-18R
-        # STAT6 -| IL-18R
-        pass
 
 
     #TODO

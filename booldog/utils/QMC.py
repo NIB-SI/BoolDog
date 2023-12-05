@@ -95,7 +95,7 @@ with open(fname_nusmvkeywords) as f:
 
 
 def primes2mindnf(Primes):
-    """
+            """
     Creates a minimal *disjunctive normal form* (DNF) expression for the Boolean network represented by *Primes*.
     The algorithm uses :ref:`Prekas2012 <Prekas2012>`, a Python implementation of the Quine-McCluskey algorithm.
     **arguments**:
@@ -110,36 +110,37 @@ def primes2mindnf(Primes):
         ((! v2) | v1)
     """
 
-    expressions = {}
-    for name in Primes:
+            expressions = {}
+            for name in Primes:
 
-        # name is const
-        if Primes[name][1]==[{}]:
-            expressions[name] = "1"
-            continue
-        if Primes[name][0]==[{}]:
-            expressions[name] = "0"
-            continue
+                        # name is const
+                        if Primes[name][1]==[{}]:
+                            expressions[name] = "1"
+                            continue
+                        if Primes[name][0]==[{}]:
+                            expressions[name] = "0"
+                            continue
 
-        inputs = sorted(set([x for p in Primes[name][1] for x in p]))
-        prod = len(inputs)*[[0,1]]
-        ones = []
-        for i,values in enumerate(itertools.product(*prod)):
-            state = dict(zip(inputs, values))
+                        inputs = sorted({x for p in Primes[name][1] for x in p})
+                        prod = len(inputs)*[[0,1]]
+                        ones = []
+                        for i,values in enumerate(itertools.product(*prod)):
+                                    state = dict(zip(inputs, values))
 
-            for prime in Primes[name][1]:
-                if all([state[x]==prime[x] for x in prime]):
-                    ones+=[i]
+                                    for prime in Primes[name][1]:
+                                                if all(state[x] == prime[x]
+                                                       for x in prime):
+                                                            ones+=[i]
 
-        primes_tuples = [ primedict2primetuple(x, inputs) for x in Primes[name][1] ]
+                        primes_tuples = [ primedict2primetuple(x, inputs) for x in Primes[name][1] ]
 
-        quine = QM(list(reversed(inputs)))
-        complexity, minterms = quine.unate_cover(list(primes_tuples), ones)
+                        quine = QM(list(reversed(inputs)))
+                        complexity, minterms = quine.unate_cover(list(primes_tuples), ones)
 
 
-        expressions[name] = quine.get_function(minterms)
+                        expressions[name] = quine.get_function(minterms)
 
-    return expressions
+            return expressions
 
 
 def functions2primes(Functions):
@@ -162,7 +163,7 @@ def functions2primes(Functions):
 
 
 def functions2mindnf(Functions):
-    """
+            """
     Generates and returns a minimal *disjunctive normal form* (DNF) for the Boolean network represented by *Functions*.
     The algorithm uses :ref:`Prekas2012 <Prekas2012>`, a Python implementation of the Quine-McCluskey algorithm.
     **arguments**:
@@ -177,63 +178,63 @@ def functions2mindnf(Functions):
         ((! v2) | v1)
     """
 
-    assert(all([inspect.isfunction(f) for f in Functions.values()]))
+            assert all(inspect.isfunction(f) for f in Functions.values())
 
-    Names = Functions.keys()
+            Names = Functions.keys()
 
-    too_short = [x for x in Names if len(x)==1]
-    if too_short:
-        print('warning: variable names must be at least two characters if you want to you NuSMV.')
-        print('Names that are too short: %s'%', '.join(too_short))
+            if too_short := [x for x in Names if len(x) == 1]:
+                        print('warning: variable names must be at least two characters if you want to you NuSMV.')
+                        print(f"Names that are too short: {', '.join(too_short)}")
 
-    keywords = [x for x in Names if x in fname_nusmvkeywords]
-    if keywords:
-        print('warning: variable names can not be NuSMV keywords.')
-        print('Names that are keywords:', ', '.join(keywords))
+            if keywords := [x for x in Names if x in fname_nusmvkeywords]:
+                        print('warning: variable names can not be NuSMV keywords.')
+                        print('Names that are keywords:', ', '.join(keywords))
 
-    expressions = {}
-    for name, func in Functions.items():
+            expressions = {}
+            for name, func in Functions.items():
 
-        # modified here 4 lines CB
-        if hasattr(func, 'depends'):
-            inputs = func.depends
-        else:
-            inputs = inspect.getargspec(func).args
+                        # modified here 4 lines CB
+                        if hasattr(func, 'depends'):
+                            inputs = func.depends
+                        else:
+                            inputs = inspect.getargspec(func).args
 
-        # name is constant (no inputs)
-        if not inputs:
-            const = func()
-            assert(const in [0,1,True,False])
-            expressions[name] = '1' if func() else '0'
-            continue
+                        # name is constant (no inputs)
+                        if not inputs:
+                            const = func()
+                            assert(const in [0,1,True,False])
+                            expressions[name] = '1' if func() else '0'
+                            continue
 
-        if len(inputs)>10:
-            print("warning: computation of prime implicants may take a very long time for %s."%name)
+                        if len(inputs)>10:
+                                    print(
+                                        f"warning: computation of prime implicants may take a very long time for {name}."
+                                    )
 
-        ones, zeros = [], []
-        prod = len(inputs)*[[0,1]]
-        for i,values in enumerate(itertools.product(*prod)):
-            if func(*values):
-                ones +=[i]
-            else:
-                zeros+=[i]
+                        ones, zeros = [], []
+                        prod = len(inputs)*[[0,1]]
+                        for i,values in enumerate(itertools.product(*prod)):
+                            if func(*values):
+                                ones +=[i]
+                            else:
+                                zeros+=[i]
 
-        # name is constant (all combinations evaluate to same value)
-        if ones==[]:
-            expressions[name] = '0'
-            continue
-        if zeros==[]:
-            expressions[name] = '1'
-            continue
+                        # name is constant (all combinations evaluate to same value)
+                        if ones==[]:
+                            expressions[name] = '0'
+                            continue
+                        if zeros==[]:
+                            expressions[name] = '1'
+                            continue
 
-        quine = QM(list(reversed(inputs)))
-        primes = quine.compute_primes(ones )
-        complexity, minterms = quine.unate_cover(list(primes), ones)
+                        quine = QM(list(reversed(inputs)))
+                        primes = quine.compute_primes(ones )
+                        complexity, minterms = quine.unate_cover(list(primes), ones)
 
-        expressions[name] = quine.get_function(minterms)
+                        expressions[name] = quine.get_function(minterms)
 
 
-    return expressions
+            return expressions
 
 
 
@@ -326,38 +327,36 @@ class QM:
 
 
   def compute_primes(self, cubes):
-    """
+              """
     Find all prime implicants of the function.
     cubes: a list of indices for the minterms for which the function evaluates
     to 1 or don't-care.
     """
 
-    sigma = []
-    for i in range(self.numvars+1):
-      sigma.append(set())
-    for i in cubes:
-      sigma[bitcount(i)].add((i,0))
+              sigma = [set() for _ in range(self.numvars+1)]
+              for i in cubes:
+                sigma[bitcount(i)].add((i,0))
 
-    primes = set()
-    while sigma:
-      nsigma = []
-      redundant = set()
-      for c1, c2 in zip(sigma[:-1], sigma[1:]):
-        nc = set()
-        for a in c1:
-          for b in c2:
-            m = merge(a, b)
-            if m != None:
-              nc.add(m)
-              redundant |= set([a, b])
-        nsigma.append(nc)
-      primes |= set(c for cubes in sigma for c in cubes) - redundant
-      sigma = nsigma
+              primes = set()
+              while sigma:
+                          nsigma = []
+                          redundant = set()
+                          for c1, c2 in zip(sigma[:-1], sigma[1:]):
+                                      nc = set()
+                                      for a in c1:
+                                                  for b in c2:
+                                                              m = merge(a, b)
+                                                              if m != None:
+                                                                          nc.add(m)
+                                                                          redundant |= {a, b}
+                                      nsigma.append(nc)
+                          primes |= {c for cubes in sigma for c in cubes} - redundant
+                          sigma = nsigma
 
-    return primes
+              return primes
 
   def unate_cover(self, primes, ones):
-    """
+              """
     Use the prime implicants to find the essential prime implicants of the
     function, as well as other prime implicants that are necessary to cover
     the function. This method uses the Petrick's method, which is a technique
@@ -368,42 +367,40 @@ class QM:
     evaluate to 1.
     """
 
-    chart = []
-    for one in ones:
-      column = []
-      for i in range(len(primes)):
-        if (one & (~primes[i][1])) == primes[i][0]:
-          column.append(i)
-      chart.append(column)
+              chart = []
+              for one in ones:
+                          column = [
+                              i for i in range(len(primes))
+                              if (one & (~primes[i][1])) == primes[i][0]
+                          ]
+                          chart.append(column)
 
-    covers = []
-    if len(chart) > 0:
-      covers = [set([i]) for i in chart[0]]
-    for i in range(1,len(chart)):
-      new_covers = []
-      for cover in covers:
-        for prime_index in chart[i]:
-          x = set(cover)
-          x.add(prime_index)
-          append = True
-          for j in range(len(new_covers)-1,-1,-1):
-            if x <= new_covers[j]:
-              del new_covers[j]
-            elif x > new_covers[j]:
-              append = False
-          if append:
-            new_covers.append(x)
-      covers = new_covers
+              covers = [{i} for i in chart[0]] if chart else []
+              for i in range(1,len(chart)):
+                          new_covers = []
+                          for cover in covers:
+                                      for prime_index in chart[i]:
+                                                  x = set(cover)
+                                                  x.add(prime_index)
+                                                  append = True
+                                                  for j in range(len(new_covers)-1,-1,-1):
+                                                              if x <= new_covers[j]:
+                                                                          del new_covers[j]
+                                                              else:
+                                                                          append = False
+                                                  if append:
+                                                    new_covers.append(x)
+                          covers = new_covers
 
-    min_complexity = 99999999
-    for cover in covers:
-      primes_in_cover = [primes[prime_index] for prime_index in cover]
-      complexity = self.calculate_complexity(primes_in_cover)
-      if complexity < min_complexity:
-        min_complexity = complexity
-        result = primes_in_cover
+              min_complexity = 99999999
+              for cover in covers:
+                primes_in_cover = [primes[prime_index] for prime_index in cover]
+                complexity = self.calculate_complexity(primes_in_cover)
+                if complexity < min_complexity:
+                  min_complexity = complexity
+                  result = primes_in_cover
 
-    return min_complexity,result
+              return min_complexity,result
 
   def calculate_complexity(self, minterms):
     """
@@ -460,26 +457,26 @@ class QM:
 
 
   def get_function(self, minterms):
-    """
+              """
     Return in human readable form a sum of products function.
     minterms: a list of minterms that form the function
     returns: a string that represents the function using operators AND, OR and
     NOT.
     """
 
-    if isinstance(minterms,str):
-      return minterms
+              if isinstance(minterms,str):
+                return minterms
 
-    or_terms = []
-    for minterm in minterms:
-      and_terms = []
-      for j in range(len(self.variables)):
-        if minterm[0] & 1<<j:
-          and_terms.append(self.variables[j])
-        elif not minterm[1] & 1<<j:
-          and_terms.append('!%s' % self.variables[j])
-      or_terms.append('&'.join(and_terms))
-    return ' | '.join(or_terms)
+              or_terms = []
+              for minterm in minterms:
+                          and_terms = []
+                          for j in range(len(self.variables)):
+                                      if minterm[0] & 1<<j:
+                                                  and_terms.append(self.variables[j])
+                                      elif not minterm[1] & 1<<j:
+                                                  and_terms.append(f'!{self.variables[j]}')
+                          or_terms.append('&'.join(and_terms))
+              return ' | '.join(or_terms)
 
   def get_prime_dict(self, minterms):
     """
@@ -520,14 +517,12 @@ def is_power_of_two_or_zero(x):
 
 
 def merge(i, j):
-  """ Combine two minterms. """
+            """ Combine two minterms. """
 
-  if i[1] != j[1]:
-    return None
-  y = i[0] ^ j[0]
-  if not is_power_of_two_or_zero(y):
-    return None
-  return (i[0] & j[0],i[1]|y)
+            if i[1] != j[1]:
+              return None
+            y = i[0] ^ j[0]
+            return None if not is_power_of_two_or_zero(y) else (i[0] & j[0], i[1]|y)
 
 
 def primedict2primetuple(Primes, Names):

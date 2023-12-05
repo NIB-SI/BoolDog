@@ -64,8 +64,7 @@ class RegulatoryNetwork(BooleanGraph):
         **kwargs
             Additional keyword arguments passed to :py:func:`booldog.ODE`.
         '''
-        ode_system = ODE_factory(self, transform, **kwargs)
-        return ode_system
+        return ODE_factory(self, transform, **kwargs)
 
     def continuous_simulation(self,
         node_events={},
@@ -354,7 +353,6 @@ class RegulatoryNetwork(BooleanGraph):
                              legend_labels,
                              vlines=vlines,
                              title=title)
-            # case (2) and (3)
             else:
                 if not isinstance(plot_nodes[0], list):
                     # case (2) --> case (3)
@@ -365,14 +363,14 @@ class RegulatoryNetwork(BooleanGraph):
                 if title and isinstance(title, str):
                     main_title = title
                     title = [None]*num_plots
-                elif  title and isinstance(title, list):
-                    if not (len(title) == len(plot_nodes)):
+                elif title and isinstance(title, list):
+                    if len(title) != len(plot_nodes):
                         print(f'WARNING: '\
-                              f'Number of (sub)titles is not equal to the '\
-                              f'number of (sub)plots. Either pass the correct '\
-                              f'number of subtitles as a list, or a single '\
-                              f'main title as a string. \n'\
-                              f'{len(title)} (title) != {num_plots} (subplots)')
+                                  f'Number of (sub)titles is not equal to the '\
+                                  f'number of (sub)plots. Either pass the correct '\
+                                  f'number of subtitles as a list, or a single '\
+                                  f'main title as a string. \n'\
+                                  f'{len(title)} (title) != {num_plots} (subplots)')
                         title = [None]*num_plots
 
                 else:
