@@ -4,6 +4,7 @@ about: Create a report to help us improve BoolDog documentation
 title: "[DOCUMENTATION]"
 labels: documentation
 assignees: ''
+
 ---
 
 **Describe the issue**
