@@ -1,0 +1,9 @@
+source	target	interaction
+node_A	node_C	1
+node_B	node_A	-1
+node_B	node_B	1
+node_B	node_C	1
+node_C	node_E	-1
+node_D	node_D	1
+node_D	node_E	1
+node_E	node_A	-1
