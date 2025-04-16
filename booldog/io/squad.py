@@ -1,32 +1,70 @@
+from collections import defaultdict
+import numpy as np
+from booldog.utils.misc import ensure_ndarray
+from booldog.utils import boolean_normal_forms
+import logging
+
+logger = logging.getLogger(__name__)
+
+
 ##############################
 #     SQUAD/INTERACTIONS     #
 ##############################
 
+
+def _conform_interactions(interactions, activator_value, inhibitor_value):
+
+    if (activator_value != 1) or (inhibitor_value != -1):
+        sign_translate = {
+            activator_value: 1,
+            inhibitor_value: -1,
+        }
+        for s in interactions:
+            for t in interactions[s]:
+                symbol = interactions[s][t]
+                if symbol in sign_translate:
+                    interactions[s][t] = sign_translate[symbol]
+                else:
+                    logger.warning(
+                        f'Issue with edge {s} --> {t}: '
+                        f'"{symbol}" not recognized as activator or inhibitor, '
+                        f'perhaps you need to define the '
+                        f'"inhibitor_value" ({inhibitor_value}) or '
+                        f'"activator_value" ({activator_value}) in keyword arguments. '
+                    )
+
+
 class SquadInteractions:
 
-    def __init__(self, data):
-        self.nodes = tuple(sorted(data.keys())) # tuple (i.e. immutable)
+    def __init__(self, interactions, activator_value=1, inhibitor_value=-1, **_):
+        ''' '''
+
+        _conform_interactions(interactions, activator_value, inhibitor_value)
+
+        print(interactions)
+
+        self.nodes = tuple(sorted(interactions.keys())) # tuple (i.e. immutable)
         self.n = len(self.nodes)
         self.index = {i:node for node, i in enumerate(self.nodes)}
 
-        funcs = self.squad_update_funcs(data)
-        self.primes = boolean_normal_forms.functions2primes(funcs)
+        funcs = self.squad_update_funcs(interactions)
+        self.primes = boolean_normal_forms.functions2primes(functions=funcs)
 
 
-    def _make_reverse_and_complete(self, data):
-        interactions = defaultdict(dict)
+    def _make_reverse_and_complete(self, interactions):
+        reverse_interactions = defaultdict(dict)
 
-        for source, d in data.items():
+        for source, d in interactions.items():
             for target, sign in d.items():
-                interactions[target][source] = sign
+                reverse_interactions[target][source] = sign
 
         # for node in self.nodes:
         #     regulators = interactions[node]
         #     if len(regulators) == 0:
         #         interactions[node][node] = '+'
-        return interactions
+        return reverse_interactions
 
-    def interactions_to_matrices(self, data):
+    def interactions_to_matrices(self, reverse_interactions):
         '''
         Only if graph is of type threshold (i.e. SQUAD) does this make sense.
         Create logic matrices
@@ -37,11 +75,11 @@ class SquadInteractions:
         Act = np.zeros((self.n, self.n)) # activators
         Inh = np.zeros((self.n, self.n)) # inhibitors
 
-        for target, d in data.items():
+        for target, d in reverse_interactions.items():
             for source, sign in d.items():
-                if sign == "+":
+                if sign == 1:
                     Act[self.index[target], self.index[source]] = 1
-                elif sign == "-":
+                elif sign == -1:
                     Inh[self.index[target], self.index[source]] = 1
                 else:
                     print("Warning: Issue with edge: ", source, target)
@@ -53,11 +91,11 @@ class SquadInteractions:
         funcs = {}
 
         # interactions are [target][source]
-        interactions = self._make_reverse_and_complete(interactions)
+        reverse_interactions = self._make_reverse_and_complete(interactions)
 
-        Act, Inh = self.interactions_to_matrices(interactions)
+        Act, Inh = self.interactions_to_matrices(reverse_interactions)
 
-        for node, d in interactions.items():
+        for node, d in reverse_interactions.items():
             args = list(d.keys())
 
             def func(*func_input, node=node, args=args):

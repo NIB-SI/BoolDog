@@ -1,2 +1,2 @@
-from .continous import ContinousSimulationResult
-from .boolean import BooleanSimulationResult
+from .continous_result import ContinousSimulationResult
+from .boolean_result import BooleanSimulationResult

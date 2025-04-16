@@ -1,86 +1,27 @@
-import numpy as np
-import os
-import sys
-import math
+''''''
 
-from pathlib import Path
+import logging
 
-from collections import defaultdict
 from scipy.integrate import solve_ivp
-
-# hide runtime warnings (divide by zero, multiply by inf)
-# occur in squad ode init
-# TODO This is a bad idea...
-import warnings
-warnings.filterwarnings("ignore",
-    message="divide by zero encountered in true_divide")
-warnings.filterwarnings("ignore",
-    message="invalid value encountered in multiply")
-
-from booldog.utils.utils import *
-from booldog.bool_graph import BooleanGraph
-from booldog.ode import ODE_factory
+from collections import defaultdict
 
 from booldog.simulation_result import ContinousSimulationResult
+from booldog.utils.misc import *
 
-from booldog.io.write import WriteMixin
-
-class RegulatoryNetwork(BooleanGraph, WriteMixin):
-    '''A class to represent a regulatory network.
-
-    '''
-
-    def __init__(self, primes, nodes, index, n):
-        '''Initialise a regulatory network from a Boolean graph.
-
-        Parameters
-        ----------
-        graph : `booldog.BooleanGraph` or dict or str
-            If not a :py:class:`booldog.BooleanGraph` instance, then correct
-            input for initializing a :py:class:`booldog.BooleanGraph`.
-
-        Other Parameters
-        ----------
-        **kwargs
-            In the case `graph` is not a BooleanGraph instance, additional
-            keyword arguments passed to :py:class:`booldog.BooleanGraph`.
-        '''
-        super().__init__(primes, nodes, index, n)
-
-    def transform_bool_to_continuous(self, transform, **kwargs):
-        '''Generate an ODE from RegulatoryNetwork/Boolean graph.
-
-        Note that the BooleanGraph object is kept in memory as the primes of the Boolean network. This means that importing the graph may take a while, depending on the size of the network.
+logger = logging.getLogger(__name__)
 
 
-
-        Parameters
-        ----------
-        transform : str
-            One of accepted transforms. See `booldog.ode.transforms` for
-            accepted options.
-
-        Other Parameters
-        ----------
-        **kwargs
-            Additional keyword arguments passed to :py:func:`booldog.ODE`.
-
-
-        Returns
-        ----------
-
-
-        '''
-        ode_system = ODE_factory(self, transform, **kwargs)
-        return ode_system
+class ContinuousMixin:
 
     def continuous_simulation(self,
-        node_events={},
-        edge_events={},
-        t_min=0, t_max=30,
-        initial_state=0,
-        ode_system=None,
-        **kwargs):
+                              node_events={},
+                              edge_events={},
+                              t_min=0,
+                              t_max=30,
+                              initial_state=0,
+                              ode_system=None,
+                              solver=solve_ivp,
+                              **kwargs):
         '''Run continuous semi-qualitative simulation.
 
         Parameters
@@ -174,73 +115,80 @@ class RegulatoryNetwork(BooleanGraph, WriteMixin):
         #    (so that dx/dt of the node can be reset)
         events_d = defaultdict(lambda: defaultdict(dict))
 
-        for node_event  in node_events:
+        for node_event in node_events:
 
             this_time_and_node = {
-                    "reset":False,
-                    "duration":0,
-                    "value":node_event["value"]
+                "reset": False,
+                "duration": 0,
+                "value": node_event["value"]
             }
-            if ( "duration" in node_event ) and ( node_event["duration"] > 0 ):
+            if ("duration" in node_event) and (node_event["duration"] > 0):
                 this_time_and_node["duration"] = node_event["duration"]
 
                 perturb_end = int(node_event['time'] + node_event["duration"])
                 events_d[perturb_end][node_event['node']]["reset"] = True
 
-            events_d[node_event['time']][node_event['node']] = this_time_and_node
+            events_d[node_event['time']][
+                node_event['node']] = this_time_and_node
 
         # add a last event to get to end of simulation i.o.t. avoid using `while True`
         # # https://stackoverflow.com/a/50703835/4996681
         events_d[t_max] = {}
         off_nodes = set()
-        print("Status: Start")
-        for event_t  in sorted(events_d.keys()):
+        logger.info("Status: Start")
+        for event_t in sorted(events_d.keys()):
 
-            result = solve_ivp(fun=ode_system.dxdt,
-                               t_span=(t_min, t_max),
-                               y0=initial_state_array,
-                               events=ode_system.event_function,
-                               args=(event_t,),
-                               max_step=0.01,
-                               )
+            result = solver(
+                fun=ode_system.dxdt,
+                t_span=(t_min, t_max),
+                y0=initial_state_array,
+                events=ode_system.event_function,
+                args=(event_t, ),
+                max_step=0.01,
+            )
 
             all_results.append(result)
             current_t = result.t[-1]
 
             if (result.status == 0) or (current_t == t_max):
-                print("Status: End")
+                logger.info("Status: End")
                 break
-            else:
-                s = "Status: Event at {t:3d}:\n".format(t=int(current_t))
 
-                t_min = current_t
-                initial_state_array = result.y[:, -1].copy()
-                for node, perturb in events_d[event_t].items():
-                    if perturb["reset"]:
-                        # ending a perturbation (put back dx/dt of this node)
-                        s += " "*10 + "{node} -> released\n".format(node=node)
-                        off_nodes.remove(self.index[node])
+            s = "Status: Event at {t:3d}:\n".format(t=int(current_t))
+
+            t_min = current_t
+            initial_state_array = result.y[:, -1].copy()
+            for node, perturb in events_d[event_t].items():
+                if perturb["reset"]:
+                    # ending a perturbation (put back dx/dt of this node)
+                    s += " "*10 + "{node} -> released\n".format(node=node)
+                    off_nodes.remove(self.index[node])
+                    ode_system.update(off_nodes=off_nodes)
+
+                else:
+                    # starting a perturbation
+                    initial_state_array[self.index[node]] = perturb['value']
+
+                    s += f"{node:>10} -> {perturb['value']:.2f} "\
+                         f"(duration {perturb['duration']:2d})\n"
+
+                    if perturb['duration'] > 0:
+                        # dt/dt of this node should be 0 for "duration"
+                        off_nodes.add(self.index[node])
                         ode_system.update(off_nodes=off_nodes)
-
-                    else:
-                        # starting a perturbation
-                        initial_state_array[self.index[node]] = perturb['value']
-
-                        s += f"{node:>10} -> {perturb['value']:.2f} "\
-                             f"(duration {perturb['duration']:2d})\n"
-
-                        if perturb['duration'] > 0:
-                            # dt/dt of this node should be 0 for "duration"
-                            off_nodes.add(self.index[node])
-                            ode_system.update(off_nodes=off_nodes)
-                print(s)
+            logger.info(s)
 
         combined_t = np.concatenate([result.t for result in all_results])
         combined_y = np.concatenate([result.y for result in all_results],
                                     axis=1).T
 
-        result = ContinousSimulationResult(self, combined_t, combined_y, ode_system, node_events=node_events, edge_events=edge_events)
+        result = ContinousSimulationResult(
+            self,
+            combined_t,
+            combined_y,
+            ode_system,
+            node_events=node_events,
+            edge_events=edge_events,
+        )
 
         return result
-
-

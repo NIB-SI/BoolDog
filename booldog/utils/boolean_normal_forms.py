@@ -1,3 +1,4 @@
+# >>>BEGIN EDIT
 '''
 This is a modification of pyboolnet.boolean_normal_forms module (originally PyBoolNet.QuineMcCluskey),
 specifically the function functions2mindnf, ca line 130.
@@ -49,8 +50,8 @@ As lambdas (the PyBoolNet format), the functions would be::
     'f3': lambda x3: x3
     }
 
-I am unaware of a way to produce lambdas like these at scale, especially when
-line 1 is composed of more complicated vector operations. The following code
+I am unaware of a way to automate producing lambdas like these at scale, especially when
+`node_state` is composed of more complicated vector operations. The following code
 produces functions at scale that have all node states as arguments, calculates
 the update, and also identifies the dependencies and make them an attribute of
 the function::
@@ -77,7 +78,10 @@ the function::
     funcs = {node:function_factory(data,  node) for node in idx.keys()}
 '''
 
+# import everything from pyboolnet version
 from pyboolnet.boolean_normal_forms import *
+
+# Then comment out all
 # import inspect
 # import itertools
 # import logging
@@ -87,7 +91,6 @@ from pyboolnet.boolean_normal_forms import *
 # from pyboolnet.external.bnet2primes import bnet_text2primes
 
 # log = logging.getLogger(__name__)
-
 
 # def primes2mindnf(primes: dict) -> Dict[str, str]:
 #     """
@@ -137,7 +140,7 @@ from pyboolnet.boolean_normal_forms import *
 #         expressions[name] = quine.get_function(min_terms)
 
 #     return expressions
-
+# <<< END EDIT
 
 def functions2mindnf(functions: Dict[str, callable]) -> Dict[str, str]:
     """
@@ -173,12 +176,12 @@ def functions2mindnf(functions: Dict[str, callable]) -> Dict[str, str]:
     expressions = {}
     for name, func in functions.items():
 
-        # modification start CB
+# >>> BEGIN EDIT
         if hasattr(func, 'depends'):
             inputs = func.depends
         else:
-            inputs = inspect.getargspec(func).args
-        # modification end CB
+            inputs = inspect.getfullargspec(func).args
+# <<< END EDIT
 
         if not inputs:
             const = func()
@@ -212,30 +215,29 @@ def functions2mindnf(functions: Dict[str, callable]) -> Dict[str, str]:
 
     return expressions
 
+def functions2primes(functions: Dict[str, callable]) -> dict:
+    """
+    Generates and returns the prime implicants of a Boolean network represented by *functions*.
 
-# def functions2primes(functions: Dict[str, callable]) -> dict:
-#     """
-#     Generates and returns the prime implicants of a Boolean network represented by *functions*.
+    **arguments**:
+        * *functions*: keys are component names and values are Boolean functions
 
-#     **arguments**:
-#         * *functions*: keys are component names and values are Boolean functions
+    **returns**:
+        * *primes*: primes implicants
 
-#     **returns**:
-#         * *primes*: primes implicants
+    **example**:
 
-#     **example**:
+        >>> funcs = {"v1": lambda v1, v2: v1 or not v2,
+        ...          "v2": lambda v1, v2: v1 + v2 == 1}
+        >>> primes = functions2primes(funcs)
+    """
 
-#         >>> funcs = {"v1": lambda v1, v2: v1 or not v2,
-#         ...          "v2": lambda v1, v2: v1 + v2 == 1}
-#         >>> primes = functions2primes(funcs)
-#     """
+    mindnf = functions2mindnf(functions)
+    text = "\n".join([f"{name},\t\t{dnf}" for name, dnf in mindnf.items()])
 
-#     mindnf = functions2mindnf(functions)
-#     text = "\n".join([f"{name},\t\t{dnf}" for name, dnf in mindnf.items()])
+    return bnet_text2primes(text)
 
-#     return bnet_text2primes(bnet_text=text)
-
-
+# >>> BEGIN EDIT
 # """
 # Copyright (c) 2012 George Prekas <prekgeo@yahoo.com>
 
@@ -549,6 +551,7 @@ def functions2mindnf(functions: Dict[str, callable]) -> Dict[str, str]:
 #     mask  = int(mask,2)
 
 #     return atoms, mask
+# <<< END EDIT
 
 
 if __name__ == "__main__":

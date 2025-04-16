@@ -1,22 +1,31 @@
 # Copyright (C) 2020-2021 National Institute of Biology, Slovenia
 # Author: Carissa Bleker
-# Contact: carissarobyn.bleker@nib.si
-
+# Contact: carissa.bleker@nib.si
 """`booldog`: A Python package for analyses of Boolean and semi-qualitative Boolean networks"""
 
-import sys
 import logging
+import sys
 
+assert sys.version_info >= (3, 10)
 
-logging.basicConfig(format="%(levelname)s %(asctime)s %(message)s",
+logging.basicConfig(
+    format="%(levelname)s %(asctime)s %(name)s:%(funcName)s %(message)s",
                     stream=sys.stdout,
-                    level=logging.INFO
-)
+                    level=logging.DEBUG)
 
-from .base import RegulatoryNetwork
-from .ode import ODE_factory
 from . import io
+from .booldog import Network
+
+silent_loggers = []
+for key in logging.Logger.manager.loggerDict:
+    if not key.startswith('booldog'):
+        silent_loggers.append(key)
+for key in silent_loggers:
+    logging.getLogger(key).setLevel(logging.CRITICAL)
+
+
 
 # sphinx stuff
-__all__ = ['RegulatoryNetwork', 'ODE_factory']
-RegulatoryNetwork.__module__ = "booldog"
+__all__ = ['Network', 'ODE_factory']
+Network.__module__ = "booldog"
+

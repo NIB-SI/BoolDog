@@ -2,14 +2,14 @@
 object.
 '''
 
-from .read import read_primes, read_bnet, read_interactions, read_graphml
+from .read import read
 
-
+from .write import WriteMixin
 
 
 
 # sphinx stuff
-__all_exports = [read_primes, read_bnet, read_interactions, read_graphml]
+__all_exports = [read]
 
 for e in __all_exports:
     e.__module__ = __name__

@@ -1,5 +1,17 @@
+from enum import Enum
+import errno
+
 import numpy as np
 from pathlib import Path
+
+
+class ExtendedEnum():
+
+    @classmethod
+    def values(cls):
+        return [m.value for m in cls]
+
+
 
 def ensure_ndarray(v):
     '''
@@ -11,6 +23,7 @@ def ensure_ndarray(v):
         return np.array([v])
     else:
         return np.array([*v])
+
 
 def parameter_to_array(parameter, graph_keys):
     '''Parameter argument to numpy array
@@ -52,39 +65,26 @@ def parameter_to_array(parameter, graph_keys):
             parameter_array[graph_keys[key]] = value
     else:
         print("'parameters must be int, float, or dict.")
-        parameter_array = parameter_array*1
+        parameter_array = parameter_array * 1
     return parameter_array
 
 
-def file_writeable(path):
-    '''Checks if path is writable. If not, attempts to print reason, and raises
+def file_writable(path):
+    '''Checks if path is writeable. If not, attempts to print reason, and raises
     an Exception.
     '''
     path = Path(path)
 
     if path.exists():
-        print(f'{path} already exists and will be overwritten')
+        print(f'{path} already exists and will be overwritten!')
 
     try:
         with open(path, 'w') as f:
             pass
-    except IOError as x:
-        if x.errno == errno.EACCES:
-            print(f'No permission to write to {path}')
-        elif x.errno == errno.EISDIR:
+    except IOError as e:
+        if e.errno == errno.EACCES:
+            print(f'No permission to write to {path}.')
+        elif e.errno == errno.EISDIR:
             print(f'{path} is directory.')
         raise e
-
-
-
-
-
-
-
-
-
-
-
-
-
 

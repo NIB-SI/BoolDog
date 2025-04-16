@@ -1,45 +1,79 @@
 '''Read functions
 '''
-
-import os
-import sys
-
-import re
-
-import xmltodict
-import igraph as ig
-
-import numpy as np
-from booldog.utils import *
-
+import logging
+from pathlib import Path
 from collections import defaultdict
 
 from pyboolnet import file_exchange
 
-from pathlib import Path
-
-from booldog.base import RegulatoryNetwork
-from booldog.utils import boolean_normal_forms
 from booldog.io.squad import SquadInteractions
+from booldog.io.sbml import _SBML_AVAILABLE, sbmlqual2bnet
+from booldog.io.graphml import graphml2interactions
+from booldog.io.igraph import igraph2interactions
+from booldog.io.networkx import networkx2interactions
+
+from booldog.boolean_network import BooleanNetwork
+
+logger = logging.getLogger(__name__)
+
 
 ##############################
 #
 ##############################
 
-def _primes_to_RegulatoryNetwork(primes):
+forms = [
+    "bnet",
+    "graphml",
+    "interactions",
+    "networkx",
+    "primes",
+    "sbml-qual",
+]
 
-    nodes = tuple(sorted(primes.keys())) # tuple (i.e. immutable)
-    index = {i:node for node, i in enumerate(nodes)}
+
+def read(
+    graph=None,
+    format="bnet",
+    **kwargs,
+):
+    '''Generic reader
+    '''
+    match format:
+        case "bnet":
+            boolean_graph = read_bnet(graph, **kwargs)
+        case "graphml":
+            boolean_graph = read_graphml(graph, **kwargs)
+        case "sif":
+            boolean_graph = read_sif(graph, **kwargs)
+        case "interactions":
+            boolean_graph = read_interactions(graph, **kwargs)
+        case "igraph":
+            boolean_graph = read_igraph(graph, **kwargs)
+        case "networkx":
+            boolean_graph = read_networkx(graph, **kwargs)
+        case "primes":
+            boolean_graph = read_primes(graph, **kwargs)
+        case "sbml-qual":
+            boolean_graph = read_sbmlqual(graph, **kwargs)
+        case _:
+            raise ValueError(f"`format` argument must be of {', '.join(forms)}")
+
+    return boolean_graph
+
+def _primes_to_BooleanNetwork(primes):
+    nodes = tuple(sorted(primes.keys()))  # tuple (i.e. immutable)
+    index = {i: node for node, i in enumerate(nodes)}
     n = len(nodes)
-    return RegulatoryNetwork(primes, nodes, index, n)
+    return BooleanNetwork(primes=primes, nodes=nodes, index=index, n=n)
 
-def _interactions_to_RegulatoryNetwork(interactions):
-    return RegulatoryNetwork(g.primes, g.nodes, g.index, g.n)
+def _interactions_to_BooleanNetwork(g):
+    return BooleanNetwork(primes=g.primes, nodes=g.nodes, index=g.index, n=g.n)
 
 
 ##############################
 #      READ  FUNCTIONS       #
 ##############################
+
 
 def read_primes(primes_input):
     ''' Read primes from a dictionary or a json file
@@ -51,8 +85,8 @@ def read_primes(primes_input):
 
     Returns
     -------
-    rn: :py:class:RegulatoryNetwork
-        A RegulatoryNetwork object.
+    rn: :py:class:BooleanNetwork
+        A BoolDog BooleanNetwork object.
 
     '''
     if isinstance(primes_input, dict):
@@ -61,10 +95,11 @@ def read_primes(primes_input):
     else:
         primes = file_exchange.read_primes(primes_input)
 
-    return _primes_to_RegulatoryNetwork(primes)
+    return _primes_to_BooleanNetwork(primes)
 
-def read_bnet(bnet):
-    ''' Generate a RegulatoryNetwork from a Boolean network in boolnet format.
+
+def read_bnet(file):
+    ''' Generate a BoolDog BooleanNetwork object from a Boolean network in boolnet format.
 
     For complete documentation, see :doc:`pyboolnet:modules/file_exchange`.
 
@@ -75,81 +110,83 @@ def read_bnet(bnet):
 
     Returns
     -------
-    rn: RegulatoryNetwork
-        An object of type :ref:`py:class:RegulatoryNetwork`.
+    rn: BoolDog
+        An object of type :ref:`py:class:BoolDog`.
 
     '''
 
-    primes = file_exchange.bnet2primes(bnet)
+    primes = file_exchange.bnet2primes(file)
 
-    return _primes_to_RegulatoryNetwork(primes)
-
-
-def read_interactions(network):
-
-    interactions = SquadInteractions(network)
-    return _interactions_to_RegulatoryNetwork(interactions)
+    return _primes_to_BooleanNetwork(primes)
 
 
-def read_graphml(path,
-                 inhibitor_symbol="white_diamond",
-                 activator_symbol="standard"):
-    '''Reads in a graphml file.
-
+def read_sif(
+    file,
+    delim="\t",
+    header=True,
+    **kwargs
+):
+    '''Reads in a SIF file of interactions
 
     Parameters
     ----------
     inhibitor_symbol: str, optional
-        Symbol of inhibition edges (default="white_diamond")
+        Symbol of inhibition edges (default="-1")
     activator_symbol: str, optional
-        Symbol of activation edges (default="standard")
+        Symbol of activation edges (default="1")
+
+
+
+    Note
+    ----
+    Uses SQUAD logic to obtain Boolean graph
     '''
 
+    interactions = defaultdict(dict)
+    with open(file, "r") as handle:
+        if header:
+            handle.readline()
+        for line in handle:
+            source, target, interaction = line.rstrip().split(delim)[:3]
+            interactions[source][target] = interaction
 
-    # load graph
-    g = ig.Graph.Read_GraphML(path)
+    interactions_graph = SquadInteractions(interactions, **kwargs)
+    return _interactions_to_BooleanNetwork(interactions_graph)
 
-    # add edge attributes (i.e. activator or inhibitor)
-    with open(path) as f:
-        d = xmltodict.parse(f.read())
+def read_interactions(interactions, **kwargs):
+    ''' Create BooleanNetwork from a dictionary of interactions
+    '''
+    interactions_graph = SquadInteractions(interactions, **kwargs)
+    return _interactions_to_BooleanNetwork(interactions_graph)
 
-    D = {}
-    N = {}
+def read_sbmlqual(file):
+    ''' Create BooleanNetwork from a SBML-qual file
+    '''
+    if _SBML_AVAILABLE:
+        bnet = sbmlqual2bnet(file)
+        return read_bnet(bnet)
 
-    for v in d["graphml"]["graph"]["node"]:
-        N[v["@id"]] = v["data"]["y:ShapeNode"]["y:NodeLabel"]["#text"]
+    raise ImportError(
+        'libsbml (https://sbml.org/software/libsbml/libsbml-docs/api/python/) '
+        'is needed to read models in SBML format. '
+        'We suggest you install it using pip. '
+    )
 
-    for e in d["graphml"]["graph"]["edge"]:
-        symbol = e["data"]["y:PolyLineEdge"]['y:Arrows']['@target']
-        if symbol == activator_symbol:
-            D[e["@id"]] = "+"
-        elif symbol == inhibitor_symbol:
-            D[e["@id"]] = "-"
-        else:
-            print(f"Issue with edge ", e["@id"], "arrow symbol \n\t\t{symbol} \n not recognized as activator or inhibitor, perhaps you need to define the 'inhibitor_symbol' ({inhibitor_symbol}) or 'activator_symbol' ({activator_symbol}) in keyword arguments. ")
+def read_graphml(file, **kwargs):
+    interactions = graphml2interactions(file, **kwargs)
+    interactions_graph = SquadInteractions(interactions, **kwargs)
+    return _interactions_to_BooleanNetwork(interactions_graph)
 
-    for e in g.es():
-        e["type"] = D[e["id"]]
+def read_igraph(g, **kwargs):
+    ''' Create BooleanNetwork from a igraph object
+    '''
+    interactions = igraph2interactions(g, **kwargs)
+    interactions_graph = SquadInteractions(interactions, **kwargs)
+    return _interactions_to_BooleanNetwork(interactions_graph)
 
-    for v in g.vs():
-        v["id"] = N[v["id"]]
-
-    pattern = re.compile(r'[^a-zA-Z0-9\-_]')
-    search = pattern.search
-    for node in g.vs():
-        if bool(search(node['id'])):
-            print(f"Warning: node names can only contain `{pattern.pattern}`  {node['id']}")
-            old_id = node['id']
-            node['id'] = re.sub(pattern, '', node['id'])
-            #print(f"Warning: renaming node {old_id} --> {node['id']}")
-
-    g_dict = {node["id"]:{} for node in g.vs()}
-    for e in g.es():
-        source = g.vs()[e.source]["id"]
-        target = g.vs()[e.target]["id"]
-        sign = e["type"]
-        g_dict[source][target] = sign
-
-    interactions = SquadInteractions(g_dict)
-
-    return _interactions_to_RegulatoryNetwork(interactions)
+def read_networkx(g, **kwargs):
+    ''' Create BooleanNetwork from a igraph object
+    '''
+    interactions = networkx2interactions(g, **kwargs)
+    interactions_graph = SquadInteractions(interactions, **kwargs)
+    return _interactions_to_BooleanNetwork(interactions_graph)
