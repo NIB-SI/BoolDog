@@ -1,0 +1,366 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>booldog.io.circuit &mdash; BoolDog 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+    <link rel="shortcut icon" href="../../../../_static/icon.ico"/>
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="booldog.io.cytoscape" href="../cytoscape/index.html" />
+    <link rel="prev" title="booldog.io.bnet" href="../bnet/index.html" /> 
+    <meta name="google-site-verification" content="9jGGfgofMrQ_y61Lhymy5MZmfI6DzTOCTSV3xegf-Ec" />
+    <script type="application/ld+json" >
+{
+  "@context": "http://schema.org",
+  "@id": "https://nib-si.github.io/BoolDog",
+  "@type": "Tool",
+  "additionalType": [],
+  "applicationCategory": "Computational science tool",
+  "codeRepository": [
+    "https://github.com/NIB-SI/BoolDoG"
+  ],
+  "dct:conformsTo": "https://bioschemas.org/profiles/Tool/0.4-DRAFT-2019_07_19",
+  "description": "A Python package for analyses of Boolean and semi-qualitative Boolean networks.",
+  "license": [
+    "https://spdx.org/licenses/MIT"
+  ],
+  "name": "BoolDog",
+  "programmingLanguage": [
+    {
+      "@id": "Python",
+      "@type": "ComputerLanguage"
+    }
+  ],
+  "provider": [
+    {
+      "@context": "http://schema.org",
+      "@type": "Organization",
+      "dct:conformsTo": "https://bioschemas.org/profiles/Organization/0.2-DRAFT-2019_07_19",
+      "description": "",
+      "name": ""
+    }
+  ],
+  "softwareVersion": "0.0.1",
+  "url": "https://github.com/NIB-SI/BoolDog"
+}
+</script >
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #009739" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            BoolDog
+              <img src="../../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../example.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../formats.html">Formats</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html">booldog</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../index.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../../boolean/index.html">booldog.boolean</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../classes/index.html">booldog.classes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../continuous/index.html">booldog.continuous</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="../index.html">booldog.io</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../network/index.html">booldog.network</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../resources/index.html">booldog.resources</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../simulation_result/index.html">booldog.simulation_result</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../utils/index.html">booldog.utils</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../index.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../index.html#package-contents">Package Contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #009739" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">BoolDog</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">booldog</a></li>
+          <li class="breadcrumb-item"><a href="../index.html">booldog.io</a></li>
+      <li class="breadcrumb-item active">booldog.io.circuit</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/autoapi/booldog/io/circuit/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-booldog.io.circuit">
+<span id="booldog-io-circuit"></span><h1>booldog.io.circuit<a class="headerlink" href="#module-booldog.io.circuit" title="Link to this heading"></a></h1>
+<p>Function to transform booldog:Network to DiGraph</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.io.circuit.logger" title="booldog.io.circuit.logger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logger</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#booldog.io.circuit.PAREN_RE" title="booldog.io.circuit.PAREN_RE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PAREN_RE</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.io.circuit.BooleanOperators" title="booldog.io.circuit.BooleanOperators"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BooleanOperators</span></code></a></p></td>
+<td><p>A simple class to define the Boolean operators as class attributes. This</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#booldog.io.circuit.BooleanDiGraph" title="booldog.io.circuit.BooleanDiGraph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BooleanDiGraph</span></code></a></p></td>
+<td><p>Simple helper class to track logic nodes</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.io.circuit.clean_line" title="booldog.io.circuit.clean_line"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clean_line</span></code></a>(line)</p></td>
+<td><p>Makes sure line is a Boolean rule, and not a header or comment</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#booldog.io.circuit.booldog2circuit" title="booldog.io.circuit.booldog2circuit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">booldog2circuit</span></code></a>(model)</p></td>
+<td><p>Export a BoolDog Boolean model to Networkx DiGraph</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.io.circuit.resolve_rule" title="booldog.io.circuit.resolve_rule"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resolve_rule</span></code></a>(rule, processor)</p></td>
+<td><p>Parse a Boolean rule and replace it with &quot;logical&quot; nodes and edges in the</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#booldog.io.circuit.resolve_factor" title="booldog.io.circuit.resolve_factor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resolve_factor</span></code></a>(factor, processor)</p></td>
+<td><p>Parse a single factor of a Boolean rule.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="booldog.io.circuit.logger">
+<span class="sig-prename descclassname"><span class="pre">booldog.io.circuit.</span></span><span class="sig-name descname"><span class="pre">logger</span></span><a class="headerlink" href="#booldog.io.circuit.logger" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="booldog.io.circuit.PAREN_RE">
+<span class="sig-prename descclassname"><span class="pre">booldog.io.circuit.</span></span><span class="sig-name descname"><span class="pre">PAREN_RE</span></span><a class="headerlink" href="#booldog.io.circuit.PAREN_RE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="booldog.io.circuit.clean_line">
+<span class="sig-prename descclassname"><span class="pre">booldog.io.circuit.</span></span><span class="sig-name descname"><span class="pre">clean_line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.circuit.clean_line" title="Link to this definition"></a></dt>
+<dd><p>Makes sure line is a Boolean rule, and not a header or comment</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="booldog.io.circuit.BooleanOperators">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">booldog.io.circuit.</span></span><span class="sig-name descname"><span class="pre">BooleanOperators</span></span><a class="headerlink" href="#booldog.io.circuit.BooleanOperators" title="Link to this definition"></a></dt>
+<dd><p>A simple class to define the Boolean operators as class attributes. This
+is used to make the code more readable and maintainable.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="booldog.io.circuit.BooleanOperators.AND">
+<span class="sig-name descname"><span class="pre">AND</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'&amp;'</span></em><a class="headerlink" href="#booldog.io.circuit.BooleanOperators.AND" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="booldog.io.circuit.BooleanOperators.OR">
+<span class="sig-name descname"><span class="pre">OR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'|'</span></em><a class="headerlink" href="#booldog.io.circuit.BooleanOperators.OR" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="booldog.io.circuit.BooleanOperators.NOT">
+<span class="sig-name descname"><span class="pre">NOT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'!'</span></em><a class="headerlink" href="#booldog.io.circuit.BooleanOperators.NOT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="booldog.io.circuit.BooleanDiGraph">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">booldog.io.circuit.</span></span><span class="sig-name descname"><span class="pre">BooleanDiGraph</span></span><a class="headerlink" href="#booldog.io.circuit.BooleanDiGraph" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">networkx.DiGraph</span></code></p>
+<p>Simple helper class to track logic nodes</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="booldog.io.circuit.BooleanDiGraph.and_count">
+<span class="sig-name descname"><span class="pre">and_count</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#booldog.io.circuit.BooleanDiGraph.and_count" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="booldog.io.circuit.BooleanDiGraph.or_count">
+<span class="sig-name descname"><span class="pre">or_count</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#booldog.io.circuit.BooleanDiGraph.or_count" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="booldog.io.circuit.BooleanDiGraph.not_count">
+<span class="sig-name descname"><span class="pre">not_count</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#booldog.io.circuit.BooleanDiGraph.not_count" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.io.circuit.BooleanDiGraph.add_and">
+<span class="sig-name descname"><span class="pre">add_and</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.circuit.BooleanDiGraph.add_and" title="Link to this definition"></a></dt>
+<dd><p>Add a AND node to the graph.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.io.circuit.BooleanDiGraph.add_or">
+<span class="sig-name descname"><span class="pre">add_or</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.circuit.BooleanDiGraph.add_or" title="Link to this definition"></a></dt>
+<dd><p>Add a OR node to the graph.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.io.circuit.BooleanDiGraph.add_not">
+<span class="sig-name descname"><span class="pre">add_not</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.circuit.BooleanDiGraph.add_not" title="Link to this definition"></a></dt>
+<dd><p>Add a NOT node to the graph.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="booldog.io.circuit.booldog2circuit">
+<span class="sig-prename descclassname"><span class="pre">booldog.io.circuit.</span></span><span class="sig-name descname"><span class="pre">booldog2circuit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.circuit.booldog2circuit" title="Link to this definition"></a></dt>
+<dd><p>Export a BoolDog Boolean model to Networkx DiGraph</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model</strong> (<em>booldog:BoolDogModel</em>) – A BoolDog object representing a Boolean network.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>graph</strong> – A networkx.DiGraph with the same nodes as the input network.
+Boolean rules are represented as additional “logical” nodes
+(and, or, not) and edges.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#booldog.io.circuit.BooleanDiGraph" title="booldog.io.circuit.BooleanDiGraph">BooleanDiGraph</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="booldog.io.circuit.resolve_rule">
+<span class="sig-prename descclassname"><span class="pre">booldog.io.circuit.</span></span><span class="sig-name descname"><span class="pre">resolve_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rule</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">processor</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.circuit.resolve_rule" title="Link to this definition"></a></dt>
+<dd><p>Parse a Boolean rule and replace it with “logical” nodes and edges in the
+graph.</p>
+<p>The rule can be nested with brackets, which are resolved first.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rule</strong> (<em>str</em>) – A Boolean rule (e.g. “A &amp; B | C”)</p></li>
+<li><p><strong>processor</strong> (<em>function</em>) – A function that takes a list of nodes and an operator, processes them as
+needed. The operator can be “AND”, “OR”, or “NOT”. The function should
+return the new node representing the result of applying the operator to the
+nodes.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>new_s</strong> – Replacement string (the final node)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="booldog.io.circuit.resolve_factor">
+<span class="sig-prename descclassname"><span class="pre">booldog.io.circuit.</span></span><span class="sig-name descname"><span class="pre">resolve_factor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">factor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">processor</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.circuit.resolve_factor" title="Link to this definition"></a></dt>
+<dd><p>Parse a single factor of a Boolean rule.</p>
+<p>The factor can be a list of nodes connected by ‘&amp;’, ‘|’, and ‘!’ operators.
+The factor does not contain brackets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>factor</strong> (<em>str</em>) – A Boolean factor e.g. “A &amp; B | C”</p></li>
+<li><p><strong>processor</strong> (<em>function</em>) – A function that takes a list of nodes and an operator, processes them as
+needed. The operator can be “AND”, “OR”, or “NOT”. The function should
+return the new node representing the result of applying the operator to the
+nodes.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>s</strong> – Replacement string (the final node representing this factor)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../bnet/index.html" class="btn btn-neutral float-left" title="booldog.io.bnet" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../cytoscape/index.html" class="btn btn-neutral float-right" title="booldog.io.cytoscape" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2025 National Institute of Biology, Slovenia.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,113 @@
+booldog.io.biomodels
+====================
+
+.. py:module:: booldog.io.biomodels
+
+.. autoapi-nested-parse::
+
+   API to download and use SBML-qual models from bio.models directly.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   booldog.io.biomodels.logger
+   booldog.io.biomodels.BIOMODELS_BASE_URL
+   booldog.io.biomodels.MAMO_ACCESSIONS
+   booldog.io.biomodels.EXAMPLE_MODEL_ID
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   booldog.io.biomodels.fetch_model
+   booldog.io.biomodels.fetch_model_info
+   booldog.io.biomodels._download
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:data:: BIOMODELS_BASE_URL
+   :value: 'https://www.biomodels.org/'
+
+
+.. py:data:: MAMO_ACCESSIONS
+   :value: ['MAMO_0000030', 'MAMO_0000053']
+
+
+   MAMO accessions for models that are compatible with BoolDog.
+
+   The list contains the following accessions:
+   * MAMO_0000030: logical model (http://identifiers.org/mamo/MAMO_0000030)
+   * MAMO_0000053: Boolean model (http://identifiers.org/mamo/MAMO_0000053)
+
+   :type: list
+
+.. py:data:: EXAMPLE_MODEL_ID
+   :value: 'BIOMD0000000562'
+
+
+   BioModels model identifier for an example SBML-qual model (Chaouiya2013
+   - EGF and TNFalpha mediated signalling pathway). See
+   https://www.ebi.ac.uk/biomodels/BIOMD0000000562 for more details.
+
+   :type: str
+
+.. py:function:: fetch_model(model_id, sbml_file=None, local_file=None, check_modelling_approach=False)
+
+   Fetch SBML from BioModels by model id
+
+   :param model_id: BioModels model identifier (e.g. 'BIOMD0000000562')
+   :type model_id: str
+   :param sbml_file: Name of the file containing the model in the BioModels registry.
+                     Optional, if not given, will be determined from the model info.
+   :type sbml_file: str
+   :param local_file: Name of path to save the downloaded model to. Optional, if not given
+                      will save the model to the a file in the cwd with the name as on the
+                      remote server.
+   :type local_file: str or path-like
+   :param check_modelling_approach: Whether to check modelling annotation "modellingApproach" falls into
+                                    Boolean or logical modelling.
+   :type check_modelling_approach: Bool
+
+   :returns: **local_file** -- Name of the local file containing the download.
+   :rtype: str
+
+   .. rubric:: Notes
+
+   This first collects the model info/metadata, and uses the 'files' --> 'main' attribute
+   to find the first file with 'SBML'/'sbml' in the beginning of the description.
+
+   Will always overwrite an existing file.
+
+
+.. py:function:: fetch_model_info(model_id)
+
+   Fetch model info/metadata from BioModels by model id.
+
+   :param model_id: BioModels model identifier (e.g. 'BIOMD0000000562')
+   :type model_id: str
+
+   :returns: Model info/metadata as a dictionary.
+   :rtype: dict
+
+
+.. py:function:: _download(model_id, filename=None, local_file=None)
+
+   Downloads a file from a model in BioModels
+
+   :param model_id: BioModels model identifier (e.g. )
+   :type model_id: str
+
+   :returns: **local_file** -- Name of the local file containing the download.
+   :rtype: str
+
+

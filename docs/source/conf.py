@@ -12,13 +12,12 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../..'))
-
+import re
 
 # -- Project information -----------------------------------------------------
 
-project = 'BoolDoG'
-copyright = '2020-2021 National Institute of Biology, Slovenia'
+project = 'BoolDog'
+copyright = '2020-2025 National Institute of Biology, Slovenia'
 author = 'Carissa Bleker'
 
 # The full version, including alpha/beta/rc tags
@@ -31,24 +30,32 @@ release = '0.1'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.autodoc',
+    'autoapi.extension',
     'sphinx.ext.napoleon',
     'sphinx.ext.autosummary',
     'sphinx_rtd_theme',
-    'sphinx.ext.todo'
+    'sphinx.ext.todo',
+    'sphinx.ext.intersphinx',
+
+    # embed jupyter notebooks in the documentation
+    "nbsphinx",
+    'nbsphinx_link',
 ]
 
-autodoc_default_options = {
-        'inherited-members':True
-}
-
-autoclass_content = 'both'
-autodoc_member_order = 'bysource'
+# Autoapi settings
+autoapi_dirs = ['../../booldog']
 
 
 # Napoleon settings
 napoleon_google_docstring = False
 napoleon_numpy_docstring = True
+
+# Intersphinx settings
+intersphinx_mapping = {
+    'pyboolnet': ('https://pyboolnet.readthedocs.io/en/master/', None),
+}
+
+# ----------------------------------------------------------------------------
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -78,14 +85,32 @@ html_favicon = '../figures/icon.ico'
 # so a file named "default.css" will overwrite the builtin "default.css".
 #html_static_path = ['_static']
 
-def setup(app):
+# def autodoc_skip_member(app, what, name, obj, skip, options):
 
-    # i.o.t add ODE class (inside a function) to the documentation
-    import booldog
-    example = booldog.ode.ODE_factory(
-                '',
-                transform='placeholder')
-    booldog.ode.ODE = booldog.ode.ODE_factory.ex_class
-    booldog.ode.ODE.__name__ = 'ODE'
-    booldog.ode.ODE.__module__ = 'booldog.ode'
+#     # print(app, what, name, obj, skip, options)
+#     print("HELLLO", name, obj)
 
+#     excludes = ['booldog.io.read']
+
+#     exclude = None
+#     for ex in excludes:
+#         this_exclude = re.findall(f'.*{ex}.*', str(obj))
+#         if this_exclude:
+#             exclude = True
+#             print("SKIP ME!!!", str(obj))
+#             break
+
+#     return exclude
+
+# def setup(app):
+
+#     app.connect('autodoc-skip-member', autodoc_skip_member)
+
+#     # i.o.t add ODE class (inside a function) to the documentation
+#     # import booldog
+#     # example = booldog.ode_factory.ode_factory(
+#     #             '',
+#     #             transform='placeholder')
+#     # booldog.ode_factory.ODE = booldog.ode_factory.ode_factory.ex_class
+#     # booldog.ode_factory.ODE.__name__ = 'ODE'
+#     # booldog.ode_factory.ODE.__module__ = 'booldog.ode'

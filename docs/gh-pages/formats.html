@@ -1,0 +1,276 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formats &mdash; BoolDog 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+
+  
+    <link rel="shortcut icon" href="_static/icon.ico"/>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2709fde1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Reference" href="autoapi/index.html" />
+    <link rel="prev" title="BoolDog features tutorial" href="tutorials/tutorial-advanced.html" /> 
+    <meta name="google-site-verification" content="9jGGfgofMrQ_y61Lhymy5MZmfI6DzTOCTSV3xegf-Ec" />
+    <script type="application/ld+json" >
+{
+  "@context": "http://schema.org",
+  "@id": "https://nib-si.github.io/BoolDog",
+  "@type": "Tool",
+  "additionalType": [],
+  "applicationCategory": "Computational science tool",
+  "codeRepository": [
+    "https://github.com/NIB-SI/BoolDoG"
+  ],
+  "dct:conformsTo": "https://bioschemas.org/profiles/Tool/0.4-DRAFT-2019_07_19",
+  "description": "A Python package for analyses of Boolean and semi-qualitative Boolean networks.",
+  "license": [
+    "https://spdx.org/licenses/MIT"
+  ],
+  "name": "BoolDog",
+  "programmingLanguage": [
+    {
+      "@id": "Python",
+      "@type": "ComputerLanguage"
+    }
+  ],
+  "provider": [
+    {
+      "@context": "http://schema.org",
+      "@type": "Organization",
+      "dct:conformsTo": "https://bioschemas.org/profiles/Organization/0.2-DRAFT-2019_07_19",
+      "description": "",
+      "name": ""
+    }
+  ],
+  "softwareVersion": "0.0.1",
+  "url": "https://github.com/NIB-SI/BoolDog"
+}
+</script >
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #009739" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            BoolDog
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Formats</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#boolnet">Boolnet</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sources">Sources</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#primes">Primes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Sources</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#sbml-qual-and-tabularqual">SBML-qual and TabularQual</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Sources</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#interactions">Interactions</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #009739" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">BoolDog</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Formats</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/formats.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="formats">
+<h1>Formats<a class="headerlink" href="#formats" title="Link to this heading"></a></h1>
+<section id="boolnet">
+<h2>Boolnet<a class="headerlink" href="#boolnet" title="Link to this heading"></a></h2>
+<p>The boolnet (.bnet) format is a simple text format to represent Boolean
+networks. Each line contains a target variable and its update function (as a Boolean expression). The symbols <code class="docutils literal notranslate"><span class="pre">&amp;</span></code>, <code class="docutils literal notranslate"><span class="pre">|</span></code> and <code class="docutils literal notranslate"><span class="pre">!</span></code> are respectively used for conjunction, disjunction and negation. The target is separated from the update rule by a comma.</p>
+<p>The following is an example of a boolnet file:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>targets,<span class="w"> </span>factors
+A,<span class="w"> </span>B<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span><span class="o">(</span>C<span class="w"> </span><span class="p">|</span><span class="w"> </span>D<span class="o">)</span>
+B,<span class="w"> </span>!A
+C,<span class="w"> </span>A<span class="w"> </span><span class="p">|</span><span class="w"> </span>D<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span>!B
+</pre></div>
+</div>
+<p>The header of <code class="docutils literal notranslate"><span class="pre">targets,</span> <span class="pre">factors</span></code> is optional. In addition, comments start with a hash (<code class="docutils literal notranslate"><span class="pre">#</span></code>).</p>
+<p>There should only be one line per target variable.</p>
+<p>Node names should not contain special characters, including:
+“.” (period).</p>
+<section id="sources">
+<h3>Sources<a class="headerlink" href="#sources" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://rdrr.io/cran/BoolNet/f/inst/doc/BoolNet_package_vignette.Snw.pdf">BoolNet package vignette</a></p></li>
+<li><p><a class="reference external" href="https://pyboolnet.readthedocs.io/en/master/quickstart.html?highlight=bnet#boolean-networks">pyboolnet documentation</a></p></li>
+</ul>
+</section>
+</section>
+<section id="primes">
+<h2>Primes<a class="headerlink" href="#primes" title="Link to this heading"></a></h2>
+<p>A Boolean elementary conjunction <cite>f</cite> is an implicant of a target variable <cite>A</cite> if <cite>f(X) = 1</cite> implies <cite>A(X) = 1</cite>. As an example, the implicants of <cite>A</cite> above includes <cite>B &amp; C</cite>. <em>Prime</em> implicants are the shortest of such clauses.</p>
+<p>In the vernacular of pyboolnet, 1 implicants correspond to all clauses that imply the expression is true, while 0 implicants correspond to all clauses that are false.</p>
+<p>Prime implicants are used as another representation of a Boolean network. They are represented as lists of length two, with the first entry being the 0 prime implicants and the second being the 1 prime implicants. The implicants themselves are each represented by dictionaries, with the key as the component name and the value as 0 or 1, depending whether the component is negated or not.</p>
+<p>The previous BooolNet network formatted as primes is as following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">[</span> <span class="c1"># 0 prime implicants of A</span>
+            <span class="p">{</span><span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>   <span class="c1"># 1st 0 prime implicant of A</span>
+            <span class="p">{</span><span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>            <span class="c1"># 2nd 0 prime implicant of A</span>
+        <span class="p">],</span>
+        <span class="p">[</span> <span class="c1"># 1 prime implicants of A</span>
+            <span class="p">{</span><span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>   <span class="c1"># 1st 1 prime implicant of A</span>
+            <span class="p">{</span><span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>    <span class="c1"># 2nd 1 prime implicant of A</span>
+        <span class="p">]</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">[</span>
+            <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+        <span class="p">],</span>
+        <span class="p">[</span>
+            <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">[</span>
+            <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+            <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+        <span class="p">],</span>
+        <span class="p">[</span>
+            <span class="p">{</span><span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+            <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;D&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">[</span>
+            <span class="p">{</span><span class="s1">&#39;D&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+        <span class="p">],</span>
+        <span class="p">[</span>
+            <span class="p">{</span><span class="s1">&#39;D&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Prime implicants can be saved as a JSON file.</p>
+<section id="id1">
+<h3>Sources<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pyboolnet.readthedocs.io/en/master/manual.html">pyboolnet documentation</a></p></li>
+<li><ol class="upperalpha simple" start="8">
+<li><p>Klarner, A. Bockmayr and H. Siebert. (2015). <em>Computing maximal and minimal trap spaces of Boolean networks.</em> Natural computing, 14(4). <a class="reference external" href="https://doi.org/10.1007/s11047-015-9520-7">https://doi.org/10.1007/s11047-015-9520-7</a></p></li>
+</ol>
+</li>
+<li><p>Crama, Y., &amp; Hammer, P. L. (2011). <em>Boolean functions: Theory, algorithms, and applications.</em> Cambridge University Press.</p></li>
+</ul>
+</section>
+</section>
+<section id="sbml-qual-and-tabularqual">
+<h2>SBML-qual and TabularQual<a class="headerlink" href="#sbml-qual-and-tabularqual" title="Link to this heading"></a></h2>
+<p>The SBML-qual format is a standard format (in XML) for representing qualitative models,
+including Boolean networks. It is an extension of the Systems Biology Markup
+Language (SBML) and allows for the representation of entities, interactions,
+and logical rules governing the behaviour of the system.</p>
+<p>The TabularQual format is a more user-friendly way to represent the same information as SBML-qual, using a spreadsheet format.</p>
+<p>TabularQual is supported by internally converting the TabularQaul spreadsheet to an SBML-qual file,
+and parsing the SBML-qual file to extract the relevant information.</p>
+<section id="id3">
+<h3>Sources<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Chaouiya, C., Bérenguier, D., Keating, S. M., Naldi, A., Van Iersel, M. P., Rodriguez, N., … &amp; Helikar, T. (2013). SBML qualitative models: a model representation format and infrastructure to foster interactions between qualitative modelling formalisms and tools. BMC systems biology, 7(1), 135. <a class="reference external" href="https://doi.org/10.1186/1752-0509-7-135">https://doi.org/10.1186/1752-0509-7-135</a></p></li>
+<li><p><a class="reference external" href="https://sbml.org/documents/specifications/">SBML specification</a></p></li>
+<li><p><a class="reference external" href="https://sbml.org/documents/specifications/level-3/version-1/qual/">SBML-qual specification</a></p></li>
+</ul>
+</section>
+</section>
+<section id="interactions">
+<h2>Interactions<a class="headerlink" href="#interactions" title="Link to this heading"></a></h2>
+<p>Pairwise interactions between entities can be imported from:
+* Graphml files
+* SIF files
+* NetworkX DiGraph objects
+* igraph Graph objects
+* List of interactions (tuples of source, target, and sign)</p>
+<p>These can be used to construct a Boolean network by assigning update rules to
+each target variable. The rules are based on the interactions as:</p>
+<p><cite>(any activator is active) AND (no inhibitor is active).</cite></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="tutorials/tutorial-advanced.html" class="btn btn-neutral float-left" title="BoolDog features tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="autoapi/index.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2025 National Institute of Biology, Slovenia.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

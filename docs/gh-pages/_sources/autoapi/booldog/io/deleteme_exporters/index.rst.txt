@@ -1,0 +1,58 @@
+booldog.io.deleteme_exporters
+=============================
+
+.. py:module:: booldog.io.deleteme_exporters
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   booldog.io.deleteme_exporters.ExportMixin
+
+
+Module Contents
+---------------
+
+.. py:class:: ExportMixin
+
+   Mixin class for converting network object to other objects
+
+
+   .. py:method:: to_networkx(as_logic_circuit=False)
+
+      Export graph to Networkx DiGraph
+
+      :param as_logic_circuit: If True, the graph is exported as a logic circuit (Boolean rules
+                               are represented as "logical" nodes (and, or, not) and edges.
+                               Otherwise, it is exported as a directed interaction graph. Default is False.
+      :type as_logic_circuit: bool
+
+      :returns: A Networkx DiGraph object.
+      :rtype: networkx.DiGraph
+
+      .. rubric:: Notes
+
+      See also pyboolnet.interaction_graphs.primes2igraph.
+
+
+
+   .. py:method:: to_igraph()
+
+      Export graph to igraph Graph
+
+      :param None:
+
+      :returns: An igraph Graph object.
+      :rtype: igraph.Graph
+
+      .. rubric:: Notes
+
+      See also pyboolnet.interaction_graphs.primes2igraph.
+
+
+
+   .. py:method:: to_cytoscape(**kwargs)
+
+

@@ -1,0 +1,326 @@
+booldog.boolean
+===============
+
+.. py:module:: booldog.boolean
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/booldog/boolean/boolean/index
+   /autoapi/booldog/boolean/modifications/index
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   booldog.boolean.BooleanNetworkMixin
+   booldog.boolean.BooleanNetworkModificationMixin
+
+
+Package Contents
+----------------
+
+.. py:class:: BooleanNetworkMixin
+
+   Class for Boolean network functions.
+
+   This class is not intended to be used directly, but rather as a mixin.
+
+
+   .. py:method:: get_primes()
+
+      Get prime implicants
+
+      :returns: **primes** -- Prime implicants of the Boolean network.
+      :rtype: dict
+
+
+
+   .. py:method:: get_rule(node_id)
+
+      Get the rule for a given node.
+
+      :param node: Node identifier or BoolDogNode object.
+      :type node: str or BoolDogNode
+
+      :returns: The rule for the given node.
+      :rtype: str
+
+
+
+   .. py:method:: primes_to_matrices() -> tuple[numpy.ndarray, numpy.ndarray]
+
+      Represent Boolean network a "activation" and "inhibition" matrices.
+
+      :returns: * **act** (*np.array*) -- n * n matrix with entry m_{i, j} = 1 iff node_j activates node_i
+                * **inh** (*np.array*) -- n * n matrix with entry m_{i, j} = 1 iff node_j inhibits node_i
+
+      .. rubric:: Notes
+
+      Only if graph is of type threshold (i.e. SQUAD) does this make sense.
+      Used in SquadODE
+      Create logic matrices
+
+      .. todo::
+
+         these can be made sparse matrices without much effort
+         see https://docs.scipy.org/doc/scipy/reference/sparse.html to
+         use e.g. dok_matrix
+
+
+
+   .. py:method:: generate_states(fixed=None)
+
+      Generate all possible states of the graph.
+
+      :param fixed: A dictionary of {node:state} to be kept fixed, with
+                    node in graph.nodes, and state in {0, 1}.
+      :type fixed: dict
+
+      :Yields: **state** (*np.array*) -- length n array with a state of the graph.
+
+
+
+   .. py:method:: inactivate_state()
+
+      A state space with all nodes inactive
+
+
+
+   .. py:method:: activate_state()
+
+      A state space with all nodes active
+
+
+
+   .. py:method:: boolean_simulation(initial_states=None)
+
+      Compute a Boolean simulation (or state transition)
+      from optional initial values.
+
+      :param initial_states: Initial states, see Notes for format
+      :type initial_states: int, str, list, dict, or BooleanStateSpace, optional
+
+      .. rubric:: Notes
+
+      This is a wrapper for pyboolnet.state_transition_graphs.primes2stg,
+      and therefore takes the same argument format for initial states.
+
+      **From pyboolnet documentation:**
+
+      .. code-block:: text
+
+          Either a list of states in dict or str format::
+
+              init = ["000", "111"]
+              init = ["000", {"v1":1,"v2":1,"v3":1}]
+
+          or as a function that is called on every state and must return
+          either True or False to indicate whether the state ought to be initial::
+
+              init = lambda x: x["v1"]>=x["v2"]
+
+          or by a subspace in which case all the states contained in it are
+          initial::
+
+              init = "--1"
+              init = {"v3":1}
+
+
+
+   .. py:method:: standard_states_format(states)
+
+      .. rubric:: Notes
+
+      https://github.com/hklarner/pyboolnet/blob/529860bc1185277fb2b5e0f3b36c9ba6c7b9fe2f/pyboolnet/state_transition_graphs.py#L124-L135
+
+
+
+   .. py:method:: steady_states()
+
+      All steady states of the Boolean graph.
+
+
+
+
+   .. py:method:: get_parents(node_id)
+
+      Fetch regulators/inputs to a node
+
+      :param node: Node name
+      :type node: str
+
+      :returns: **parents** -- Set of parent nodes
+      :rtype: set
+
+
+
+   .. py:method:: get_interactions(direction='out')
+
+      direction out: interactions[a][b]  a --> b
+      direction in:  interactions[a][b]  a <-- b
+
+
+
+   .. py:method:: is_constant(node_id)
+
+      Whether node is a constant (has no input) in the network.
+
+      :param node_id: Node identifier
+      :type node_id: str
+
+      :returns: **constant** -- Whether `node` is a constant
+      :rtype: bool
+
+      .. rubric:: Notes
+
+      This is a wrapper for pyboolnet.prime_implicants.is_constant.
+
+
+
+   .. py:method:: list_network_inputs()
+
+      List all nodes that have no regulators/inputs in the network.
+
+      :returns: **inputs** -- List of input node names
+      :rtype: list
+
+      .. rubric:: Notes
+
+
+
+.. py:class:: BooleanNetworkModificationMixin
+
+   Mixin class to modify a Boolean network.
+   This class is not intended to be used directly, but rather as a mixin.
+
+
+   .. py:method:: _track_network_modifications(modification_type, node_id, rule=None)
+
+      Keep track of network modifications
+
+
+
+   .. py:method:: _update_model_object(uncache_primes=True)
+
+      Update the model attributes after a modification.
+
+
+
+   .. py:method:: modify_network(modifications)
+
+      Modify the network according to the given modifications.
+
+      :param modifications: List of Modification objects.
+      :type modifications: list
+
+      :returns: The network is modified in place.
+      :rtype: None
+
+      .. rubric:: Notes
+
+      Each Modification object must have the following attributes:
+      - modification_type : str
+          Type of modification. One of "add_node", "remove_node", "update".
+      - node : str or list
+          Name of node(s) to modify.
+      - rule : str or None
+          Rule to define the update function of `node`, in bnet form.
+          All nodes in `rule` need to be defined in Network.
+
+      The modifications are applied in the order they are given.
+      A node cannot be removed if other nodes depend on it (i.e. it occurs in
+      their update logic). To remove such a node, either also remove all of
+      its dependants, or first update the logic rule of its dependants to
+      remove dependency.
+
+      This is a wrapper for pyboolnet.prime_implicants.create_variables and
+      pyboolnet.prime_implicants.remove_variables.
+
+
+
+   .. py:method:: remove_node(node_id)
+
+      Removes `node` from the network.
+
+      :param node: Names of node to remove
+      :type node: str
+
+      :rtype: None
+
+      .. rubric:: Notes
+
+      A node cannot be removed if other nodes depend on it (i.e. it occurs in
+      their update logic). To remove such a node, either also remove all of
+      its dependants, or first update the logic rule of its dependants to
+      remove dependency.
+
+      This is a wrapper for pyboolnet.prime_implicants.remove_variables.
+
+
+
+   .. py:method:: _test_node_removabilty(node_ids)
+
+      Test if a node (set) can be removed from the network.
+
+
+
+
+   .. py:method:: remove_nodes(node_ids)
+
+      Removes all nodes in `node_ids` from the network.
+
+      :param node_ids: List of identifiers of nodes to remove
+      :type node_ids: list
+
+      :rtype: None
+
+      .. rubric:: Notes
+
+      A node cannot be removed if other nodes depend on it (i.e. it occurs in
+      their update logic). To remove such a node, either also remove all of
+      its dependants, or first update the logic rule of its dependants to
+      remove dependency.
+
+      This is a wrapper for pyboolnet.prime_implicants.remove_variables.
+
+
+
+   .. py:method:: add_node(node_id, rule, name=None)
+
+      Add a new node to Network.
+
+      :param node: Node name
+      :type node: str
+      :param rule: Rule to define update of `node`, in bnet form. All nodes in
+                   `rule` need to be defined in Network.
+      :type rule: str
+
+      :returns: * *None*
+                * *This is a wrapper for pyboolnet.prime_implicants.create_variables.*
+
+
+
+   .. py:method:: update_node(node_id, rule, modification_type=ModificationTypes.UPDATE)
+
+      Update (modify) or add the logic rule defining the update of `node`.
+      If `node` does not yet exist, it will be added, if it does exist, its
+      update logic will be overwritten.
+
+      :param node_id: Node identifier
+      :type node_id: str
+      :param rule: New rule to define update of `node`, in bnet form. All nodes in
+                   `rule` need to be defined in Network.
+      :type rule: str
+
+      :returns: * *None*
+                * *This is a wrapper for pyboolnet.prime_implicants.create_variables.*
+
+
+

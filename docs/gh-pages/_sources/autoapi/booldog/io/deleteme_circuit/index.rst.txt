@@ -1,0 +1,135 @@
+booldog.io.deleteme_circuit
+===========================
+
+.. py:module:: booldog.io.deleteme_circuit
+
+.. autoapi-nested-parse::
+
+   Function to transform booldog:Network to DiGraph
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   booldog.io.deleteme_circuit.logger
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   booldog.io.deleteme_circuit.BooleanDiGraph
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   booldog.io.deleteme_circuit.clean_line
+   booldog.io.deleteme_circuit.booldog2circuit
+   booldog.io.deleteme_circuit.resolve_rule
+   booldog.io.deleteme_circuit.resolve_factor
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:function:: clean_line(line)
+
+   Makes sure line is a Boolean rule, and not a header or comment
+
+
+
+.. py:class:: BooleanDiGraph
+
+   Bases: :py:obj:`networkx.DiGraph`
+
+
+   Simple helper class to track logic nodes
+
+
+   .. py:attribute:: and_count
+      :value: 0
+
+
+
+   .. py:attribute:: or_count
+      :value: 0
+
+
+
+   .. py:attribute:: not_count
+      :value: 0
+
+
+
+   .. py:method:: add_and()
+
+      Add a AND node to the graph.
+
+
+
+   .. py:method:: add_or()
+
+      Add a OR node to the graph.
+
+
+
+   .. py:method:: add_not()
+
+      Add a NOT node to the graph.
+
+
+
+.. py:function:: booldog2circuit(model)
+
+   Export a BoolDog Boolean model to Networkx DiGraph
+
+   :param model: A BoolDog object representing a Boolean network.
+   :type model: booldog:BoolDogModel
+
+   :returns: **graph** -- A networkx.DiGraph with the same nodes as the input network.
+             Boolean rules are represented as additional "logical" nodes
+             (and, or, not) and edges.
+   :rtype: BooleanDiGraph
+
+
+.. py:function:: resolve_rule(rule, graph)
+
+   Parse a Boolean rule and replace it with "logical" nodes and edges in the
+   graph.
+
+   The rule can be nested with brackets, which are resolved first.
+
+   :param rule: A Boolean rule (e.g. "A & B | C")
+   :type rule: str
+   :param graph: The graph to which the nodes are added
+   :type graph: NetworkxBnet
+
+   :returns: **new_s** -- Replacement string (the final node)
+   :rtype: str
+
+
+.. py:function:: resolve_factor(factor, graph)
+
+   Parse a single factor of a Boolean rule and replace it with "logical" nodes
+   and edges in the graph.
+
+   The factor can be a list of nodes connected by '&', '|', and '!' operators.
+
+   :param factor: A Boolean factor (e.g. "A & B | C")
+   :type factor: str
+   :param graph: The graph to which the nodes are added
+   :type graph: NetworkxBnet
+
+   :returns: **s** -- Replacement string (the final node representing this factor)
+   :rtype: str
+
+

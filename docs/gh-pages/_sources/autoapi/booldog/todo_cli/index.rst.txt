@@ -1,0 +1,29 @@
+booldog.todo_cli
+================
+
+.. py:module:: booldog.todo_cli
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   booldog.todo_cli.parser
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   booldog.todo_cli.arguments
+
+
+Module Contents
+---------------
+
+.. py:function:: arguments()
+
+.. py:data:: parser
+

@@ -8,8 +8,11 @@ BoolDoG
 ========
 
 
-A Python package for analyses of Boolean and semi-qualitative Boolean networks.
+A Python package for analyses of Boolean and semi-quantitative Boolean networks.
 
+Homepage: https://github.com/NIB-SI/BoolDog
+
+Documentation page: https://nib-si.github.io/BoolDog
 
 .. toctree::
    :maxdepth: 1 
@@ -17,12 +20,16 @@ A Python package for analyses of Boolean and semi-qualitative Boolean networks.
 
    installation
    example
-   file_formats
+   formats
 
 .. toctree::
    :caption: API
-   
+   :maxdepth: 2
+
    api/booldog
+
+.. _a notebook link: ../../tutorials/tutorial-basic.ipynb
+
 
 Indices
 =======

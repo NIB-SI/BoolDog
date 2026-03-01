@@ -1,0 +1,2 @@
+from .continuous_result import ContinuousSimulationResult
+from .boolean_result import BooleanSimulationResult, BooleanStateSpace

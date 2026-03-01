@@ -1,0 +1,23 @@
+booldog.utils.logger
+====================
+
+.. py:module:: booldog.utils.logger
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   booldog.utils.logger.setup_logger
+
+
+Module Contents
+---------------
+
+.. py:function:: setup_logger(level=logging.DEBUG)
+
+   Set up logger for BoolDog
+
+
+

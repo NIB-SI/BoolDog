@@ -1,0 +1,5 @@
+targets, factors
+node_A, (node_B & !node_E) | (!node_B & node_E)
+node_C, node_A & node_B
+node_E, !node_C | node_D
+node_D, node_D

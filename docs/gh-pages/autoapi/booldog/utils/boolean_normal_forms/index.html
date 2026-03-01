@@ -1,0 +1,321 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>booldog.utils.boolean_normal_forms &mdash; BoolDog 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+    <link rel="shortcut icon" href="../../../../_static/icon.ico"/>
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="booldog.utils.cytoscape_utils" href="../cytoscape_utils/index.html" />
+    <link rel="prev" title="booldog.utils" href="../index.html" /> 
+    <meta name="google-site-verification" content="9jGGfgofMrQ_y61Lhymy5MZmfI6DzTOCTSV3xegf-Ec" />
+    <script type="application/ld+json" >
+{
+  "@context": "http://schema.org",
+  "@id": "https://nib-si.github.io/BoolDog",
+  "@type": "Tool",
+  "additionalType": [],
+  "applicationCategory": "Computational science tool",
+  "codeRepository": [
+    "https://github.com/NIB-SI/BoolDoG"
+  ],
+  "dct:conformsTo": "https://bioschemas.org/profiles/Tool/0.4-DRAFT-2019_07_19",
+  "description": "A Python package for analyses of Boolean and semi-qualitative Boolean networks.",
+  "license": [
+    "https://spdx.org/licenses/MIT"
+  ],
+  "name": "BoolDog",
+  "programmingLanguage": [
+    {
+      "@id": "Python",
+      "@type": "ComputerLanguage"
+    }
+  ],
+  "provider": [
+    {
+      "@context": "http://schema.org",
+      "@type": "Organization",
+      "dct:conformsTo": "https://bioschemas.org/profiles/Organization/0.2-DRAFT-2019_07_19",
+      "description": "",
+      "name": ""
+    }
+  ],
+  "softwareVersion": "0.0.1",
+  "url": "https://github.com/NIB-SI/BoolDog"
+}
+</script >
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #009739" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            BoolDog
+              <img src="../../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../example.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../formats.html">Formats</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html">booldog</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../index.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../../boolean/index.html">booldog.boolean</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../classes/index.html">booldog.classes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../continuous/index.html">booldog.continuous</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../io/index.html">booldog.io</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../network/index.html">booldog.network</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../resources/index.html">booldog.resources</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../simulation_result/index.html">booldog.simulation_result</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="../index.html">booldog.utils</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../index.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../index.html#package-contents">Package Contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #009739" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">BoolDog</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">booldog</a></li>
+          <li class="breadcrumb-item"><a href="../index.html">booldog.utils</a></li>
+      <li class="breadcrumb-item active">booldog.utils.boolean_normal_forms</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/autoapi/booldog/utils/boolean_normal_forms/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-booldog.utils.boolean_normal_forms">
+<span id="booldog-utils-boolean-normal-forms"></span><h1>booldog.utils.boolean_normal_forms<a class="headerlink" href="#module-booldog.utils.boolean_normal_forms" title="Link to this heading"></a></h1>
+<p>This is a modification of pyboolnet.boolean_normal_forms module (originally PyBoolNet.QuineMcCluskey),
+specifically the function functions2mindnf, ca line 130.</p>
+<p>The original:</p>
+<blockquote>
+<div><p>expressions = {}
+for name, func in functions.items():</p>
+<blockquote>
+<div><p>inputs = inspect.getargspec(func).args</p>
+</div></blockquote>
+</div></blockquote>
+<p>Modified:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">expressions</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">functions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+
+    <span class="c1"># modification start CB</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="s1">&#39;depends&#39;</span><span class="p">):</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="n">depends</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getargspec</span><span class="p">(</span><span class="n">func</span><span class="p">)</span><span class="o">.</span><span class="n">args</span>
+    <span class="c1"># modification end CB</span>
+</pre></div>
+</div>
+<p>The modification allows the functions in <cite>Functions</cite> argument to accept input
+as an k-length list, where k is the number of nodes the node may depend on.</p>
+<p>This modification simplifies function creation when using and matrix
+multiplication of “Activation” and “Inhibition” matrices when defining node
+update functions.</p>
+<p>Example:</p>
+<p>Suppose we have a matrix that defines the update functions:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                         <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                         <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+</pre></div>
+</div>
+<p>And the graph state is given by multiplying the matrix  with the current
+state:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">node_state</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">network_state</span><span class="p">)</span>         <span class="c1"># line 1</span>
+</pre></div>
+</div>
+<p>As lambdas (the PyBoolNet format), the functions would be:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="s1">&#39;f1&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x1</span><span class="p">:</span> <span class="n">x1</span><span class="p">,</span>
+<span class="s1">&#39;f2&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">:</span> <span class="n">x1</span> <span class="o">+</span> <span class="n">x2</span><span class="p">,</span>
+<span class="s1">&#39;f3&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x3</span><span class="p">:</span> <span class="n">x3</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>I am unaware of a way to automate producing lambdas like these at scale, especially when
+<cite>node_state</cite> is composed of more complicated vector operations. The following code
+produces functions at scale that have all node states as arguments, calculates
+the update, and also identifies the dependencies and make them an attribute of
+the function:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">idx</span> <span class="o">=</span> <span class="p">{</span><span class="sa">f</span><span class="s2">&quot;node</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)}</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">function_factory</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+    <span class="c1"># actual node dependencies</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;node</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">idx</span><span class="p">[</span><span class="n">node</span><span class="p">]])[</span><span class="mi">0</span><span class="p">]]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="o">*</span><span class="n">func_input</span><span class="p">):</span>
+        <span class="c1"># derive the network state from the input</span>
+        <span class="n">network_state</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">n</span>
+        <span class="k">for</span> <span class="n">other_node</span><span class="p">,</span> <span class="n">other_node_state</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">func_input</span><span class="p">):</span>
+            <span class="n">network_state</span><span class="p">[</span><span class="n">idx</span><span class="p">[</span><span class="n">other_node</span><span class="p">]]</span> <span class="o">=</span> <span class="n">other_node_state</span>
+
+        <span class="c1"># calculate the node state</span>
+        <span class="n">node_state</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">idx</span><span class="p">[</span><span class="n">node</span><span class="p">]],</span> <span class="n">network_state</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">node_state</span>
+   <span class="n">func</span><span class="o">.</span><span class="n">depends</span> <span class="o">=</span> <span class="n">args</span>
+   <span class="k">return</span> <span class="n">func</span>
+
+<span class="n">funcs</span> <span class="o">=</span> <span class="p">{</span><span class="n">node</span><span class="p">:</span><span class="n">function_factory</span><span class="p">(</span><span class="n">data</span><span class="p">,</span>  <span class="n">node</span><span class="p">)</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">idx</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
+</pre></div>
+</div>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.utils.boolean_normal_forms.log" title="booldog.utils.boolean_normal_forms.log"><code class="xref py py-obj docutils literal notranslate"><span class="pre">log</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.utils.boolean_normal_forms.functions2mindnf" title="booldog.utils.boolean_normal_forms.functions2mindnf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">functions2mindnf</span></code></a>(→ Dict[str, str])</p></td>
+<td><p>Generates and returns a minimal <em>disjunctive normal form</em> (DNF) for the Boolean network represented by <em>functions</em>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#booldog.utils.boolean_normal_forms.functions2primes" title="booldog.utils.boolean_normal_forms.functions2primes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">functions2primes</span></code></a>(→ dict)</p></td>
+<td><p>Generates and returns the prime implicants of a Boolean network represented by <em>functions</em>.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="booldog.utils.boolean_normal_forms.log">
+<span class="sig-prename descclassname"><span class="pre">booldog.utils.boolean_normal_forms.</span></span><span class="sig-name descname"><span class="pre">log</span></span><a class="headerlink" href="#booldog.utils.boolean_normal_forms.log" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="booldog.utils.boolean_normal_forms.functions2mindnf">
+<span class="sig-prename descclassname"><span class="pre">booldog.utils.boolean_normal_forms.</span></span><span class="sig-name descname"><span class="pre">functions2mindnf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">functions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">callable</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#booldog.utils.boolean_normal_forms.functions2mindnf" title="Link to this definition"></a></dt>
+<dd><p>Generates and returns a minimal <em>disjunctive normal form</em> (DNF) for the Boolean network represented by <em>functions</em>.
+The algorithm uses <a class="reference external" href="https://pyboolnet.readthedocs.io/en/master/bibliography.html#prekas2012" title="(in pyboolnet v3.0.10)"><span class="xref std std-ref">Prekas2012</span></a>, a Python implementation of the Quine-McCluskey algorithm.</p>
+<dl class="simple">
+<dt><strong>arguments</strong>:</dt><dd><ul class="simple">
+<li><p><em>functions</em>: keys are component names and values are Boolean functions</p></li>
+</ul>
+</dd>
+<dt><strong>returns</strong>:</dt><dd><ul class="simple">
+<li><p><em>min_dnf</em>: keys are component names and values are minimal DNF expressions</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>example</strong>:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">funcs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;v1&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">v1</span><span class="p">,</span><span class="n">v2</span><span class="p">:</span> <span class="n">v1</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">v2</span><span class="p">,</span> <span class="s2">&quot;v2&quot;</span><span class="p">:</span> <span class="k">lambda</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mindnf</span> <span class="o">=</span> <span class="n">functions2primes</span><span class="p">(</span><span class="n">funcs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mindnf</span><span class="p">[</span><span class="s2">&quot;v1&quot;</span><span class="p">]</span>
+<span class="go">((! v2) | v1)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="booldog.utils.boolean_normal_forms.functions2primes">
+<span class="sig-prename descclassname"><span class="pre">booldog.utils.boolean_normal_forms.</span></span><span class="sig-name descname"><span class="pre">functions2primes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">functions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">callable</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#booldog.utils.boolean_normal_forms.functions2primes" title="Link to this definition"></a></dt>
+<dd><p>Generates and returns the prime implicants of a Boolean network represented by <em>functions</em>.</p>
+<dl class="simple">
+<dt><strong>arguments</strong>:</dt><dd><ul class="simple">
+<li><p><em>functions</em>: keys are component names and values are Boolean functions</p></li>
+</ul>
+</dd>
+<dt><strong>returns</strong>:</dt><dd><ul class="simple">
+<li><p><em>primes</em>: primes implicants</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>example</strong>:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">funcs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;v1&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">:</span> <span class="n">v1</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">v2</span><span class="p">,</span>
+<span class="gp">... </span>         <span class="s2">&quot;v2&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">:</span> <span class="n">v1</span> <span class="o">+</span> <span class="n">v2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">primes</span> <span class="o">=</span> <span class="n">functions2primes</span><span class="p">(</span><span class="n">funcs</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="booldog.utils" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../cytoscape_utils/index.html" class="btn btn-neutral float-right" title="booldog.utils.cytoscape_utils" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2025 National Institute of Biology, Slovenia.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

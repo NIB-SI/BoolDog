@@ -1,0 +1,104 @@
+booldog.semi_quantitative
+=========================
+
+.. py:module:: booldog.semi_quantitative
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   booldog.semi_quantitative.logger
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   booldog.semi_quantitative.ContinuousMixin
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:class:: ContinuousMixin
+
+   Class for Continuous simulations functions.
+
+   This class is not intended to be used directly, but rather as a mixin.
+
+
+   .. py:method:: continuous_simulation(node_events=None, edge_events=None, t_min=0, t_max=30, initial_state=0, ode_system=None, solver=solve_ivp, **kwargs)
+
+      Run continuous semi-quantitative simulation.
+
+      :param node_events: List of node events with a dictionary defining each event.
+                          See :ref:`Notes <tagnotesne>` for description of event definitions.
+      :type node_events: None or list of dict, optional
+      :param edge_events: Disrupt connections #TODO not implemented
+      :type edge_events: None or list of dict, optional
+      :param t_min: Interval of integration, simulation starts with `t=t_min` and
+                    integrates until it reaches `t=t_max`.
+      :type t_min: float, optional
+      :param t_max: Interval of integration, simulation starts with `t=t_min` and
+                    integrates until it reaches `t=t_max`.
+      :type t_max: float, optional
+      :param initial_state: Initial state of nodes. See :ref:`Notes <tagnotesis>` for
+                            description of format.
+      :type initial_state: float or int or array or dict, optional
+      :param ode_system: If none, the ODE is created with
+                         :py:func:`transform_bool_to_continuous`
+      :type ode_system: None or :py:func:`booldog.ODE`, optional
+
+      :param \*\*kwargs: If ode_system is None, additional keyword arguments are
+                         passed to :py:func:`transform_bool_to_continuous`.
+                         For description of these arguments see :py:func:`booldog.ODE`.
+
+                         If `plot=True` , additional keyword arguments are
+                         passed to :py:func:`plot_simulation`.
+
+      :returns: * **r** (*object #TODO*)
+                * **t** (*ndarray, shape (n_time_points,)*) -- Time-points.
+                * **y** (*ndarray, shape (n_time_points, n_nodes)*) -- Values of the solution at t.
+
+      .. rubric:: Notes
+
+      .. _tagnotesne:
+
+      Format of the `node_events` parameter
+          The node events are passed as a list of dictionaries defining each
+          event. Dictionary keys are:
+
+          - `time`: time at which the event occurs
+          - `node`: name of node which is perturbed
+          - `value`:  value to which the node is set
+          - `duration`: (optional) duration for which the node is fixed             if longer than 0, (i.e. not a point perturbation)
+
+          Example - at timepoint 10, node X is set to 0.25 for 5 time-steps.
+          and at timepoint 12, node Y and Z are set to 1 for 0
+          timesteps::
+
+              node_events = [
+                  {'time':10, 'node':'X', 'value':.25, 'duration':5},
+                  {'time':12, 'node':'Y', 'value':1},
+                  {'time':12, 'node':'X', 'value':1}
+              ]
+
+      .. _tagnotesis:
+
+      Format of the `initial_state` parameter
+          If the initial state is an int or float, the value is assigned for
+          all variables. Otherwise the parameter argument should be a dict
+          with keys as node names and values for their initial state. In
+          this case, if the initial state is not defined for all nodes, a
+          `default` key with the default value should also be present in the
+          dict.
+
+      .. todo:: - describe export format.
+
+
+

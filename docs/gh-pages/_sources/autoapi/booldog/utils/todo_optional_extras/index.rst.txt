@@ -1,0 +1,28 @@
+booldog.utils.todo_optional_extras
+==================================
+
+.. py:module:: booldog.utils.todo_optional_extras
+
+.. autoapi-nested-parse::
+
+   Determine which optional dependencies are available at runtime.
+
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   booldog.utils.todo_optional_extras.test_packages_available
+
+
+Module Contents
+---------------
+
+.. py:function:: test_packages_available(package_names, msg)
+
+   Check if package(s) available.
+   If not, raise Import error with message
+
+

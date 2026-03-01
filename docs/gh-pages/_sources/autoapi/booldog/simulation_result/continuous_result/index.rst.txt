@@ -1,0 +1,113 @@
+booldog.simulation_result.continuous_result
+===========================================
+
+.. py:module:: booldog.simulation_result.continuous_result
+
+.. autoapi-nested-parse::
+
+   Continuos simulation result class
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   booldog.simulation_result.continuous_result.logger
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   booldog.simulation_result.continuous_result.ContinuousSimulationResult
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:class:: ContinuousSimulationResult(network, t, y, ode_system, node_events=None, edge_events=None)
+
+   Class to contain simulation results
+
+
+   .. py:attribute:: network
+
+
+   .. py:attribute:: ode_system
+
+
+   .. py:attribute:: t
+
+
+   .. py:attribute:: y
+
+
+   .. py:attribute:: node_events
+      :value: None
+
+
+
+   .. py:attribute:: edge_events
+      :value: None
+
+
+
+   .. py:method:: export(outfile, decimals=5)
+
+      Export simulation results to a file.
+
+      :param outfile: Path to the output file. The file will be created if it does not
+                      exist. If the file already exists, it will be overwritten.
+      :type outfile: str or Path
+      :param decimals: Number of decimals to round the output values to. Default is 5.
+      :type decimals: int
+
+      .. rubric:: Notes
+
+      The output file will contain:
+          - nodelist
+          - ODE transform
+          - ODE parameters
+          - node_events
+          - timepoints
+          - solution/y
+
+      The output will be tab-separated and can be read into a pandas DataFrame.
+      If you want to use `pandas` to read the file, you can use the following code:
+      df = pd.read_csv(outfile, sep=" ")
+
+
+
+   .. py:method:: plot(file=None, plot_nodes=None, title=None, figsize=(20, 10))
+
+      Plot simulation results.
+
+      Called by :py:func:`continous_simulation`.
+
+      :param plot_nodes: Subset of nodes to plot. If `None`, plot all nodes. If a list of
+                         lists, each sublist is plotted as a subplot.
+      :type plot_nodes: None or list of str or list of lists of str, optional
+      :param title: If str, main title of the plot. If a list of str, subtitles of
+                    subplots as defined by `plot_node`. In this case `plot_nodes`
+                    should be a list of lists, and `title` should be the same length as
+                    `plot_nodes`.
+      :type title: None or string or list of string
+      :param figsize: Width, height in inches.
+      :type figsize: (float, float)
+
+      :returns: * **fig** (*matplotlib.figure.Figure*)
+                * **axes** (*array of matplotlib.axes.Axes*)
+
+
+
+   .. py:method:: _plot_one_ax(ax, x, y, legend_labels, vlines=None, title=None)
+
+      Helper func that plots on a subplot axes
+
+
+

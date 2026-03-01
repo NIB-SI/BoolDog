@@ -1,0 +1,540 @@
+booldog.io
+==========
+
+.. py:module:: booldog.io
+
+.. autoapi-nested-parse::
+
+   Read Boolean or regulatory networks from various formats.
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/booldog/io/biomodels/index
+   /autoapi/booldog/io/bnet/index
+   /autoapi/booldog/io/circuit/index
+   /autoapi/booldog/io/cytoscape/index
+   /autoapi/booldog/io/igraph/index
+   /autoapi/booldog/io/interaction_logic/index
+   /autoapi/booldog/io/interaction_networks/index
+   /autoapi/booldog/io/networkx/index
+   /autoapi/booldog/io/primes/index
+   /autoapi/booldog/io/sbml/index
+   /autoapi/booldog/io/tabularqual/index
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   booldog.io.logger
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   booldog.io.BoolDogModelIOFromMixin
+   booldog.io.BoolDogModelIOToMixin
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   booldog.io.booldog2networkx
+   booldog.io.booldog2igraph
+   booldog.io.booldog2cytoscape
+   booldog.io.read_bnet
+   booldog.io.write_bnet
+   booldog.io.read_sif
+   booldog.io.read_graphml
+   booldog.io.read_igraph
+   booldog.io.read_networkx
+   booldog.io.read_interactions
+   booldog.io.read_sbmlqual
+   booldog.io.write_sbmlqual
+   booldog.io.read_primes
+   booldog.io.write_primes
+   booldog.io.read_tabularqual
+   booldog.io.file_writable
+
+
+Package Contents
+----------------
+
+.. py:function:: booldog2networkx(model, as_logic_circuit=True)
+
+   Export a BoolDog Boolean model to Networkx DiGraph
+
+   :param model: A BoolDog object representing a Boolean network.
+   :type model: booldog:BoolDogModel
+   :param as_logic_circuit: If True, the graph is exported as a logic circuit (Boolean rules
+                            are represented as "logical" nodes (and, or, not) and edges.
+                            Otherwise, it is exported as a directed interaction graph. Default is False.
+   :type as_logic_circuit: bool
+
+   :returns: **graph** -- A networkx graph with the same nodes as the input network.
+             If `as_logic_circuit` is True, Boolean rules are represented as
+             "logical" nodes (and, or, not) and edges.
+   :rtype: networkx.DiGraph
+
+   .. rubric:: Notes
+
+   See also pyboolnet.interaction_graphs.primes2igraph.
+
+
+.. py:function:: booldog2igraph(model, as_logic_circuit=True)
+
+   Export a BoolDog Boolean model to an igraph graph object.
+
+   :param model: A BoolDog object representing a Boolean network.
+   :type model: booldog:BoolDogModel
+   :param as_logic_circuit: If True, the graph is exported as a logic circuit (Boolean rules
+                            are represented as "logical" nodes (and, or, not) and edges.
+                            Otherwise, it is exported as a directed interaction graph. Default is False.
+   :type as_logic_circuit: bool
+
+   :returns: **graph** -- A igraph.Graph object with the same nodes as the input network.
+             If `as_logic_circuit` is True, Boolean rules are represented as
+             "logical" nodes (and, or, not) and edges.
+   :rtype: igraph.Graph
+
+   .. rubric:: Notes
+
+   See also pyboolnet.interaction_graphs.primes2igraph.
+
+   Implemented via conversion to Networkx DiGraph, then to igraph Graph,
+   to reuse pyboolet function and logic circuits code.
+
+
+.. py:function:: booldog2cytoscape(model, as_logic_circuit=False, title=None, collection='Booldog Network', layout=None, style=None)
+
+   Display a BoolDog Boolean model in Cytoscape.
+
+   :param model: A BoolDog object representing a Boolean network.
+   :type model: booldog:BoolDogModel
+   :param as_logic_circuit: If True, the graph is exported as a logic circuit (Boolean rules
+                            are represented as "logical" nodes (and, or, not) and edges.
+                            Otherwise, it is exported as a interaction graph. Default is False.
+   :type as_logic_circuit: bool
+   :param title: The title of the Cytoscape network. Default is '{model_id} interaction network' if
+                 `as_logic_circuit` is False and '{model_id} logic circuit' else.
+   :type title: str or None
+   :param collection: The name of the Cytoscape collection to add the network to. Default is "Booldog Network".
+   :type collection: str
+   :param layout: The name of the Cytoscape layout to apply to the network. Default is None (no layout).
+   :type layout: str or None
+   :param style: The name of the Cytoscape visual style to apply to the network.
+                 If None, a default style will be applied. Default is None.
+   :type style: str or None
+
+   :returns: **suid** -- The SUID of the created Cytoscape network.
+   :rtype: int
+
+
+.. py:function:: read_bnet(bnet, node_names=None)
+
+   Generate a BoolDogModel object from a Boolean network in boolnet
+   (bnet) format.
+
+   For complete documentation, see :doc:`pyboolnet:modules/file_exchange`.
+
+   :param file: Path to the bnet file
+   :type file: str
+
+   :returns: **rn** -- An object of type :ref:`py:class:BoolDogModel`.
+   :rtype: BoolDog
+
+   .. rubric:: Notes
+
+   The format of the output file is described at :ref:`boolnet_format`.
+
+
+.. py:function:: write_bnet(model, outfile=None, from_primes=False, header=True, minimize=False)
+
+   Write a BoolDogModel object to a Boolean network in boolnet (bnet) format.
+
+   :param model: A BoolDog object representing a Boolean network.
+   :type model: BoolDogModel
+   :param outfile: Path to the output file. If None, the output is returned as a string.
+   :type outfile: str
+   :param from_primes: If True, rules are obtained by converting prime implicants to bnet
+                       format. Otherwise, node rules are written directly.
+   :type from_primes: bool, default False
+   :param header: If True, include a header line ("target, factors").
+   :type header: bool, default True
+   :param minimize: If True, minimize rules when converting from primes. Only relevant if
+                    ``from_primes`` is True.
+   :type minimize: bool, default False
+
+   :returns: Returns the bnet string if ``outfile`` is None, otherwise None.
+   :rtype: str or None
+
+   .. rubric:: Notes
+
+   The output file will be overwritten if it already exists.
+
+   The format of the output file is described at :ref:`boolnet_format`.
+
+
+.. py:function:: read_sif(file, delim='\t', source_col=0, target_col=1, interaction_col=2, header=True, **kwargs)
+
+   Reads in a SIF file of interactions
+
+   :param file: Path to the SIF file
+   :type file: str
+   :param delim: Delimiter used in the SIF file (default="       ")
+   :type delim: str, optional
+   :param header: If the first line of the file is a header (default=True)
+   :type header: bool, optional
+   :param source_col: Column index (if int) or column name (if str) of source node (default=0)
+   :type source_col: int or str, optional
+   :param target_col: Column index (if int) or column name (if str) of target node (default=1)
+   :type target_col: int or str, optional
+   :param interaction_col: Column index (if int) or column name (if str) of interaction type (symbol) (default=2)
+   :type interaction_col: int, optional
+   :param activator_symbol: Symbol of activation edges in `interaction_col` (default="1")
+   :type activator_symbol: str, optional
+   :param inhibitor_symbol: Symbol of inhibition edges in `interaction_col` (default="-1")
+   :type inhibitor_symbol: str, optional
+   :param \*\*kwargs: Additional keyword arguments (ignored).
+   :type \*\*kwargs: dict
+
+   .. rubric:: Notes
+
+   Uses SQUAD logic to obtain Boolean network.
+
+
+.. py:function:: read_graphml(file, edge_type_key='interaction', node_id_key='name', node_name_key='name', yEd_labels=False, yEd_arrow_head=False, use_labels=True, **kwargs)
+
+   Extract relavent parts for a Boolean network from a graphml file.
+
+   Since graphml is not well defined for Boolean networks (or even standard for
+   interaction networks), this read functionality has limited support.
+
+   :param file: Path to the graphml file
+   :type file: str
+   :param edge_type_key: The edge attribute key to use for interaction type (e.g., weight, type). Default is "interaction".
+                         Only if yEd=False (yEd uses the arrow head symbol).
+   :type edge_type_key: str, optional
+   :param node_id_key: The vertex attribute key that contains the primary identifier to use for node names. Default is "name".
+   :type node_id_key: str, optional
+   :param node_name_key: The vertex attribute key that contains the node name (e.g. display label). Default is "name".
+   :type node_name_key: str, optional
+   :param yEd_labels: If graphml file originates as a yEd export, the node attribute
+                      "y:NodeLabel" is used to determine node names (default=False)
+   :type yEd_labels: bool, optional
+   :param yEd_arrow_head: If graphml file originates as a yEd export, the edge attribute
+                          "y:Arrows" is used to determine interaction type (default=False)
+   :type yEd_arrow_head: bool, optional
+   :param activator_symbol: Symbol or value of activation edges. If yEd=True, default="standard", else default is `1`.
+   :type activator_symbol: int or str, optional
+   :param inhibitor_symbol: Symbol or value of inhibition edges. If yEd=True, default="t_shape", else default is `-1`.
+   :type inhibitor_symbol: int or str, optional
+
+   :returns: **n** -- A BoolDogModel object representing the Boolean network.
+   :rtype: booldog.BoolDogModel
+
+   .. rubric:: Notes
+
+   Uses igraph to parse the graphml file, and extracts node and edge
+   attributes to determine interactions.
+
+   If `yEd_label=True`, it also parses the yEd-specific attributes to
+   extract node labels (y:NodeLabel) for node names.
+
+   If `yEd_arrow_head=True`, it parses the yEd-specific edge arrow types
+   (arrow head symbols of y:Arrows) to determine interaction types
+   (activation/inhibition).
+
+
+.. py:function:: read_igraph(g, node_id_key='name', edge_type_key='interaction', node_name_key='name', **kwargs)
+
+   Create BooleanNetwork from a igraph Graph object.
+
+   :param g: The input graph object from the `igraph` library.
+   :type g: igraph.Graph
+   :param node_id_key: The vertex attribute key that contains the primary identifier to use for node names. Default is "name".
+   :type node_id_key: str, optional
+   :param node_name_key: The vertex attribute key that contains the node name (e.g. display label). Default is "name".
+   :type node_name_key: str, optional
+   :param edge_type_key: The edge attribute key to use for interaction values (e.g., weight, type). Default is "interaction".
+   :type edge_type_key: str, optional
+   :param activator_symbol: Symbol or value of activation edges in `edge_type_key` of g (default="1")
+   :type activator_symbol: str, optional
+   :param inhibitor_symbol: Symbol or value of inhibition edges in `edge_type_key` of g (default="-1")
+   :type inhibitor_symbol: str, optional
+   :param \*\*kwargs: Additional keyword arguments (ignored).
+   :type \*\*kwargs: dict
+
+   .. rubric:: Notes
+
+   Uses SQUAD logic to obtain Boolean network.
+
+
+.. py:function:: read_networkx(g, edge_type_key='interaction', node_name_key='name', **kwargs)
+
+   Create BooleanNetwork from a networkx (Di)Graph object.
+
+   :param g: The input graph object from the `networkx` library.
+   :type g: networkx.(Di)Graph
+   :param edge_type_key: The edge attribute key to use for interaction values (e.g., weight, type). Default is "interaction".
+   :type edge_type_key: str, optional
+   :param activator_symbol: Symbol or value of activation edges in `edge_type_key` of g (default="1")
+   :type activator_symbol: str, optional
+   :param inhibitor_symbol: Symbol or value of inhibition edges in `edge_type_key` of g (default="-1")
+   :type inhibitor_symbol: str, optional
+   :param node_name_key: The vertex attribute key that contains the node name (display label). Default is "name".
+   :type node_name_key: str, optional
+   :param \*\*kwargs: Additional keyword arguments (ignored).
+   :type \*\*kwargs: dict
+
+   :returns: **n** -- A BoolDogModel object representing the Boolean network.
+   :rtype: booldog.BoolDogModel
+
+   .. rubric:: Notes
+
+   Uses SQUAD logic to obtain Boolean network.
+
+
+.. py:function:: read_interactions(interactions_input, node_names=None, **kwargs)
+
+   Create Network from interactions (list)
+
+   :param interactions_input: A list of interactions in the network. Each interaction should be a tuple of
+                              (source, target, sign), where source and target are node identifiers and
+                              sign is either activator_symbol or inhibitor_symbol.
+                              Or a path to a JSON file containing such a list of interactions.
+   :type interactions_input: list or str
+   :param activator_symbol: The value representing activation in the network. Default is 1.
+   :type activator_symbol: int, optional
+   :param inhibitor_symbol: The value representing inhibition in the network. Default is -1.
+   :type inhibitor_symbol: int, optional
+   :param \*\*kwargs: Additional keyword arguments (ignored).
+   :type \*\*kwargs: dict
+
+   :returns: **n** -- A BoolDogModel object representing the Boolean network.
+   :rtype: booldog.BoolDogModel
+
+   .. rubric:: Notes
+
+   Uses SQUAD logic to obtain Boolean network.
+
+
+.. py:function:: read_sbmlqual(file)
+
+   Create Network from a SBML-qual file
+
+   :param file: Path to SBML-qual file.
+   :type file: str
+
+   .. rubric:: Notes
+
+   The SBML-qual file is converted to a Boolean network using libsbml, via
+   the bnet format. To access the bnet format directly, you can use `py:booldog.io.sbmlqual2bnet`.
+
+
+.. py:function:: write_sbmlqual(model, outfile, **kwargs)
+
+.. py:function:: read_primes(primes_input)
+
+   Read primes from a dictionary or a json file
+
+   :param primes_input: Dictionary of primes, or a file path to primes saved in JSON format.
+   :type primes_input: str or dict
+
+   :returns: **rn** -- A BoolDog BoolDogModel object.
+   :rtype: :py:class:BoolDogModel
+
+
+.. py:function:: write_primes(network, outfile)
+
+   Save primes as formatted JSON file.
+   See also pyboolnet.file_exchange.write_primes.
+
+   :param outfile: File name/path to write primes to.
+   :type outfile: Path
+
+
+.. py:function:: read_tabularqual(model_path)
+
+   Read a TabularQual file and return a BoolDogModel.
+
+   :param model_path: Path to the TabularQual file.
+   :type model_path: str
+
+   :returns: The BoolDogModel generated from the TabularQual file.
+   :rtype: BoolDogModel
+
+
+.. py:function:: file_writable(path)
+
+   Checks if path is writeable. If not, attempts to provide reason, and raises
+   an Exception.
+
+   :param path: Path to file to check for writability. If the file does not exist, the
+                function will check if it can be created.
+   :type path: str or Path
+
+   :rtype: None
+
+
+.. py:data:: logger
+
+.. py:class:: BoolDogModelIOFromMixin
+
+   Mixin providing BoolDogModel.from_XXX constructors
+   for supported Boolean / regulatory network formats.
+
+
+   .. py:method:: _from_reader(reader, *args, **kwargs)
+      :classmethod:
+
+
+      Generic constructor wrapper around a reader function.
+
+      Reader functions should take *args and **kwargs as input and return a
+      dictionary of "nodes", "modelinfo" and "primes" (primes and modelinfo
+      are optional, but "nodes" is required).
+
+
+
+   .. py:method:: from_bnet(*args, **kwargs)
+      :classmethod:
+
+
+      Create model from BoolNet .bnet format.
+
+
+
+   .. py:method:: from_primes(*args, **kwargs)
+      :classmethod:
+
+
+      Create model from prime implicants format.
+
+
+
+   .. py:method:: from_sbmlqual(*args, **kwargs)
+      :classmethod:
+
+
+      Create model from SBML-qual file.
+
+
+
+   .. py:method:: from_tabularqual(*args, **kwargs)
+      :classmethod:
+
+
+      Create model from tabular-qual format.
+
+
+
+   .. py:method:: from_interactions(*args, **kwargs)
+      :classmethod:
+
+
+      Create model from generic interaction table.
+
+
+
+   .. py:method:: from_sif(*args, **kwargs)
+      :classmethod:
+
+
+      Create model from SIF interaction network.
+
+
+
+   .. py:method:: from_networkx(*args, **kwargs)
+      :classmethod:
+
+
+      Create model from networkx graph.
+
+
+
+   .. py:method:: from_igraph(*args, **kwargs)
+      :classmethod:
+
+
+      Create model from igraph object or file.
+
+
+
+   .. py:method:: from_graphml(*args, **kwargs)
+      :classmethod:
+
+
+      Create model from GraphML file.
+
+
+
+.. py:class:: BoolDogModelIOToMixin
+
+   Mixin providing to_XXX export methods for supported Boolean / regulatory network formats.
+
+
+   .. py:method:: _to_writer(writer, *args, **kwargs)
+      :classmethod:
+
+
+      Generic constructor wrapper around a writer function.
+
+      Writer functions should take *args and **kwargs as input and return a
+      string or write to a file. The first argument should always be the
+      model instance (self). An optional keyword argument "outfile" can be
+      used to specify an output file path.
+
+      This constructor presents a consistent interface for exporting models
+      to various formats, and centralizes any common logic needed.
+
+
+
+
+   .. py:method:: to_bnet(*args, **kwargs)
+
+      Export model to BoolNet .bnet format.
+
+
+
+   .. py:method:: to_primes(*args, **kwargs)
+
+      Export model to prime implicants format.
+
+
+
+   .. py:method:: to_sbmlqual(*args, **kwargs)
+
+      Export model to SBML-qual file.
+
+
+
+   .. py:method:: to_networkx(*args, **kwargs)
+
+      Export model to Networkx DiGraph
+
+
+
+   .. py:method:: to_igraph(*args, **kwargs)
+
+      Export model to igraph Graph.
+
+
+
+   .. py:method:: to_cytoscape(*args, **kwargs)
+
+      Export model to Cytoscape (via py4cytoscape).
+
+
+

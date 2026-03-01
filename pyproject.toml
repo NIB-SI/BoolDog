@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "BoolDog"
+authors = [
+  { name="Carissa Bleker", email="carissa.bleker@nib.si" },
+]
+description = "A Python package for analyses of Boolean and semi-quantitative Boolean networks."
+keywords = ["boolean networks", "systems biology", "computational biology", "network analysis"]
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "GPL-3.0"
+license-files = ["LICENSE"]
+
+version = "0.0.1"
+requires-python = ">=3.9"
+dependencies = [
+        'pyboolnet @ git+https://github.com/hklarner/pyboolnet@3.0.16',
+        'xmltodict>=0.12',
+        'matplotlib>=3.4',
+        'numpy>=1.20',
+        'scipy>=1.6',
+        'xmltodict>=0.13.0'
+]
+
+[project.optional-dependencies]
+sbml = ["python-libsbml>=5.19"]
+networks = ["networkx", "igraph==0.11.9"]
+graphviz = ["pygraphviz"]
+all = ["python-libsbml>=5.19", "networkx", "igraph==0.11.9", "pygraphviz"]
+
+[tool.setuptools.packages.find]
+include = ["booldog"]
+
+[project.urls]
+Homepage = "https://github.com/NIB-SI/BoolDog"
+Repository = "https://github.com/NIB-SI/BoolDog"
+Issues = "https://github.com/NIB-SI/BoolDog/issues"
+Documentation = "https://nib-si.github.io/BoolDog/"

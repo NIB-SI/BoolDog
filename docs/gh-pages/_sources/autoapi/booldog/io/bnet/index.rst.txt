@@ -1,0 +1,117 @@
+booldog.io.bnet
+===============
+
+.. py:module:: booldog.io.bnet
+
+.. autoapi-nested-parse::
+
+   Additional functions to parse bnet format
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   booldog.io.bnet.logger
+   booldog.io.bnet.BNET_LINE_REGEX
+   booldog.io.bnet.BNET_REGULATORS_REGEX
+   booldog.io.bnet.BNET_HEADER
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   booldog.io.bnet.BnetParser
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   booldog.io.bnet.read_bnet
+   booldog.io.bnet.write_bnet
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:data:: BNET_LINE_REGEX
+   :value: '^[a-zA-Z]+[a-zA-Z0-9_]*,\\s*.+$'
+
+
+.. py:data:: BNET_REGULATORS_REGEX
+   :value: '\\b[A-Za-z_][A-Za-z0-9_]*\\b'
+
+
+.. py:data:: BNET_HEADER
+   :value: 'targets, factors'
+
+
+.. py:class:: BnetParser(bnet)
+
+   .. py:attribute:: bnet
+
+
+   .. py:attribute:: rules
+
+
+   .. py:method:: _get_rules(bnet_str)
+
+      Boolean rules per node.
+
+
+
+
+
+.. py:function:: read_bnet(bnet, node_names=None)
+
+   Generate a BoolDogModel object from a Boolean network in boolnet
+   (bnet) format.
+
+   For complete documentation, see :doc:`pyboolnet:modules/file_exchange`.
+
+   :param file: Path to the bnet file
+   :type file: str
+
+   :returns: **rn** -- An object of type :ref:`py:class:BoolDogModel`.
+   :rtype: BoolDog
+
+   .. rubric:: Notes
+
+   The format of the output file is described at :ref:`boolnet_format`.
+
+
+.. py:function:: write_bnet(model, outfile=None, from_primes=False, header=True, minimize=False)
+
+   Write a BoolDogModel object to a Boolean network in boolnet (bnet) format.
+
+   :param model: A BoolDog object representing a Boolean network.
+   :type model: BoolDogModel
+   :param outfile: Path to the output file. If None, the output is returned as a string.
+   :type outfile: str
+   :param from_primes: If True, rules are obtained by converting prime implicants to bnet
+                       format. Otherwise, node rules are written directly.
+   :type from_primes: bool, default False
+   :param header: If True, include a header line ("target, factors").
+   :type header: bool, default True
+   :param minimize: If True, minimize rules when converting from primes. Only relevant if
+                    ``from_primes`` is True.
+   :type minimize: bool, default False
+
+   :returns: Returns the bnet string if ``outfile`` is None, otherwise None.
+   :rtype: str or None
+
+   .. rubric:: Notes
+
+   The output file will be overwritten if it already exists.
+
+   The format of the output file is described at :ref:`boolnet_format`.
+
+

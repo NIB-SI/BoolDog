@@ -1,0 +1,50 @@
+booldog.resources
+=================
+
+.. py:module:: booldog.resources
+
+.. autoapi-nested-parse::
+
+   skm_tools resources
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   booldog.resources._CYTOSCAPE_STYLE_XML
+   booldog.resources._MPL_STYLE_SHEET
+   booldog.resources.cytoscape_style_xml
+   booldog.resources.mpl_style_sheet
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   booldog.resources.get_resource_file_path
+
+
+Package Contents
+----------------
+
+.. py:data:: _CYTOSCAPE_STYLE_XML
+   :value: 'cytoscape_style.xml'
+
+
+.. py:data:: _MPL_STYLE_SHEET
+   :value: 'stylesheet.mplstyle'
+
+
+.. py:function:: get_resource_file_path(file)
+
+   file path on disk
+
+
+.. py:data:: cytoscape_style_xml
+
+.. py:data:: mpl_style_sheet
+

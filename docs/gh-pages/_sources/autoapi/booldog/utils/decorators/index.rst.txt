@@ -1,0 +1,45 @@
+booldog.utils.decorators
+========================
+
+.. py:module:: booldog.utils.decorators
+
+.. autoapi-nested-parse::
+
+   See: https://realpython.com/primer-on-python-decorators/
+
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   booldog.utils.decorators.timer
+   booldog.utils.decorators.debug
+   booldog.utils.decorators.silence_stdout
+   booldog.utils.decorators.validate_node_argument
+
+
+Module Contents
+---------------
+
+.. py:function:: timer(func)
+
+   Print the runtime of the decorated function
+
+
+.. py:function:: debug(func)
+
+   Print the function signature and return value
+
+
+.. py:function:: silence_stdout(func)
+
+   Silence the standard output of the decorated function.
+
+
+.. py:function:: validate_node_argument(func)
+
+   Decorator to validate node arguments for Boolean network methods.
+
+

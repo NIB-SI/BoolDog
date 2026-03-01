@@ -19,3 +19,6 @@ pyeda==0.28.0; platform_system != "Windows"
 # documentation only
 sphinx-rtd-theme
 sphinx
+nbsphinx
+nbsphinx-link
+ipython
