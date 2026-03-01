@@ -5,11 +5,11 @@
       <compartment constant="true" id="main" />
     </listOfCompartments>
     <qual:listOfQualitativeSpecies xmlns:qual="http://www.sbml.org/sbml/level3/version1/qual/version1">
-      <qual:qualitativeSpecies qual:compartment="main" qual:constant="false" qual:id="node_A"/>
-      <qual:qualitativeSpecies qual:compartment="main" qual:constant="false" qual:id="node_B"/>
-      <qual:qualitativeSpecies qual:compartment="main" qual:constant="false" qual:id="node_C"/>
-      <qual:qualitativeSpecies qual:compartment="main" qual:constant="false" qual:id="node_D"/>
-      <qual:qualitativeSpecies qual:compartment="main" qual:constant="false" qual:id="node_E"/>
+      <qual:qualitativeSpecies qual:compartment="main" qual:constant="false" qual:maxLevel="1" qual:id="node_A"/>
+      <qual:qualitativeSpecies qual:compartment="main" qual:constant="false" qual:maxLevel="1" qual:id="node_B"/>
+      <qual:qualitativeSpecies qual:compartment="main" qual:constant="false" qual:maxLevel="1" qual:id="node_C"/>
+      <qual:qualitativeSpecies qual:compartment="main" qual:constant="false" qual:maxLevel="1" qual:id="node_D"/>
+      <qual:qualitativeSpecies qual:compartment="main" qual:constant="false" qual:maxLevel="1" qual:id="node_E"/>
     </qual:listOfQualitativeSpecies>
     <qual:listOfTransitions xmlns:qual="http://www.sbml.org/sbml/level3/version1/qual/version1">
       <qual:transition qual:id="t1">

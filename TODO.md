@@ -1,5 +1,0 @@
-* logging
-* tests
-	* io
-	* euqations
-

@@ -1,117 +1,91 @@
-import os
+'''
+Test Boolean network read/write functions.
+'''
 import sys
 import unittest
 
 import networkx as nx
 import igraph as ig
 
-from booldog.io import read
+from examples import BooleanNetworkExamples, InteractionNetworkExamples
 
-example_primes_true = {
-    'node_A': [
-        [{'node_B': 0, 'node_E': 0}, {'node_B': 1, 'node_E': 1}],
-        [{'node_B': 0, 'node_E': 1}, {'node_B': 1, 'node_E': 0}]
-    ],
-    'node_B': [
-        [{'node_B': 0}],
-        [{'node_B': 1}]
-    ],
-    'node_C': [
-        [{'node_B': 0}, {'node_A': 0}],
-        [{'node_A': 1, 'node_B': 1}]], 'node_D': [[{'node_D': 0}], [{'node_D': 1}]
-    ],
-    'node_E': [
-        [{'node_C': 1, 'node_D': 0}],
-        [{'node_D': 1}, {'node_C': 0}]
-    ]
-}
-example_primes_squad = {
-    'node_A': [
-        [{}],
-        []
-    ],
-    'node_B': [
-        [{'node_B': 0}],
-        [{'node_B': 1}]
-    ],
-    'node_C': [
-        [{'node_A': 0, 'node_B': 0}],
-        [{'node_B': 1}, {'node_A': 1}]
-    ],
-    'node_D': [
-        [{'node_D': 0}], [{'node_D': 1}]
-    ],
-    'node_E': [
-        [{'node_D': 0}, {'node_C': 1}],
-        [{'node_C': 0, 'node_D': 1}]
-    ]
-}
-example_interactions = {
-    'node_A': {
-        'node_C': '+'
-        },
-    'node_B': {
-        'node_A': '-',
-        'node_B': '+',
-        'node_C': '+'
-    },
-    'node_C': {
-        'node_E': '-'
-    },
-    'node_D': {
-        'node_D': '+',
-        'node_E': '+'
-    },
-    'node_E': {
-        'node_A': '-'
-    }
-}
-example_edgelist = [(s, t, example_interactions[s][t]) for s in example_interactions for t in example_interactions[s]]
-example_dict_of_dict = {s:{t:{"interaction": example_interactions[s][t]}} for s in example_interactions for t in example_interactions[s]}
+# sys.path.append("../")
+from booldog import BoolDogModel
 
-class Test(unittest.TestCase):
 
-    def test_read_bnet(self):
-        G = read("data/example.bnet", "bnet")
-        self.assertDictEqual(G.primes, example_primes_true)
+class TestBoolDogModelFrom(unittest.TestCase):
 
-    def test_read_primes(self):
-        G = read("data/example.primes.json", "primes")
-        self.assertDictEqual(G.primes, example_primes_true)
+    # ---- Boolean network formats ------------------------------------
 
-    def test_read_sbmlqual(self):
-        G = read("data/example.xml", "sbml-qual")
-        self.assertDictEqual(G.primes, example_primes_true)
+    def test_from_bnet(self):
+        bn = BoolDogModel.from_bnet(BooleanNetworkExamples.BNET)
+        self.assertDictEqual(bn.primes, BooleanNetworkExamples.PRIMES)
 
-    ##################################################
-    # Uses SQUAD to turn into interactions Boolean Graph
-    ##################################################
+    def test_from_primes(self):
+        bn = BoolDogModel.from_primes(BooleanNetworkExamples.PRIMES)
+        self.assertDictEqual(bn.primes, BooleanNetworkExamples.PRIMES)
 
-    def test_read_sif(self):
-        G = read("data/example.sif", "sif", activator_value="1", inhibitor_value="-1")
-        self.assertDictEqual(G.primes, example_primes_squad)
+    def test_from_sbmlqual(self):
+        bn = BoolDogModel.from_sbmlqual(BooleanNetworkExamples.SBMLQUAL_FILE)
+        self.assertDictEqual(bn.primes, BooleanNetworkExamples.PRIMES)
 
-    def test_read_interactions(self):
-        G = read(example_interactions, "interactions", activator_value="+", inhibitor_value="-")
-        self.assertDictEqual(G.primes, example_primes_squad)
+    def test_from_tabularqual(self):
+        bn = BoolDogModel.from_tabularqual(
+            BooleanNetworkExamples.TABULARQUAL_FILE)
+        self.assertDictEqual(bn.primes, BooleanNetworkExamples.PRIMES)
 
-    def test_read_graphml(self):
-        G = read("data/example.graphml", "graphml")
-        self.assertDictEqual(G.primes, example_primes_squad)
+    # ---- Interaction / graph formats --------------------------------
 
-    def test_read_graphml_yEd(self):
-        G = read("data/example.yEd.graphml", "graphml", yEd=True, use_labels=False)
-        self.assertDictEqual(G.primes, example_primes_squad)
+    def test_from_interactions(self):
+        bn = BoolDogModel.from_interactions(
+            InteractionNetworkExamples.INTERACTIONS,
+            activator_symbol="+",
+            inhibitor_symbol="-")
 
-    def test_read_igraph(self):
-        graph = ig.Graph.TupleList(example_edgelist, directed=True, edge_attrs=["weight"])
-        G = read(graph, "igraph", activator_value="+", inhibitor_value="-")
-        self.assertDictEqual(G.primes, example_primes_squad)
+        self.assertDictEqual(bn.primes,
+                             InteractionNetworkExamples.PRIMES_SQUAD)
 
-    def test_read_networkx(self):
-        graph = nx.DiGraph(example_dict_of_dict)
-        G = read(graph, "networkx", activator_value="+", inhibitor_value="-", edge_type_key="interaction")
-        self.assertDictEqual(G.primes, example_primes_squad)
+    def test_from_sif(self):
+        bn = BoolDogModel.from_sif(InteractionNetworkExamples.SIF_FILE,
+                                   activator_symbol="1",
+                                   inhibitor_symbol="-1")
+        self.assertDictEqual(bn.primes,
+                             InteractionNetworkExamples.PRIMES_SQUAD)
+
+    def test_from_networkx(self):
+        g = nx.DiGraph(InteractionNetworkExamples.DICT_OF_DICT)
+
+        bn = BoolDogModel.from_networkx(g,
+                                        activator_symbol="+",
+                                        inhibitor_symbol="-",
+                                        edge_type_key="interaction")
+        self.assertDictEqual(bn.primes,
+                             InteractionNetworkExamples.PRIMES_SQUAD)
+
+    def test_from_igraph(self):
+
+        g = ig.Graph.TupleList(InteractionNetworkExamples.INTERACTIONS,
+                               directed=True,
+                               edge_attrs=["interaction"])
+
+        bn = BoolDogModel.from_igraph(g,
+                                      activator_symbol="+",
+                                      inhibitor_symbol="-",
+                                      edge_type_key="interaction")
+        self.assertDictEqual(bn.primes,
+                             InteractionNetworkExamples.PRIMES_SQUAD)
+
+    def test_from_graphml(self):
+        bn = BoolDogModel.from_graphml(InteractionNetworkExamples.GRAPHML_FILE, edge_type_key="weight")
+        self.assertDictEqual(bn.primes,
+                             InteractionNetworkExamples.PRIMES_SQUAD)
+
+    def test_from_graphml_yEd(self):
+        bn = BoolDogModel.from_graphml(
+            InteractionNetworkExamples.GRAPHML_YED_FILE,
+            yEd_labels=True, yEd_arrow_head=True)
+        self.assertDictEqual(bn.primes,
+                             InteractionNetworkExamples.PRIMES_SQUAD)
 
 if __name__ == '__main__':
     unittest.main()

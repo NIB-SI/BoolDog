@@ -5,7 +5,6 @@ def export_network(suid,
                    filename,
                    format="png",
                    overwrite_file=True,
-                   resolution=600,
                    zoom=200):
 
     filename = str(filename)
@@ -19,5 +18,4 @@ def export_network(suid,
                                    type=format,
                                    network=suid,
                                    overwrite_file=overwrite_file,
-                                   resolution=resolution,
                                    zoom=zoom)

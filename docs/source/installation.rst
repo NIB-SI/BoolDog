@@ -5,26 +5,25 @@ Installation
 Install
 =======
 
-Download and install:
-
-.. code-block:: bash
-
-   git clone https://github.com/NIB-SI/BoolDoG.git
-   cd BoolDoG
-   pip install .
-
-
 Install directly:
 
 .. code-block:: bash
 
-   pip install git+https://github.com/NIB-SI/BoolDoG.git
+   pip install git+https://github.com/NIB-SI/BoolDog.git
+
+Download and install:
+
+.. code-block:: bash
+
+   git clone https://github.com/NIB-SI/BoolDog.git
+   cd BoolDog
+   pip install .
 
 
-Test
-----
+Tests
+-----
 
-To runs tests, use
+See `https://github.com/NIB-SI/BoolDog/tree/master/tests`.
 
 
 Uninstall
@@ -50,12 +49,12 @@ To solve, download the appropriate binary from `Christophe Gohlke’s pythonlibs
 
    pip install <downloaded.whl>
 
-Then re-attempted BoolDoG installation.
+Then re-attempted BoolDog installation.
 
 Dependencies
 ============
 
-Required dependencies will be automatically installed when installing BoolDoG.
+Required dependencies will be automatically installed when installing BoolDog.
 The following dependencies are required:
 
 * numpy

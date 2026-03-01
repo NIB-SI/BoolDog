@@ -4,6 +4,9 @@ import errno
 import numpy as np
 from pathlib import Path
 
+import logging
+
+logger = logging.getLogger(__name__)
 
 class ExtendedEnum():
 
@@ -19,10 +22,11 @@ def ensure_ndarray(v):
     '''
     if isinstance(v, np.ndarray):
         return v
-    elif isinstance(v, (int, float)):
+
+    if isinstance(v, (int, float)):
         return np.array([v])
-    else:
-        return np.array([*v])
+
+    return np.array([*v])
 
 
 def parameter_to_array(parameter, graph_keys):
@@ -47,6 +51,7 @@ def parameter_to_array(parameter, graph_keys):
     parameter_array: numpy array
         array of length n
     '''
+
     if isinstance(parameter, np.ndarray) and \
         (len(parameter) == len(graph_keys)):
         return parameter
@@ -64,27 +69,38 @@ def parameter_to_array(parameter, graph_keys):
                 continue
             parameter_array[graph_keys[key]] = value
     else:
-        print("'parameters must be int, float, or dict.")
+        logger.warning("'parameters' must be int, float, or dict.")
         parameter_array = parameter_array * 1
     return parameter_array
 
 
 def file_writable(path):
-    '''Checks if path is writeable. If not, attempts to print reason, and raises
+    '''Checks if path is writeable. If not, attempts to provide reason, and raises
     an Exception.
+
+    Parameters
+    ----------
+    path : str or Path
+        Path to file to check for writability. If the file does not exist, the
+        function will check if it can be created.
+
+    Returns
+    -------
+    None
+
     '''
     path = Path(path)
 
     if path.exists():
-        print(f'{path} already exists and will be overwritten!')
+        logger.warning('%s already exists and will be overwritten!', path)
 
     try:
-        with open(path, 'w') as f:
+        with open(path, 'wb'):
             pass
     except IOError as e:
         if e.errno == errno.EACCES:
-            print(f'No permission to write to {path}.')
+            logger.error('No permission to write to %s.', path)
         elif e.errno == errno.EISDIR:
-            print(f'{path} is directory.')
+            logger.error('%s is a directory.', path)
         raise e
 

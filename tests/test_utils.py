@@ -4,9 +4,8 @@ import unittest
 
 import numpy as np
 
-sys.path.append("/home/cbleker/research/NIB/squad/BoolDoG")
 from booldog.utils.misc import ensure_ndarray, parameter_to_array
-from booldog.utils import functions2mindnf
+from booldog.utils.boolean_normal_forms import functions2mindnf
 
 class Test(unittest.TestCase):
 
@@ -40,7 +39,9 @@ class Test(unittest.TestCase):
         mindnf = functions2mindnf(functions)
         self.assertDictEqual(mindnf, {'x': 'y | x', 'y': 'z&!x', 'z': 'z&!y&!x | !z&!y&x | !z&y&!x'})
 
-        # test the edit
+    def test_functions2mindnf_depends(self):
+
+        ''' Test the edit '''
         matrix = np.array([[1, 0, 0],
                            [1, 0, 1],
                            [0, 0, 1]])

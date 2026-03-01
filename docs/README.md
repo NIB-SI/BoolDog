@@ -17,12 +17,12 @@ Uses sphinx and sphinx-rtd-theme, and numpydocs for styling.
 Then to make/remake docs:
 
     cd docs
-    sphinx-apidoc -fMeT  --module-first -o source/api ../booldog ../booldog/utils
-    make html
+    conda activate docs
+    sphinx-build -b html -n -T source/ build/
 
-To push remade docs to github pages site, copy the new html to the gh-pages folder
+To push remade docs to GitHub pages, after reviewing the HTML pages, copy them to the gh-pages folder:
 
-    cp -r build/html/* gh-pages
+    cp -r build/* gh-pages
 
 (Then commit them and push.)
 

@@ -13,13 +13,11 @@
 import os
 import sys
 import re
-sys.path.insert(0, os.path.abspath('../..'))
-
 
 # -- Project information -----------------------------------------------------
 
-project = 'BoolDoG'
-copyright = '2020-2022 National Institute of Biology, Slovenia'
+project = 'BoolDog'
+copyright = '2020-2025 National Institute of Biology, Slovenia'
 author = 'Carissa Bleker'
 
 # The full version, including alpha/beta/rc tags
@@ -32,7 +30,7 @@ release = '0.1'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.autodoc',
+    'autoapi.extension',
     'sphinx.ext.napoleon',
     'sphinx.ext.autosummary',
     'sphinx_rtd_theme',
@@ -40,27 +38,13 @@ extensions = [
     'sphinx.ext.intersphinx',
 ]
 
-# Autodoc settings
-autodoc_default_options = {
-    'inherited-members':True,
-    'undoc-members':True,
-    'private-members':False,
-    'special-members': '__init__',
-    'exclude-members': '__weakref__'
-}
-autoclass_content = 'both'
-autodoc_member_order = 'bysource'
-
-
-# autosummary_mock_imports = [
-#     'booldog.io.read',
-# ]
+# Autoapi settings
+autoapi_dirs = ['../../booldog']
 
 
 # Napoleon settings
 napoleon_google_docstring = False
 napoleon_numpy_docstring = True
-
 
 # Intersphinx settings
 intersphinx_mapping = {
@@ -97,32 +81,32 @@ html_favicon = '../figures/icon.ico'
 # so a file named "default.css" will overwrite the builtin "default.css".
 #html_static_path = ['_static']
 
-def autodoc_skip_member(app, what, name, obj, skip, options):
+# def autodoc_skip_member(app, what, name, obj, skip, options):
 
-    # print(app, what, name, obj, skip, options)
-    print("HELLLO", name, obj)
+#     # print(app, what, name, obj, skip, options)
+#     print("HELLLO", name, obj)
 
-    excludes = ['booldog.io.read']
+#     excludes = ['booldog.io.read']
 
-    exclude = None
-    for ex in excludes:
-        this_exclude = re.findall(f'.*{ex}.*', str(obj))
-        if this_exclude:
-            exclude = True
-            print("SKIP ME!!!", str(obj))
-            break
+#     exclude = None
+#     for ex in excludes:
+#         this_exclude = re.findall(f'.*{ex}.*', str(obj))
+#         if this_exclude:
+#             exclude = True
+#             print("SKIP ME!!!", str(obj))
+#             break
 
-    return exclude
+#     return exclude
 
-def setup(app):
+# def setup(app):
 
-    app.connect('autodoc-skip-member', autodoc_skip_member)
+#     app.connect('autodoc-skip-member', autodoc_skip_member)
 
-    # i.o.t add ODE class (inside a function) to the documentation
-    import booldog
-    example = booldog.ode.ODE_factory(
-                '',
-                transform='placeholder')
-    booldog.ode.ODE = booldog.ode.ODE_factory.ex_class
-    booldog.ode.ODE.__name__ = 'ODE'
-    booldog.ode.ODE.__module__ = 'booldog.ode'
+#     # i.o.t add ODE class (inside a function) to the documentation
+#     # import booldog
+#     # example = booldog.ode_factory.ode_factory(
+#     #             '',
+#     #             transform='placeholder')
+#     # booldog.ode_factory.ODE = booldog.ode_factory.ode_factory.ex_class
+#     # booldog.ode_factory.ODE.__name__ = 'ODE'
+#     # booldog.ode_factory.ODE.__module__ = 'booldog.ode'

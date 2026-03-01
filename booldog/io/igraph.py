@@ -1,21 +1,45 @@
+'''
+Function to transform booldog:Network to DiGraph
+'''
 import logging
+
+import igraph as ig
+from pyboolnet.interaction_graphs import primes2igraph
+from booldog.io.circuit import booldog2circuit
 
 logger = logging.getLogger(__name__)
 
+def booldog2igraph(model, as_logic_circuit=True):
+    '''Export a BoolDog Boolean model to an igraph graph object.
 
+    Parameters
+    ----------
+    model : booldog:BoolDogModel
+        A BoolDog object representing a Boolean network.
 
-def igraph2interactions(g,
-                        node_name_key="name",
-                        edge_type_key="weight",
-                        **_):
-    ''' Todo
+    as_logic_circuit: bool
+        If True, the graph is exported as a logic circuit (Boolean rules
+        are represented as "logical" nodes (and, or, not) and edges.
+        Otherwise, it is exported as a directed interaction graph. Default is False.
+
+    Returns
+    -------
+    graph : igraph.Graph
+        A igraph.Graph object with the same nodes as the input network.
+        If `as_logic_circuit` is True, Boolean rules are represented as
+        "logical" nodes (and, or, not) and edges.
+
+    Notes
+    -----
+    See also pyboolnet.interaction_graphs.primes2igraph.
+
+    Implemented via conversion to Networkx DiGraph, then to igraph Graph,
+    to reuse pyboolet function and logic circuits code.
     '''
-    interactions = {node[node_name_key]: {} for node in g.vs()}
-    for e in g.es():
-        source = g.vs()[e.source][node_name_key]
-        target = g.vs()[e.target][node_name_key]
-        symbol = e[edge_type_key]
 
-        interactions[source][target] = symbol
+    if as_logic_circuit:
+        g = booldog2circuit(model)
+    else:
+        g = model.to_networkx(as_logic_circuit=False)
 
-    return interactions
+    return ig.Graph.from_networkx(g)

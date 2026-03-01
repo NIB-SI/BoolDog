@@ -1,12 +1,19 @@
 # BoolDoG <img src="docs/figures/logo.png" raw=true alt="BoolDoG icon"  width="240" align="right" >
 
-A Python package for analyses of Boolean and semi-qualitative Boolean networks.
+A Python package for analyses of Boolean and semi-quantitative Boolean networks.
 
 ## Documentation
 
+For installation, usage, and examples, see the documentation at 
 [nib-si.github.io/BoolDoG](https://nib-si.github.io/BoolDoG)
 
-## Installation
+## Citation
+
+TODO
+
+## Development version
+
+Development version of BoolDog can be installed from GitHub.
 
 To install:
 

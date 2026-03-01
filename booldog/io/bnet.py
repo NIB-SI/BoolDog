@@ -3,235 +3,180 @@ Additional functions to parse bnet format
 
 '''
 import logging
-
+import os
 import re
-import numpy as np
-import networkx as nx
+from io import StringIO
+
+from pyboolnet import file_exchange
+from pyboolnet.external.bnet2primes import bnet_file2primes, bnet_text2primes
+
+from booldog.classes import BoolDogNode, BoolDogModelInfo
 
 logger = logging.getLogger(__name__)
 
 ##############################
-# Utility functions
+# Utility classes/functions
 ##############################
 
 
-def clean_line(line):
-    ''' Makes sure line is a Boolean rule, and not a header or comment
-    '''
-    line = line.strip()
-    if line == "targets, factors":
-        return None
+BNET_LINE_REGEX = r"^[a-zA-Z]+[a-zA-Z0-9_]*,\s*.+$"
+BNET_REGULATORS_REGEX = r"\b[A-Za-z_][A-Za-z0-9_]*\b"
 
-    m = re.match(r'^([^#]*)', line)
-    if not m:
-        return None
+BNET_HEADER = "targets, factors"
 
-    return m.groups()[0].strip()
+class BnetParser:
 
+    def __init__(self, bnet):
+        self.bnet = bnet
+        self.rules = self._get_rules(bnet)
 
-class NetworkxBnet(nx.DiGraph):
-    ''' Simple helper class to track logic nodes '''
+    def _get_rules(self, bnet_str):
+        '''Boolean rules per node.
 
-    def __init__(self):
+        '''
+        rules = {}
 
-        super().__init__()
+        # nodes that may not have a rule would be missed by just using the
+        # targets to collect nodes
+        input_nodes = set()
 
-        self.ands = []
-        self.and_count = 0
+        for line in bnet_str.splitlines():
+            line = line.strip()
+            if (not line) or (line == BNET_HEADER) or line.startswith("#"):
+                continue
 
-        self.ors = []
-        self.or_count = 0
+            if not re.match(BNET_LINE_REGEX, line):
+                logger.error("Bnet line does not conform to bnet format: %s", line)
+                logger.debug("Bnet text: %s", bnet_str)
+                raise ValueError("Bnet text does not conform to bnet format.")
 
-        self.nots = []
-        self.not_count = 0
+            logger.debug('Parsing line: %s', line)
+            [target, rule] = [s.strip() for s in line.split(",", 1)]
+            if target in rules:
+                logger.warning("%s already has an update function.", target)
+                continue
+            rules[target] = rule
 
-    def add_and(self):
+            regulators = re.findall(BNET_REGULATORS_REGEX, rule)
+            input_nodes.update(regulators)
 
-        node = f"and_{self.or_count()}"
-        self.add_node(node, type="logical_and")
+        for node in input_nodes:
+            if node not in rules:
+                logger.debug("Adding node %s with no rule.", node)
+                rules[node] = ""
 
-        self.ands.append(node)
-        self.and_count += 1
+        return rules
 
-        return node
+###############################
+# In
+###############################
 
-    def add_or(self):
+def read_bnet(bnet, node_names=None):
+    ''' Generate a BoolDogModel object from a Boolean network in boolnet
+    (bnet) format.
 
-        node = f"or_{self.or_count()}"
-        self.add_node(node, type="logical_or")
+    For complete documentation, see :doc:`pyboolnet:modules/file_exchange`.
 
-        self.ors.append(node)
-        self.or_count += 1
-
-        return node
-
-    def add_not(self):
-
-        node = f"not_{self.or_count()}"
-        self.add_node(node, type="logical_not")
-
-        self.nots.append(node)
-        self.not_count += 1
-
-        return node
-
-
-def booldog2networkx(network):
-    '''
-    Loads a graph from bnet into a networkx DiGraph
-    '''
-
-    targets = set()
-
-    graph = NetworkxBnet()
-
-    for node in sorted(network.nodes):
-        graph.add_node(node, type="species")
-        targets.update([node])
-
-    for line in network.to_bnet(header=False).split("\n"):
-        line = clean_line(line)
-        if line:
-            target, rule = target, rule = [
-                s.strip() for s in line.split(",", 1)
-            ]
-
-            # if target in graph.nodes():
-            #     print(f"{target} already has an update function")
-            #     continue
-
-            final_node = resolve_rule(rule, graph)
-            graph.add_edge(final_node, target)
-
-    return graph
-
-
-def resolve_rule(rule, graph):
-
-    groups = []
-    levels = []
-
-    group_index = 1
-    num_open_brackets = 0
-    group = '0'
-    previous_groups = []
-    for i, c in enumerate(rule):
-
-        if c == '(':
-            num_open_brackets += 1
-            previous_groups.append(group)
-            group = f"{group}.{group_index}"
-
-        elif c == ')':
-            num_open_brackets += -1
-            group = previous_groups.pop()
-
-            group_index += 1
-
-        groups.append(group)
-        levels.append(num_open_brackets)
-
-    groups = np.array(groups)
-    levels = np.array(levels)
-
-    logger.debug(groups)
-
-    max_level = max(levels)
-
-    groups_to_parse = np.unique(
-        [groups[i] for i in np.where(levels == max_level)[0]])
-
-    logger.debug(groups_to_parse)
-
-    starts = []
-    ends = []
-    new_sub_s = []
-
-    new_s = ''
-
-    all_edges = []
-    for g in groups_to_parse:
-        indices = np.nonzero(groups == g)[0]
-
-        logger.debug(indices)
-
-        if rule[indices[0]] == "(":
-            sub_s = ''.join(rule[i] for i in indices[1:]).strip()
-        else:
-            sub_s = ''.join(rule[i] for i in indices[:]).strip()
-        replace, edges = resolve_factor(sub_s, graph)
-
-        logger.debug("Replace %s with %s", sub_s, replace)
-
-        starts.append(indices[0])
-        ends.append(indices[-1])
-        new_sub_s.append(replace)
-
-        all_edges += edges
-
-    starts = np.array(starts)
-    ends = np.array(ends)
-
-    idx = np.argsort(starts)
-    starts = starts[idx]
-    ends = ends[idx]
-
-    base_start = 0
-    new_s = ''
-    for i, (start, end) in enumerate(zip(starts, ends)):
-        new_s += rule[base_start:start]
-        new_s += new_sub_s[i]
-        base_start = end + 2
-    new_s += rule[base_start:]
-    new_s = new_s.strip()
-
-    logger.debug(new_s)
-    if re.findall(r"[&|()]", new_s):
-        new_s, new_edges = resolve_rule(new_s, graph)
-        all_edges += new_edges
-
-    return new_s, all_edges
-
-def resolve_factor(factor, graph):
-    '''
-    parse a string without brackets
+    Parameters
+    ----------
+    file : str
+        Path to the bnet file
 
     Returns
     -------
+    rn: BoolDog
+        An object of type :ref:`py:class:BoolDogModel`.
 
-    r: str
-        Replacement string (the final node)
+
+    Notes
+    -----
+    The format of the output file is described at :ref:`boolnet_format`.
 
     '''
 
-    new_s = []
+    if os.path.exists(bnet):
+        with open(bnet, 'r', encoding='utf-8') as f:
+            bnet_str = f.read()
+        source = bnet
+    else:
+        bnet_str = bnet
+        source = 'object'
 
-    for term in factor.split("|"):
-        nodes = [s.strip() for s in term.split("&")]
-        for i, node in enumerate(nodes):
-            m = re.match(r".*?!(.*)", node)
-            if m:
-                node = m.groups()[0].strip()
+    parser = BnetParser(bnet_str)
+    nodes = []
+    for node_id, rule in parser.rules.items():
+        nodes.append(
+            BoolDogNode(identifier=node_id,
+                        rule=rule,
+                        name=node_names.get(node_id, None) if node_names else None))
 
-                not_node = graph.add_not()
-                graph.add_edge(node, not_node)
+    modelinfo = BoolDogModelInfo(source=source, source_format="bnet")
 
-                # replace node with not
-                nodes[i] = not_node
+    return {
+        "nodes": nodes,
+        "modelinfo": modelinfo,
+        "primes": None
+    }
 
-        if len(nodes) > 1:
-            and_node = graph.add_and()
-            for node in nodes:
-                graph.add_edge(node, and_node)
-            new_s.append(and_node)
+################################
+# Out
+################################
 
-        else:
-            new_s.append(nodes[0])
+def write_bnet(model, outfile=None, from_primes=False, header=True, minimize=False):
+    ''' Write a BoolDogModel object to a Boolean network in boolnet (bnet) format.
 
-    if len(new_s) > 1:
-        or_node = graph.add_or()
-        for node in new_s:
-            graph.add_edge(node, or_node)
-        return or_node
+    Parameters
+    ----------
+    model : BoolDogModel
+        A BoolDog object representing a Boolean network.
+    outfile : str
+        Path to the output file. If None, the output is returned as a string.
+    from_primes : bool, default False
+        If True, rules are obtained by converting prime implicants to bnet
+        format. Otherwise, node rules are written directly.
+    header : bool, default True
+        If True, include a header line ("target, factors").
+    minimize : bool, default False
+        If True, minimize rules when converting from primes. Only relevant if
+        ``from_primes`` is True.
 
-    return new_s[0]
+    Returns
+    -------
+    str or None
+        Returns the bnet string if ``outfile`` is None, otherwise None.
+
+    Notes
+    -----
+    The output file will be overwritten if it already exists.
+
+    The format of the output file is described at :ref:`boolnet_format`.
+    '''
+    if from_primes:
+        file_exchange.primes2bnet(
+            model.primes,
+            fname_bnet=outfile,
+            header=header,
+            minimize=minimize,
+        )
+        return None
+
+    if outfile is not None:
+        f = open(outfile, "w", encoding="utf-8")
+        close_file = True
+    else:
+      f = StringIO()
+      close_file = False
+
+    if header:
+        f.write(BNET_HEADER + "\n")
+
+    for node_id, node in model.nodes.items():
+        if node.rule:
+            f.write(f"{node_id}, {node.rule}\n")
+
+    if close_file:
+        f.close()
+        logger.info("Wrote model as bnet to %s", outfile)
+        return None
+    else:
+        return f.getvalue()

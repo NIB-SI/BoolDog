@@ -16,7 +16,6 @@
   <graph edgedefault="directed" id="G">
     <node id="n0">
       <data key="d3" xml:space="preserve"><![CDATA[node_A]]></data>
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="30.0" width="30.0" x="71.0" y="54.0"/>
@@ -29,7 +28,6 @@
     </node>
     <node id="n1">
       <data key="d3" xml:space="preserve"><![CDATA[node_C]]></data>
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="30.0" width="30.0" x="128.0" y="94.0"/>
@@ -42,7 +40,6 @@
     </node>
     <node id="n2">
       <data key="d3" xml:space="preserve"><![CDATA[node_B]]></data>
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="30.0" width="30.0" x="136.0" y="21.0"/>
@@ -55,7 +52,6 @@
     </node>
     <node id="n3">
       <data key="d3" xml:space="preserve"><![CDATA[node_E]]></data>
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="30.0" width="30.0" x="64.0" y="126.0"/>
@@ -68,7 +64,6 @@
     </node>
     <node id="n4">
       <data key="d3" xml:space="preserve"><![CDATA[node_D]]></data>
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="30.0" width="30.0" x="21.0" y="183.0"/>
@@ -81,7 +76,6 @@
     </node>
     <edge id="e0" source="n0" target="n1">
       <data key="d8" xml:space="preserve">1.0</data>
-      <data key="d10"/>
       <data key="d11">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -93,7 +87,6 @@
     </edge>
     <edge id="e1" source="n2" target="n0">
       <data key="d8" xml:space="preserve">-1.0</data>
-      <data key="d10"/>
       <data key="d11">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -105,14 +98,13 @@
     </edge>
     <edge id="e2" source="n2" target="n2">
       <data key="d8" xml:space="preserve">1.0</data>
-      <data key="d10"/>
       <data key="d11">
         <y:PolyLineEdge>
           <y:Path sx="7.5" sy="-15.0" tx="15.0" ty="-7.5">
-            <y:Point x="158.5" y="6.000000000000001"/>
+            <y:Point x="158.5" y="6.0"/>
             <y:Point x="164.5" y="0.0"/>
             <y:Point x="181.0" y="0.0"/>
-            <y:Point x="187.0" y="5.999999999999998"/>
+            <y:Point x="187.0" y="6.0"/>
             <y:Point x="187.0" y="22.5"/>
             <y:Point x="181.0" y="28.5"/>
           </y:Path>
@@ -124,7 +116,6 @@
     </edge>
     <edge id="e3" source="n2" target="n1">
       <data key="d8" xml:space="preserve">1.0</data>
-      <data key="d10"/>
       <data key="d11">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -136,7 +127,6 @@
     </edge>
     <edge id="e4" source="n1" target="n3">
       <data key="d8" xml:space="preserve">-1.0</data>
-      <data key="d10"/>
       <data key="d11">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -148,13 +138,12 @@
     </edge>
     <edge id="e5" source="n4" target="n4">
       <data key="d8" xml:space="preserve">1.0</data>
-      <data key="d10"/>
       <data key="d11">
         <y:PolyLineEdge>
           <y:Path sx="-7.5" sy="-15.0" tx="-15.0" ty="-7.5">
             <y:Point x="28.5" y="168.0"/>
             <y:Point x="22.5" y="162.0"/>
-            <y:Point x="5.999999999999999" y="162.0"/>
+            <y:Point x="6.0" y="162.0"/>
             <y:Point x="0.0" y="168.0"/>
             <y:Point x="0.0" y="184.5"/>
             <y:Point x="6.0" y="190.5"/>
@@ -167,7 +156,6 @@
     </edge>
     <edge id="e6" source="n4" target="n3">
       <data key="d8" xml:space="preserve">1.0</data>
-      <data key="d10"/>
       <data key="d11">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -179,7 +167,6 @@
     </edge>
     <edge id="e7" source="n3" target="n0">
       <data key="d8" xml:space="preserve">-1.0</data>
-      <data key="d10"/>
       <data key="d11">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
