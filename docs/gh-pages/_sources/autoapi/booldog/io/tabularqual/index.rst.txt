@@ -1,0 +1,72 @@
+booldog.io.tabularqual
+======================
+
+.. py:module:: booldog.io.tabularqual
+
+.. autoapi-nested-parse::
+
+   Load TabularQual files
+
+   Spec: https://github.com/sys-bio/TabularQual/blob/main/doc/TabularQual_specification_v0.1.2.docx
+
+   Use tabularqual converter to convert TaabularQual files to SBML-qual, then load them using the SBML-qual reader.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   booldog.io.tabularqual.logger
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   booldog.io.tabularqual.TabularQualReader
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   booldog.io.tabularqual.read_tabularqual
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:class:: TabularQualReader(model_path)
+
+   Reader for TabularQual files.
+
+
+   .. py:attribute:: model_path
+
+
+   .. py:method:: read()
+
+      Read the TabularQual file and return a BoolDogModel.
+
+      :returns: The BoolDogModel generated from the TabularQual file.
+      :rtype: BoolDogModel
+
+
+
+.. py:function:: read_tabularqual(model_path)
+
+   Read a TabularQual file and return a BoolDogModel.
+
+   :param model_path: Path to the TabularQual file.
+   :type model_path: str
+
+   :returns: The BoolDogModel generated from the TabularQual file.
+   :rtype: BoolDogModel
+
+

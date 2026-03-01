@@ -1,0 +1,41 @@
+booldog.io.deleteme_io_registry
+===============================
+
+.. py:module:: booldog.io.deleteme_io_registry
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   booldog.io.deleteme_io_registry.reader_registry
+   booldog.io.deleteme_io_registry.writer_registry
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   booldog.io.deleteme_io_registry.register_reader
+   booldog.io.deleteme_io_registry.register_writer
+
+
+Module Contents
+---------------
+
+.. py:data:: reader_registry
+
+.. py:data:: writer_registry
+
+.. py:function:: register_reader(func)
+
+   Register a function as a plug-in
+
+
+.. py:function:: register_writer(func)
+
+   Register a function as a plug-in
+
+

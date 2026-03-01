@@ -1,0 +1,389 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>booldog.boolean.boolean &mdash; BoolDog 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+    <link rel="shortcut icon" href="../../../../_static/icon.ico"/>
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="booldog.boolean.modifications" href="../modifications/index.html" />
+    <link rel="prev" title="booldog.boolean" href="../index.html" /> 
+    <meta name="google-site-verification" content="9jGGfgofMrQ_y61Lhymy5MZmfI6DzTOCTSV3xegf-Ec" />
+    <script type="application/ld+json" >
+{
+  "@context": "http://schema.org",
+  "@id": "https://nib-si.github.io/BoolDog",
+  "@type": "Tool",
+  "additionalType": [],
+  "applicationCategory": "Computational science tool",
+  "codeRepository": [
+    "https://github.com/NIB-SI/BoolDoG"
+  ],
+  "dct:conformsTo": "https://bioschemas.org/profiles/Tool/0.4-DRAFT-2019_07_19",
+  "description": "A Python package for analyses of Boolean and semi-qualitative Boolean networks.",
+  "license": [
+    "https://spdx.org/licenses/MIT"
+  ],
+  "name": "BoolDog",
+  "programmingLanguage": [
+    {
+      "@id": "Python",
+      "@type": "ComputerLanguage"
+    }
+  ],
+  "provider": [
+    {
+      "@context": "http://schema.org",
+      "@type": "Organization",
+      "dct:conformsTo": "https://bioschemas.org/profiles/Organization/0.2-DRAFT-2019_07_19",
+      "description": "",
+      "name": ""
+    }
+  ],
+  "softwareVersion": "0.0.1",
+  "url": "https://github.com/NIB-SI/BoolDog"
+}
+</script >
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #009739" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            BoolDog
+              <img src="../../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../example.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../formats.html">Formats</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html">booldog</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../index.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../index.html">booldog.boolean</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../classes/index.html">booldog.classes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../continuous/index.html">booldog.continuous</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../io/index.html">booldog.io</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../network/index.html">booldog.network</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../resources/index.html">booldog.resources</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../simulation_result/index.html">booldog.simulation_result</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../utils/index.html">booldog.utils</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../index.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../index.html#package-contents">Package Contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #009739" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">BoolDog</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">booldog</a></li>
+          <li class="breadcrumb-item"><a href="../index.html">booldog.boolean</a></li>
+      <li class="breadcrumb-item active">booldog.boolean.boolean</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/autoapi/booldog/boolean/boolean/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-booldog.boolean.boolean">
+<span id="booldog-boolean-boolean"></span><h1>booldog.boolean.boolean<a class="headerlink" href="#module-booldog.boolean.boolean" title="Link to this heading"></a></h1>
+<p>Module containing functions to manipulate and simulate
+Boolean networks. It is not intended to be used directly, but rather as a mixin
+for other classes.</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.boolean.boolean.logger" title="booldog.boolean.boolean.logger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logger</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.boolean.boolean.BooleanNetworkMixin" title="booldog.boolean.boolean.BooleanNetworkMixin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BooleanNetworkMixin</span></code></a></p></td>
+<td><p>Class for Boolean network functions.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="booldog.boolean.boolean.logger">
+<span class="sig-prename descclassname"><span class="pre">booldog.boolean.boolean.</span></span><span class="sig-name descname"><span class="pre">logger</span></span><a class="headerlink" href="#booldog.boolean.boolean.logger" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="booldog.boolean.boolean.BooleanNetworkMixin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">booldog.boolean.boolean.</span></span><span class="sig-name descname"><span class="pre">BooleanNetworkMixin</span></span><a class="headerlink" href="#booldog.boolean.boolean.BooleanNetworkMixin" title="Link to this definition"></a></dt>
+<dd><p>Class for Boolean network functions.</p>
+<p>This class is not intended to be used directly, but rather as a mixin.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.boolean.boolean.BooleanNetworkMixin.get_primes">
+<span class="sig-name descname"><span class="pre">get_primes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#booldog.boolean.boolean.BooleanNetworkMixin.get_primes" title="Link to this definition"></a></dt>
+<dd><p>Get prime implicants</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>primes</strong> – Prime implicants of the Boolean network.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.boolean.boolean.BooleanNetworkMixin.get_rule">
+<span class="sig-name descname"><span class="pre">get_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.boolean.boolean.BooleanNetworkMixin.get_rule" title="Link to this definition"></a></dt>
+<dd><p>Get the rule for a given node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>node</strong> (<em>str</em><em> or </em><a class="reference internal" href="../../classes/index.html#booldog.classes.BoolDogNode" title="booldog.classes.BoolDogNode"><em>BoolDogNode</em></a>) – Node identifier or BoolDogNode object.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The rule for the given node.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.boolean.boolean.BooleanNetworkMixin.primes_to_matrices">
+<span class="sig-name descname"><span class="pre">primes_to_matrices</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#booldog.boolean.boolean.BooleanNetworkMixin.primes_to_matrices" title="Link to this definition"></a></dt>
+<dd><p>Represent Boolean network a “activation” and “inhibition” matrices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><strong>act</strong> (<em>np.array</em>) – n * n matrix with entry m_{i, j} = 1 iff node_j activates node_i</p></li>
+<li><p><strong>inh</strong> (<em>np.array</em>) – n * n matrix with entry m_{i, j} = 1 iff node_j inhibits node_i</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Only if graph is of type threshold (i.e. SQUAD) does this make sense.
+Used in SquadODE
+Create logic matrices</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.boolean.boolean.BooleanNetworkMixin.generate_states">
+<span class="sig-name descname"><span class="pre">generate_states</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fixed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.boolean.boolean.BooleanNetworkMixin.generate_states" title="Link to this definition"></a></dt>
+<dd><p>Generate all possible states of the graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fixed</strong> (<em>dict</em>) – A dictionary of {node:state} to be kept fixed, with
+node in graph.nodes, and state in {0, 1}.</p>
+</dd>
+<dt class="field-even">Yields<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>state</strong> (<em>np.array</em>) – length n array with a state of the graph.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.boolean.boolean.BooleanNetworkMixin.inactivate_state">
+<span class="sig-name descname"><span class="pre">inactivate_state</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#booldog.boolean.boolean.BooleanNetworkMixin.inactivate_state" title="Link to this definition"></a></dt>
+<dd><p>A state space with all nodes inactive</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.boolean.boolean.BooleanNetworkMixin.activate_state">
+<span class="sig-name descname"><span class="pre">activate_state</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#booldog.boolean.boolean.BooleanNetworkMixin.activate_state" title="Link to this definition"></a></dt>
+<dd><p>A state space with all nodes active</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.boolean.boolean.BooleanNetworkMixin.boolean_simulation">
+<span class="sig-name descname"><span class="pre">boolean_simulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initial_states</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.boolean.boolean.BooleanNetworkMixin.boolean_simulation" title="Link to this definition"></a></dt>
+<dd><p>Compute a Boolean simulation (or state transition)
+from optional initial values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>initial_states</strong> (<em>int</em><em>, </em><em>str</em><em>, </em><em>list</em><em>, </em><em>dict</em><em>, or </em><a class="reference internal" href="../../simulation_result/boolean_result/index.html#booldog.simulation_result.boolean_result.BooleanStateSpace" title="booldog.simulation_result.boolean_result.BooleanStateSpace"><em>BooleanStateSpace</em></a><em>, </em><em>optional</em>) – Initial states, see Notes for format</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This is a wrapper for pyboolnet.state_transition_graphs.primes2stg,
+and therefore takes the same argument format for initial states.</p>
+<p><strong>From pyboolnet documentation:</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Either a list of states in dict or str format::
+
+    init = [&quot;000&quot;, &quot;111&quot;]
+    init = [&quot;000&quot;, {&quot;v1&quot;:1,&quot;v2&quot;:1,&quot;v3&quot;:1}]
+
+or as a function that is called on every state and must return
+either True or False to indicate whether the state ought to be initial::
+
+    init = lambda x: x[&quot;v1&quot;]&gt;=x[&quot;v2&quot;]
+
+or by a subspace in which case all the states contained in it are
+initial::
+
+    init = &quot;--1&quot;
+    init = {&quot;v3&quot;:1}
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.boolean.boolean.BooleanNetworkMixin.standard_states_format">
+<span class="sig-name descname"><span class="pre">standard_states_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">states</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.boolean.boolean.BooleanNetworkMixin.standard_states_format" title="Link to this definition"></a></dt>
+<dd><p class="rubric">Notes</p>
+<p><a class="reference external" href="https://github.com/hklarner/pyboolnet/blob/529860bc1185277fb2b5e0f3b36c9ba6c7b9fe2f/pyboolnet/state_transition_graphs.py#L124-L135">https://github.com/hklarner/pyboolnet/blob/529860bc1185277fb2b5e0f3b36c9ba6c7b9fe2f/pyboolnet/state_transition_graphs.py#L124-L135</a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.boolean.boolean.BooleanNetworkMixin.steady_states">
+<span class="sig-name descname"><span class="pre">steady_states</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#booldog.boolean.boolean.BooleanNetworkMixin.steady_states" title="Link to this definition"></a></dt>
+<dd><p>All steady states of the Boolean graph.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.boolean.boolean.BooleanNetworkMixin.get_parents">
+<span class="sig-name descname"><span class="pre">get_parents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.boolean.boolean.BooleanNetworkMixin.get_parents" title="Link to this definition"></a></dt>
+<dd><p>Fetch regulators/inputs to a node</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>node</strong> (<em>str</em>) – Node name</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>parents</strong> – Set of parent nodes</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.boolean.boolean.BooleanNetworkMixin.get_interactions">
+<span class="sig-name descname"><span class="pre">get_interactions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">direction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'out'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.boolean.boolean.BooleanNetworkMixin.get_interactions" title="Link to this definition"></a></dt>
+<dd><p>direction out: interactions[a][b]  a –&gt; b
+direction in:  interactions[a][b]  a &lt;– b</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.boolean.boolean.BooleanNetworkMixin.is_constant">
+<span class="sig-name descname"><span class="pre">is_constant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.boolean.boolean.BooleanNetworkMixin.is_constant" title="Link to this definition"></a></dt>
+<dd><p>Whether node is a constant (has no input) in the network.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>node_id</strong> (<em>str</em>) – Node identifier</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>constant</strong> – Whether <cite>node</cite> is a constant</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This is a wrapper for pyboolnet.prime_implicants.is_constant.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.boolean.boolean.BooleanNetworkMixin.list_network_inputs">
+<span class="sig-name descname"><span class="pre">list_network_inputs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#booldog.boolean.boolean.BooleanNetworkMixin.list_network_inputs" title="Link to this definition"></a></dt>
+<dd><p>List all nodes that have no regulators/inputs in the network.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>inputs</strong> – List of input node names</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="booldog.boolean" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../modifications/index.html" class="btn btn-neutral float-right" title="booldog.boolean.modifications" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2025 National Institute of Biology, Slovenia.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

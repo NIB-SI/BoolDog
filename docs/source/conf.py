@@ -36,6 +36,10 @@ extensions = [
     'sphinx_rtd_theme',
     'sphinx.ext.todo',
     'sphinx.ext.intersphinx',
+
+    # embed jupyter notebooks in the documentation
+    "nbsphinx",
+    'nbsphinx_link',
 ]
 
 # Autoapi settings

@@ -1,0 +1,274 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>booldog.semi_quantitative &mdash; BoolDog 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/icon.ico"/>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="booldog.simulation_result" href="../simulation_result/index.html" />
+    <link rel="prev" title="booldog.resources" href="../resources/index.html" /> 
+    <meta name="google-site-verification" content="9jGGfgofMrQ_y61Lhymy5MZmfI6DzTOCTSV3xegf-Ec" />
+    <script type="application/ld+json" >
+{
+  "@context": "http://schema.org",
+  "@id": "https://nib-si.github.io/BoolDog",
+  "@type": "Tool",
+  "additionalType": [],
+  "applicationCategory": "Computational science tool",
+  "codeRepository": [
+    "https://github.com/NIB-SI/BoolDoG"
+  ],
+  "dct:conformsTo": "https://bioschemas.org/profiles/Tool/0.4-DRAFT-2019_07_19",
+  "description": "A Python package for analyses of Boolean and semi-qualitative Boolean networks.",
+  "license": [
+    "https://spdx.org/licenses/MIT"
+  ],
+  "name": "BoolDog",
+  "programmingLanguage": [
+    {
+      "@id": "Python",
+      "@type": "ComputerLanguage"
+    }
+  ],
+  "provider": [
+    {
+      "@context": "http://schema.org",
+      "@type": "Organization",
+      "dct:conformsTo": "https://bioschemas.org/profiles/Organization/0.2-DRAFT-2019_07_19",
+      "description": "",
+      "name": ""
+    }
+  ],
+  "softwareVersion": "0.0.1",
+  "url": "https://github.com/NIB-SI/BoolDog"
+}
+</script >
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #009739" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            BoolDog
+              <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../example.html">Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../formats.html">Formats</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">booldog</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../boolean/index.html">booldog.boolean</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/index.html">booldog.cli</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../io/index.html">booldog.io</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../network/index.html">booldog.network</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ode_factory/index.html">booldog.ode_factory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../resources/index.html">booldog.resources</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">booldog.semi_quantitative</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../simulation_result/index.html">booldog.simulation_result</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../utils/index.html">booldog.utils</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#package-contents">Package Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../compile_swig/index.html">compile_swig</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #009739" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">BoolDog</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../index.html">booldog</a></li>
+      <li class="breadcrumb-item active">booldog.semi_quantitative</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/autoapi/booldog/semi_quantitative/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-booldog.semi_quantitative">
+<span id="booldog-semi-quantitative"></span><h1>booldog.semi_quantitative<a class="headerlink" href="#module-booldog.semi_quantitative" title="Link to this heading"></a></h1>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.semi_quantitative.logger" title="booldog.semi_quantitative.logger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logger</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.semi_quantitative.ContinuousMixin" title="booldog.semi_quantitative.ContinuousMixin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ContinuousMixin</span></code></a></p></td>
+<td><p>Class for Continuous simulations functions.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="booldog.semi_quantitative.logger">
+<span class="sig-prename descclassname"><span class="pre">booldog.semi_quantitative.</span></span><span class="sig-name descname"><span class="pre">logger</span></span><a class="headerlink" href="#booldog.semi_quantitative.logger" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="booldog.semi_quantitative.ContinuousMixin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">booldog.semi_quantitative.</span></span><span class="sig-name descname"><span class="pre">ContinuousMixin</span></span><a class="headerlink" href="#booldog.semi_quantitative.ContinuousMixin" title="Link to this definition"></a></dt>
+<dd><p>Class for Continuous simulations functions.</p>
+<p>This class is not intended to be used directly, but rather as a mixin.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.semi_quantitative.ContinuousMixin.continuous_simulation">
+<span class="sig-name descname"><span class="pre">continuous_simulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_events</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_events</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ode_system</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">solve_ivp</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.semi_quantitative.ContinuousMixin.continuous_simulation" title="Link to this definition"></a></dt>
+<dd><p>Run continuous semi-quantitative simulation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node_events</strong> (<em>None</em><em> or </em><em>list</em><em> of </em><em>dict</em><em>, </em><em>optional</em>) – List of node events with a dictionary defining each event.
+See <a class="reference internal" href="#tagnotesne"><span class="std std-ref">Notes</span></a> for description of event definitions.</p></li>
+<li><p><strong>edge_events</strong> (<em>None</em><em> or </em><em>list</em><em> of </em><em>dict</em><em>, </em><em>optional</em>) – Disrupt connections #TODO not implemented</p></li>
+<li><p><strong>t_min</strong> (<em>float</em><em>, </em><em>optional</em>) – Interval of integration, simulation starts with <cite>t=t_min</cite> and
+integrates until it reaches <cite>t=t_max</cite>.</p></li>
+<li><p><strong>t_max</strong> (<em>float</em><em>, </em><em>optional</em>) – Interval of integration, simulation starts with <cite>t=t_min</cite> and
+integrates until it reaches <cite>t=t_max</cite>.</p></li>
+<li><p><strong>initial_state</strong> (<em>float</em><em> or </em><em>int</em><em> or </em><em>array</em><em> or </em><em>dict</em><em>, </em><em>optional</em>) – Initial state of nodes. See <a class="reference internal" href="#tagnotesis"><span class="std std-ref">Notes</span></a> for
+description of format.</p></li>
+<li><p><strong>ode_system</strong> (None or <code class="xref py py-func docutils literal notranslate"><span class="pre">booldog.ODE()</span></code>, optional) – If none, the ODE is created with
+<code class="xref py py-func docutils literal notranslate"><span class="pre">transform_bool_to_continuous()</span></code></p></li>
+<li><p><strong>**kwargs</strong> – <p>If ode_system is None, additional keyword arguments are
+passed to <code class="xref py py-func docutils literal notranslate"><span class="pre">transform_bool_to_continuous()</span></code>.
+For description of these arguments see <code class="xref py py-func docutils literal notranslate"><span class="pre">booldog.ODE()</span></code>.</p>
+<p>If <cite>plot=True</cite> , additional keyword arguments are
+passed to <code class="xref py py-func docutils literal notranslate"><span class="pre">plot_simulation()</span></code>.</p>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>r</strong> (<em>object #TODO</em>)</p></li>
+<li><p><strong>t</strong> (<em>ndarray, shape (n_time_points,)</em>) – Time-points.</p></li>
+<li><p><strong>y</strong> (<em>ndarray, shape (n_time_points, n_nodes)</em>) – Values of the solution at t.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<dl id="tagnotesne">
+<dt>Format of the <cite>node_events</cite> parameter</dt><dd><p>The node events are passed as a list of dictionaries defining each
+event. Dictionary keys are:</p>
+<ul class="simple">
+<li><p><cite>time</cite>: time at which the event occurs</p></li>
+<li><p><cite>node</cite>: name of node which is perturbed</p></li>
+<li><p><cite>value</cite>:  value to which the node is set</p></li>
+<li><p><cite>duration</cite>: (optional) duration for which the node is fixed             if longer than 0, (i.e. not a point perturbation)</p></li>
+</ul>
+<p>Example - at timepoint 10, node X is set to 0.25 for 5 time-steps.
+and at timepoint 12, node Y and Z are set to 1 for 0
+timesteps:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">node_events</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;node&#39;</span><span class="p">:</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span><span class="mf">.25</span><span class="p">,</span> <span class="s1">&#39;duration&#39;</span><span class="p">:</span><span class="mi">5</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span><span class="mi">12</span><span class="p">,</span> <span class="s1">&#39;node&#39;</span><span class="p">:</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span><span class="mi">12</span><span class="p">,</span> <span class="s1">&#39;node&#39;</span><span class="p">:</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="simple" id="tagnotesis">
+<dt>Format of the <cite>initial_state</cite> parameter</dt><dd><p>If the initial state is an int or float, the value is assigned for
+all variables. Otherwise the parameter argument should be a dict
+with keys as node names and values for their initial state. In
+this case, if the initial state is not defined for all nodes, a
+<cite>default</cite> key with the default value should also be present in the
+dict.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../resources/index.html" class="btn btn-neutral float-left" title="booldog.resources" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../simulation_result/index.html" class="btn btn-neutral float-right" title="booldog.simulation_result" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2025 National Institute of Biology, Slovenia.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

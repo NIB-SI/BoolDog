@@ -1,10 +1,10 @@
 from enum import Enum
 import errno
+from importlib.metadata import version
+from pathlib import Path
+import logging
 
 import numpy as np
-from pathlib import Path
-
-import logging
 
 logger = logging.getLogger(__name__)
 
@@ -103,4 +103,15 @@ def file_writable(path):
         elif e.errno == errno.EISDIR:
             logger.error('%s is a directory.', path)
         raise e
+
+def get_pkg_version():
+    '''Get version of booldog package
+
+    Returns
+    -------
+    version : str
+        Version of booldog package
+    '''
+    return version('booldog')
+
 

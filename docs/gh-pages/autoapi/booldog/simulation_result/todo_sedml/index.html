@@ -1,0 +1,358 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>booldog.simulation_result.todo_sedml &mdash; BoolDog 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+    <link rel="shortcut icon" href="../../../../_static/icon.ico"/>
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="booldog.todo_cli" href="../../todo_cli/index.html" />
+    <link rel="prev" title="booldog.simulation_result.continuous_result" href="../continuous_result/index.html" /> 
+    <meta name="google-site-verification" content="9jGGfgofMrQ_y61Lhymy5MZmfI6DzTOCTSV3xegf-Ec" />
+    <script type="application/ld+json" >
+{
+  "@context": "http://schema.org",
+  "@id": "https://nib-si.github.io/BoolDog",
+  "@type": "Tool",
+  "additionalType": [],
+  "applicationCategory": "Computational science tool",
+  "codeRepository": [
+    "https://github.com/NIB-SI/BoolDoG"
+  ],
+  "dct:conformsTo": "https://bioschemas.org/profiles/Tool/0.4-DRAFT-2019_07_19",
+  "description": "A Python package for analyses of Boolean and semi-qualitative Boolean networks.",
+  "license": [
+    "https://spdx.org/licenses/MIT"
+  ],
+  "name": "BoolDog",
+  "programmingLanguage": [
+    {
+      "@id": "Python",
+      "@type": "ComputerLanguage"
+    }
+  ],
+  "provider": [
+    {
+      "@context": "http://schema.org",
+      "@type": "Organization",
+      "dct:conformsTo": "https://bioschemas.org/profiles/Organization/0.2-DRAFT-2019_07_19",
+      "description": "",
+      "name": ""
+    }
+  ],
+  "softwareVersion": "0.0.1",
+  "url": "https://github.com/NIB-SI/BoolDog"
+}
+</script >
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #009739" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            BoolDog
+              <img src="../../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../example.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../formats.html">Formats</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html">booldog</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../index.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../../boolean/index.html">booldog.boolean</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../classes/index.html">booldog.classes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../continuous/index.html">booldog.continuous</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../io/index.html">booldog.io</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../network/index.html">booldog.network</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../resources/index.html">booldog.resources</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="../index.html">booldog.simulation_result</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../todo_cli/index.html">booldog.todo_cli</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../utils/index.html">booldog.utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #009739" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">BoolDog</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">booldog</a></li>
+          <li class="breadcrumb-item"><a href="../index.html">booldog.simulation_result</a></li>
+      <li class="breadcrumb-item active">booldog.simulation_result.todo_sedml</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/autoapi/booldog/simulation_result/todo_sedml/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-booldog.simulation_result.todo_sedml">
+<span id="booldog-simulation-result-todo-sedml"></span><h1>booldog.simulation_result.todo_sedml<a class="headerlink" href="#module-booldog.simulation_result.todo_sedml" title="Link to this heading"></a></h1>
+<p>Create SEDML document from a simulation result</p>
+<p>Add dependency: sedml = [“python-libsedml&gt;=2.0.32”]</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.simulation_result.todo_sedml._SEDML_AVAILABLE" title="booldog.simulation_result.todo_sedml._SEDML_AVAILABLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_SEDML_AVAILABLE</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#booldog.simulation_result.todo_sedml.logger" title="booldog.simulation_result.todo_sedml.logger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logger</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.simulation_result.todo_sedml.SUPPORTED_LANGUAGE_URNS" title="booldog.simulation_result.todo_sedml.SUPPORTED_LANGUAGE_URNS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SUPPORTED_LANGUAGE_URNS</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#booldog.simulation_result.todo_sedml.handler" title="booldog.simulation_result.todo_sedml.handler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">handler</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.simulation_result.todo_sedml.ModelDefinition" title="booldog.simulation_result.todo_sedml.ModelDefinition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ModelDefinition</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#booldog.simulation_result.todo_sedml.SedmlHandler" title="booldog.simulation_result.todo_sedml.SedmlHandler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SedmlHandler</span></code></a></p></td>
+<td><p>A handler for reading, modifying, and writing SED-ML documents.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="booldog.simulation_result.todo_sedml._SEDML_AVAILABLE">
+<span class="sig-prename descclassname"><span class="pre">booldog.simulation_result.todo_sedml.</span></span><span class="sig-name descname"><span class="pre">_SEDML_AVAILABLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#booldog.simulation_result.todo_sedml._SEDML_AVAILABLE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="booldog.simulation_result.todo_sedml.logger">
+<span class="sig-prename descclassname"><span class="pre">booldog.simulation_result.todo_sedml.</span></span><span class="sig-name descname"><span class="pre">logger</span></span><a class="headerlink" href="#booldog.simulation_result.todo_sedml.logger" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="booldog.simulation_result.todo_sedml.SUPPORTED_LANGUAGE_URNS">
+<span class="sig-prename descclassname"><span class="pre">booldog.simulation_result.todo_sedml.</span></span><span class="sig-name descname"><span class="pre">SUPPORTED_LANGUAGE_URNS</span></span><a class="headerlink" href="#booldog.simulation_result.todo_sedml.SUPPORTED_LANGUAGE_URNS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="booldog.simulation_result.todo_sedml.ModelDefinition">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">booldog.simulation_result.todo_sedml.</span></span><span class="sig-name descname"><span class="pre">ModelDefinition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.simulation_result.todo_sedml.ModelDefinition" title="Link to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="booldog.simulation_result.todo_sedml.ModelDefinition.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#booldog.simulation_result.todo_sedml.ModelDefinition.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="booldog.simulation_result.todo_sedml.ModelDefinition.source">
+<span class="sig-name descname"><span class="pre">source</span></span><a class="headerlink" href="#booldog.simulation_result.todo_sedml.ModelDefinition.source" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="booldog.simulation_result.todo_sedml.ModelDefinition.language">
+<span class="sig-name descname"><span class="pre">language</span></span><a class="headerlink" href="#booldog.simulation_result.todo_sedml.ModelDefinition.language" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="booldog.simulation_result.todo_sedml.ModelDefinition.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#booldog.simulation_result.todo_sedml.ModelDefinition.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="booldog.simulation_result.todo_sedml.ModelDefinition.modifications">
+<span class="sig-name descname"><span class="pre">modifications</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#booldog.simulation_result.todo_sedml.ModelDefinition.modifications" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="booldog.simulation_result.todo_sedml.SedmlHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">booldog.simulation_result.todo_sedml.</span></span><span class="sig-name descname"><span class="pre">SedmlHandler</span></span><a class="headerlink" href="#booldog.simulation_result.todo_sedml.SedmlHandler" title="Link to this definition"></a></dt>
+<dd><p>A handler for reading, modifying, and writing SED-ML documents.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="booldog.simulation_result.todo_sedml.SedmlHandler.document">
+<span class="sig-name descname"><span class="pre">document</span></span><a class="headerlink" href="#booldog.simulation_result.todo_sedml.SedmlHandler.document" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.simulation_result.todo_sedml.SedmlHandler.read_sedml">
+<span class="sig-name descname"><span class="pre">read_sedml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.simulation_result.todo_sedml.SedmlHandler.read_sedml" title="Link to this definition"></a></dt>
+<dd><p>Reads a SED-ML document from a file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_path</strong> (<em>str</em>) – Path to the SED-ML file.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If there are errors in reading the SED-ML file.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.simulation_result.todo_sedml.SedmlHandler.write_sedml">
+<span class="sig-name descname"><span class="pre">write_sedml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.simulation_result.todo_sedml.SedmlHandler.write_sedml" title="Link to this definition"></a></dt>
+<dd><p>Writes the SED-ML document to a file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_path</strong> (<em>str</em>) – Path to save the SED-ML file.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If the document is not an instance of libsedml.SedDocument.</p></li>
+<li><p><strong>IOError</strong> – If writing the SED-ML file fails.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.simulation_result.todo_sedml.SedmlHandler.create_empty_document">
+<span class="sig-name descname"><span class="pre">create_empty_document</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#booldog.simulation_result.todo_sedml.SedmlHandler.create_empty_document" title="Link to this definition"></a></dt>
+<dd><p>Creates an empty SED-ML document.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.simulation_result.todo_sedml.SedmlHandler.add_simulation">
+<span class="sig-name descname"><span class="pre">add_simulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulation_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simulation_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'uniformTimeCourse'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.simulation_result.todo_sedml.SedmlHandler.add_simulation" title="Link to this definition"></a></dt>
+<dd><p>Adds a simulation to the SED-ML document.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>simulation_id</strong> (<em>str</em>) – Unique ID for the simulation.</p></li>
+<li><p><strong>simulation_type</strong> (<em>str</em><em>, </em><em>optional</em>) – Type of simulation (default is “uniformTimeCourse”).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>NotImplementedError</strong> – If the simulation type is not supported.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The newly added simulation object.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>libsedml.SedUniformTimeCourse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.simulation_result.todo_sedml.SedmlHandler.add_model">
+<span class="sig-name descname"><span class="pre">add_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.simulation_result.todo_sedml.SedmlHandler.add_model" title="Link to this definition"></a></dt>
+<dd><p>Adds a model to the SED-ML document.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_id</strong> (<em>str</em>) – Unique ID for the model.</p></li>
+<li><p><strong>source</strong> (<em>str</em>) – Path or URI to the model source file.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The newly added model object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>libsedml.SedModel</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="booldog.simulation_result.todo_sedml.handler">
+<span class="sig-prename descclassname"><span class="pre">booldog.simulation_result.todo_sedml.</span></span><span class="sig-name descname"><span class="pre">handler</span></span><a class="headerlink" href="#booldog.simulation_result.todo_sedml.handler" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../continuous_result/index.html" class="btn btn-neutral float-left" title="booldog.simulation_result.continuous_result" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../todo_cli/index.html" class="btn btn-neutral float-right" title="booldog.todo_cli" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2025 National Institute of Biology, Slovenia.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

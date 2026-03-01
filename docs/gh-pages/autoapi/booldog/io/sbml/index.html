@@ -1,0 +1,516 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>booldog.io.sbml &mdash; BoolDog 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+    <link rel="shortcut icon" href="../../../../_static/icon.ico"/>
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="booldog.io.tabularqual" href="../tabularqual/index.html" />
+    <link rel="prev" title="booldog.io.primes" href="../primes/index.html" /> 
+    <meta name="google-site-verification" content="9jGGfgofMrQ_y61Lhymy5MZmfI6DzTOCTSV3xegf-Ec" />
+    <script type="application/ld+json" >
+{
+  "@context": "http://schema.org",
+  "@id": "https://nib-si.github.io/BoolDog",
+  "@type": "Tool",
+  "additionalType": [],
+  "applicationCategory": "Computational science tool",
+  "codeRepository": [
+    "https://github.com/NIB-SI/BoolDoG"
+  ],
+  "dct:conformsTo": "https://bioschemas.org/profiles/Tool/0.4-DRAFT-2019_07_19",
+  "description": "A Python package for analyses of Boolean and semi-qualitative Boolean networks.",
+  "license": [
+    "https://spdx.org/licenses/MIT"
+  ],
+  "name": "BoolDog",
+  "programmingLanguage": [
+    {
+      "@id": "Python",
+      "@type": "ComputerLanguage"
+    }
+  ],
+  "provider": [
+    {
+      "@context": "http://schema.org",
+      "@type": "Organization",
+      "dct:conformsTo": "https://bioschemas.org/profiles/Organization/0.2-DRAFT-2019_07_19",
+      "description": "",
+      "name": ""
+    }
+  ],
+  "softwareVersion": "0.0.1",
+  "url": "https://github.com/NIB-SI/BoolDog"
+}
+</script >
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #009739" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            BoolDog
+              <img src="../../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../example.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../formats.html">Formats</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html">booldog</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../index.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../../boolean/index.html">booldog.boolean</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../classes/index.html">booldog.classes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../continuous/index.html">booldog.continuous</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="../index.html">booldog.io</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../network/index.html">booldog.network</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../resources/index.html">booldog.resources</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../simulation_result/index.html">booldog.simulation_result</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../utils/index.html">booldog.utils</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../index.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../index.html#package-contents">Package Contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #009739" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">BoolDog</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">booldog</a></li>
+          <li class="breadcrumb-item"><a href="../index.html">booldog.io</a></li>
+      <li class="breadcrumb-item active">booldog.io.sbml</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/autoapi/booldog/io/sbml/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-booldog.io.sbml">
+<span id="booldog-io-sbml"></span><h1>booldog.io.sbml<a class="headerlink" href="#module-booldog.io.sbml" title="Link to this heading"></a></h1>
+<p>Read-write SBML-qual files</p>
+<p class="rubric">Notes</p>
+<p>SBML-qual code is inspired by:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>loadSBML.R of BoolNet (January 2024)</dt><dd><p><a class="reference external" href="https://github.com/cran/BoolNet/blob/af3a714c5bfa72ee7507db9c4eaf90ba2cd91809/R/loadSBML.R">https://github.com/cran/BoolNet/blob/af3a714c5bfa72ee7507db9c4eaf90ba2cd91809/R/loadSBML.R</a></p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>sbmlqual.py of CellNOpt (January 2024)</dt><dd><p><a class="reference external" href="https://github.com/cellnopt/cellnopt/blob/319c956e890ed7ae88c8e6e540de7061acfaae00/cno/io/sbmlqual.py">https://github.com/cellnopt/cellnopt/blob/319c956e890ed7ae88c8e6e540de7061acfaae00/cno/io/sbmlqual.py</a></p>
+</dd>
+</dl>
+</li>
+</ul>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.io.sbml._SBML_AVAILABLE" title="booldog.io.sbml._SBML_AVAILABLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_SBML_AVAILABLE</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#booldog.io.sbml.logger" title="booldog.io.sbml.logger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logger</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.io.sbml.SBML_INT_MAX" title="booldog.io.sbml.SBML_INT_MAX"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SBML_INT_MAX</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#booldog.io.sbml.TOKEN_REGEX" title="booldog.io.sbml.TOKEN_REGEX"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TOKEN_REGEX</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="exceptions">
+<h2>Exceptions<a class="headerlink" href="#exceptions" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.io.sbml.BoolDogSBMLException" title="booldog.io.sbml.BoolDogSBMLException"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BoolDogSBMLException</span></code></a></p></td>
+<td><p>Custom Exception for SBML parsing</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.io.sbml.SBMLQualReader" title="booldog.io.sbml.SBMLQualReader"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SBMLQualReader</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#booldog.io.sbml.TransitionParser" title="booldog.io.sbml.TransitionParser"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TransitionParser</span></code></a></p></td>
+<td><p>Parse SBML transition to bnet format</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.io.sbml.MathMLParser" title="booldog.io.sbml.MathMLParser"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MathMLParser</span></code></a></p></td>
+<td><p>Parse MathML to bnet format</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#booldog.io.sbml.SBMLQualWriter" title="booldog.io.sbml.SBMLQualWriter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SBMLQualWriter</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.io.sbml.read_sbmlqual" title="booldog.io.sbml.read_sbmlqual"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_sbmlqual</span></code></a>(file)</p></td>
+<td><p>Create Network from a SBML-qual file</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#booldog.io.sbml.write_sbmlqual" title="booldog.io.sbml.write_sbmlqual"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_sbmlqual</span></code></a>(model, outfile, **kwargs)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="booldog.io.sbml._SBML_AVAILABLE">
+<span class="sig-prename descclassname"><span class="pre">booldog.io.sbml.</span></span><span class="sig-name descname"><span class="pre">_SBML_AVAILABLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#booldog.io.sbml._SBML_AVAILABLE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="booldog.io.sbml.logger">
+<span class="sig-prename descclassname"><span class="pre">booldog.io.sbml.</span></span><span class="sig-name descname"><span class="pre">logger</span></span><a class="headerlink" href="#booldog.io.sbml.logger" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="booldog.io.sbml.SBML_INT_MAX">
+<span class="sig-prename descclassname"><span class="pre">booldog.io.sbml.</span></span><span class="sig-name descname"><span class="pre">SBML_INT_MAX</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2147483647</span></em><a class="headerlink" href="#booldog.io.sbml.SBML_INT_MAX" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="booldog.io.sbml.TOKEN_REGEX">
+<span class="sig-prename descclassname"><span class="pre">booldog.io.sbml.</span></span><span class="sig-name descname"><span class="pre">TOKEN_REGEX</span></span><a class="headerlink" href="#booldog.io.sbml.TOKEN_REGEX" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="booldog.io.sbml.BoolDogSBMLException">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">booldog.io.sbml.</span></span><span class="sig-name descname"><span class="pre">BoolDogSBMLException</span></span><a class="headerlink" href="#booldog.io.sbml.BoolDogSBMLException" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Custom Exception for SBML parsing</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="booldog.io.sbml.SBMLQualReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">booldog.io.sbml.</span></span><span class="sig-name descname"><span class="pre">SBMLQualReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.sbml.SBMLQualReader" title="Link to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="booldog.io.sbml.SBMLQualReader.file">
+<span class="sig-name descname"><span class="pre">file</span></span><a class="headerlink" href="#booldog.io.sbml.SBMLQualReader.file" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="booldog.io.sbml.SBMLQualReader.document">
+<span class="sig-name descname"><span class="pre">document</span></span><a class="headerlink" href="#booldog.io.sbml.SBMLQualReader.document" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="booldog.io.sbml.SBMLQualReader.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#booldog.io.sbml.SBMLQualReader.model" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="booldog.io.sbml.SBMLQualReader.model_id">
+<span class="sig-name descname"><span class="pre">model_id</span></span><a class="headerlink" href="#booldog.io.sbml.SBMLQualReader.model_id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="booldog.io.sbml.SBMLQualReader.plugin">
+<span class="sig-name descname"><span class="pre">plugin</span></span><a class="headerlink" href="#booldog.io.sbml.SBMLQualReader.plugin" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="booldog.io.sbml.SBMLQualReader.all_species">
+<span class="sig-name descname"><span class="pre">all_species</span></span><a class="headerlink" href="#booldog.io.sbml.SBMLQualReader.all_species" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="booldog.io.sbml.SBMLQualReader.species_names">
+<span class="sig-name descname"><span class="pre">species_names</span></span><a class="headerlink" href="#booldog.io.sbml.SBMLQualReader.species_names" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="booldog.io.sbml.SBMLQualReader.transitions">
+<span class="sig-name descname"><span class="pre">transitions</span></span><a class="headerlink" href="#booldog.io.sbml.SBMLQualReader.transitions" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="booldog.io.sbml.SBMLQualReader.rules">
+<span class="sig-name descname"><span class="pre">rules</span></span><a class="headerlink" href="#booldog.io.sbml.SBMLQualReader.rules" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.io.sbml.SBMLQualReader._get_qual_plugin">
+<span class="sig-name descname"><span class="pre">_get_qual_plugin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.sbml.SBMLQualReader._get_qual_plugin" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.io.sbml.SBMLQualReader._get_all_species">
+<span class="sig-name descname"><span class="pre">_get_all_species</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.sbml.SBMLQualReader._get_all_species" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.io.sbml.SBMLQualReader._get_all_transitions">
+<span class="sig-name descname"><span class="pre">_get_all_transitions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.sbml.SBMLQualReader._get_all_transitions" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.io.sbml.SBMLQualReader._get_all_rules">
+<span class="sig-name descname"><span class="pre">_get_all_rules</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.sbml.SBMLQualReader._get_all_rules" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.io.sbml.SBMLQualReader.to_bnet">
+<span class="sig-name descname"><span class="pre">to_bnet</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.sbml.SBMLQualReader.to_bnet" title="Link to this definition"></a></dt>
+<dd><p>Converts the SBML-qual file to a bnet format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>bnet</strong> – bnet representation of the Boolean network.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="booldog.io.sbml.TransitionParser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">booldog.io.sbml.</span></span><span class="sig-name descname"><span class="pre">TransitionParser</span></span><a class="headerlink" href="#booldog.io.sbml.TransitionParser" title="Link to this definition"></a></dt>
+<dd><p>Parse SBML transition to bnet format</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.io.sbml.TransitionParser.parse_io">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse_io</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transition</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_species</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.sbml.TransitionParser.parse_io" title="Link to this definition"></a></dt>
+<dd><p>Extract transition inputs and outputs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>transition</strong> (<em>libsbml::Transition</em>) – Transition specifying the logical rule associated with the
+Transition outputs.</p></li>
+<li><p><strong>all_species</strong> (<em>list</em>) – List ids of all species present in model</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>inputs</strong> (<em>dict</em>) – Dictionary of id: species information for this transition’s inputs</p></li>
+<li><p><strong>outputs</strong> (<em>list</em>) – List of this transition’s outputs (dependents)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.io.sbml.TransitionParser.parse_function">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transition</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_species</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.sbml.TransitionParser.parse_function" title="Link to this definition"></a></dt>
+<dd><p>Parse transition function to a logical rule.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>transition</strong> (<em>libsbml::Transition</em>) – Transition specifying the logical rule associated with the
+Transition outputs.</p></li>
+<li><p><strong>all_species</strong> (<em>list</em>) – List ids of all species present in model</p></li>
+<li><p><strong>inputs</strong> (<em>dict</em>) – Dictionary of id: species information for this transition’s inputs</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>logic_rule</strong> – Logic rule of this transition (in bnet format)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="booldog.io.sbml.MathMLParser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">booldog.io.sbml.</span></span><span class="sig-name descname"><span class="pre">MathMLParser</span></span><a class="headerlink" href="#booldog.io.sbml.MathMLParser" title="Link to this definition"></a></dt>
+<dd><p>Parse MathML to bnet format</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.io.sbml.MathMLParser.parse">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_species</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.sbml.MathMLParser.parse" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.io.sbml.MathMLParser._handle_operator">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_handle_operator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">children</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.sbml.MathMLParser._handle_operator" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.io.sbml.MathMLParser._handle_xor">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_handle_xor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">children</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.sbml.MathMLParser._handle_xor" title="Link to this definition"></a></dt>
+<dd><p>Create disjunctive normal form (DNF) of an xor</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.io.sbml.MathMLParser._handle_comparison">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_handle_comparison</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">children</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.sbml.MathMLParser._handle_comparison" title="Link to this definition"></a></dt>
+<dd><p>Return bnet form of an (mathml) operator between two children.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="booldog.io.sbml.SBMLQualWriter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">booldog.io.sbml.</span></span><span class="sig-name descname"><span class="pre">SBMLQualWriter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qual_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.sbml.SBMLQualWriter" title="Link to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="booldog.io.sbml.SBMLQualWriter.network">
+<span class="sig-name descname"><span class="pre">network</span></span><a class="headerlink" href="#booldog.io.sbml.SBMLQualWriter.network" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="booldog.io.sbml.SBMLQualWriter.mplugin">
+<span class="sig-name descname"><span class="pre">mplugin</span></span><a class="headerlink" href="#booldog.io.sbml.SBMLQualWriter.mplugin" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="booldog.io.sbml.SBMLQualWriter.node_dict">
+<span class="sig-name descname"><span class="pre">node_dict</span></span><a class="headerlink" href="#booldog.io.sbml.SBMLQualWriter.node_dict" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="booldog.io.sbml.SBMLQualWriter.doc">
+<span class="sig-name descname"><span class="pre">doc</span></span><a class="headerlink" href="#booldog.io.sbml.SBMLQualWriter.doc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.io.sbml.SBMLQualWriter.write">
+<span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outfile</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.sbml.SBMLQualWriter.write" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.io.sbml.SBMLQualWriter._add_species">
+<span class="sig-name descname"><span class="pre">_add_species</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.sbml.SBMLQualWriter._add_species" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.io.sbml.SBMLQualWriter._add_transitions">
+<span class="sig-name descname"><span class="pre">_add_transitions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.sbml.SBMLQualWriter._add_transitions" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.io.sbml.SBMLQualWriter._rule_to_formula">
+<span class="sig-name descname"><span class="pre">_rule_to_formula</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rule</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_node_dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.sbml.SBMLQualWriter._rule_to_formula" title="Link to this definition"></a></dt>
+<dd><p>Rule (as in bnet) to a formula as supported by parseL3Formula</p>
+<p class="rubric">Notes</p>
+<p>Replaces:</p>
+<ul class="simple">
+<li><p><cite>&amp;</cite>  with <cite>&amp;&amp;</cite></p></li>
+<li><p><cite>|</cite>  with <cite>||</cite></p></li>
+</ul>
+<p>To support thresholds, we need to replace the bnet format with a
+format supported by libsbml’s parseL3Formula:</p>
+<ul class="simple">
+<li><p><cite>A</cite>  to <cite>(A &gt;= theta_A)</cite> f”({node_dict[node]} &gt;= {input_node_dict[node]})”</p></li>
+<li><p><cite>!A</cite> to <cite>(A &lt; theta_A)</cite>  f”({node_dict[node]} &lt; {input_node_dict[node]})”</p></li>
+</ul>
+<p>This is currently NOT implemented.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="booldog.io.sbml.read_sbmlqual">
+<span class="sig-prename descclassname"><span class="pre">booldog.io.sbml.</span></span><span class="sig-name descname"><span class="pre">read_sbmlqual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.sbml.read_sbmlqual" title="Link to this definition"></a></dt>
+<dd><p>Create Network from a SBML-qual file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file</strong> (<em>str</em>) – Path to SBML-qual file.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The SBML-qual file is converted to a Boolean network using libsbml, via
+the bnet format. To access the bnet format directly, you can use <cite>py:booldog.io.sbmlqual2bnet</cite>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="booldog.io.sbml.write_sbmlqual">
+<span class="sig-prename descclassname"><span class="pre">booldog.io.sbml.</span></span><span class="sig-name descname"><span class="pre">write_sbmlqual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outfile</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.sbml.write_sbmlqual" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../primes/index.html" class="btn btn-neutral float-left" title="booldog.io.primes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../tabularqual/index.html" class="btn btn-neutral float-right" title="booldog.io.tabularqual" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2025 National Institute of Biology, Slovenia.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

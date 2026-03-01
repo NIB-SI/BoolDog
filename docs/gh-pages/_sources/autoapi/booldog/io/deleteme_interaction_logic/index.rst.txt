@@ -1,0 +1,97 @@
+booldog.io.deleteme_interaction_logic
+=====================================
+
+.. py:module:: booldog.io.deleteme_interaction_logic
+
+.. autoapi-nested-parse::
+
+   Provides functionality to convert interactions into boolean functions, which
+   can be used in dynamical modeling.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   booldog.io.deleteme_interaction_logic.logger
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   booldog.io.deleteme_interaction_logic.Interactions
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   booldog.io.deleteme_interaction_logic.interactions2primes
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:function:: interactions2primes(interactions, **kwargs)
+
+.. py:class:: Interactions(interactions, activator_symbol=1, inhibitor_symbol=-1, **_)
+
+   A helper class to convert interactions to a Boolean network using
+   SQUAD logic
+
+
+   .. py:attribute:: interactions
+
+
+   .. py:attribute:: nodes
+
+
+   .. py:attribute:: n
+
+
+   .. py:attribute:: index
+
+
+   .. py:attribute:: primes
+
+
+   .. py:method:: _make_reverse(interactions)
+
+      Orient in terms of target nodes.
+
+
+
+
+   .. py:method:: interactions_to_matrices(reverse_interactions)
+
+      Only if graph is of type threshold (i.e. SQUAD) does this make sense.
+      Create logic matrices
+      TODO: these can be made sparse matrices without much effort
+      see https://docs.scipy.org/doc/scipy/reference/sparse.html to
+      use e.g. dok_matrix
+
+
+
+   .. py:method:: update_funcs(interactions)
+
+      Convert interactions to update functions.
+
+      Each function takes the state of all other nodes in the network
+      and returns the state of the target node.
+
+      Logic is: active iff any activator is "active" AND all inhibitors are "inactive"
+
+
+
+   .. py:method:: _conform_interactions(interactions, activator_symbol, inhibitor_symbol)
+      :staticmethod:
+
+
+

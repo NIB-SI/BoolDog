@@ -1,0 +1,53 @@
+compile_swig
+============
+
+.. py:module:: compile_swig
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   compile_swig.numpy_include
+   compile_swig.cIAA_func_module
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   compile_swig.temp_file
+   compile_swig.temp_dir
+
+
+Module Contents
+---------------
+
+.. py:class:: temp_file(file_name, method, folder)
+
+   .. py:attribute:: file_obj
+
+
+   .. py:method:: __enter__()
+
+
+   .. py:method:: __exit__(type, value, traceback)
+
+
+.. py:class:: temp_dir
+
+   .. py:attribute:: saved_umask
+
+
+   .. py:attribute:: tmpdir
+
+
+   .. py:method:: create_file()
+
+
+.. py:data:: numpy_include
+
+.. py:data:: cIAA_func_module
+

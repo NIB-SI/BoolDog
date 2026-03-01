@@ -1,0 +1,300 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>booldog.simulation_result.continous_result &mdash; BoolDog 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+    <link rel="shortcut icon" href="../../../../_static/icon.ico"/>
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="booldog.simulation_result.sedml" href="../sedml/index.html" />
+    <link rel="prev" title="booldog.simulation_result.boolean_result" href="../boolean_result/index.html" /> 
+    <meta name="google-site-verification" content="9jGGfgofMrQ_y61Lhymy5MZmfI6DzTOCTSV3xegf-Ec" />
+    <script type="application/ld+json" >
+{
+  "@context": "http://schema.org",
+  "@id": "https://nib-si.github.io/BoolDog",
+  "@type": "Tool",
+  "additionalType": [],
+  "applicationCategory": "Computational science tool",
+  "codeRepository": [
+    "https://github.com/NIB-SI/BoolDoG"
+  ],
+  "dct:conformsTo": "https://bioschemas.org/profiles/Tool/0.4-DRAFT-2019_07_19",
+  "description": "A Python package for analyses of Boolean and semi-qualitative Boolean networks.",
+  "license": [
+    "https://spdx.org/licenses/MIT"
+  ],
+  "name": "BoolDog",
+  "programmingLanguage": [
+    {
+      "@id": "Python",
+      "@type": "ComputerLanguage"
+    }
+  ],
+  "provider": [
+    {
+      "@context": "http://schema.org",
+      "@type": "Organization",
+      "dct:conformsTo": "https://bioschemas.org/profiles/Organization/0.2-DRAFT-2019_07_19",
+      "description": "",
+      "name": ""
+    }
+  ],
+  "softwareVersion": "0.0.1",
+  "url": "https://github.com/NIB-SI/BoolDog"
+}
+</script >
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #009739" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            BoolDog
+              <img src="../../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../example.html">Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../formats.html">Formats</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html">booldog</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../index.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../../boolean/index.html">booldog.boolean</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../cli/index.html">booldog.cli</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../io/index.html">booldog.io</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../network/index.html">booldog.network</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../ode_factory/index.html">booldog.ode_factory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../resources/index.html">booldog.resources</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../semi_quantitative/index.html">booldog.semi_quantitative</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="../index.html">booldog.simulation_result</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../utils/index.html">booldog.utils</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../index.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../index.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../index.html#package-contents">Package Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../compile_swig/index.html">compile_swig</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #009739" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">BoolDog</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">booldog</a></li>
+          <li class="breadcrumb-item"><a href="../index.html">booldog.simulation_result</a></li>
+      <li class="breadcrumb-item active">booldog.simulation_result.continous_result</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/autoapi/booldog/simulation_result/continous_result/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-booldog.simulation_result.continous_result">
+<span id="booldog-simulation-result-continous-result"></span><h1>booldog.simulation_result.continous_result<a class="headerlink" href="#module-booldog.simulation_result.continous_result" title="Link to this heading"></a></h1>
+<p>Continuos simulation result class</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.simulation_result.continous_result.logger" title="booldog.simulation_result.continous_result.logger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logger</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.simulation_result.continous_result.ContinousSimulationResult" title="booldog.simulation_result.continous_result.ContinousSimulationResult"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ContinousSimulationResult</span></code></a></p></td>
+<td><p>Class to contain simulation results</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="booldog.simulation_result.continous_result.logger">
+<span class="sig-prename descclassname"><span class="pre">booldog.simulation_result.continous_result.</span></span><span class="sig-name descname"><span class="pre">logger</span></span><a class="headerlink" href="#booldog.simulation_result.continous_result.logger" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="booldog.simulation_result.continous_result.ContinousSimulationResult">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">booldog.simulation_result.continous_result.</span></span><span class="sig-name descname"><span class="pre">ContinousSimulationResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ode_system</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_events</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_events</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.simulation_result.continous_result.ContinousSimulationResult" title="Link to this definition"></a></dt>
+<dd><p>Class to contain simulation results</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="booldog.simulation_result.continous_result.ContinousSimulationResult.network">
+<span class="sig-name descname"><span class="pre">network</span></span><a class="headerlink" href="#booldog.simulation_result.continous_result.ContinousSimulationResult.network" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="booldog.simulation_result.continous_result.ContinousSimulationResult.ode_system">
+<span class="sig-name descname"><span class="pre">ode_system</span></span><a class="headerlink" href="#booldog.simulation_result.continous_result.ContinousSimulationResult.ode_system" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="booldog.simulation_result.continous_result.ContinousSimulationResult.t">
+<span class="sig-name descname"><span class="pre">t</span></span><a class="headerlink" href="#booldog.simulation_result.continous_result.ContinousSimulationResult.t" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="booldog.simulation_result.continous_result.ContinousSimulationResult.y">
+<span class="sig-name descname"><span class="pre">y</span></span><a class="headerlink" href="#booldog.simulation_result.continous_result.ContinousSimulationResult.y" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="booldog.simulation_result.continous_result.ContinousSimulationResult.node_events">
+<span class="sig-name descname"><span class="pre">node_events</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#booldog.simulation_result.continous_result.ContinousSimulationResult.node_events" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="booldog.simulation_result.continous_result.ContinousSimulationResult.edge_events">
+<span class="sig-name descname"><span class="pre">edge_events</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#booldog.simulation_result.continous_result.ContinousSimulationResult.edge_events" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.simulation_result.continous_result.ContinousSimulationResult.export">
+<span class="sig-name descname"><span class="pre">export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outfile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decimals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.simulation_result.continous_result.ContinousSimulationResult.export" title="Link to this definition"></a></dt>
+<dd><p>Export simulation results to a file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>outfile</strong> (<em>str</em><em> or </em><em>Path</em>) – Path to the output file. The file will be created if it does not
+exist. If the file already exists, it will be overwritten.</p></li>
+<li><p><strong>decimals</strong> (<em>int</em>) – Number of decimals to round the output values to. Default is 5.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<dl class="simple">
+<dt>The output file will contain:</dt><dd><ul class="simple">
+<li><p>nodelist</p></li>
+<li><p>ODE transform</p></li>
+<li><p>ODE parameters</p></li>
+<li><p>node_events</p></li>
+<li><p>timepoints</p></li>
+<li><p>solution/y</p></li>
+</ul>
+</dd>
+</dl>
+<p>The output will be tab-separated and can be read into a pandas DataFrame.
+If you want to use <cite>pandas</cite> to read the file, you can use the following code:
+df = pd.read_csv(outfile, sep=” “)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.simulation_result.continous_result.ContinousSimulationResult.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_nodes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(20,</span> <span class="pre">10)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.simulation_result.continous_result.ContinousSimulationResult.plot" title="Link to this definition"></a></dt>
+<dd><p>Plot simulation results.</p>
+<p>Called by <code class="xref py py-func docutils literal notranslate"><span class="pre">continous_simulation()</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>plot_nodes</strong> (<em>None</em><em> or </em><em>list</em><em> of </em><em>str</em><em> or </em><em>list</em><em> of </em><em>lists</em><em> of </em><em>str</em><em>, </em><em>optional</em>) – Subset of nodes to plot. If <cite>None</cite>, plot all nodes. If a list of
+lists, each sublist is plotted as a subplot.</p></li>
+<li><p><strong>title</strong> (<em>None</em><em> or </em><em>string</em><em> or </em><em>list</em><em> of </em><em>string</em>) – If str, main title of the plot. If a list of str, subtitles of
+subplots as defined by <cite>plot_node</cite>. In this case <cite>plot_nodes</cite>
+should be a list of lists, and <cite>title</cite> should be the same length as
+<cite>plot_nodes</cite>.</p></li>
+<li><p><strong>figsize</strong> (<em>(</em><em>float</em><em>, </em><em>float</em><em>)</em>) – Width, height in inches.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>fig</strong> (<em>matplotlib.figure.Figure</em>)</p></li>
+<li><p><strong>axes</strong> (<em>array of matplotlib.axes.Axes</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.simulation_result.continous_result.ContinousSimulationResult._plot_one_ax">
+<span class="sig-name descname"><span class="pre">_plot_one_ax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vlines</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.simulation_result.continous_result.ContinousSimulationResult._plot_one_ax" title="Link to this definition"></a></dt>
+<dd><p>Helper func that plots on a subplot axes</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../boolean_result/index.html" class="btn btn-neutral float-left" title="booldog.simulation_result.boolean_result" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../sedml/index.html" class="btn btn-neutral float-right" title="booldog.simulation_result.sedml" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2025 National Institute of Biology, Slovenia.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

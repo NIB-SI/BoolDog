@@ -30,8 +30,9 @@ dependencies = [
 
 [project.optional-dependencies]
 sbml = ["python-libsbml>=5.19"]
-networks = ["networkx", "igraph"]
+networks = ["networkx", "igraph==0.11.9"]
 graphviz = ["pygraphviz"]
+all = ["python-libsbml>=5.19", "networkx", "igraph==0.11.9", "pygraphviz"]
 
 [tool.setuptools.packages.find]
 include = ["booldog"]

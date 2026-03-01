@@ -1,0 +1,263 @@
+booldog.io.sbml
+===============
+
+.. py:module:: booldog.io.sbml
+
+.. autoapi-nested-parse::
+
+   Read-write SBML-qual files
+
+   .. rubric:: Notes
+
+   SBML-qual code is inspired by:
+
+   * loadSBML.R of BoolNet (January 2024)
+       https://github.com/cran/BoolNet/blob/af3a714c5bfa72ee7507db9c4eaf90ba2cd91809/R/loadSBML.R
+   * sbmlqual.py of CellNOpt (January 2024)
+       https://github.com/cellnopt/cellnopt/blob/319c956e890ed7ae88c8e6e540de7061acfaae00/cno/io/sbmlqual.py
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   booldog.io.sbml._SBML_AVAILABLE
+   booldog.io.sbml.logger
+   booldog.io.sbml.SBML_INT_MAX
+   booldog.io.sbml.TOKEN_REGEX
+
+
+Exceptions
+----------
+
+.. autoapisummary::
+
+   booldog.io.sbml.BoolDogSBMLException
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   booldog.io.sbml.SBMLQualReader
+   booldog.io.sbml.TransitionParser
+   booldog.io.sbml.MathMLParser
+   booldog.io.sbml.SBMLQualWriter
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   booldog.io.sbml.read_sbmlqual
+   booldog.io.sbml.write_sbmlqual
+
+
+Module Contents
+---------------
+
+.. py:data:: _SBML_AVAILABLE
+   :value: True
+
+
+.. py:data:: logger
+
+.. py:data:: SBML_INT_MAX
+   :value: 2147483647
+
+
+.. py:data:: TOKEN_REGEX
+
+.. py:exception:: BoolDogSBMLException
+
+   Bases: :py:obj:`Exception`
+
+
+   Custom Exception for SBML parsing
+
+
+.. py:class:: SBMLQualReader(file)
+
+   .. py:attribute:: file
+
+
+   .. py:attribute:: document
+
+
+   .. py:attribute:: model
+
+
+   .. py:attribute:: model_id
+
+
+   .. py:attribute:: plugin
+
+
+   .. py:attribute:: all_species
+
+
+   .. py:attribute:: species_names
+
+
+   .. py:attribute:: transitions
+
+
+   .. py:attribute:: rules
+
+
+   .. py:method:: _get_qual_plugin()
+
+
+   .. py:method:: _get_all_species()
+
+
+   .. py:method:: _get_all_transitions()
+
+
+   .. py:method:: _get_all_rules()
+
+
+   .. py:method:: to_bnet()
+
+      Converts the SBML-qual file to a bnet format.
+
+      :returns: **bnet** -- bnet representation of the Boolean network.
+      :rtype: str
+
+
+
+.. py:class:: TransitionParser
+
+   Parse SBML transition to bnet format
+
+
+   .. py:method:: parse_io(transition, all_species)
+      :staticmethod:
+
+
+      Extract transition inputs and outputs.
+
+      :param transition: Transition specifying the logical rule associated with the
+                         Transition outputs.
+      :type transition: libsbml::Transition
+      :param all_species: List ids of all species present in model
+      :type all_species: list
+
+      :returns: * **inputs** (*dict*) -- Dictionary of id: species information for this transition's inputs
+                * **outputs** (*list*) -- List of this transition's outputs (dependents)
+
+
+
+   .. py:method:: parse_function(transition, all_species, inputs)
+      :staticmethod:
+
+
+      Parse transition function to a logical rule.
+
+      :param transition: Transition specifying the logical rule associated with the
+                         Transition outputs.
+      :type transition: libsbml::Transition
+      :param all_species: List ids of all species present in model
+      :type all_species: list
+      :param inputs: Dictionary of id: species information for this transition's inputs
+      :type inputs: dict
+
+      :returns: **logic_rule** -- Logic rule of this transition (in bnet format)
+      :rtype: str
+
+
+
+.. py:class:: MathMLParser
+
+   Parse MathML to bnet format
+
+
+   .. py:method:: parse(node, all_species, inputs, level=0)
+      :staticmethod:
+
+
+
+   .. py:method:: _handle_operator(operator, children, level)
+      :staticmethod:
+
+
+
+   .. py:method:: _handle_xor(children)
+      :staticmethod:
+
+
+      Create disjunctive normal form (DNF) of an xor
+
+
+
+   .. py:method:: _handle_comparison(operator, children)
+      :staticmethod:
+
+
+      Return bnet form of an (mathml) operator between two children.
+
+
+
+.. py:class:: SBMLQualWriter(network, level=3, version=1, qual_version=1)
+
+   .. py:attribute:: network
+
+
+   .. py:attribute:: mplugin
+
+
+   .. py:attribute:: node_dict
+
+
+   .. py:attribute:: doc
+
+
+   .. py:method:: write(outfile)
+
+
+   .. py:method:: _add_species()
+
+
+   .. py:method:: _add_transitions()
+
+
+   .. py:method:: _rule_to_formula(rule, input_node_dict)
+
+      Rule (as in bnet) to a formula as supported by parseL3Formula
+
+      .. rubric:: Notes
+
+      Replaces:
+
+      * `&`  with `&&`
+      * `|`  with `||`
+
+      To support thresholds, we need to replace the bnet format with a
+      format supported by libsbml's parseL3Formula:
+
+      * `A`  to `(A >= theta_A)` f"({node_dict[node]} >= {input_node_dict[node]})"
+      * `!A` to `(A < theta_A)`  f"({node_dict[node]} < {input_node_dict[node]})"
+
+      This is currently NOT implemented.
+
+
+
+.. py:function:: read_sbmlqual(file)
+
+   Create Network from a SBML-qual file
+
+   :param file: Path to SBML-qual file.
+   :type file: str
+
+   .. rubric:: Notes
+
+   The SBML-qual file is converted to a Boolean network using libsbml, via
+   the bnet format. To access the bnet format directly, you can use `py:booldog.io.sbmlqual2bnet`.
+
+
+.. py:function:: write_sbmlqual(model, outfile, **kwargs)
+

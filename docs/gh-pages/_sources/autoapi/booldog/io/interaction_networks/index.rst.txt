@@ -1,0 +1,219 @@
+booldog.io.interaction_networks
+===============================
+
+.. py:module:: booldog.io.interaction_networks
+
+.. autoapi-nested-parse::
+
+   Read standard networks formats/objects (networkx, igraph, graphml, SIF) and
+   convert to Boolean network.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   booldog.io.interaction_networks.logger
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   booldog.io.interaction_networks.networkx2interactions
+   booldog.io.interaction_networks.igraph2interactions
+   booldog.io.interaction_networks.read_interactions
+   booldog.io.interaction_networks.read_sif
+   booldog.io.interaction_networks.read_igraph
+   booldog.io.interaction_networks.read_networkx
+   booldog.io.interaction_networks.read_graphml
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:function:: networkx2interactions(g, edge_type_key='interaction', **_)
+
+   Convert a NetworkX Graph into a nested dictionary of interactions.
+
+   :param g: The input graph object from the `Networkx` library.
+             (Assumed to be directed.)
+   :type g: networkx.(Di)Graph
+   :param edge_type_key: The edge attribute key to use for interaction values
+                         (e.g., weight, type). Default is "interaction".
+   :type edge_type_key: str, optional
+   :param \*\*_: Additional keyword arguments (ignored).
+   :type \*\*_: dict
+
+   :returns: A nested dictionary where `interactions[source][target] = symbol`, with
+             `symbol` being the edge attribute specified by `edge_type_key`.
+   :rtype: dict of dict
+
+
+.. py:function:: igraph2interactions(g, node_id_key='name', edge_type_key='interaction')
+
+   Convert an igraph Graph into a list of interactions.
+
+   :param g: The input graph object from the `igraph` library.
+   :type g: igraph.Graph
+   :param node_id_key: The vertex attribute key that contains the primary identifier to use
+                       for node identifiers. Default is "name".
+   :type node_id_key: str, optional
+   :param edge_type_key: The edge attribute key to use for interaction type
+                         (e.g., weight, type). Default is "interaction".
+   :type edge_type_key: str, optional
+
+   :returns: A nested dictionary where `interactions[source][target] = symbol`, with
+             `symbol` being the edge attribute specified by `edge_type_key`.
+   :rtype: dict of dict
+
+
+.. py:function:: read_interactions(interactions_input, node_names=None, **kwargs)
+
+   Create Network from interactions (list)
+
+   :param interactions_input: A list of interactions in the network. Each interaction should be a tuple of
+                              (source, target, sign), where source and target are node identifiers and
+                              sign is either activator_symbol or inhibitor_symbol.
+                              Or a path to a JSON file containing such a list of interactions.
+   :type interactions_input: list or str
+   :param activator_symbol: The value representing activation in the network. Default is 1.
+   :type activator_symbol: int, optional
+   :param inhibitor_symbol: The value representing inhibition in the network. Default is -1.
+   :type inhibitor_symbol: int, optional
+   :param \*\*kwargs: Additional keyword arguments (ignored).
+   :type \*\*kwargs: dict
+
+   :returns: **n** -- A BoolDogModel object representing the Boolean network.
+   :rtype: booldog.BoolDogModel
+
+   .. rubric:: Notes
+
+   Uses SQUAD logic to obtain Boolean network.
+
+
+.. py:function:: read_sif(file, delim='\t', source_col=0, target_col=1, interaction_col=2, header=True, **kwargs)
+
+   Reads in a SIF file of interactions
+
+   :param file: Path to the SIF file
+   :type file: str
+   :param delim: Delimiter used in the SIF file (default="       ")
+   :type delim: str, optional
+   :param header: If the first line of the file is a header (default=True)
+   :type header: bool, optional
+   :param source_col: Column index (if int) or column name (if str) of source node (default=0)
+   :type source_col: int or str, optional
+   :param target_col: Column index (if int) or column name (if str) of target node (default=1)
+   :type target_col: int or str, optional
+   :param interaction_col: Column index (if int) or column name (if str) of interaction type (symbol) (default=2)
+   :type interaction_col: int, optional
+   :param activator_symbol: Symbol of activation edges in `interaction_col` (default="1")
+   :type activator_symbol: str, optional
+   :param inhibitor_symbol: Symbol of inhibition edges in `interaction_col` (default="-1")
+   :type inhibitor_symbol: str, optional
+   :param \*\*kwargs: Additional keyword arguments (ignored).
+   :type \*\*kwargs: dict
+
+   .. rubric:: Notes
+
+   Uses SQUAD logic to obtain Boolean network.
+
+
+.. py:function:: read_igraph(g, node_id_key='name', edge_type_key='interaction', node_name_key='name', **kwargs)
+
+   Create BooleanNetwork from a igraph Graph object.
+
+   :param g: The input graph object from the `igraph` library.
+   :type g: igraph.Graph
+   :param node_id_key: The vertex attribute key that contains the primary identifier to use for node names. Default is "name".
+   :type node_id_key: str, optional
+   :param node_name_key: The vertex attribute key that contains the node name (e.g. display label). Default is "name".
+   :type node_name_key: str, optional
+   :param edge_type_key: The edge attribute key to use for interaction values (e.g., weight, type). Default is "interaction".
+   :type edge_type_key: str, optional
+   :param activator_symbol: Symbol or value of activation edges in `edge_type_key` of g (default="1")
+   :type activator_symbol: str, optional
+   :param inhibitor_symbol: Symbol or value of inhibition edges in `edge_type_key` of g (default="-1")
+   :type inhibitor_symbol: str, optional
+   :param \*\*kwargs: Additional keyword arguments (ignored).
+   :type \*\*kwargs: dict
+
+   .. rubric:: Notes
+
+   Uses SQUAD logic to obtain Boolean network.
+
+
+.. py:function:: read_networkx(g, edge_type_key='interaction', node_name_key='name', **kwargs)
+
+   Create BooleanNetwork from a networkx (Di)Graph object.
+
+   :param g: The input graph object from the `networkx` library.
+   :type g: networkx.(Di)Graph
+   :param edge_type_key: The edge attribute key to use for interaction values (e.g., weight, type). Default is "interaction".
+   :type edge_type_key: str, optional
+   :param activator_symbol: Symbol or value of activation edges in `edge_type_key` of g (default="1")
+   :type activator_symbol: str, optional
+   :param inhibitor_symbol: Symbol or value of inhibition edges in `edge_type_key` of g (default="-1")
+   :type inhibitor_symbol: str, optional
+   :param node_name_key: The vertex attribute key that contains the node name (display label). Default is "name".
+   :type node_name_key: str, optional
+   :param \*\*kwargs: Additional keyword arguments (ignored).
+   :type \*\*kwargs: dict
+
+   :returns: **n** -- A BoolDogModel object representing the Boolean network.
+   :rtype: booldog.BoolDogModel
+
+   .. rubric:: Notes
+
+   Uses SQUAD logic to obtain Boolean network.
+
+
+.. py:function:: read_graphml(file, edge_type_key='interaction', node_id_key='name', node_name_key='name', yEd_labels=False, yEd_arrow_head=False, use_labels=True, **kwargs)
+
+   Extract relavent parts for a Boolean network from a graphml file.
+
+   Since graphml is not well defined for Boolean networks (or even standard for
+   interaction networks), this read functionality has limited support.
+
+   :param file: Path to the graphml file
+   :type file: str
+   :param edge_type_key: The edge attribute key to use for interaction type (e.g., weight, type). Default is "interaction".
+                         Only if yEd=False (yEd uses the arrow head symbol).
+   :type edge_type_key: str, optional
+   :param node_id_key: The vertex attribute key that contains the primary identifier to use for node names. Default is "name".
+   :type node_id_key: str, optional
+   :param node_name_key: The vertex attribute key that contains the node name (e.g. display label). Default is "name".
+   :type node_name_key: str, optional
+   :param yEd_labels: If graphml file originates as a yEd export, the node attribute
+                      "y:NodeLabel" is used to determine node names (default=False)
+   :type yEd_labels: bool, optional
+   :param yEd_arrow_head: If graphml file originates as a yEd export, the edge attribute
+                          "y:Arrows" is used to determine interaction type (default=False)
+   :type yEd_arrow_head: bool, optional
+   :param activator_symbol: Symbol or value of activation edges. If yEd=True, default="standard", else default is `1`.
+   :type activator_symbol: int or str, optional
+   :param inhibitor_symbol: Symbol or value of inhibition edges. If yEd=True, default="t_shape", else default is `-1`.
+   :type inhibitor_symbol: int or str, optional
+
+   :returns: **n** -- A BoolDogModel object representing the Boolean network.
+   :rtype: booldog.BoolDogModel
+
+   .. rubric:: Notes
+
+   Uses igraph to parse the graphml file, and extracts node and edge
+   attributes to determine interactions.
+
+   If `yEd_label=True`, it also parses the yEd-specific attributes to
+   extract node labels (y:NodeLabel) for node names.
+
+   If `yEd_arrow_head=True`, it parses the yEd-specific edge arrow types
+   (arrow head symbols of y:Arrows) to determine interaction types
+   (activation/inhibition).
+
+

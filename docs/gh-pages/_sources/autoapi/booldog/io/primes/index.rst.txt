@@ -1,0 +1,38 @@
+booldog.io.primes
+=================
+
+.. py:module:: booldog.io.primes
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   booldog.io.primes.read_primes
+   booldog.io.primes.write_primes
+
+
+Module Contents
+---------------
+
+.. py:function:: read_primes(primes_input)
+
+   Read primes from a dictionary or a json file
+
+   :param primes_input: Dictionary of primes, or a file path to primes saved in JSON format.
+   :type primes_input: str or dict
+
+   :returns: **rn** -- A BoolDog BoolDogModel object.
+   :rtype: :py:class:BoolDogModel
+
+
+.. py:function:: write_primes(network, outfile)
+
+   Save primes as formatted JSON file.
+   See also pyboolnet.file_exchange.write_primes.
+
+   :param outfile: File name/path to write primes to.
+   :type outfile: Path
+
+

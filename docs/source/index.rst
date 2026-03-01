@@ -28,6 +28,9 @@ Documentation page: https://nib-si.github.io/BoolDog
 
    api/booldog
 
+.. _a notebook link: ../../tutorials/tutorial-basic.ipynb
+
+
 Indices
 =======
 

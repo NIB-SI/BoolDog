@@ -1,0 +1,56 @@
+booldog.io.igraph
+=================
+
+.. py:module:: booldog.io.igraph
+
+.. autoapi-nested-parse::
+
+   Function to transform booldog:Network to DiGraph
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   booldog.io.igraph.logger
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   booldog.io.igraph.booldog2igraph
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:function:: booldog2igraph(model, as_logic_circuit=True)
+
+   Export a BoolDog Boolean model to an igraph graph object.
+
+   :param model: A BoolDog object representing a Boolean network.
+   :type model: booldog:BoolDogModel
+   :param as_logic_circuit: If True, the graph is exported as a logic circuit (Boolean rules
+                            are represented as "logical" nodes (and, or, not) and edges.
+                            Otherwise, it is exported as a directed interaction graph. Default is False.
+   :type as_logic_circuit: bool
+
+   :returns: **graph** -- A igraph.Graph object with the same nodes as the input network.
+             If `as_logic_circuit` is True, Boolean rules are represented as
+             "logical" nodes (and, or, not) and edges.
+   :rtype: igraph.Graph
+
+   .. rubric:: Notes
+
+   See also pyboolnet.interaction_graphs.primes2igraph.
+
+   Implemented via conversion to Networkx DiGraph, then to igraph Graph,
+   to reuse pyboolet function and logic circuits code.
+
+

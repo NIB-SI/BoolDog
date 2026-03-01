@@ -9,7 +9,6 @@ from .utils.logger import setup_logger
 setup_logger()
 
 assert sys.version_info >= (3, 10)
-__version__ = "0.1.0"
 
 from .network import BoolDogModel
 from booldog.simulation_result import BooleanStateSpace
@@ -19,7 +18,6 @@ import logging
 logger = logging.getLogger(__name__)
 
 logger.info("BoolDog version: %s", __version__)
-logger.debug("Test")
 
 __all__ = ['BoolDogModel']
 

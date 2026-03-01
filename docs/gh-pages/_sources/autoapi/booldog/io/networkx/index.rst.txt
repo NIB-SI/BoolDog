@@ -1,0 +1,53 @@
+booldog.io.networkx
+===================
+
+.. py:module:: booldog.io.networkx
+
+.. autoapi-nested-parse::
+
+   Function to transform booldog:BoolDogModel to networkx:DiGraph
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   booldog.io.networkx.logger
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   booldog.io.networkx.booldog2networkx
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:function:: booldog2networkx(model, as_logic_circuit=True)
+
+   Export a BoolDog Boolean model to Networkx DiGraph
+
+   :param model: A BoolDog object representing a Boolean network.
+   :type model: booldog:BoolDogModel
+   :param as_logic_circuit: If True, the graph is exported as a logic circuit (Boolean rules
+                            are represented as "logical" nodes (and, or, not) and edges.
+                            Otherwise, it is exported as a directed interaction graph. Default is False.
+   :type as_logic_circuit: bool
+
+   :returns: **graph** -- A networkx graph with the same nodes as the input network.
+             If `as_logic_circuit` is True, Boolean rules are represented as
+             "logical" nodes (and, or, not) and edges.
+   :rtype: networkx.DiGraph
+
+   .. rubric:: Notes
+
+   See also pyboolnet.interaction_graphs.primes2igraph.
+
+

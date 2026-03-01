@@ -1,0 +1,68 @@
+booldog.io.cytoscape
+====================
+
+.. py:module:: booldog.io.cytoscape
+
+.. autoapi-nested-parse::
+
+   Booldog networks interact with Cytoscape
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   booldog.io.cytoscape._CYTOSCAPE_AVAILABLE
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   booldog.io.cytoscape.silence_p4c_loggers
+   booldog.io.cytoscape.test_cytoscape_connection
+   booldog.io.cytoscape.booldog2cytoscape
+
+
+Module Contents
+---------------
+
+.. py:data:: _CYTOSCAPE_AVAILABLE
+   :value: True
+
+
+.. py:function:: silence_p4c_loggers()
+
+.. py:function:: test_cytoscape_connection()
+
+   Test if a connection to Cytoscape can be established.
+
+
+.. py:function:: booldog2cytoscape(model, as_logic_circuit=False, title=None, collection='Booldog Network', layout=None, style=None)
+
+   Display a BoolDog Boolean model in Cytoscape.
+
+   :param model: A BoolDog object representing a Boolean network.
+   :type model: booldog:BoolDogModel
+   :param as_logic_circuit: If True, the graph is exported as a logic circuit (Boolean rules
+                            are represented as "logical" nodes (and, or, not) and edges.
+                            Otherwise, it is exported as a interaction graph. Default is False.
+   :type as_logic_circuit: bool
+   :param title: The title of the Cytoscape network. Default is '{model_id} interaction network' if
+                 `as_logic_circuit` is False and '{model_id} logic circuit' else.
+   :type title: str or None
+   :param collection: The name of the Cytoscape collection to add the network to. Default is "Booldog Network".
+   :type collection: str
+   :param layout: The name of the Cytoscape layout to apply to the network. Default is None (no layout).
+   :type layout: str or None
+   :param style: The name of the Cytoscape visual style to apply to the network.
+                 If None, a default style will be applied. Default is None.
+   :type style: str or None
+
+   :returns: **suid** -- The SUID of the created Cytoscape network.
+   :rtype: int
+
+

@@ -1,0 +1,103 @@
+booldog.utils
+=============
+
+.. py:module:: booldog.utils
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/booldog/utils/boolean_normal_forms/index
+   /autoapi/booldog/utils/cytoscape_utils/index
+   /autoapi/booldog/utils/decorators/index
+   /autoapi/booldog/utils/logger/index
+   /autoapi/booldog/utils/misc/index
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   booldog.utils.logger
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   booldog.utils.ExtendedEnum
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   booldog.utils.ensure_ndarray
+   booldog.utils.parameter_to_array
+   booldog.utils.file_writable
+   booldog.utils.get_pkg_version
+
+
+Package Contents
+----------------
+
+.. py:data:: logger
+
+.. py:class:: ExtendedEnum
+
+   .. py:method:: values()
+      :classmethod:
+
+
+
+.. py:function:: ensure_ndarray(v)
+
+   Return numpy array of v, given array, int/float, list, tuple
+
+
+.. py:function:: parameter_to_array(parameter, graph_keys)
+
+   Parameter argument to numpy array
+
+   :param parameter:
+                     if array:
+                         make sure length is n
+                     if int or float:
+                         return an array of length n with value
+                     if dict:
+                         returns an array of length n with values set according to
+                     keys (nodes indexed by graph_keys), and the rest set to 'default' key
+   :type parameter: array, int, float or dict
+   :param graph_keys:
+   :type graph_keys: dict
+
+   :returns: **parameter_array** -- array of length n
+   :rtype: numpy array
+
+
+.. py:function:: file_writable(path)
+
+   Checks if path is writeable. If not, attempts to provide reason, and raises
+   an Exception.
+
+   :param path: Path to file to check for writability. If the file does not exist, the
+                function will check if it can be created.
+   :type path: str or Path
+
+   :rtype: None
+
+
+.. py:function:: get_pkg_version()
+
+   Get version of booldog package
+
+   :returns: **version** -- Version of booldog package
+   :rtype: str
+
+

@@ -1,0 +1,1143 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BoolDog features tutorial &mdash; BoolDog 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+
+  
+    <link rel="shortcut icon" href="../_static/icon.ico"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Formats" href="../formats.html" />
+    <link rel="prev" title="BoolDog basic tutorial" href="tutorial-basic.html" /> 
+    <meta name="google-site-verification" content="9jGGfgofMrQ_y61Lhymy5MZmfI6DzTOCTSV3xegf-Ec" />
+    <script type="application/ld+json" >
+{
+  "@context": "http://schema.org",
+  "@id": "https://nib-si.github.io/BoolDog",
+  "@type": "Tool",
+  "additionalType": [],
+  "applicationCategory": "Computational science tool",
+  "codeRepository": [
+    "https://github.com/NIB-SI/BoolDoG"
+  ],
+  "dct:conformsTo": "https://bioschemas.org/profiles/Tool/0.4-DRAFT-2019_07_19",
+  "description": "A Python package for analyses of Boolean and semi-qualitative Boolean networks.",
+  "license": [
+    "https://spdx.org/licenses/MIT"
+  ],
+  "name": "BoolDog",
+  "programmingLanguage": [
+    {
+      "@id": "Python",
+      "@type": "ComputerLanguage"
+    }
+  ],
+  "provider": [
+    {
+      "@context": "http://schema.org",
+      "@type": "Organization",
+      "dct:conformsTo": "https://bioschemas.org/profiles/Organization/0.2-DRAFT-2019_07_19",
+      "description": "",
+      "name": ""
+    }
+  ],
+  "softwareVersion": "0.0.1",
+  "url": "https://github.com/NIB-SI/BoolDog"
+}
+</script >
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #009739" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            BoolDog
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../example.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../example.html#tutorials-tutorial-basic-ipynb"><cite>tutorials/tutorial-basic.ipynb</cite></a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../example.html#tutorials-tutorial-advanced-ipynb"><cite>tutorials/tutorial-advanced.ipynb</cite></a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">BoolDog features tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Fetch-a-model-from-BioModels">Fetch a model from BioModels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Import-SBML-qual-model">Import SBML-qual model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Load-into-Cytoscape">Load into Cytoscape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Boolean-dynamics">Boolean dynamics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Case-(i)">Case (i)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Case-(ii)">Case (ii)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Create-animation-from-Boolean-simulation">Create animation from Boolean simulation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Modify-the-Boolean-network">Modify the Boolean network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Export-the-Boolean-network">Export the Boolean network</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#BNET-format">BNET format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#SBML-qual">SBML-qual</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#As-a-NetworkX-network">As a NetworkX network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Semi-quantative-simulations">Semi-quantative simulations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../formats.html">Formats</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #009739" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">BoolDog</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../example.html">Examples</a></li>
+      <li class="breadcrumb-item active">BoolDog features tutorial</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/tutorials/tutorial-advanced.nblink.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="BoolDog-features-tutorial">
+<h1>BoolDog features tutorial<a class="headerlink" href="#BoolDog-features-tutorial" title="Link to this heading"></a></h1>
+<p>Advanced demonstration of BoolDog functionalities.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pretty results!</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span><span class="p">,</span> <span class="n">Image</span>
+
+<span class="c1"># Utilities</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Other tools</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">py4cytoscape</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">p4c</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># BoolDog classes and functions</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">booldog</span><span class="w"> </span><span class="kn">import</span> <span class="n">BoolDogModel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">booldog.io.biomodels</span><span class="w"> </span><span class="kn">import</span> <span class="n">fetch_model_info</span><span class="p">,</span> <span class="n">fetch_model</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+INFO 2026-03-01 16:49:07,467 booldog:&lt;module&gt; BoolDog version: 0.1.0
+DEBUG 2026-03-01 16:49:07,468 booldog:&lt;module&gt; Test
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># utility print</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">print_html</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span>
+    <span class="s2">&quot;&lt;div style=&#39;width: 800px;&#39;&gt;&quot;</span> <span class="o">+</span> \
+     <span class="n">s</span> <span class="o">+</span>\
+     <span class="s2">&quot;&lt;/div&gt;&quot;</span>
+    <span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">files_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;files&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Fetch-a-model-from-BioModels">
+<h1>Fetch a model from BioModels<a class="headerlink" href="#Fetch-a-model-from-BioModels" title="Link to this heading"></a></h1>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">biomodel_id</span><span class="o">=</span><span class="s2">&quot;BIOMD0000000562&quot;</span>
+<span class="n">model_info</span> <span class="o">=</span> <span class="n">fetch_model_info</span><span class="p">(</span><span class="n">model_id</span><span class="o">=</span><span class="n">biomodel_id</span><span class="p">)</span>
+<span class="n">print_html</span><span class="p">(</span><span class="n">model_info</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<div style='width: 800px;'><notes xmlns="http://www.sbml.org/sbml/level3/version1/core">      <body xmlns="http://www.w3.org/1999/xhtml">    <div class="dc:title">Chaouiya2013 - EGF and TNFalpha mediated signalling pathway</div><div class="dc:bibliographicCitation">  <p>This model is described in the article:</p>  <div class="bibo:title">    <a href="http://identifiers.org/pubmed/24321545" title="Access to this publication">SBML qualitative models: a    model representation format and infrastructure to foster    interactions between qualitative modelling formalisms and    tools.</a>  </div>  <div class="bibo:authorList">Chaouiya C, Bérenguier D,  Keating SM, Naldi A, van Iersel MP, Rodriguez N, Dräger A,  Büchel F, Cokelaer T, Kowal B, Wicks B, Gonçalves E,  Dorier J, Page M, Monteiro PT, von Kamp A, Xenarios I, de Jong H,  Hucka M, Klamt S, Thieffry D, Le Novère N, Saez-Rodriguez J,  Helikar T.</div>  <div class="bibo:Journal">BMC Syst Biol 2013; 7: 135</div>  <p>Abstract:</p>  <div class="bibo:abstract">    <p>BACKGROUND: Qualitative frameworks, especially those based    on the logical discrete formalism, are increasingly used to    model regulatory and signalling networks. A major advantage of    these frameworks is that they do not require precise    quantitative data, and that they are well-suited for studies of    large networks. While numerous groups have developed specific    computational tools that provide original methods to analyse    qualitative models, a standard format to exchange qualitative    models has been missing. RESULTS: We present the Systems    Biology Markup Language (SBML) Qualitative Models Package    ("qual"), an extension of the SBML Level 3 standard designed    for computer representation of qualitative models of biological    networks. We demonstrate the interoperability of models via    SBML qual through the analysis of a specific signalling network    by three independent software tools. Furthermore, the    collective effort to define the SBML qual format paved the way    for the development of LogicalModel, an open-source model    library, which will facilitate the adoption of the format as    well as the collaborative development of algorithms to analyse    qualitative models. CONCLUSIONS: SBML qual allows the exchange    of qualitative models among a number of complementary software    tools. SBML qual has the potential to promote collaborative    work on the development of novel computational approaches, as    well as on the specification and the analysis of comprehensive    qualitative models of regulatory and signalling networks.</p>  </div></div><div class="dc:publisher">  <p>This model is hosted on   <a href="http://www.ebi.ac.uk/biomodels/">BioModels Database</a>  and identified by:   <a href="http://identifiers.org/biomodels.db/BIOMD0000000562">BIOMD0000000562</a>.</p>  <p>To cite BioModels Database, please use:   <a href="http://identifiers.org/pubmed/20587024" title="Latest BioModels Database publication">BioModels Database:  An enhanced, curated and annotated resource for published  quantitative kinetic models</a>.</p></div><div class="dc:license">  <p>To the extent possible under law, all copyright and related or  neighbouring rights to this encoded model have been dedicated to  the public domain worldwide. Please refer to   <a href="http://creativecommons.org/publicdomain/zero/1.0/" title="Access to: CC0 1.0 Universal (CC0 1.0), Public Domain Dedication">CC0  Public Domain Dedication</a> for more information.</p></div></body>    </notes></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model_info</span><span class="p">[</span><span class="s2">&quot;modellingApproach&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;accession&#39;: &#39;MAMO_0000030&#39;,
+ &#39;name&#39;: &#39;logical model&#39;,
+ &#39;resource&#39;: &#39;http://identifiers.org/mamo/MAMO_0000030&#39;}
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model_file</span> <span class="o">=</span> <span class="n">files_path</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">biomodel_id</span><span class="si">}</span><span class="s2">.xml&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">model_file</span><span class="p">)</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">model_file</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+    <span class="n">fetch_model</span><span class="p">(</span><span class="n">biomodel_id</span><span class="p">,</span> <span class="n">local_file</span><span class="o">=</span><span class="n">model_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+files/BIOMD0000000562.xml
+</pre></div></div>
+</div>
+</section>
+<section id="Import-SBML-qual-model">
+<h1>Import SBML-qual model<a class="headerlink" href="#Import-SBML-qual-model" title="Link to this heading"></a></h1>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bn</span> <span class="o">=</span> <span class="n">BoolDogModel</span><span class="o">.</span><span class="n">from_sbmlqual</span><span class="p">(</span><span class="n">model_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+DEBUG 2026-03-01 16:49:16,458 booldog.io:_from_reader Creating BoolDogModel using reader read_sbmlqual
+DEBUG 2026-03-01 16:49:16,479 booldog.io.sbml:parse_function ResultLevel 1
+DEBUG 2026-03-01 16:49:16,481 booldog.io.sbml:parse_function nik &gt;= theta_t1_nik &lt;==&gt; nik
+DEBUG 2026-03-01 16:49:16,482 booldog.io.sbml:parse_function Activation: [&#39;nik&#39;]
+DEBUG 2026-03-01 16:49:16,482 booldog.io.sbml:parse_function Inhibition: []
+DEBUG 2026-03-01 16:49:16,483 booldog.io.sbml:_get_all_rules Final rule: ikk : ( nik )
+DEBUG 2026-03-01 16:49:16,484 booldog.io.sbml:parse_function ResultLevel 1
+DEBUG 2026-03-01 16:49:16,485 booldog.io.sbml:parse_function mkk4 &gt;= theta_t2_mkk4 &lt;==&gt; mkk4
+DEBUG 2026-03-01 16:49:16,485 booldog.io.sbml:parse_function Activation: [&#39;mkk4&#39;]
+DEBUG 2026-03-01 16:49:16,486 booldog.io.sbml:parse_function Inhibition: []
+DEBUG 2026-03-01 16:49:16,486 booldog.io.sbml:_get_all_rules Final rule: p38 : ( mkk4 )
+DEBUG 2026-03-01 16:49:16,487 booldog.io.sbml:parse_function ResultLevel 1
+DEBUG 2026-03-01 16:49:16,488 booldog.io.sbml:parse_function (ask1 &gt;= theta_t3_ask1) || (map3k1 &gt;= theta_t3_map3k1) &lt;==&gt; ask1 | map3k1
+DEBUG 2026-03-01 16:49:16,488 booldog.io.sbml:parse_function Activation: [&#39;ask1 | map3k1&#39;]
+DEBUG 2026-03-01 16:49:16,489 booldog.io.sbml:parse_function Inhibition: []
+DEBUG 2026-03-01 16:49:16,490 booldog.io.sbml:_get_all_rules Final rule: mkk7 : ( ask1 | map3k1 )
+DEBUG 2026-03-01 16:49:16,491 booldog.io.sbml:parse_function ResultLevel 1
+DEBUG 2026-03-01 16:49:16,491 booldog.io.sbml:parse_function (map3k7 &gt;= theta_t4_map3k7) &amp;&amp; (map3k1 &gt;= theta_t4_map3k1) &lt;==&gt; map3k7 &amp; map3k1
+DEBUG 2026-03-01 16:49:16,492 booldog.io.sbml:parse_function Activation: [&#39;map3k7 &amp; map3k1&#39;]
+DEBUG 2026-03-01 16:49:16,492 booldog.io.sbml:parse_function Inhibition: []
+DEBUG 2026-03-01 16:49:16,494 booldog.io.sbml:_get_all_rules Final rule: mkk4 : ( map3k7 &amp; map3k1 )
+DEBUG 2026-03-01 16:49:16,494 booldog.io.sbml:parse_function ResultLevel 1
+DEBUG 2026-03-01 16:49:16,495 booldog.io.sbml:parse_function map3k7 &gt;= theta_t5_map3k7 &lt;==&gt; map3k7
+DEBUG 2026-03-01 16:49:16,496 booldog.io.sbml:parse_function Activation: [&#39;map3k7&#39;]
+DEBUG 2026-03-01 16:49:16,496 booldog.io.sbml:parse_function Inhibition: []
+DEBUG 2026-03-01 16:49:16,497 booldog.io.sbml:_get_all_rules Final rule: nik : ( map3k7 )
+DEBUG 2026-03-01 16:49:16,498 booldog.io.sbml:parse_function ResultLevel 1
+DEBUG 2026-03-01 16:49:16,498 booldog.io.sbml:parse_function mkk7 &gt;= theta_t6_mkk7 &lt;==&gt; mkk7
+DEBUG 2026-03-01 16:49:16,499 booldog.io.sbml:parse_function Activation: [&#39;mkk7&#39;]
+DEBUG 2026-03-01 16:49:16,500 booldog.io.sbml:parse_function Inhibition: []
+DEBUG 2026-03-01 16:49:16,500 booldog.io.sbml:_get_all_rules Final rule: jnk : ( mkk7 )
+DEBUG 2026-03-01 16:49:16,501 booldog.io.sbml:parse_function ResultLevel 1
+DEBUG 2026-03-01 16:49:16,502 booldog.io.sbml:parse_function tnfr &gt;= theta_t7_tnfr &lt;==&gt; tnfr
+DEBUG 2026-03-01 16:49:16,502 booldog.io.sbml:parse_function Activation: [&#39;tnfr&#39;]
+DEBUG 2026-03-01 16:49:16,503 booldog.io.sbml:parse_function Inhibition: []
+DEBUG 2026-03-01 16:49:16,504 booldog.io.sbml:_get_all_rules Final rule: traf2 : ( tnfr )
+DEBUG 2026-03-01 16:49:16,504 booldog.io.sbml:parse_function ResultLevel 1
+DEBUG 2026-03-01 16:49:16,505 booldog.io.sbml:parse_function egfr &gt;= theta_t8_egfr &lt;==&gt; egfr
+DEBUG 2026-03-01 16:49:16,506 booldog.io.sbml:parse_function Activation: [&#39;egfr&#39;]
+DEBUG 2026-03-01 16:49:16,506 booldog.io.sbml:parse_function Inhibition: []
+DEBUG 2026-03-01 16:49:16,507 booldog.io.sbml:_get_all_rules Final rule: pi3k : ( egfr )
+DEBUG 2026-03-01 16:49:16,508 booldog.io.sbml:parse_function ResultLevel 1
+DEBUG 2026-03-01 16:49:16,508 booldog.io.sbml:parse_function (ex &gt;= theta_t9_ex) || (ikk &lt; theta_t9_ikk) &lt;==&gt; ex | !ikk
+DEBUG 2026-03-01 16:49:16,509 booldog.io.sbml:parse_function Activation: [&#39;ex | !ikk&#39;]
+DEBUG 2026-03-01 16:49:16,510 booldog.io.sbml:parse_function Inhibition: []
+DEBUG 2026-03-01 16:49:16,517 booldog.io.sbml:_get_all_rules Final rule: ikb : ( ex | !ikk )
+DEBUG 2026-03-01 16:49:16,520 booldog.io.sbml:parse_function ResultLevel 1
+DEBUG 2026-03-01 16:49:16,521 booldog.io.sbml:parse_function mek &gt;= theta_t10_mek &lt;==&gt; mek
+DEBUG 2026-03-01 16:49:16,522 booldog.io.sbml:parse_function Activation: [&#39;mek&#39;]
+DEBUG 2026-03-01 16:49:16,522 booldog.io.sbml:parse_function Inhibition: []
+DEBUG 2026-03-01 16:49:16,523 booldog.io.sbml:_get_all_rules Final rule: erk : ( mek )
+DEBUG 2026-03-01 16:49:16,524 booldog.io.sbml:parse_function ResultLevel 1
+DEBUG 2026-03-01 16:49:16,524 booldog.io.sbml:parse_function ras &gt;= theta_t11_ras &lt;==&gt; ras
+DEBUG 2026-03-01 16:49:16,525 booldog.io.sbml:parse_function Activation: [&#39;ras&#39;]
+DEBUG 2026-03-01 16:49:16,525 booldog.io.sbml:parse_function Inhibition: []
+DEBUG 2026-03-01 16:49:16,526 booldog.io.sbml:_get_all_rules Final rule: map3k1 : ( ras )
+DEBUG 2026-03-01 16:49:16,527 booldog.io.sbml:parse_function ResultLevel 1
+DEBUG 2026-03-01 16:49:16,528 booldog.io.sbml:parse_function ras &gt;= theta_t12_ras &lt;==&gt; ras
+DEBUG 2026-03-01 16:49:16,528 booldog.io.sbml:parse_function Activation: [&#39;ras&#39;]
+DEBUG 2026-03-01 16:49:16,529 booldog.io.sbml:parse_function Inhibition: []
+DEBUG 2026-03-01 16:49:16,530 booldog.io.sbml:_get_all_rules Final rule: raf1 : ( ras )
+DEBUG 2026-03-01 16:49:16,530 booldog.io.sbml:parse_function ResultLevel 1
+DEBUG 2026-03-01 16:49:16,532 booldog.io.sbml:parse_function tnfa &gt;= theta_t13_tnfa &lt;==&gt; tnfa
+DEBUG 2026-03-01 16:49:16,532 booldog.io.sbml:parse_function Activation: [&#39;tnfa&#39;]
+DEBUG 2026-03-01 16:49:16,533 booldog.io.sbml:parse_function Inhibition: []
+DEBUG 2026-03-01 16:49:16,534 booldog.io.sbml:_get_all_rules Final rule: tnfr : ( tnfa )
+DEBUG 2026-03-01 16:49:16,535 booldog.io.sbml:parse_function ResultLevel 1
+DEBUG 2026-03-01 16:49:16,536 booldog.io.sbml:parse_function traf2 &gt;= theta_t14_traf2 &lt;==&gt; traf2
+DEBUG 2026-03-01 16:49:16,536 booldog.io.sbml:parse_function Activation: [&#39;traf2&#39;]
+DEBUG 2026-03-01 16:49:16,537 booldog.io.sbml:parse_function Inhibition: []
+DEBUG 2026-03-01 16:49:16,538 booldog.io.sbml:_get_all_rules Final rule: map3k7 : ( traf2 )
+DEBUG 2026-03-01 16:49:16,539 booldog.io.sbml:parse_function ResultLevel 1
+DEBUG 2026-03-01 16:49:16,539 booldog.io.sbml:parse_function traf2 &gt;= theta_t15_traf2 &lt;==&gt; traf2
+DEBUG 2026-03-01 16:49:16,541 booldog.io.sbml:parse_function Activation: [&#39;traf2&#39;]
+DEBUG 2026-03-01 16:49:16,541 booldog.io.sbml:parse_function Inhibition: []
+DEBUG 2026-03-01 16:49:16,542 booldog.io.sbml:_get_all_rules Final rule: ask1 : ( traf2 )
+DEBUG 2026-03-01 16:49:16,543 booldog.io.sbml:parse_function ResultLevel 1
+DEBUG 2026-03-01 16:49:16,544 booldog.io.sbml:parse_function akt &lt; theta_t16_akt &lt;==&gt; !akt
+DEBUG 2026-03-01 16:49:16,544 booldog.io.sbml:parse_function Activation: [&#39;!akt&#39;]
+DEBUG 2026-03-01 16:49:16,545 booldog.io.sbml:parse_function Inhibition: []
+DEBUG 2026-03-01 16:49:16,546 booldog.io.sbml:_get_all_rules Final rule: gsk3 : ( !akt )
+DEBUG 2026-03-01 16:49:16,554 booldog.io.sbml:parse_function ResultLevel 1
+DEBUG 2026-03-01 16:49:16,555 booldog.io.sbml:parse_function pi3k &gt;= theta_t17_pi3k &lt;==&gt; pi3k
+DEBUG 2026-03-01 16:49:16,555 booldog.io.sbml:parse_function Activation: [&#39;pi3k&#39;]
+DEBUG 2026-03-01 16:49:16,556 booldog.io.sbml:parse_function Inhibition: []
+DEBUG 2026-03-01 16:49:16,557 booldog.io.sbml:_get_all_rules Final rule: akt : ( pi3k )
+DEBUG 2026-03-01 16:49:16,558 booldog.io.sbml:parse_function ResultLevel 1
+DEBUG 2026-03-01 16:49:16,558 booldog.io.sbml:parse_function egf &gt;= theta_t18_egf &lt;==&gt; egf
+DEBUG 2026-03-01 16:49:16,559 booldog.io.sbml:parse_function Activation: [&#39;egf&#39;]
+DEBUG 2026-03-01 16:49:16,560 booldog.io.sbml:parse_function Inhibition: []
+DEBUG 2026-03-01 16:49:16,560 booldog.io.sbml:_get_all_rules Final rule: egfr : ( egf )
+DEBUG 2026-03-01 16:49:16,562 booldog.io.sbml:parse_function ResultLevel 1
+DEBUG 2026-03-01 16:49:16,563 booldog.io.sbml:parse_function ikb &lt; theta_t19_ikb &lt;==&gt; !ikb
+DEBUG 2026-03-01 16:49:16,563 booldog.io.sbml:parse_function Activation: [&#39;!ikb&#39;]
+DEBUG 2026-03-01 16:49:16,564 booldog.io.sbml:parse_function Inhibition: []
+DEBUG 2026-03-01 16:49:16,565 booldog.io.sbml:_get_all_rules Final rule: nfkb : ( !ikb )
+DEBUG 2026-03-01 16:49:16,566 booldog.io.sbml:parse_function ResultLevel 1
+DEBUG 2026-03-01 16:49:16,567 booldog.io.sbml:parse_function nfkb &gt;= theta_t20_nfkb &lt;==&gt; nfkb
+DEBUG 2026-03-01 16:49:16,568 booldog.io.sbml:parse_function Activation: [&#39;nfkb&#39;]
+DEBUG 2026-03-01 16:49:16,569 booldog.io.sbml:parse_function Inhibition: []
+DEBUG 2026-03-01 16:49:16,570 booldog.io.sbml:_get_all_rules Final rule: ex : ( nfkb )
+DEBUG 2026-03-01 16:49:16,571 booldog.io.sbml:parse_function ResultLevel 1
+DEBUG 2026-03-01 16:49:16,572 booldog.io.sbml:parse_function cjun &gt;= theta_t21_cjun &lt;==&gt; cjun
+DEBUG 2026-03-01 16:49:16,573 booldog.io.sbml:parse_function Activation: [&#39;cjun&#39;]
+DEBUG 2026-03-01 16:49:16,573 booldog.io.sbml:parse_function Inhibition: []
+DEBUG 2026-03-01 16:49:16,574 booldog.io.sbml:_get_all_rules Final rule: ap1 : ( cjun )
+DEBUG 2026-03-01 16:49:16,575 booldog.io.sbml:parse_function ResultLevel 1
+DEBUG 2026-03-01 16:49:16,576 booldog.io.sbml:parse_function jnk &gt;= theta_t22_jnk &lt;==&gt; jnk
+DEBUG 2026-03-01 16:49:16,577 booldog.io.sbml:parse_function Activation: [&#39;jnk&#39;]
+DEBUG 2026-03-01 16:49:16,578 booldog.io.sbml:parse_function Inhibition: []
+DEBUG 2026-03-01 16:49:16,579 booldog.io.sbml:_get_all_rules Final rule: cjun : ( jnk )
+DEBUG 2026-03-01 16:49:16,579 booldog.io.sbml:parse_function ResultLevel 1
+DEBUG 2026-03-01 16:49:16,581 booldog.io.sbml:parse_function (ph &gt;= theta_t23_ph) || (erk &gt;= theta_t23_erk) &lt;==&gt; ph | erk
+DEBUG 2026-03-01 16:49:16,581 booldog.io.sbml:parse_function Activation: [&#39;ph | erk&#39;]
+DEBUG 2026-03-01 16:49:16,582 booldog.io.sbml:parse_function Inhibition: []
+DEBUG 2026-03-01 16:49:16,583 booldog.io.sbml:_get_all_rules Final rule: ph : ( ph | erk )
+DEBUG 2026-03-01 16:49:16,584 booldog.io.sbml:parse_function ResultLevel 1
+DEBUG 2026-03-01 16:49:16,585 booldog.io.sbml:parse_function raf1 &gt;= theta_t24_raf1 &lt;==&gt; raf1
+DEBUG 2026-03-01 16:49:16,587 booldog.io.sbml:parse_function Activation: [&#39;raf1&#39;]
+DEBUG 2026-03-01 16:49:16,588 booldog.io.sbml:parse_function Inhibition: []
+DEBUG 2026-03-01 16:49:16,589 booldog.io.sbml:_get_all_rules Final rule: mek : ( raf1 )
+DEBUG 2026-03-01 16:49:16,590 booldog.io.sbml:parse_function ResultLevel 1
+DEBUG 2026-03-01 16:49:16,591 booldog.io.sbml:parse_function sos &gt;= theta_t25_sos &lt;==&gt; sos
+DEBUG 2026-03-01 16:49:16,592 booldog.io.sbml:parse_function Activation: [&#39;sos&#39;]
+DEBUG 2026-03-01 16:49:16,593 booldog.io.sbml:parse_function Inhibition: []
+DEBUG 2026-03-01 16:49:16,594 booldog.io.sbml:_get_all_rules Final rule: ras : ( sos )
+DEBUG 2026-03-01 16:49:16,594 booldog.io.sbml:parse_function ResultLevel 1
+DEBUG 2026-03-01 16:49:16,595 booldog.io.sbml:parse_function (egfr &gt;= theta_t26_egfr) &amp;&amp; (ph &lt; theta_t26_ph) &lt;==&gt; egfr &amp; !ph
+DEBUG 2026-03-01 16:49:16,599 booldog.io.sbml:parse_function Activation: [&#39;egfr &amp; !ph&#39;]
+DEBUG 2026-03-01 16:49:16,602 booldog.io.sbml:parse_function Inhibition: []
+DEBUG 2026-03-01 16:49:16,603 booldog.io.sbml:_get_all_rules Final rule: sos : ( egfr &amp; !ph )
+INFO 2026-03-01 16:49:16,604 booldog.network:__init__ Node &#39;egf&#39; has no rule. Assuming &#39;input&#39; node.
+INFO 2026-03-01 16:49:16,605 booldog.network:__init__ Node &#39;tnfa&#39; has no rule. Assuming &#39;input&#39; node.
+INFO 2026-03-01 16:49:16,621 booldog.network:__init__ Created Network with 28 nodes.
+</pre></div></div>
+</div>
+</section>
+<section id="Load-into-Cytoscape">
+<h1>Load into Cytoscape<a class="headerlink" href="#Load-into-Cytoscape" title="Link to this heading"></a></h1>
+<p>Make sure Cytoscape is running.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span> <span class="o">=</span> <span class="n">p4c</span><span class="o">.</span><span class="n">cytoscape_ping</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+You are connected to Cytoscape!
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bn</span><span class="o">.</span><span class="n">to_cytoscape</span><span class="p">(</span><span class="n">as_logic_circuit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Applying default style...
+Applying preferred layout
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+7977
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">suid_main</span> <span class="o">=</span> <span class="n">bn</span><span class="o">.</span><span class="n">to_cytoscape</span><span class="p">(</span><span class="n">as_logic_circuit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+DEBUG 2026-03-01 16:49:33,966 booldog.io.circuit:booldog2circuit Processing rule for erk: ( mek )
+DEBUG 2026-03-01 16:49:33,967 booldog.io.circuit:resolve_rule Replace mek with mek
+DEBUG 2026-03-01 16:49:33,968 booldog.io.circuit:booldog2circuit Processing rule for ikk: ( nik )
+DEBUG 2026-03-01 16:49:33,969 booldog.io.circuit:resolve_rule Replace nik with nik
+DEBUG 2026-03-01 16:49:33,970 booldog.io.circuit:booldog2circuit Processing rule for gsk3: ( !akt )
+DEBUG 2026-03-01 16:49:33,971 booldog.io.circuit:resolve_rule Replace !akt with not_0
+DEBUG 2026-03-01 16:49:33,972 booldog.io.circuit:booldog2circuit Processing rule for nfkb: ( !ikb )
+DEBUG 2026-03-01 16:49:33,973 booldog.io.circuit:resolve_rule Replace !ikb with not_1
+DEBUG 2026-03-01 16:49:33,974 booldog.io.circuit:booldog2circuit Processing rule for ask1: ( traf2 )
+DEBUG 2026-03-01 16:49:33,974 booldog.io.circuit:resolve_rule Replace traf2 with traf2
+DEBUG 2026-03-01 16:49:33,975 booldog.io.circuit:booldog2circuit Processing rule for ras: ( sos )
+DEBUG 2026-03-01 16:49:33,976 booldog.io.circuit:resolve_rule Replace sos with sos
+DEBUG 2026-03-01 16:49:33,976 booldog.io.circuit:booldog2circuit Processing rule for egf: egf
+DEBUG 2026-03-01 16:49:33,979 booldog.io.circuit:booldog2circuit Processing rule for egfr: ( egf )
+DEBUG 2026-03-01 16:49:33,980 booldog.io.circuit:resolve_rule Replace egf with egf
+DEBUG 2026-03-01 16:49:33,980 booldog.io.circuit:booldog2circuit Processing rule for traf2: ( tnfr )
+DEBUG 2026-03-01 16:49:33,981 booldog.io.circuit:resolve_rule Replace tnfr with tnfr
+DEBUG 2026-03-01 16:49:33,981 booldog.io.circuit:booldog2circuit Processing rule for ikb: ( ex | !ikk )
+DEBUG 2026-03-01 16:49:33,982 booldog.io.circuit:resolve_rule Replace ex | !ikk with or_0
+DEBUG 2026-03-01 16:49:33,982 booldog.io.circuit:booldog2circuit Processing rule for map3k1: ( ras )
+DEBUG 2026-03-01 16:49:33,983 booldog.io.circuit:resolve_rule Replace ras with ras
+DEBUG 2026-03-01 16:49:33,983 booldog.io.circuit:booldog2circuit Processing rule for tnfr: ( tnfa )
+DEBUG 2026-03-01 16:49:33,984 booldog.io.circuit:resolve_rule Replace tnfa with tnfa
+DEBUG 2026-03-01 16:49:33,984 booldog.io.circuit:booldog2circuit Processing rule for ap1: ( cjun )
+DEBUG 2026-03-01 16:49:33,985 booldog.io.circuit:resolve_rule Replace cjun with cjun
+DEBUG 2026-03-01 16:49:33,985 booldog.io.circuit:booldog2circuit Processing rule for mek: ( raf1 )
+DEBUG 2026-03-01 16:49:33,986 booldog.io.circuit:resolve_rule Replace raf1 with raf1
+DEBUG 2026-03-01 16:49:33,986 booldog.io.circuit:booldog2circuit Processing rule for mkk4: ( map3k7 &amp; map3k1 )
+DEBUG 2026-03-01 16:49:33,987 booldog.io.circuit:resolve_rule Replace map3k7 &amp; map3k1 with and_0
+DEBUG 2026-03-01 16:49:33,987 booldog.io.circuit:booldog2circuit Processing rule for ex: ( nfkb )
+DEBUG 2026-03-01 16:49:33,988 booldog.io.circuit:resolve_rule Replace nfkb with nfkb
+DEBUG 2026-03-01 16:49:33,988 booldog.io.circuit:booldog2circuit Processing rule for tnfa: tnfa
+DEBUG 2026-03-01 16:49:33,989 booldog.io.circuit:booldog2circuit Processing rule for raf1: ( ras )
+DEBUG 2026-03-01 16:49:33,989 booldog.io.circuit:resolve_rule Replace ras with ras
+DEBUG 2026-03-01 16:49:33,990 booldog.io.circuit:booldog2circuit Processing rule for map3k7: ( traf2 )
+DEBUG 2026-03-01 16:49:33,994 booldog.io.circuit:resolve_rule Replace traf2 with traf2
+DEBUG 2026-03-01 16:49:33,995 booldog.io.circuit:booldog2circuit Processing rule for mkk7: ( ask1 | map3k1 )
+DEBUG 2026-03-01 16:49:33,995 booldog.io.circuit:resolve_rule Replace ask1 | map3k1 with or_1
+DEBUG 2026-03-01 16:49:33,996 booldog.io.circuit:booldog2circuit Processing rule for cjun: ( jnk )
+DEBUG 2026-03-01 16:49:33,997 booldog.io.circuit:resolve_rule Replace jnk with jnk
+DEBUG 2026-03-01 16:49:33,997 booldog.io.circuit:booldog2circuit Processing rule for sos: ( egfr &amp; !ph )
+DEBUG 2026-03-01 16:49:33,998 booldog.io.circuit:resolve_rule Replace egfr &amp; !ph with and_1
+DEBUG 2026-03-01 16:49:33,998 booldog.io.circuit:booldog2circuit Processing rule for jnk: ( mkk7 )
+DEBUG 2026-03-01 16:49:33,999 booldog.io.circuit:resolve_rule Replace mkk7 with mkk7
+DEBUG 2026-03-01 16:49:34,000 booldog.io.circuit:booldog2circuit Processing rule for pi3k: ( egfr )
+DEBUG 2026-03-01 16:49:34,000 booldog.io.circuit:resolve_rule Replace egfr with egfr
+DEBUG 2026-03-01 16:49:34,001 booldog.io.circuit:booldog2circuit Processing rule for p38: ( mkk4 )
+DEBUG 2026-03-01 16:49:34,001 booldog.io.circuit:resolve_rule Replace mkk4 with mkk4
+DEBUG 2026-03-01 16:49:34,002 booldog.io.circuit:booldog2circuit Processing rule for akt: ( pi3k )
+DEBUG 2026-03-01 16:49:34,002 booldog.io.circuit:resolve_rule Replace pi3k with pi3k
+DEBUG 2026-03-01 16:49:34,003 booldog.io.circuit:booldog2circuit Processing rule for ph: ( ph | erk )
+DEBUG 2026-03-01 16:49:34,003 booldog.io.circuit:resolve_rule Replace ph | erk with or_2
+DEBUG 2026-03-01 16:49:34,004 booldog.io.circuit:booldog2circuit Processing rule for nik: ( map3k7 )
+DEBUG 2026-03-01 16:49:34,004 booldog.io.circuit:resolve_rule Replace map3k7 with map3k7
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Applying default style...
+Applying preferred layout
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># save the Cytoscape session</span>
+<span class="n">p4c</span><span class="o">.</span><span class="n">save_session</span><span class="p">((</span><span class="n">files_path</span> <span class="o">/</span> <span class="s2">&quot;tutorial-features.cys&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">as_posix</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Boolean-dynamics">
+<h1>Boolean dynamics<a class="headerlink" href="#Boolean-dynamics" title="Link to this heading"></a></h1>
+<section id="Case-(i)">
+<h2>Case (i)<a class="headerlink" href="#Case-(i)" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inactive_init_state</span> <span class="o">=</span> <span class="n">bn</span><span class="o">.</span><span class="n">inactivate_state</span><span class="p">();</span> <span class="n">inactive_init_state</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+BooleanStateSpace(network=&lt;class &#39;booldog.network.BoolDogModel&#39;&gt; with 28 nodes, state_space=[{&#39;akt&#39;: 0, &#39;ap1&#39;: 0, &#39;ask1&#39;: 0, &#39;cjun&#39;: 0, &#39;egf&#39;: 0, &#39;egfr&#39;: 0, &#39;erk&#39;: 0, &#39;ex&#39;: 0, &#39;gsk3&#39;: 0, &#39;ikb&#39;: 0, &#39;ikk&#39;: 0, &#39;jnk&#39;: 0, &#39;map3k1&#39;: 0, &#39;map3k7&#39;: 0, &#39;mek&#39;: 0, &#39;mkk4&#39;: 0, &#39;mkk7&#39;: 0, &#39;nfkb&#39;: 0, &#39;nik&#39;: 0, &#39;p38&#39;: 0, &#39;ph&#39;: 0, &#39;pi3k&#39;: 0, &#39;raf1&#39;: 0, &#39;ras&#39;: 0, &#39;sos&#39;: 0, &#39;tnfa&#39;: 0, &#39;tnfr&#39;: 0, &#39;traf2&#39;: 0}])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bsim_inactive</span> <span class="o">=</span> <span class="n">bn</span><span class="o">.</span><span class="n">boolean_simulation</span><span class="p">(</span><span class="n">initial_states</span><span class="o">=</span><span class="n">inactive_init_state</span><span class="p">)</span>
+<span class="n">bsim_inactive</span><span class="o">.</span><span class="n">plot_stg</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+WARNING The state transition graph will consist of up to 2**28=268435456 states, depending on the initial states.
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_tutorial-advanced_20_1.svg" src="../_images/tutorials_tutorial-advanced_20_1.svg" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bsim_inactive</span><span class="o">.</span><span class="n">plot_state_space</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_tutorial-advanced_21_0.png" src="../_images/tutorials_tutorial-advanced_21_0.png" />
+</div>
+</div>
+<p>Compare the above plots to Figure 4A.</p>
+</section>
+<section id="Case-(ii)">
+<h2>Case (ii)<a class="headerlink" href="#Case-(ii)" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">triggered_init_state</span> <span class="o">=</span> <span class="n">bn</span><span class="o">.</span><span class="n">inactivate_state</span><span class="p">();</span>
+<span class="n">triggered_init_state</span><span class="o">.</span><span class="n">set_node_state</span><span class="p">(</span><span class="s2">&quot;egf&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">triggered_init_state</span><span class="o">.</span><span class="n">set_node_state</span><span class="p">(</span><span class="s2">&quot;tnfa&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">triggered_init_state</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+BooleanStateSpace(network=&lt;class &#39;booldog.network.BoolDogModel&#39;&gt; with 28 nodes, state_space=[{&#39;akt&#39;: 0, &#39;ap1&#39;: 0, &#39;ask1&#39;: 0, &#39;cjun&#39;: 0, &#39;egf&#39;: 1, &#39;egfr&#39;: 0, &#39;erk&#39;: 0, &#39;ex&#39;: 0, &#39;gsk3&#39;: 0, &#39;ikb&#39;: 0, &#39;ikk&#39;: 0, &#39;jnk&#39;: 0, &#39;map3k1&#39;: 0, &#39;map3k7&#39;: 0, &#39;mek&#39;: 0, &#39;mkk4&#39;: 0, &#39;mkk7&#39;: 0, &#39;nfkb&#39;: 0, &#39;nik&#39;: 0, &#39;p38&#39;: 0, &#39;ph&#39;: 0, &#39;pi3k&#39;: 0, &#39;raf1&#39;: 0, &#39;ras&#39;: 0, &#39;sos&#39;: 0, &#39;tnfa&#39;: 1, &#39;tnfr&#39;: 0, &#39;traf2&#39;: 0}])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bsim_triggered</span> <span class="o">=</span> <span class="n">bn</span><span class="o">.</span><span class="n">boolean_simulation</span><span class="p">(</span><span class="n">initial_states</span><span class="o">=</span><span class="n">triggered_init_state</span><span class="p">)</span>
+<span class="n">bsim_triggered</span><span class="o">.</span><span class="n">plot_stg</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+WARNING The state transition graph will consist of up to 2**28=268435456 states, depending on the initial states.
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_tutorial-advanced_25_1.svg" src="../_images/tutorials_tutorial-advanced_25_1.svg" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bsim_triggered</span><span class="o">.</span><span class="n">plot_state_space</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_tutorial-advanced_26_0.png" src="../_images/tutorials_tutorial-advanced_26_0.png" />
+</div>
+</div>
+<p>Compare the above plots to Figure 4B.</p>
+</section>
+<section id="Create-animation-from-Boolean-simulation">
+<h2>Create animation from Boolean simulation<a class="headerlink" href="#Create-animation-from-Boolean-simulation" title="Link to this heading"></a></h2>
+<p>The animation is generated using Cytoscape, thus allowing a manual layout of the network as basis to the animation.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gif</span> <span class="o">=</span> <span class="n">files_path</span> <span class="o">/</span> <span class="s2">&quot;triggered_ii.gif&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bsim_triggered</span><span class="o">.</span><span class="n">make_animation</span><span class="p">(</span><span class="n">base_suid</span><span class="o">=</span><span class="n">main_suid</span><span class="p">,</span> <span class="n">gif</span><span class="o">=</span><span class="n">gif</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="n">gif</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;IPython.core.display.Image object&gt;
+</pre></div></div>
+</div>
+</section>
+</section>
+<section id="Modify-the-Boolean-network">
+<h1>Modify the Boolean network<a class="headerlink" href="#Modify-the-Boolean-network" title="Link to this heading"></a></h1>
+<p>Possible modifications include:</p>
+<ul class="simple">
+<li><p>update/change a node rule</p></li>
+<li><p>remove a node</p></li>
+<li><p>add a node</p></li>
+</ul>
+<p>A node cannot be removed if other nodes depend on it (i.e. it occurs in their update logic). To remove such a node, either also remove all of its dependants, or first update the logic rule of its dependants to remove dependency.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bn</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="s1">&#39;ph&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rule</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;( ph | erk )&#39;
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bn</span><span class="o">.</span><span class="n">update_node</span><span class="p">(</span><span class="s1">&#39;ph&#39;</span><span class="p">,</span> <span class="s1">&#39;erk&#39;</span><span class="p">)</span>
+<span class="n">bn</span><span class="o">.</span><span class="n">remove_nodes</span><span class="p">([</span><span class="s1">&#39;ex&#39;</span><span class="p">,</span> <span class="s1">&#39;ikb&#39;</span><span class="p">,</span> <span class="s1">&#39;nfkb&#39;</span><span class="p">])</span>
+<span class="n">bn</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;new&quot;</span><span class="p">,</span> <span class="s2">&quot;ph | mkk4&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ph --&gt;&#39;</span><span class="p">,</span> <span class="n">bn</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="s1">&#39;ph&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rule</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;new --&gt;&#39;</span><span class="p">,</span> <span class="n">bn</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="s1">&#39;new&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rule</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+ph --&gt; erk
+new --&gt; ph | mkk4
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Lists all modifications to the model</span>
+<span class="n">bn</span><span class="o">.</span><span class="n">modifications</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[Modification(type=update, node_id=ph, rule=erk),
+ Modification(type=remove_node, node_id=[&#39;ex&#39;, &#39;ikb&#39;, &#39;nfkb&#39;], rule=None),
+ Modification(type=add_node, node_id=new, rule=ph | mkk4)]
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bn</span><span class="o">.</span><span class="n">to_cytoscape</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;modified&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Export-the-Boolean-network">
+<h1>Export the Boolean network<a class="headerlink" href="#Export-the-Boolean-network" title="Link to this heading"></a></h1>
+<section id="BNET-format">
+<h2>BNET format<a class="headerlink" href="#BNET-format" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># show</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">bn</span><span class="o">.</span><span class="n">to_bnet</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+targets, factors
+erk, ( mek )
+ikk, ( nik )
+gsk3, ( !akt )
+ask1, ( traf2 )
+ras, ( sos )
+egf, egf
+egfr, ( egf )
+traf2, ( tnfr )
+map3k1, ( ras )
+tnfr, ( tnfa )
+ap1, ( cjun )
+mek, ( raf1 )
+mkk4, ( map3k7 &amp; map3k1 )
+tnfa, tnfa
+raf1, ( ras )
+map3k7, ( traf2 )
+mkk7, ( ask1 | map3k1 )
+cjun, ( jnk )
+sos, ( egfr &amp; !ph )
+jnk, ( mkk7 )
+pi3k, ( egfr )
+p38, ( mkk4 )
+akt, ( pi3k )
+ph, erk
+nik, ( map3k7 )
+new, ph | mkk4
+
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># save to a file</span>
+<span class="n">bn</span><span class="o">.</span><span class="n">to_bnet</span><span class="p">(</span><span class="n">files_path</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">bn</span><span class="o">.</span><span class="n">modelinfo</span><span class="o">.</span><span class="n">identifier</span><span class="si">}</span><span class="s2">-booldog-bnet.txt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+INFO 2026-03-01 16:55:06,727 booldog.io.bnet:write_bnet Wrote model as bnet to files/MODEL1411240000-booldog-bnet.txt
+</pre></div></div>
+</div>
+</section>
+<section id="SBML-qual">
+<h2>SBML-qual<a class="headerlink" href="#SBML-qual" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># save to SBML-qual</span>
+<span class="n">bn</span><span class="o">.</span><span class="n">to_sbmlqual</span><span class="p">(</span><span class="n">files_path</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">bn</span><span class="o">.</span><span class="n">modelinfo</span><span class="o">.</span><span class="n">identifier</span><span class="si">}</span><span class="s2">-booldog-sbmlqual.xml&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+INFO 2026-03-01 16:55:28,413 booldog.io.sbml:write Wrote Network as a Boolean model in SBML-qual to files/MODEL1411240000-booldog-sbmlqual.xml
+</pre></div></div>
+</div>
+</section>
+</section>
+<section id="As-a-NetworkX-network">
+<h1>As a NetworkX network<a class="headerlink" href="#As-a-NetworkX-network" title="Link to this heading"></a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">bn</span><span class="o">.</span><span class="n">to_networkx</span><span class="p">(</span><span class="n">as_logic_circuit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span><span class="o">.</span><span class="n">in_degree</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+InDegreeView({&#39;akt&#39;: 1, &#39;ap1&#39;: 1, &#39;ask1&#39;: 1, &#39;cjun&#39;: 1, &#39;egf&#39;: 1, &#39;egfr&#39;: 1, &#39;erk&#39;: 1, &#39;gsk3&#39;: 1, &#39;ikk&#39;: 1, &#39;jnk&#39;: 1, &#39;map3k1&#39;: 1, &#39;map3k7&#39;: 1, &#39;mek&#39;: 1, &#39;mkk4&#39;: 2, &#39;mkk7&#39;: 2, &#39;nik&#39;: 1, &#39;p38&#39;: 1, &#39;ph&#39;: 1, &#39;pi3k&#39;: 1, &#39;raf1&#39;: 1, &#39;ras&#39;: 1, &#39;sos&#39;: 2, &#39;tnfa&#39;: 1, &#39;tnfr&#39;: 1, &#39;traf2&#39;: 1, &#39;new&#39;: 2})
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">connectivity</span><span class="o">.</span><span class="n">average_node_connectivity</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0.2753846153846154
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">centrality</span><span class="o">.</span><span class="n">degree_centrality</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;akt&#39;: 0.08,
+ &#39;ap1&#39;: 0.04,
+ &#39;ask1&#39;: 0.08,
+ &#39;cjun&#39;: 0.08,
+ &#39;egf&#39;: 0.12,
+ &#39;egfr&#39;: 0.12,
+ &#39;erk&#39;: 0.08,
+ &#39;gsk3&#39;: 0.04,
+ &#39;ikk&#39;: 0.04,
+ &#39;jnk&#39;: 0.08,
+ &#39;map3k1&#39;: 0.12,
+ &#39;map3k7&#39;: 0.12,
+ &#39;mek&#39;: 0.08,
+ &#39;mkk4&#39;: 0.16,
+ &#39;mkk7&#39;: 0.12,
+ &#39;nik&#39;: 0.08,
+ &#39;p38&#39;: 0.04,
+ &#39;ph&#39;: 0.12,
+ &#39;pi3k&#39;: 0.08,
+ &#39;raf1&#39;: 0.08,
+ &#39;ras&#39;: 0.12,
+ &#39;sos&#39;: 0.12,
+ &#39;tnfa&#39;: 0.12,
+ &#39;tnfr&#39;: 0.08,
+ &#39;traf2&#39;: 0.12,
+ &#39;new&#39;: 0.08}
+</pre></div></div>
+</div>
+</section>
+<section id="Semi-quantative-simulations">
+<h1>Semi-quantative simulations<a class="headerlink" href="#Semi-quantative-simulations" title="Link to this heading"></a></h1>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulation</span> <span class="o">=</span> <span class="n">bn</span><span class="o">.</span><span class="n">continuous_simulation</span><span class="p">(</span>
+    <span class="n">t_max</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">transform</span><span class="o">=</span><span class="s2">&quot;normalisedhillcube&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+INFO 2026-03-01 16:56:01,673 booldog.continuous.semi_quantitative:continuous_simulation Status: Generating ODE system ...
+INFO 2026-03-01 16:56:01,674 booldog.continuous.ode_factory:__init__ Creating ODE system for normalisedhillcube.
+DEBUG 2026-03-01 16:56:01,675 booldog.continuous.ode_factory:homologue_b1 erk 1
+DEBUG 2026-03-01 16:56:01,676 booldog.continuous.ode_factory:homologue_b1 ikk 1
+DEBUG 2026-03-01 16:56:01,676 booldog.continuous.ode_factory:homologue_b1 gsk3 1
+DEBUG 2026-03-01 16:56:01,678 booldog.continuous.ode_factory:homologue_b1 ask1 1
+DEBUG 2026-03-01 16:56:01,678 booldog.continuous.ode_factory:homologue_b1 ras 1
+DEBUG 2026-03-01 16:56:01,679 booldog.continuous.ode_factory:homologue_b1 egf 1
+DEBUG 2026-03-01 16:56:01,680 booldog.continuous.ode_factory:homologue_b1 egfr 1
+DEBUG 2026-03-01 16:56:01,680 booldog.continuous.ode_factory:homologue_b1 traf2 1
+DEBUG 2026-03-01 16:56:01,681 booldog.continuous.ode_factory:homologue_b1 map3k1 1
+DEBUG 2026-03-01 16:56:01,681 booldog.continuous.ode_factory:homologue_b1 tnfr 1
+DEBUG 2026-03-01 16:56:01,682 booldog.continuous.ode_factory:homologue_b1 ap1 1
+DEBUG 2026-03-01 16:56:01,683 booldog.continuous.ode_factory:homologue_b1 mek 1
+DEBUG 2026-03-01 16:56:01,683 booldog.continuous.ode_factory:homologue_b1 mkk4 1
+DEBUG 2026-03-01 16:56:01,684 booldog.continuous.ode_factory:homologue_b1 tnfa 1
+DEBUG 2026-03-01 16:56:01,687 booldog.continuous.ode_factory:homologue_b1 raf1 1
+DEBUG 2026-03-01 16:56:01,687 booldog.continuous.ode_factory:homologue_b1 map3k7 1
+DEBUG 2026-03-01 16:56:01,689 booldog.continuous.ode_factory:homologue_b1 mkk7 3
+DEBUG 2026-03-01 16:56:01,689 booldog.continuous.ode_factory:homologue_b1 cjun 1
+DEBUG 2026-03-01 16:56:01,690 booldog.continuous.ode_factory:homologue_b1 sos 1
+DEBUG 2026-03-01 16:56:01,691 booldog.continuous.ode_factory:homologue_b1 jnk 1
+DEBUG 2026-03-01 16:56:01,691 booldog.continuous.ode_factory:homologue_b1 pi3k 1
+DEBUG 2026-03-01 16:56:01,692 booldog.continuous.ode_factory:homologue_b1 p38 1
+DEBUG 2026-03-01 16:56:01,692 booldog.continuous.ode_factory:homologue_b1 akt 1
+DEBUG 2026-03-01 16:56:01,693 booldog.continuous.ode_factory:homologue_b1 ph 1
+DEBUG 2026-03-01 16:56:01,694 booldog.continuous.ode_factory:homologue_b1 nik 1
+DEBUG 2026-03-01 16:56:01,695 booldog.continuous.ode_factory:homologue_b1 new 3
+INFO 2026-03-01 16:56:01,696 booldog.continuous.semi_quantitative:continuous_simulation Status: ... done.
+INFO 2026-03-01 16:56:01,696 booldog.continuous.semi_quantitative:continuous_simulation Status: Start
+INFO 2026-03-01 16:56:01,873 booldog.continuous.semi_quantitative:continuous_simulation Status: End
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulation</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_tutorial-advanced_52_0.png" src="../_images/tutorials_tutorial-advanced_52_0.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(&lt;Figure size 2000x1000 with 1 Axes&gt;, array([[&lt;Axes: &gt;]], dtype=object))
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bn</span><span class="o">.</span><span class="n">continuous_simulation</span><span class="p">(</span>
+    <span class="n">t_max</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">transform</span><span class="o">=</span><span class="s2">&quot;squad&quot;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+INFO 2026-03-01 16:58:04,142 booldog.continuous.semi_quantitative:continuous_simulation Status: Generating ODE system ...
+INFO 2026-03-01 16:58:04,145 booldog.continuous.ode_factory:__init__ Creating ODE system for squad.
+/home/cbleker/research/NIB/boolean-modelling/BoolDoG/booldog/continuous/ode_factory.py:463: RuntimeWarning: divide by zero encountered in divide
+  self._a1 = (1 + self._A1) / self._A1
+/home/cbleker/research/NIB/boolean-modelling/BoolDoG/booldog/continuous/ode_factory.py:465: RuntimeWarning: divide by zero encountered in divide
+  self._b1 = (1 + self._B1) / self._B1
+INFO 2026-03-01 16:58:04,150 booldog.continuous.semi_quantitative:continuous_simulation Status: ... done.
+INFO 2026-03-01 16:58:04,151 booldog.continuous.semi_quantitative:continuous_simulation Status: Start
+/home/cbleker/research/NIB/boolean-modelling/BoolDoG/booldog/continuous/ode_factory.py:479: RuntimeWarning: invalid value encountered in multiply
+  a = ensure_ndarray(self._a1 * a_x / (1+a_x))
+/home/cbleker/research/NIB/boolean-modelling/BoolDoG/booldog/continuous/ode_factory.py:483: RuntimeWarning: invalid value encountered in multiply
+  b = ensure_ndarray(self._b1 * b_x / (1+b_x))
+INFO 2026-03-01 16:58:04,411 booldog.continuous.semi_quantitative:continuous_simulation Status: End
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_tutorial-advanced_53_1.png" src="../_images/tutorials_tutorial-advanced_53_1.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(&lt;Figure size 2000x1000 with 1 Axes&gt;, array([[&lt;Axes: &gt;]], dtype=object))
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="tutorial-basic.html" class="btn btn-neutral float-left" title="BoolDog basic tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../formats.html" class="btn btn-neutral float-right" title="Formats" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2025 National Institute of Biology, Slovenia.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

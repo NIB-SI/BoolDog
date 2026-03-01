@@ -1,0 +1,78 @@
+booldog.io.registry
+===================
+
+.. py:module:: booldog.io.registry
+
+.. autoapi-nested-parse::
+
+   Registry for file parsers.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   booldog.io.registry.reader_registry
+   booldog.io.registry.writer_registry
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   booldog.io.registry.ParserRegistry
+
+
+Module Contents
+---------------
+
+.. py:class:: ParserRegistry
+
+   Registry for file parsers. This class allows you to register and retrieve
+   parser functions based on file extensions. It is used to manage different
+   file formats for reading Boolean networks.
+
+
+   .. py:attribute:: _parsers
+
+
+   .. py:method:: register(extension, parser_func)
+
+      Register a parser function for a specific file extension.
+
+      :param extension: The file type/format (e.g., "bnet", "graphml").
+      :type extension: str
+      :param parser_func: The function that parses the file and returns a BoolDog object.
+      :type parser_func: callable
+
+      :returns: The function is registered in the registry.
+      :rtype: None
+
+
+
+   .. py:method:: get(extension)
+
+      Get the parser function for a specific file extension.
+
+      :param extension: The file type/format (e.g., "bnet", "graphml").
+      :type extension: str
+
+      :returns: The parser function registered for the given extension.
+      :rtype: callable
+
+
+
+   .. py:method:: list_parsers()
+
+      List all registered parsers.
+
+
+
+
+.. py:data:: reader_registry
+
+.. py:data:: writer_registry
+

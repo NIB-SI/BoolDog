@@ -1,0 +1,746 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>booldog.io &mdash; BoolDog 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/icon.ico"/>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="booldog.io.biomodels" href="biomodels/index.html" />
+    <link rel="prev" title="booldog.continuous.semi_quantitative" href="../continuous/semi_quantitative/index.html" /> 
+    <meta name="google-site-verification" content="9jGGfgofMrQ_y61Lhymy5MZmfI6DzTOCTSV3xegf-Ec" />
+    <script type="application/ld+json" >
+{
+  "@context": "http://schema.org",
+  "@id": "https://nib-si.github.io/BoolDog",
+  "@type": "Tool",
+  "additionalType": [],
+  "applicationCategory": "Computational science tool",
+  "codeRepository": [
+    "https://github.com/NIB-SI/BoolDoG"
+  ],
+  "dct:conformsTo": "https://bioschemas.org/profiles/Tool/0.4-DRAFT-2019_07_19",
+  "description": "A Python package for analyses of Boolean and semi-qualitative Boolean networks.",
+  "license": [
+    "https://spdx.org/licenses/MIT"
+  ],
+  "name": "BoolDog",
+  "programmingLanguage": [
+    {
+      "@id": "Python",
+      "@type": "ComputerLanguage"
+    }
+  ],
+  "provider": [
+    {
+      "@context": "http://schema.org",
+      "@type": "Organization",
+      "dct:conformsTo": "https://bioschemas.org/profiles/Organization/0.2-DRAFT-2019_07_19",
+      "description": "",
+      "name": ""
+    }
+  ],
+  "softwareVersion": "0.0.1",
+  "url": "https://github.com/NIB-SI/BoolDog"
+}
+</script >
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #009739" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            BoolDog
+              <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../example.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../formats.html">Formats</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">booldog</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../boolean/index.html">booldog.boolean</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../classes/index.html">booldog.classes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../continuous/index.html">booldog.continuous</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">booldog.io</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../network/index.html">booldog.network</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../resources/index.html">booldog.resources</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../simulation_result/index.html">booldog.simulation_result</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../utils/index.html">booldog.utils</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#package-contents">Package Contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #009739" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">BoolDog</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../index.html">booldog</a></li>
+      <li class="breadcrumb-item active">booldog.io</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/autoapi/booldog/io/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-booldog.io">
+<span id="booldog-io"></span><h1>booldog.io<a class="headerlink" href="#module-booldog.io" title="Link to this heading"></a></h1>
+<p>Read Boolean or regulatory networks from various formats.</p>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="biomodels/index.html">booldog.io.biomodels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bnet/index.html">booldog.io.bnet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="circuit/index.html">booldog.io.circuit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cytoscape/index.html">booldog.io.cytoscape</a></li>
+<li class="toctree-l1"><a class="reference internal" href="igraph/index.html">booldog.io.igraph</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interaction_logic/index.html">booldog.io.interaction_logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interaction_networks/index.html">booldog.io.interaction_networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="networkx/index.html">booldog.io.networkx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="primes/index.html">booldog.io.primes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sbml/index.html">booldog.io.sbml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tabularqual/index.html">booldog.io.tabularqual</a></li>
+</ul>
+</div>
+</section>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.io.logger" title="booldog.io.logger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logger</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.io.BoolDogModelIOFromMixin" title="booldog.io.BoolDogModelIOFromMixin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BoolDogModelIOFromMixin</span></code></a></p></td>
+<td><p>Mixin providing BoolDogModel.from_XXX constructors</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#booldog.io.BoolDogModelIOToMixin" title="booldog.io.BoolDogModelIOToMixin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BoolDogModelIOToMixin</span></code></a></p></td>
+<td><p>Mixin providing to_XXX export methods for supported Boolean / regulatory network formats.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.io.booldog2networkx" title="booldog.io.booldog2networkx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">booldog2networkx</span></code></a>(model[, as_logic_circuit])</p></td>
+<td><p>Export a BoolDog Boolean model to Networkx DiGraph</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#booldog.io.booldog2igraph" title="booldog.io.booldog2igraph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">booldog2igraph</span></code></a>(model[, as_logic_circuit])</p></td>
+<td><p>Export a BoolDog Boolean model to an igraph graph object.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.io.booldog2cytoscape" title="booldog.io.booldog2cytoscape"><code class="xref py py-obj docutils literal notranslate"><span class="pre">booldog2cytoscape</span></code></a>(model[, as_logic_circuit, title, ...])</p></td>
+<td><p>Display a BoolDog Boolean model in Cytoscape.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#booldog.io.read_bnet" title="booldog.io.read_bnet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_bnet</span></code></a>(bnet[, node_names])</p></td>
+<td><p>Generate a BoolDogModel object from a Boolean network in boolnet</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.io.write_bnet" title="booldog.io.write_bnet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_bnet</span></code></a>(model[, outfile, from_primes, header, minimize])</p></td>
+<td><p>Write a BoolDogModel object to a Boolean network in boolnet (bnet) format.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#booldog.io.read_sif" title="booldog.io.read_sif"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_sif</span></code></a>(file[, delim, source_col, target_col, ...])</p></td>
+<td><p>Reads in a SIF file of interactions</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.io.read_graphml" title="booldog.io.read_graphml"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_graphml</span></code></a>(file[, edge_type_key, node_id_key, ...])</p></td>
+<td><p>Extract relavent parts for a Boolean network from a graphml file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#booldog.io.read_igraph" title="booldog.io.read_igraph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_igraph</span></code></a>(g[, node_id_key, edge_type_key, node_name_key])</p></td>
+<td><p>Create BooleanNetwork from a igraph Graph object.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.io.read_networkx" title="booldog.io.read_networkx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_networkx</span></code></a>(g[, edge_type_key, node_name_key])</p></td>
+<td><p>Create BooleanNetwork from a networkx (Di)Graph object.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#booldog.io.read_interactions" title="booldog.io.read_interactions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_interactions</span></code></a>(interactions_input[, node_names])</p></td>
+<td><p>Create Network from interactions (list)</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.io.read_sbmlqual" title="booldog.io.read_sbmlqual"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_sbmlqual</span></code></a>(file)</p></td>
+<td><p>Create Network from a SBML-qual file</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#booldog.io.write_sbmlqual" title="booldog.io.write_sbmlqual"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_sbmlqual</span></code></a>(model, outfile, **kwargs)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.io.read_primes" title="booldog.io.read_primes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_primes</span></code></a>(primes_input)</p></td>
+<td><p>Read primes from a dictionary or a json file</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#booldog.io.write_primes" title="booldog.io.write_primes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_primes</span></code></a>(network, outfile)</p></td>
+<td><p>Save primes as formatted JSON file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.io.read_tabularqual" title="booldog.io.read_tabularqual"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_tabularqual</span></code></a>(model_path)</p></td>
+<td><p>Read a TabularQual file and return a BoolDogModel.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#booldog.io.file_writable" title="booldog.io.file_writable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file_writable</span></code></a>(path)</p></td>
+<td><p>Checks if path is writeable. If not, attempts to provide reason, and raises</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="package-contents">
+<h2>Package Contents<a class="headerlink" href="#package-contents" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="booldog.io.booldog2networkx">
+<span class="sig-prename descclassname"><span class="pre">booldog.io.</span></span><span class="sig-name descname"><span class="pre">booldog2networkx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_logic_circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.booldog2networkx" title="Link to this definition"></a></dt>
+<dd><p>Export a BoolDog Boolean model to Networkx DiGraph</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>booldog:BoolDogModel</em>) – A BoolDog object representing a Boolean network.</p></li>
+<li><p><strong>as_logic_circuit</strong> (<em>bool</em>) – If True, the graph is exported as a logic circuit (Boolean rules
+are represented as “logical” nodes (and, or, not) and edges.
+Otherwise, it is exported as a directed interaction graph. Default is False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>graph</strong> – A networkx graph with the same nodes as the input network.
+If <cite>as_logic_circuit</cite> is True, Boolean rules are represented as
+“logical” nodes (and, or, not) and edges.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>networkx.DiGraph</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>See also pyboolnet.interaction_graphs.primes2igraph.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="booldog.io.booldog2igraph">
+<span class="sig-prename descclassname"><span class="pre">booldog.io.</span></span><span class="sig-name descname"><span class="pre">booldog2igraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_logic_circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.booldog2igraph" title="Link to this definition"></a></dt>
+<dd><p>Export a BoolDog Boolean model to an igraph graph object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>booldog:BoolDogModel</em>) – A BoolDog object representing a Boolean network.</p></li>
+<li><p><strong>as_logic_circuit</strong> (<em>bool</em>) – If True, the graph is exported as a logic circuit (Boolean rules
+are represented as “logical” nodes (and, or, not) and edges.
+Otherwise, it is exported as a directed interaction graph. Default is False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>graph</strong> – A igraph.Graph object with the same nodes as the input network.
+If <cite>as_logic_circuit</cite> is True, Boolean rules are represented as
+“logical” nodes (and, or, not) and edges.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>igraph.Graph</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>See also pyboolnet.interaction_graphs.primes2igraph.</p>
+<p>Implemented via conversion to Networkx DiGraph, then to igraph Graph,
+to reuse pyboolet function and logic circuits code.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="booldog.io.booldog2cytoscape">
+<span class="sig-prename descclassname"><span class="pre">booldog.io.</span></span><span class="sig-name descname"><span class="pre">booldog2cytoscape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_logic_circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Booldog</span> <span class="pre">Network'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.booldog2cytoscape" title="Link to this definition"></a></dt>
+<dd><p>Display a BoolDog Boolean model in Cytoscape.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>booldog:BoolDogModel</em>) – A BoolDog object representing a Boolean network.</p></li>
+<li><p><strong>as_logic_circuit</strong> (<em>bool</em>) – If True, the graph is exported as a logic circuit (Boolean rules
+are represented as “logical” nodes (and, or, not) and edges.
+Otherwise, it is exported as a interaction graph. Default is False.</p></li>
+<li><p><strong>title</strong> (<em>str</em><em> or </em><em>None</em>) – The title of the Cytoscape network. Default is ‘{model_id} interaction network’ if
+<cite>as_logic_circuit</cite> is False and ‘{model_id} logic circuit’ else.</p></li>
+<li><p><strong>collection</strong> (<em>str</em>) – The name of the Cytoscape collection to add the network to. Default is “Booldog Network”.</p></li>
+<li><p><strong>layout</strong> (<em>str</em><em> or </em><em>None</em>) – The name of the Cytoscape layout to apply to the network. Default is None (no layout).</p></li>
+<li><p><strong>style</strong> (<em>str</em><em> or </em><em>None</em>) – The name of the Cytoscape visual style to apply to the network.
+If None, a default style will be applied. Default is None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>suid</strong> – The SUID of the created Cytoscape network.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="booldog.io.read_bnet">
+<span class="sig-prename descclassname"><span class="pre">booldog.io.</span></span><span class="sig-name descname"><span class="pre">read_bnet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bnet</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.read_bnet" title="Link to this definition"></a></dt>
+<dd><p>Generate a BoolDogModel object from a Boolean network in boolnet
+(bnet) format.</p>
+<p>For complete documentation, see <a class="reference external" href="https://pyboolnet.readthedocs.io/en/master/modules/file_exchange.html" title="(in pyboolnet v3.0.10)"><span>file_exchange</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file</strong> (<em>str</em>) – Path to the bnet file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>rn</strong> – An object of type <span class="xref std std-ref">py:class:BoolDogModel</span>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>BoolDog</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The format of the output file is described at <span class="xref std std-ref">boolnet_format</span>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="booldog.io.write_bnet">
+<span class="sig-prename descclassname"><span class="pre">booldog.io.</span></span><span class="sig-name descname"><span class="pre">write_bnet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outfile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_primes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.write_bnet" title="Link to this definition"></a></dt>
+<dd><p>Write a BoolDogModel object to a Boolean network in boolnet (bnet) format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<a class="reference internal" href="../index.html#booldog.BoolDogModel" title="booldog.BoolDogModel"><em>BoolDogModel</em></a>) – A BoolDog object representing a Boolean network.</p></li>
+<li><p><strong>outfile</strong> (<em>str</em>) – Path to the output file. If None, the output is returned as a string.</p></li>
+<li><p><strong>from_primes</strong> (<em>bool</em><em>, </em><em>default False</em>) – If True, rules are obtained by converting prime implicants to bnet
+format. Otherwise, node rules are written directly.</p></li>
+<li><p><strong>header</strong> (<em>bool</em><em>, </em><em>default True</em>) – If True, include a header line (“target, factors”).</p></li>
+<li><p><strong>minimize</strong> (<em>bool</em><em>, </em><em>default False</em>) – If True, minimize rules when converting from primes. Only relevant if
+<code class="docutils literal notranslate"><span class="pre">from_primes</span></code> is True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns the bnet string if <code class="docutils literal notranslate"><span class="pre">outfile</span></code> is None, otherwise None.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str or None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The output file will be overwritten if it already exists.</p>
+<p>The format of the output file is described at <span class="xref std std-ref">boolnet_format</span>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="booldog.io.read_sif">
+<span class="sig-prename descclassname"><span class="pre">booldog.io.</span></span><span class="sig-name descname"><span class="pre">read_sif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_col</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_col</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interaction_col</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.read_sif" title="Link to this definition"></a></dt>
+<dd><p>Reads in a SIF file of interactions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> (<em>str</em>) – Path to the SIF file</p></li>
+<li><p><strong>delim</strong> (<em>str</em><em>, </em><em>optional</em>) – Delimiter used in the SIF file (default=”       “)</p></li>
+<li><p><strong>header</strong> (<em>bool</em><em>, </em><em>optional</em>) – If the first line of the file is a header (default=True)</p></li>
+<li><p><strong>source_col</strong> (<em>int</em><em> or </em><em>str</em><em>, </em><em>optional</em>) – Column index (if int) or column name (if str) of source node (default=0)</p></li>
+<li><p><strong>target_col</strong> (<em>int</em><em> or </em><em>str</em><em>, </em><em>optional</em>) – Column index (if int) or column name (if str) of target node (default=1)</p></li>
+<li><p><strong>interaction_col</strong> (<em>int</em><em>, </em><em>optional</em>) – Column index (if int) or column name (if str) of interaction type (symbol) (default=2)</p></li>
+<li><p><strong>activator_symbol</strong> (<em>str</em><em>, </em><em>optional</em>) – Symbol of activation edges in <cite>interaction_col</cite> (default=”1”)</p></li>
+<li><p><strong>inhibitor_symbol</strong> (<em>str</em><em>, </em><em>optional</em>) – Symbol of inhibition edges in <cite>interaction_col</cite> (default=”-1”)</p></li>
+<li><p><strong>**kwargs</strong> (<em>dict</em>) – Additional keyword arguments (ignored).</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses SQUAD logic to obtain Boolean network.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="booldog.io.read_graphml">
+<span class="sig-prename descclassname"><span class="pre">booldog.io.</span></span><span class="sig-name descname"><span class="pre">read_graphml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_type_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'interaction'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_id_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'name'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_name_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'name'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yEd_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yEd_arrow_head</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.read_graphml" title="Link to this definition"></a></dt>
+<dd><p>Extract relavent parts for a Boolean network from a graphml file.</p>
+<p>Since graphml is not well defined for Boolean networks (or even standard for
+interaction networks), this read functionality has limited support.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> (<em>str</em>) – Path to the graphml file</p></li>
+<li><p><strong>edge_type_key</strong> (<em>str</em><em>, </em><em>optional</em>) – The edge attribute key to use for interaction type (e.g., weight, type). Default is “interaction”.
+Only if yEd=False (yEd uses the arrow head symbol).</p></li>
+<li><p><strong>node_id_key</strong> (<em>str</em><em>, </em><em>optional</em>) – The vertex attribute key that contains the primary identifier to use for node names. Default is “name”.</p></li>
+<li><p><strong>node_name_key</strong> (<em>str</em><em>, </em><em>optional</em>) – The vertex attribute key that contains the node name (e.g. display label). Default is “name”.</p></li>
+<li><p><strong>yEd_labels</strong> (<em>bool</em><em>, </em><em>optional</em>) – If graphml file originates as a yEd export, the node attribute
+“y:NodeLabel” is used to determine node names (default=False)</p></li>
+<li><p><strong>yEd_arrow_head</strong> (<em>bool</em><em>, </em><em>optional</em>) – If graphml file originates as a yEd export, the edge attribute
+“y:Arrows” is used to determine interaction type (default=False)</p></li>
+<li><p><strong>activator_symbol</strong> (<em>int</em><em> or </em><em>str</em><em>, </em><em>optional</em>) – Symbol or value of activation edges. If yEd=True, default=”standard”, else default is <cite>1</cite>.</p></li>
+<li><p><strong>inhibitor_symbol</strong> (<em>int</em><em> or </em><em>str</em><em>, </em><em>optional</em>) – Symbol or value of inhibition edges. If yEd=True, default=”t_shape”, else default is <cite>-1</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>n</strong> – A BoolDogModel object representing the Boolean network.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../index.html#booldog.BoolDogModel" title="booldog.BoolDogModel">booldog.BoolDogModel</a></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses igraph to parse the graphml file, and extracts node and edge
+attributes to determine interactions.</p>
+<p>If <cite>yEd_label=True</cite>, it also parses the yEd-specific attributes to
+extract node labels (y:NodeLabel) for node names.</p>
+<p>If <cite>yEd_arrow_head=True</cite>, it parses the yEd-specific edge arrow types
+(arrow head symbols of y:Arrows) to determine interaction types
+(activation/inhibition).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="booldog.io.read_igraph">
+<span class="sig-prename descclassname"><span class="pre">booldog.io.</span></span><span class="sig-name descname"><span class="pre">read_igraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_id_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'name'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_type_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'interaction'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_name_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'name'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.read_igraph" title="Link to this definition"></a></dt>
+<dd><p>Create BooleanNetwork from a igraph Graph object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>g</strong> (<em>igraph.Graph</em>) – The input graph object from the <cite>igraph</cite> library.</p></li>
+<li><p><strong>node_id_key</strong> (<em>str</em><em>, </em><em>optional</em>) – The vertex attribute key that contains the primary identifier to use for node names. Default is “name”.</p></li>
+<li><p><strong>node_name_key</strong> (<em>str</em><em>, </em><em>optional</em>) – The vertex attribute key that contains the node name (e.g. display label). Default is “name”.</p></li>
+<li><p><strong>edge_type_key</strong> (<em>str</em><em>, </em><em>optional</em>) – The edge attribute key to use for interaction values (e.g., weight, type). Default is “interaction”.</p></li>
+<li><p><strong>activator_symbol</strong> (<em>str</em><em>, </em><em>optional</em>) – Symbol or value of activation edges in <cite>edge_type_key</cite> of g (default=”1”)</p></li>
+<li><p><strong>inhibitor_symbol</strong> (<em>str</em><em>, </em><em>optional</em>) – Symbol or value of inhibition edges in <cite>edge_type_key</cite> of g (default=”-1”)</p></li>
+<li><p><strong>**kwargs</strong> (<em>dict</em>) – Additional keyword arguments (ignored).</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses SQUAD logic to obtain Boolean network.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="booldog.io.read_networkx">
+<span class="sig-prename descclassname"><span class="pre">booldog.io.</span></span><span class="sig-name descname"><span class="pre">read_networkx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_type_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'interaction'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_name_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'name'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.read_networkx" title="Link to this definition"></a></dt>
+<dd><p>Create BooleanNetwork from a networkx (Di)Graph object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>g</strong> (<em>networkx.</em><em>(</em><em>Di</em><em>)</em><em>Graph</em>) – The input graph object from the <cite>networkx</cite> library.</p></li>
+<li><p><strong>edge_type_key</strong> (<em>str</em><em>, </em><em>optional</em>) – The edge attribute key to use for interaction values (e.g., weight, type). Default is “interaction”.</p></li>
+<li><p><strong>activator_symbol</strong> (<em>str</em><em>, </em><em>optional</em>) – Symbol or value of activation edges in <cite>edge_type_key</cite> of g (default=”1”)</p></li>
+<li><p><strong>inhibitor_symbol</strong> (<em>str</em><em>, </em><em>optional</em>) – Symbol or value of inhibition edges in <cite>edge_type_key</cite> of g (default=”-1”)</p></li>
+<li><p><strong>node_name_key</strong> (<em>str</em><em>, </em><em>optional</em>) – The vertex attribute key that contains the node name (display label). Default is “name”.</p></li>
+<li><p><strong>**kwargs</strong> (<em>dict</em>) – Additional keyword arguments (ignored).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>n</strong> – A BoolDogModel object representing the Boolean network.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../index.html#booldog.BoolDogModel" title="booldog.BoolDogModel">booldog.BoolDogModel</a></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses SQUAD logic to obtain Boolean network.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="booldog.io.read_interactions">
+<span class="sig-prename descclassname"><span class="pre">booldog.io.</span></span><span class="sig-name descname"><span class="pre">read_interactions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interactions_input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.read_interactions" title="Link to this definition"></a></dt>
+<dd><p>Create Network from interactions (list)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>interactions_input</strong> (<em>list</em><em> or </em><em>str</em>) – A list of interactions in the network. Each interaction should be a tuple of
+(source, target, sign), where source and target are node identifiers and
+sign is either activator_symbol or inhibitor_symbol.
+Or a path to a JSON file containing such a list of interactions.</p></li>
+<li><p><strong>activator_symbol</strong> (<em>int</em><em>, </em><em>optional</em>) – The value representing activation in the network. Default is 1.</p></li>
+<li><p><strong>inhibitor_symbol</strong> (<em>int</em><em>, </em><em>optional</em>) – The value representing inhibition in the network. Default is -1.</p></li>
+<li><p><strong>**kwargs</strong> (<em>dict</em>) – Additional keyword arguments (ignored).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>n</strong> – A BoolDogModel object representing the Boolean network.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../index.html#booldog.BoolDogModel" title="booldog.BoolDogModel">booldog.BoolDogModel</a></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses SQUAD logic to obtain Boolean network.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="booldog.io.read_sbmlqual">
+<span class="sig-prename descclassname"><span class="pre">booldog.io.</span></span><span class="sig-name descname"><span class="pre">read_sbmlqual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.read_sbmlqual" title="Link to this definition"></a></dt>
+<dd><p>Create Network from a SBML-qual file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file</strong> (<em>str</em>) – Path to SBML-qual file.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The SBML-qual file is converted to a Boolean network using libsbml, via
+the bnet format. To access the bnet format directly, you can use <cite>py:booldog.io.sbmlqual2bnet</cite>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="booldog.io.write_sbmlqual">
+<span class="sig-prename descclassname"><span class="pre">booldog.io.</span></span><span class="sig-name descname"><span class="pre">write_sbmlqual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outfile</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.write_sbmlqual" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="booldog.io.read_primes">
+<span class="sig-prename descclassname"><span class="pre">booldog.io.</span></span><span class="sig-name descname"><span class="pre">read_primes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">primes_input</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.read_primes" title="Link to this definition"></a></dt>
+<dd><p>Read primes from a dictionary or a json file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>primes_input</strong> (<em>str</em><em> or </em><em>dict</em>) – Dictionary of primes, or a file path to primes saved in JSON format.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>rn</strong> – A BoolDog BoolDogModel object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>:py:class:BoolDogModel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="booldog.io.write_primes">
+<span class="sig-prename descclassname"><span class="pre">booldog.io.</span></span><span class="sig-name descname"><span class="pre">write_primes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outfile</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.write_primes" title="Link to this definition"></a></dt>
+<dd><p>Save primes as formatted JSON file.
+See also pyboolnet.file_exchange.write_primes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>outfile</strong> (<em>Path</em>) – File name/path to write primes to.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="booldog.io.read_tabularqual">
+<span class="sig-prename descclassname"><span class="pre">booldog.io.</span></span><span class="sig-name descname"><span class="pre">read_tabularqual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.read_tabularqual" title="Link to this definition"></a></dt>
+<dd><p>Read a TabularQual file and return a BoolDogModel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model_path</strong> (<em>str</em>) – Path to the TabularQual file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The BoolDogModel generated from the TabularQual file.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../index.html#booldog.BoolDogModel" title="booldog.BoolDogModel">BoolDogModel</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="booldog.io.file_writable">
+<span class="sig-prename descclassname"><span class="pre">booldog.io.</span></span><span class="sig-name descname"><span class="pre">file_writable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.file_writable" title="Link to this definition"></a></dt>
+<dd><p>Checks if path is writeable. If not, attempts to provide reason, and raises
+an Exception.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em><em> or </em><em>Path</em>) – Path to file to check for writability. If the file does not exist, the
+function will check if it can be created.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="booldog.io.logger">
+<span class="sig-prename descclassname"><span class="pre">booldog.io.</span></span><span class="sig-name descname"><span class="pre">logger</span></span><a class="headerlink" href="#booldog.io.logger" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="booldog.io.BoolDogModelIOFromMixin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">booldog.io.</span></span><span class="sig-name descname"><span class="pre">BoolDogModelIOFromMixin</span></span><a class="headerlink" href="#booldog.io.BoolDogModelIOFromMixin" title="Link to this definition"></a></dt>
+<dd><p>Mixin providing BoolDogModel.from_XXX constructors
+for supported Boolean / regulatory network formats.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.io.BoolDogModelIOFromMixin._from_reader">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_from_reader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOFromMixin._from_reader" title="Link to this definition"></a></dt>
+<dd><p>Generic constructor wrapper around a reader function.</p>
+<p>Reader functions should take <a href="#id1"><span class="problematic" id="id2">*</span></a>args and <a href="#id3"><span class="problematic" id="id4">**</span></a>kwargs as input and return a
+dictionary of “nodes”, “modelinfo” and “primes” (primes and modelinfo
+are optional, but “nodes” is required).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.io.BoolDogModelIOFromMixin.from_bnet">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_bnet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOFromMixin.from_bnet" title="Link to this definition"></a></dt>
+<dd><p>Create model from BoolNet .bnet format.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.io.BoolDogModelIOFromMixin.from_primes">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_primes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOFromMixin.from_primes" title="Link to this definition"></a></dt>
+<dd><p>Create model from prime implicants format.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.io.BoolDogModelIOFromMixin.from_sbmlqual">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_sbmlqual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOFromMixin.from_sbmlqual" title="Link to this definition"></a></dt>
+<dd><p>Create model from SBML-qual file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.io.BoolDogModelIOFromMixin.from_tabularqual">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_tabularqual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOFromMixin.from_tabularqual" title="Link to this definition"></a></dt>
+<dd><p>Create model from tabular-qual format.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.io.BoolDogModelIOFromMixin.from_interactions">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_interactions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOFromMixin.from_interactions" title="Link to this definition"></a></dt>
+<dd><p>Create model from generic interaction table.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.io.BoolDogModelIOFromMixin.from_sif">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_sif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOFromMixin.from_sif" title="Link to this definition"></a></dt>
+<dd><p>Create model from SIF interaction network.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.io.BoolDogModelIOFromMixin.from_networkx">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_networkx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOFromMixin.from_networkx" title="Link to this definition"></a></dt>
+<dd><p>Create model from networkx graph.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.io.BoolDogModelIOFromMixin.from_igraph">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_igraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOFromMixin.from_igraph" title="Link to this definition"></a></dt>
+<dd><p>Create model from igraph object or file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.io.BoolDogModelIOFromMixin.from_graphml">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_graphml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOFromMixin.from_graphml" title="Link to this definition"></a></dt>
+<dd><p>Create model from GraphML file.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="booldog.io.BoolDogModelIOToMixin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">booldog.io.</span></span><span class="sig-name descname"><span class="pre">BoolDogModelIOToMixin</span></span><a class="headerlink" href="#booldog.io.BoolDogModelIOToMixin" title="Link to this definition"></a></dt>
+<dd><p>Mixin providing to_XXX export methods for supported Boolean / regulatory network formats.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.io.BoolDogModelIOToMixin._to_writer">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_to_writer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">writer</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOToMixin._to_writer" title="Link to this definition"></a></dt>
+<dd><p>Generic constructor wrapper around a writer function.</p>
+<p>Writer functions should take <a href="#id5"><span class="problematic" id="id6">*</span></a>args and <a href="#id7"><span class="problematic" id="id8">**</span></a>kwargs as input and return a
+string or write to a file. The first argument should always be the
+model instance (self). An optional keyword argument “outfile” can be
+used to specify an output file path.</p>
+<p>This constructor presents a consistent interface for exporting models
+to various formats, and centralizes any common logic needed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.io.BoolDogModelIOToMixin.to_bnet">
+<span class="sig-name descname"><span class="pre">to_bnet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOToMixin.to_bnet" title="Link to this definition"></a></dt>
+<dd><p>Export model to BoolNet .bnet format.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.io.BoolDogModelIOToMixin.to_primes">
+<span class="sig-name descname"><span class="pre">to_primes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOToMixin.to_primes" title="Link to this definition"></a></dt>
+<dd><p>Export model to prime implicants format.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.io.BoolDogModelIOToMixin.to_sbmlqual">
+<span class="sig-name descname"><span class="pre">to_sbmlqual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOToMixin.to_sbmlqual" title="Link to this definition"></a></dt>
+<dd><p>Export model to SBML-qual file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.io.BoolDogModelIOToMixin.to_networkx">
+<span class="sig-name descname"><span class="pre">to_networkx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOToMixin.to_networkx" title="Link to this definition"></a></dt>
+<dd><p>Export model to Networkx DiGraph</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.io.BoolDogModelIOToMixin.to_igraph">
+<span class="sig-name descname"><span class="pre">to_igraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOToMixin.to_igraph" title="Link to this definition"></a></dt>
+<dd><p>Export model to igraph Graph.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.io.BoolDogModelIOToMixin.to_cytoscape">
+<span class="sig-name descname"><span class="pre">to_cytoscape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOToMixin.to_cytoscape" title="Link to this definition"></a></dt>
+<dd><p>Export model to Cytoscape (via py4cytoscape).</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../continuous/semi_quantitative/index.html" class="btn btn-neutral float-left" title="booldog.continuous.semi_quantitative" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="biomodels/index.html" class="btn btn-neutral float-right" title="booldog.io.biomodels" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2025 National Institute of Biology, Slovenia.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

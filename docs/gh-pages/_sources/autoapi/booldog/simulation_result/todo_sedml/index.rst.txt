@@ -1,0 +1,146 @@
+booldog.simulation_result.todo_sedml
+====================================
+
+.. py:module:: booldog.simulation_result.todo_sedml
+
+.. autoapi-nested-parse::
+
+   Create SEDML document from a simulation result
+
+
+   Add dependency: sedml = ["python-libsedml>=2.0.32"]
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   booldog.simulation_result.todo_sedml._SEDML_AVAILABLE
+   booldog.simulation_result.todo_sedml.logger
+   booldog.simulation_result.todo_sedml.SUPPORTED_LANGUAGE_URNS
+   booldog.simulation_result.todo_sedml.handler
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   booldog.simulation_result.todo_sedml.ModelDefinition
+   booldog.simulation_result.todo_sedml.SedmlHandler
+
+
+Module Contents
+---------------
+
+.. py:data:: _SEDML_AVAILABLE
+   :value: True
+
+
+.. py:data:: logger
+
+.. py:data:: SUPPORTED_LANGUAGE_URNS
+
+.. py:class:: ModelDefinition(source, language, name='')
+
+   
+
+
+   .. py:attribute:: id
+      :value: ''
+
+
+
+   .. py:attribute:: source
+
+
+   .. py:attribute:: language
+
+
+   .. py:attribute:: name
+      :value: ''
+
+
+
+   .. py:attribute:: modifications
+      :value: []
+
+
+
+.. py:class:: SedmlHandler
+
+   A handler for reading, modifying, and writing SED-ML documents.
+
+
+   .. py:attribute:: document
+
+
+   .. py:method:: read_sedml(file_path)
+
+      Reads a SED-ML document from a file.
+
+      :param file_path: Path to the SED-ML file.
+      :type file_path: str
+
+      :raises ValueError: If there are errors in reading the SED-ML file.
+
+      :rtype: None
+
+
+
+   .. py:method:: write_sedml(file_path)
+
+      Writes the SED-ML document to a file.
+
+      :param file_path: Path to save the SED-ML file.
+      :type file_path: str
+
+      :raises TypeError: If the document is not an instance of libsedml.SedDocument.
+      :raises IOError: If writing the SED-ML file fails.
+
+      :rtype: None
+
+
+
+   .. py:method:: create_empty_document()
+
+      Creates an empty SED-ML document.
+
+      :rtype: None
+
+
+
+   .. py:method:: add_simulation(simulation_id, simulation_type='uniformTimeCourse')
+
+      Adds a simulation to the SED-ML document.
+
+      :param simulation_id: Unique ID for the simulation.
+      :type simulation_id: str
+      :param simulation_type: Type of simulation (default is "uniformTimeCourse").
+      :type simulation_type: str, optional
+
+      :raises NotImplementedError: If the simulation type is not supported.
+
+      :returns: The newly added simulation object.
+      :rtype: libsedml.SedUniformTimeCourse
+
+
+
+   .. py:method:: add_model(model_id, source)
+
+      Adds a model to the SED-ML document.
+
+      :param model_id: Unique ID for the model.
+      :type model_id: str
+      :param source: Path or URI to the model source file.
+      :type source: str
+
+      :returns: The newly added model object.
+      :rtype: libsedml.SedModel
+
+
+
+.. py:data:: handler
+

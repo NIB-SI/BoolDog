@@ -1,0 +1,321 @@
+booldog.ode_factory
+===================
+
+.. py:module:: booldog.ode_factory
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   booldog.ode_factory.logger
+   booldog.ode_factory.ode_classes
+   booldog.ode_factory.transforms
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   booldog.ode_factory.ODE
+   booldog.ode_factory.BooleCubeODE
+   booldog.ode_factory.SquadODE
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   booldog.ode_factory.ode_factory
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:function:: ode_factory(network, transform, **kwargs)
+
+   Create a :py:class:`booldog.ode.ODE` from :py:class:`Network`.
+
+   :param network: Input network.
+   :type network: :py:class:`Network` or :py:class:`BooleanNetwork`
+   :param transform: One of accepted transforms. See :py:data:`booldog.ode.transforms` or
+                     :ref:`Notes <tagnotesode>` for options.
+   :type transform: str
+
+   :param \*\*kwargs: Additional arguments and keyword arguments passed to specific ODE class.
+
+   :returns: **ode** -- A ODE system
+   :rtype: :py:class:`booldog.ode.ODE`
+
+   .. _tagnotesode:
+
+   .. rubric:: Notes
+
+   For specific transforms, see the relevant class for keyword
+   arguments (`**kwargs`).
+
+   The class per transform is defined in
+   :py:data:`booldog.ode.ode_classes`.
+
+   If the parameter is an int or float, the value is assigned for
+   all variables. Otherwise the parameter argument should be a dict
+   with keys as node names and values for their initial state. In
+   this case, if the initial state is not defined for all nodes, a
+   `default` key with the default value should also be present in the
+   dict.
+
+   Here follows a summary of the transform-specific keyword arguments
+
+       'squad'
+
+           - :py:class:`booldog.ode.SquadODE`
+           - gamma : self-decay
+           - h :  sigmoid gain
+
+       'boolecube'
+
+           - :py:class:`booldog.ode.BoolCubeODE`
+           - tau : life-time of species
+
+       'hillcube'
+
+           - :py:class:`booldog.ode.BoolCubeODE`
+           - tau : life-time of species
+           - n : Hill coefficient
+           - k : Hill dissociation constant
+
+       'normalisedhillcube'
+
+           - :py:class:`booldog.ode.BoolCubeODE`
+           - tau : life-time of species
+           - n : Hill coefficient
+           - k : Hill dissociation constant
+
+
+.. py:class:: ODE(network, transform)
+
+   Generic ODE class produced by factory.
+
+   Parent class is a variable, and defined by `transform` argument.
+
+
+   .. py:attribute:: n
+
+
+   .. py:attribute:: boolean_network
+
+
+   .. py:attribute:: transform
+
+
+   .. py:method:: event_function(t, x, event_t, *args)
+
+      Event function for `events` of `scipy.integrate.solve_ivp`.
+
+      :param t: Time-point of simulation
+      :type t: float
+      :param x:
+      :type x: narray
+      :param event_t: Time-point of event
+      :type event_t: float
+      :param \*args: ignored
+
+      .. attribute:: terminal
+
+         
+
+         :type: True
+
+
+
+   .. py:method:: update(off_nodes=None)
+
+      Resets dxdt
+
+      Shortcut to ODE class's `_get_system` method.
+
+      :param off_nodes: List of node **indices** to set derivative to 0,
+                        i.e. these nodes will remain constant in simulation.
+      :type off_nodes: list of int, optional
+
+
+
+.. py:class:: BooleCubeODE(network, transform, tau=1, n=3, k=0.5, **kwargs)
+
+   Bases: :py:obj:`ODE`
+
+
+   An ODE class.
+
+   Use of multivariate polynomial interpolation for the transformation of a
+    Boolean graph to a system of ODEs.
+
+   .. attribute:: dxdt
+
+      
+
+      :type: function
+
+   .. attribute:: param_tau
+
+      life-time of species
+
+      :type: arraylike
+
+   .. attribute:: param_n
+
+      Hill coefficient
+
+      :type: arraylike
+
+   .. attribute:: param_k
+
+      Hill dissociation constant
+
+      :type: arraylike
+
+   .. attribute:: param_dict
+
+      track parameters
+
+      :type: dict
+
+
+   .. py:attribute:: param_n
+
+
+   .. py:attribute:: param_k
+
+
+   .. py:attribute:: param_tau
+
+
+   .. py:attribute:: param_dict
+
+
+   .. py:attribute:: B1
+
+
+   .. py:attribute:: dxdt
+
+
+   .. py:method:: hill(x_array)
+
+
+   .. py:method:: normalised_hill(x_array)
+
+
+   .. py:method:: identity(x_array)
+
+
+   .. py:method:: _get_system(off_nodes=None)
+
+
+   .. py:method:: homologue_b1()
+
+      Create function to calculate the multivariate polynomial
+      interpolation of Boolean functions
+
+      :returns: **B1**
+      :rtype: function
+
+
+
+   .. py:method:: write_c_code()
+
+
+.. py:class:: SquadODE(network, transform, gamma=1, h=10, **kwargs)
+
+   Bases: :py:obj:`ODE`
+
+
+   An ODE parent class.
+
+   Use of SQUAD for the transformation of a Boolean graph to a system of ODEs.
+
+   .. attribute:: dxdt
+
+      
+
+      :type: function
+
+   .. attribute:: param_gamma
+
+      decay rate
+
+      :type: arraylike
+
+   .. attribute:: param_h
+
+      sigmoidal gain
+
+      :type: arraylike
+
+   .. attribute:: activations
+
+      activator matrix
+
+      :type: arraylike
+
+   .. attribute:: inhibitions
+
+      inhibitor matrix
+
+      :type: arraylike
+
+
+   .. py:attribute:: param_gamma
+
+
+   .. py:attribute:: param_h
+
+
+   .. py:attribute:: _A1
+
+
+   .. py:attribute:: _a1
+
+
+   .. py:attribute:: _B1
+
+
+   .. py:attribute:: _b1
+
+
+   .. py:attribute:: dxdt
+
+
+   .. py:method:: _omega(x)
+
+      Equation (2) of Di Cara et al (2007)
+      http://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-8-462
+      Based on Andre Blejec R code.
+
+
+
+   .. py:method:: _dxdt_transform(x, w)
+
+      Equation (2) of Di Cara et al (2007)
+
+
+
+   .. py:method:: _get_system(off_nodes=[])
+
+
+.. py:data:: ode_classes
+
+   transform to ODE class translation
+
+   :type: dict
+
+.. py:data:: transforms
+
+   list of accepted ODE transforms
+
+   :type: set
+

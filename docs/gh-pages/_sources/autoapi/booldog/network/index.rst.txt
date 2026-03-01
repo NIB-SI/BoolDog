@@ -1,0 +1,104 @@
+booldog.network
+===============
+
+.. py:module:: booldog.network
+
+.. autoapi-nested-parse::
+
+   TODO doc string
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   booldog.network.logger
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   booldog.network.BoolDogModel
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:class:: BoolDogModel(nodes=None, primes=None, modelinfo=None)
+
+   Bases: :py:obj:`booldog.boolean.BooleanNetworkMixin`, :py:obj:`booldog.boolean.BooleanNetworkModificationMixin`, :py:obj:`booldog.continuous.ContinuousMixin`, :py:obj:`booldog.io.BoolDogModelIOFromMixin`, :py:obj:`booldog.io.BoolDogModelIOToMixin`
+
+
+   A class to represent a Boolean network.
+
+   .. attribute:: n
+
+      The number of nodes/variables in the network
+
+      :type: int
+
+   .. attribute:: primes
+
+      Prime implicants of the Boolean network. See
+      `PyBoolNet:prime implicants
+      <https://pyboolnet.readthedocs.io/en/latest/Manual.html#prime-implicants>`_
+      for more information.
+
+      :type: dict
+
+   .. attribute:: nodes
+
+      List of `booldog.network.BoolDogNode` objects representing the nodes
+
+      :type: tuple of str
+
+   .. attribute:: index
+
+      Dictionary of node name to integer index for indexing arrays
+
+      :type: dict
+
+
+   .. py:attribute:: nodes
+
+
+   .. py:attribute:: _primes_cached
+      :value: True
+
+
+
+   .. py:attribute:: modifications
+      :value: []
+
+
+
+   .. py:method:: _set_node_ids_and_index()
+
+      Set the sorted node identifiers and index mapping to integers.
+
+
+
+   .. py:property:: n
+
+      Number of nodes in the network
+
+
+   .. py:property:: primes
+
+      Prime implicants of the Boolean network. See
+      `PyBoolNet:prime implicants` <https://pyboolnet.readthedocs.io/en/latest/Manual.html
+      #prime-implicants> for more information.
+
+
+   .. py:method:: __repr__()
+
+
+   .. py:method:: __len__()
+
+

@@ -1,0 +1,197 @@
+booldog.simulation_result.boolean_result
+========================================
+
+.. py:module:: booldog.simulation_result.boolean_result
+
+.. autoapi-nested-parse::
+
+   Boolean simulation results
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   booldog.simulation_result.boolean_result._CYTOSCAPE_AVAILABLE
+   booldog.simulation_result.boolean_result._PILLOW_AVALIBLE
+   booldog.simulation_result.boolean_result.logger
+   booldog.simulation_result.boolean_result.DEFAULT_COLOURS
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   booldog.simulation_result.boolean_result.BooleanStateSpace
+   booldog.simulation_result.boolean_result.BooleanSimulationResult
+
+
+Module Contents
+---------------
+
+.. py:data:: _CYTOSCAPE_AVAILABLE
+   :value: True
+
+
+.. py:data:: _PILLOW_AVALIBLE
+   :value: True
+
+
+.. py:data:: logger
+
+.. py:data:: DEFAULT_COLOURS
+
+.. py:class:: BooleanStateSpace(network, state_space)
+
+   Class to contain a subspace of a Boolean Network.
+
+
+   .. py:attribute:: network
+
+
+   .. py:attribute:: state_space
+
+
+   .. py:method:: set_node_state(node_id, state)
+
+      Set the state of a node in all states of the state space.
+
+      :param node_id: The identifier of the node to set the state for.
+      :type node_id: str
+      :param state: The state to set for the node (0 or 1).
+      :type state: int
+
+      :raises ValueError: If `node_id` is not a valid node identifier in the network, or if `state` is not 0 or 1.
+
+
+
+   .. py:method:: plot_state_space(title='State Heatmap', cmap=None)
+
+      Plot the states of the Boolean network as a heatmap.
+
+      :param title: Title of the heatmap, default is "State Heatmap".
+      :type title: str, optional
+      :param cmap: Colormap to use for the heatmap. Default is binary with green (1) and grey (0).
+      :type cmap: ListedColormap, optional
+
+
+
+   .. py:method:: __repr__()
+
+
+.. py:class:: BooleanSimulationResult(network, stg, initial_states)
+
+   Class to contain simulation results
+
+
+   .. py:attribute:: network
+
+
+   .. py:attribute:: stg
+
+
+   .. py:attribute:: initial_states
+
+
+   .. py:method:: plot_stg(file=None, booldog_style=True, plot_nodes=None, use_names=True, num_characters=5)
+
+      Plot the state transition graph.
+
+      :param fig: File name of generated figure
+      :type fig: str
+      :param new_style: Whether to use booldog style, or PyBoolNet style (default) to
+                        plot the state transition graph. Requires pygraphviz (If not
+                        installed, will default to PyBoolNet version.)
+      :type new_style: bool
+      :param plot_nodes: List of identifiers of subset of nodes to plot. If `None`, plot all nodes.
+                         Only valid if `booldog_style` is `True`.
+      :type plot_nodes: None or list of str, optional
+      :param use_names: Whether to use node names instead of node identifiers in the labels.
+                        Only valid if `booldog_style` is `True`.
+      :type use_names: bool
+
+      num_characters : int
+          Number of characters to use for node names in the labels.
+          Only valid if `booldog_style` is `True`.
+
+      :returns: The state transition graph. If `booldog_style` is `True` and
+                pygraphviz is installed, a pygraphviz AGraph object is returned.
+                Otherwise, a networkx graph is returned.
+      :rtype: networkx graph or pygraphviz AGraph
+
+      .. rubric:: Notes
+
+      If `booldog_style` is `True`, the nodes in the state transition graph
+      are represented as tables, with each cell representing a node in the
+      Boolean network. The cells are coloured green for "on" nodes and red
+      for "off" nodes.
+      If `use_names` is `True`, the node names are used instead of the node
+      identifiers in the labels.
+
+
+
+   .. py:method:: plot_state_space(title='State Heatmap', cmap=None)
+
+      Plot the states of the Boolean network as a heatmap.
+
+      :param title: Title of the heatmap, default is "State Heatmap".
+      :type title: str, optional
+      :param cmap: Colormap to use for the heatmap. Default is binary with green (1) and grey (0).
+      :type cmap: ListedColormap, optional
+
+
+
+   .. py:method:: export(file)
+
+      Export Boolean simulation result to ??
+
+
+
+
+
+   .. py:method:: make_animation(base_suid, gif=None, mp4=None, initial_state=None, colour_on=None, colour_off=None, cycle_repeats=3, max_steps=None, duration=400, loop=0, sleep=1)
+
+      :param base_suid: The network SUID from Cytoscape, of the network to base the animation
+                        on.
+      :type base_suid: int
+      :param gif: Path to save animation (GIF) to.
+      :type gif: None or a file path
+      :param mp4: Not recommended to use, as this feature is experimental. Path to save animation (MP4) to.
+      :type mp4: None or a file path
+      :param initial_state: Initial state for the simulation. For valid initial states, see
+                            the object attributes initial_states
+      :type initial_state: str
+      :param colour_on: Hex code for colour of "on" nodes, default="#b2df8a" (light green),
+      :type colour_on: str
+      :param colour_off: Hex code for colour of "on" nodes, default="#6f6f6f" (light grey)
+      :type colour_off: str
+      :param cycle_repeats: If there's a cycle in the simulation, how many times should it repeat,
+                            default=3,
+      :type cycle_repeats: int
+      :param max_steps=None: Maximum number of frames to include in the animation. If none, will
+                             be  `num_state + len(cycle)*cycle_repeats`,
+                             where `num_states` is the number of states in the simulation, and
+                             `len(cycle)` is the length of the cycle (if one exists). default=None
+      :param duration=400: Time on each frame (in milliseconds)
+      :param loop: Number of loops to the animation. 0 is infinite. default=0.
+      :type loop: int
+      :param sleep: Seconds to sleep between Cytoscape network exports. (See notes).
+      :type sleep: int
+
+      .. rubric:: Notes
+
+      Do not interact with Cytoscape while the networks are being rendered, as
+      this will interfere with the selection and colouring of nodes.
+
+      Occasionally Cytoscape exports get corrupted (e.g. node borders are rendered
+      in the wrong order, node fills are placed on the wrong node). This is
+      independent of booldog, and it is unclear why it happens. Rerunning
+      the function may help, and increasing the `sleep` parameter may also help.
+
+      Mp4 export is in development, and not recommended to use.
+
+
+

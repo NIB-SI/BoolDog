@@ -1,0 +1,99 @@
+booldog.io.interaction_logic
+============================
+
+.. py:module:: booldog.io.interaction_logic
+
+.. autoapi-nested-parse::
+
+   Convert interactions into Boolean functions
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   booldog.io.interaction_logic.logger
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   booldog.io.interaction_logic.LogicBuilder
+   booldog.io.interaction_logic.SquadLogic
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   booldog.io.interaction_logic.interactions2rules
+   booldog.io.interaction_logic._normalise_and_collect_regulators
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:function:: interactions2rules(interactions: tuple[int | str, int | str, int | str], *, logic: LogicBuilder = None, activator_symbol: int | str = 1, inhibitor_symbol: int | str = -1) -> Dict[str, Callable]
+
+   Convert interactions directly to prime implicants.
+
+   :param interactions: A list of interactions in the network. Each interaction should be a tuple of
+                        (source, target, sign), where source and target are node identifiers and
+                        sign is either activator_symbol or inhibitor_symbol.
+   :type interactions: list
+   :param activator_symbol: The value representing activation in the network. Default is 1.
+   :type activator_symbol: int, optional
+   :param inhibitor_symbol: The value representing inhibition in the network. Default is -1.
+   :type inhibitor_symbol: int, optional
+   :param logic: An optional logic builder to use for constructing the update functions.
+                 If not provided, the default is `SquadLogic`, which implements the SQUAD logic:
+                 A node is active iff:
+                     (any activator is active) AND (no inhibitor is active)
+   :type logic: LogicBuilder, optional
+
+   :returns: A dictionary mapping node identifiers to their corresponding prime implicants.
+   :rtype: dict
+
+
+.. py:function:: _normalise_and_collect_regulators(interactions, activator_symbol, inhibitor_symbol)
+
+   Normalize signs and orient interactions as target → regulators.
+
+
+.. py:class:: LogicBuilder
+
+   Abstract base class for Boolean logic builders.
+
+
+   .. py:method:: build(node: str, regulators: Mapping[str, int]) -> str
+      :abstractmethod:
+
+
+      Return an update rule for `node`.
+
+
+
+.. py:class:: SquadLogic
+
+   Bases: :py:obj:`LogicBuilder`
+
+
+   SQUAD logic:
+
+   A node is active iff:
+       (any activator is active) AND (no inhibitor is active)
+
+
+   .. py:method:: build(node: str, regulators: Mapping[str, int]) -> str
+
+      Return an update rule for `node`.
+
+
+

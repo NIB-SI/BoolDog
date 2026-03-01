@@ -19,14 +19,3 @@ ipython_config.py
 # Project specific
 development*
 dev*
-
-# sphinx documentation
-docs/build
-docs/source/*
-!docs/source/conf.py
-!docs/source/index.rst
-!docs/source/installation.rst
-!docs/source/formats.rst
-!docs/source/example.rst
-!docs/source/bioschemas.html
-!docs/source/_templates

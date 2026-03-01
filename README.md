@@ -29,27 +29,6 @@ To remove:
 pip uninstall booldog
 ```
 
-### Dependencies:
-
-* numpy
-* xmltodict
-* scipy
-* python-igraph
-* matplotlib
-* pygraphviz (optional)
-* pyboolnet
-* networkx
-
-## Usage
-
-See test-notebook.ipynb.
-
-```python
-import booldog
-g = booldog.RegulatoryNetwork("./examples/Athaliana.graphml", "graphml")
-g.continuous_simulation(t_max=30, gamma=1, h=10)
-```
-
 ---
 
 

@@ -1,0 +1,110 @@
+booldog
+=======
+
+.. py:module:: booldog
+
+.. autoapi-nested-parse::
+
+   `booldog`: A Python package for analyses of Boolean and semi-quantitative Boolean networks
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/booldog/boolean/index
+   /autoapi/booldog/classes/index
+   /autoapi/booldog/continuous/index
+   /autoapi/booldog/io/index
+   /autoapi/booldog/network/index
+   /autoapi/booldog/resources/index
+   /autoapi/booldog/simulation_result/index
+   /autoapi/booldog/utils/index
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   booldog.BoolDogModel
+
+
+Package Contents
+----------------
+
+.. py:class:: BoolDogModel(nodes=None, primes=None, modelinfo=None)
+
+   Bases: :py:obj:`booldog.boolean.BooleanNetworkMixin`, :py:obj:`booldog.boolean.BooleanNetworkModificationMixin`, :py:obj:`booldog.continuous.ContinuousMixin`, :py:obj:`booldog.io.BoolDogModelIOFromMixin`, :py:obj:`booldog.io.BoolDogModelIOToMixin`
+
+
+   A class to represent a Boolean network.
+
+   .. attribute:: n
+
+      The number of nodes/variables in the network
+
+      :type: int
+
+   .. attribute:: primes
+
+      Prime implicants of the Boolean network. See
+      `PyBoolNet:prime implicants
+      <https://pyboolnet.readthedocs.io/en/latest/Manual.html#prime-implicants>`_
+      for more information.
+
+      :type: dict
+
+   .. attribute:: nodes
+
+      List of `booldog.network.BoolDogNode` objects representing the nodes
+
+      :type: tuple of str
+
+   .. attribute:: index
+
+      Dictionary of node name to integer index for indexing arrays
+
+      :type: dict
+
+
+   .. py:attribute:: nodes
+
+
+   .. py:attribute:: _primes_cached
+      :value: True
+
+
+
+   .. py:attribute:: modifications
+      :value: []
+
+
+
+   .. py:method:: _set_node_ids_and_index()
+
+      Set the sorted node identifiers and index mapping to integers.
+
+
+
+   .. py:property:: n
+
+      Number of nodes in the network
+
+
+   .. py:property:: primes
+
+      Prime implicants of the Boolean network. See
+      `PyBoolNet:prime implicants` <https://pyboolnet.readthedocs.io/en/latest/Manual.html
+      #prime-implicants> for more information.
+
+
+   .. py:method:: __repr__()
+
+
+   .. py:method:: __len__()
+
+

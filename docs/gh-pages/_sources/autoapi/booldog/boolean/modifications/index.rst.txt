@@ -1,0 +1,209 @@
+booldog.boolean.modifications
+=============================
+
+.. py:module:: booldog.boolean.modifications
+
+.. autoapi-nested-parse::
+
+   Module containing functions to manipulate Boolean networks.
+   It is not intended to be used directly, but rather as a mixin
+   for other classes.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   booldog.boolean.modifications.logger
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   booldog.boolean.modifications.ModificationTypes
+   booldog.boolean.modifications.Modification
+   booldog.boolean.modifications.BooleanNetworkModificationMixin
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:class:: ModificationTypes
+
+   Bases: :py:obj:`booldog.utils.ExtendedEnum`
+
+
+   Types of modifications to the Boolean network.
+
+   :meta private:
+
+
+   .. py:attribute:: ADD
+      :value: 'add_node'
+
+
+
+   .. py:attribute:: REMOVE
+      :value: 'remove_node'
+
+
+
+   .. py:attribute:: UPDATE
+      :value: 'update'
+
+
+
+.. py:class:: Modification(modification_type, node_id, rule=None)
+
+   Class to represent a modification to the Boolean network.
+
+
+   .. py:attribute:: type
+
+
+   .. py:attribute:: node_id
+
+
+   .. py:attribute:: rule
+      :value: None
+
+
+
+   .. py:method:: __repr__()
+
+
+.. py:class:: BooleanNetworkModificationMixin
+
+   Mixin class to modify a Boolean network.
+   This class is not intended to be used directly, but rather as a mixin.
+
+
+   .. py:method:: _track_network_modifications(modification_type, node_id, rule=None)
+
+      Keep track of network modifications
+
+
+
+   .. py:method:: _update_model_object(uncache_primes=True)
+
+      Update the model attributes after a modification.
+
+
+
+   .. py:method:: modify_network(modifications)
+
+      Modify the network according to the given modifications.
+
+      :param modifications: List of Modification objects.
+      :type modifications: list
+
+      :returns: The network is modified in place.
+      :rtype: None
+
+      .. rubric:: Notes
+
+      Each Modification object must have the following attributes:
+      - modification_type : str
+          Type of modification. One of "add_node", "remove_node", "update".
+      - node : str or list
+          Name of node(s) to modify.
+      - rule : str or None
+          Rule to define the update function of `node`, in bnet form.
+          All nodes in `rule` need to be defined in Network.
+
+      The modifications are applied in the order they are given.
+      A node cannot be removed if other nodes depend on it (i.e. it occurs in
+      their update logic). To remove such a node, either also remove all of
+      its dependants, or first update the logic rule of its dependants to
+      remove dependency.
+
+      This is a wrapper for pyboolnet.prime_implicants.create_variables and
+      pyboolnet.prime_implicants.remove_variables.
+
+
+
+   .. py:method:: remove_node(node_id)
+
+      Removes `node` from the network.
+
+      :param node: Names of node to remove
+      :type node: str
+
+      :rtype: None
+
+      .. rubric:: Notes
+
+      A node cannot be removed if other nodes depend on it (i.e. it occurs in
+      their update logic). To remove such a node, either also remove all of
+      its dependants, or first update the logic rule of its dependants to
+      remove dependency.
+
+      This is a wrapper for pyboolnet.prime_implicants.remove_variables.
+
+
+
+   .. py:method:: _test_node_removabilty(node_ids)
+
+      Test if a node (set) can be removed from the network.
+
+
+
+
+   .. py:method:: remove_nodes(node_ids)
+
+      Removes all nodes in `node_ids` from the network.
+
+      :param node_ids: List of identifiers of nodes to remove
+      :type node_ids: list
+
+      :rtype: None
+
+      .. rubric:: Notes
+
+      A node cannot be removed if other nodes depend on it (i.e. it occurs in
+      their update logic). To remove such a node, either also remove all of
+      its dependants, or first update the logic rule of its dependants to
+      remove dependency.
+
+      This is a wrapper for pyboolnet.prime_implicants.remove_variables.
+
+
+
+   .. py:method:: add_node(node_id, rule, name=None)
+
+      Add a new node to Network.
+
+      :param node: Node name
+      :type node: str
+      :param rule: Rule to define update of `node`, in bnet form. All nodes in
+                   `rule` need to be defined in Network.
+      :type rule: str
+
+      :returns: * *None*
+                * *This is a wrapper for pyboolnet.prime_implicants.create_variables.*
+
+
+
+   .. py:method:: update_node(node_id, rule, modification_type=ModificationTypes.UPDATE)
+
+      Update (modify) or add the logic rule defining the update of `node`.
+      If `node` does not yet exist, it will be added, if it does exist, its
+      update logic will be overwritten.
+
+      :param node_id: Node identifier
+      :type node_id: str
+      :param rule: New rule to define update of `node`, in bnet form. All nodes in
+                   `rule` need to be defined in Network.
+      :type rule: str
+
+      :returns: * *None*
+                * *This is a wrapper for pyboolnet.prime_implicants.create_variables.*
+
+
+

@@ -1,0 +1,90 @@
+booldog.utils.misc
+==================
+
+.. py:module:: booldog.utils.misc
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   booldog.utils.misc.logger
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   booldog.utils.misc.ExtendedEnum
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   booldog.utils.misc.ensure_ndarray
+   booldog.utils.misc.parameter_to_array
+   booldog.utils.misc.file_writable
+   booldog.utils.misc.get_pkg_version
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:class:: ExtendedEnum
+
+   .. py:method:: values()
+      :classmethod:
+
+
+
+.. py:function:: ensure_ndarray(v)
+
+   Return numpy array of v, given array, int/float, list, tuple
+
+
+.. py:function:: parameter_to_array(parameter, graph_keys)
+
+   Parameter argument to numpy array
+
+   :param parameter:
+                     if array:
+                         make sure length is n
+                     if int or float:
+                         return an array of length n with value
+                     if dict:
+                         returns an array of length n with values set according to
+                     keys (nodes indexed by graph_keys), and the rest set to 'default' key
+   :type parameter: array, int, float or dict
+   :param graph_keys:
+   :type graph_keys: dict
+
+   :returns: **parameter_array** -- array of length n
+   :rtype: numpy array
+
+
+.. py:function:: file_writable(path)
+
+   Checks if path is writeable. If not, attempts to provide reason, and raises
+   an Exception.
+
+   :param path: Path to file to check for writability. If the file does not exist, the
+                function will check if it can be created.
+   :type path: str or Path
+
+   :rtype: None
+
+
+.. py:function:: get_pkg_version()
+
+   Get version of booldog package
+
+   :returns: **version** -- Version of booldog package
+   :rtype: str
+
+

@@ -1,0 +1,11 @@
+# sphinx documentation
+build
+source/*
+!source/conf.py
+!source/index.rst
+!source/installation.rst
+!source/formats.rst
+!source/example.rst
+!source/bioschemas.html
+!source/_templates
+!source/tutorials

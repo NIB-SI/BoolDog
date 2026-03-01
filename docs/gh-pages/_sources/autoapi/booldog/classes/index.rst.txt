@@ -1,0 +1,102 @@
+booldog.classes
+===============
+
+.. py:module:: booldog.classes
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   booldog.classes.BoolDogNode
+   booldog.classes.BoolDogModelInfo
+
+
+Module Contents
+---------------
+
+.. py:class:: BoolDogNode
+
+   A dataclass to represent a node in a Boolean network.
+
+   .. attribute:: identifier
+
+      The identifier of the node.
+
+      :type: str
+
+   .. attribute:: name
+
+      The name of the node.
+
+      :type: str
+
+   .. attribute:: rule
+
+      The Boolean rule of the node in Bnet format.
+
+      :type: str
+
+
+   .. py:attribute:: identifier
+      :type:  str
+
+
+   .. py:attribute:: rule
+      :type:  str
+
+
+   .. py:attribute:: name
+      :type:  Optional[str]
+      :value: None
+
+
+
+   .. py:method:: __post_init__()
+
+
+   .. py:method:: __repr__()
+
+
+.. py:class:: BoolDogModelInfo
+
+   A dataclass to represent metadata about a Boolean network model.
+
+   .. attribute:: source
+
+      The source of the model (e.g., file name, database, etc.).
+
+      :type: str
+
+
+   .. py:attribute:: identifier
+      :type:  Optional[str]
+      :value: None
+
+
+
+   .. py:attribute:: source
+      :type:  Optional[str]
+      :value: None
+
+
+
+   .. py:attribute:: source_format
+      :type:  Optional[str]
+      :value: None
+
+
+
+   .. py:attribute:: notes
+      :type:  Optional[str]
+      :value: None
+
+
+
+   .. py:method:: __post_init__()
+
+
+   .. py:method:: __repr__()
+
+

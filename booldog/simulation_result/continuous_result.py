@@ -6,8 +6,7 @@ import math
 import matplotlib.pyplot as plt
 
 from booldog.resources import mpl_style_sheet
-from booldog.utils import file_writable
-from booldog import __version__ as booldog_version
+from booldog.utils import file_writable, get_pkg_version
 
 import logging
 
@@ -68,7 +67,7 @@ class ContinuousSimulationResult():
 
         with open(outfile, "w", encoding="utf-8") as out:
             # write file origin
-            out.write(f"#Semi-quantitative simulation results exported from booldog version {booldog_version}.\n")
+            out.write(f"#Semi-quantitative simulation results exported from booldog version {get_pkg_version()}.\n")
 
             # write model source
             if self.network.modelinfo.source:

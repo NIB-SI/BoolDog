@@ -5,26 +5,44 @@ Installation
 Install
 =======
 
-Download and install:
-
-.. code-block:: bash
-
-   git clone https://github.com/NIB-SI/BoolDoG.git
-   cd BoolDoG
-   pip install .
-
-
 Install directly:
 
 .. code-block:: bash
 
-   pip install git+https://github.com/NIB-SI/sBoolDoG.git
+   pip install git+https://github.com/NIB-SI/BoolDog.git
+
+Download and install:
+
+.. code-block:: bash
+
+   git clone https://github.com/NIB-SI/BoolDog.git
+   cd BoolDog
+   pip install .
 
 
-Test
-----
+Optional dependencies
+=====================
 
-To runs tests, use
+To install optional dependencies, use the following command:
+
+.. code-block:: bash
+
+   pip install booldog[<optional-dependencies>]
+
+Where ``<optional-dependences>`` is a comma-separated list of the following:
+* ``sbml``: for SBML support (requires python-libsbml)
+* ``networks``: for network analyses (requires networkx and igraph)
+* ``graphviz``: for more elaborate STG visualization (requires pygraphviz)
+
+Or:
+* ``all``: for all optional dependencies
+
+For details see the `pyproject.toml` file in the repository.
+
+Tests
+=====
+
+See https://github.com/NIB-SI/BoolDog/tree/main/tests.
 
 
 Uninstall
@@ -50,20 +68,4 @@ To solve, download the appropriate binary from `Christophe Gohlke’s pythonlibs
 
    pip install <downloaded.whl>
 
-Then re-attempted BoolDoG installation.
-
-Dependencies
-============
-
-Required dependencies will be automatically installed when installing BoolDoG.
-The following dependencies are required:
-
-* numpy
-* xmltodict
-* scipy
-* python-igraph
-* matplotlib
-* pygraphviz (optional)
-* pyboolnet
-* networkx
-
+Then re-attempt BoolDog installation.
