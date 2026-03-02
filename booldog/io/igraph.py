@@ -2,9 +2,14 @@
 Function to transform booldog:Network to DiGraph
 '''
 import logging
-
-import igraph as ig
 from pyboolnet.interaction_graphs import primes2igraph
+
+try:
+    import igraph as ig
+    _IGRAPH_AVAILABLE = True
+except ImportError as e:
+    _IGRAPH_AVAILABLE = False
+
 from booldog.io.circuit import booldog2circuit
 
 logger = logging.getLogger(__name__)
@@ -36,6 +41,9 @@ def booldog2igraph(model, as_logic_circuit=True):
     Implemented via conversion to Networkx DiGraph, then to igraph Graph,
     to reuse pyboolet function and logic circuits code.
     '''
+
+    if not _IGRAPH_AVAILABLE:
+        raise ImportError("igraph is not available.")
 
     if as_logic_circuit:
         g = booldog2circuit(model)

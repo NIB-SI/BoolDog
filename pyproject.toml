@@ -21,7 +21,6 @@ version = "0.0.1"
 requires-python = ">=3.9"
 dependencies = [
         'pyboolnet @ git+https://github.com/hklarner/pyboolnet@3.0.16',
-        'xmltodict>=0.12',
         'matplotlib>=3.4',
         'numpy>=1.20',
         'scipy>=1.6',
@@ -35,7 +34,13 @@ graphviz = ["pygraphviz"]
 all = ["python-libsbml>=5.19", "networkx", "igraph==0.11.9", "pygraphviz"]
 
 [tool.setuptools.packages.find]
-include = ["booldog"]
+include = ["booldog*"]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.package-data]
+booldog = ["resources/*"]
 
 [project.urls]
 Homepage = "https://github.com/NIB-SI/BoolDog"

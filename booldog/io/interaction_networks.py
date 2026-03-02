@@ -6,7 +6,12 @@ import logging
 import warnings
 import json
 import xmltodict
-import igraph as ig
+
+try:
+    import igraph as ig
+    _IGRAPH_AVAILABLE = True
+except ImportError as e:
+    _IGRAPH_AVAILABLE = False
 
 from booldog.classes import BoolDogNode, BoolDogModelInfo
 from booldog.io.interaction_logic import interactions2rules
@@ -249,6 +254,9 @@ def read_igraph(g,
     Uses SQUAD logic to obtain Boolean network.
     '''
 
+    if not _IGRAPH_AVAILABLE:
+        raise ImportError("igraph is not available.")
+
     interactions = igraph2interactions(g,
                                        node_id_key=node_id_key,
                                        edge_type_key=edge_type_key)
@@ -368,6 +376,9 @@ def read_graphml(file,
     (arrow head symbols of y:Arrows) to determine interaction types
     (activation/inhibition).
     '''
+
+    if not _IGRAPH_AVAILABLE:
+        raise ImportError("igraph is not available.")
 
     # decide on activation/inhibition symbols
     if yEd_arrow_head:

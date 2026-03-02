@@ -9,9 +9,13 @@ Use tabularqual converter to convert TaabularQual files to SBML-qual, then load 
 import logging
 from tempfile import NamedTemporaryFile
 
-from booldog.io.sbml import read_sbmlqual
-from tabularqual import convert_spreadsheet_to_sbml
+try:
+    from tabularqual import convert_spreadsheet_to_sbml
+    _TABULARQUAL_AVAILABLE = True
+except ImportError as e:
+    _TABULARQUAL_AVAILABLE = False
 
+from booldog.io.sbml import read_sbmlqual
 
 logger = logging.getLogger(__name__)
 
@@ -67,5 +71,9 @@ def read_tabularqual(model_path):
         The BoolDogModel generated from the TabularQual file.
 
     '''
+
+    if not _TABULARQUAL_AVAILABLE:
+        raise ImportError("tabularqual is not available.")
+
     reader = TabularQualReader(model_path)
     return reader.read()

@@ -1,23 +1,20 @@
-# Copyright (C) 2020-2021 National Institute of Biology, Slovenia
+# Copyright (C) 2020-2026 National Institute of Biology, Slovenia
 # Author: Carissa Bleker
 # Contact: carissa.bleker@nib.si
 """`booldog`: A Python package for analyses of Boolean and semi-quantitative Boolean networks"""
 
 import sys
-from .utils.logger import setup_logger
+import logging
 
-setup_logger()
+from booldog.utils.misc import get_pkg_version
+from booldog.utils.logger import setup_logger
+from booldog.network import BoolDogModel
+from booldog.simulation_result import BooleanStateSpace
 
 assert sys.version_info >= (3, 10)
 
-from .network import BoolDogModel
-from booldog.simulation_result import BooleanStateSpace
+__version__ = get_pkg_version()
 
-import logging
-
+setup_logger()
 logger = logging.getLogger(__name__)
-
 logger.info("BoolDog version: %s", __version__)
-
-__all__ = ['BoolDogModel']
-
