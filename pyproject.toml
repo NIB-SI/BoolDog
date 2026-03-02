@@ -17,7 +17,7 @@ classifiers = [
 license = "GPL-3.0"
 license-files = ["LICENSE"]
 
-version = "0.0.1"
+version = "0.1.0"
 requires-python = ">=3.9"
 dependencies = [
         'pyboolnet @ git+https://github.com/hklarner/pyboolnet@3.0.16',
