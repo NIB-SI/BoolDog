@@ -5,7 +5,15 @@ Installation
 Install
 =======
 
-Install directly:
+
+Install from PyPi:
+
+.. code-block:: bash
+
+   pip install booldog
+
+
+Install directly from GitHub:
 
 .. code-block:: bash
 
