@@ -18,9 +18,9 @@ license = "GPL-3.0"
 license-files = ["LICENSE"]
 
 version = "0.1.0"
-requires-python = ">=3.9"
+requires-python = ">=3.12"
 dependencies = [
-        'pyboolnet @ git+https://github.com/hklarner/pyboolnet@3.0.16',
+        'pyboolnet==3.0.16',
         'matplotlib>=3.4',
         'numpy>=1.20',
         'scipy>=1.6',
@@ -28,10 +28,10 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-sbml = ["python-libsbml>=5.19"]
+sbml = ["python-libsbml>=5.19", "tabularqual"]
 networks = ["networkx", "igraph==0.11.9"]
 graphviz = ["pygraphviz"]
-all = ["python-libsbml>=5.19", "networkx", "igraph==0.11.9", "pygraphviz"]
+all = ["python-libsbml>=5.19", "tabularqual", "networkx", "igraph==0.11.9", "pygraphviz"]
 
 [tool.setuptools.packages.find]
 include = ["booldog*"]
