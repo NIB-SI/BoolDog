@@ -8,13 +8,11 @@ import numpy as np
 
 logger = logging.getLogger(__name__)
 
-class ExtendedEnum():
+class ExtendedEnum(Enum):
 
     @classmethod
     def values(cls):
         return [m.value for m in cls]
-
-
 
 def ensure_ndarray(v):
     '''
