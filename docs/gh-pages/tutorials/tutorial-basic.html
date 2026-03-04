@@ -102,6 +102,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../formats.html">Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc.html">Miscellaneous settings</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul>
@@ -149,8 +150,7 @@
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO 2026-03-01 14:24:51,783 booldog:&lt;module&gt; BoolDog version: 0.1.0
-DEBUG 2026-03-01 14:24:51,784 booldog:&lt;module&gt; Test
+INFO 2026-03-04 19:00:26,737 booldog:&lt;module&gt; BoolDog version: 0.1.0
 </pre></div></div>
 </div>
 </section>
@@ -182,16 +182,10 @@ DEBUG 2026-03-01 14:24:51,784 booldog:&lt;module&gt; Test
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-DEBUG 2026-03-01 14:24:51,790 booldog.io:_from_reader Creating BoolDogModel using reader read_bnet
-DEBUG 2026-03-01 14:24:51,792 booldog.io.bnet:_get_rules Parsing line: ETR_CTR, (ETR &amp; CTR) &amp; !ET
-DEBUG 2026-03-01 14:24:51,792 booldog.io.bnet:_get_rules Parsing line: EIN2, !ETR_CTR &amp; EIN2
-DEBUG 2026-03-01 14:24:51,793 booldog.io.bnet:_get_rules Adding node CTR with no rule.
-DEBUG 2026-03-01 14:24:51,794 booldog.io.bnet:_get_rules Adding node ETR with no rule.
-DEBUG 2026-03-01 14:24:51,794 booldog.io.bnet:_get_rules Adding node ET with no rule.
-INFO 2026-03-01 14:24:51,797 booldog.network:__init__ Node &#39;CTR&#39; has no rule. Assuming &#39;input&#39; node.
-INFO 2026-03-01 14:24:51,798 booldog.network:__init__ Node &#39;ETR&#39; has no rule. Assuming &#39;input&#39; node.
-INFO 2026-03-01 14:24:51,799 booldog.network:__init__ Node &#39;ET&#39; has no rule. Assuming &#39;input&#39; node.
-INFO 2026-03-01 14:24:51,804 booldog.network:__init__ Created Network with 5 nodes.
+INFO 2026-03-04 19:00:26,743 booldog.network:__init__ Node &#39;CTR&#39; has no rule. Assuming &#39;input&#39; node.
+INFO 2026-03-04 19:00:26,744 booldog.network:__init__ Node &#39;ET&#39; has no rule. Assuming &#39;input&#39; node.
+INFO 2026-03-04 19:00:26,744 booldog.network:__init__ Node &#39;ETR&#39; has no rule. Assuming &#39;input&#39; node.
+INFO 2026-03-04 19:00:26,749 booldog.network:__init__ Created Network with 5 nodes.
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -211,8 +205,8 @@ INFO 2026-03-01 14:24:51,804 booldog.network:__init__ Created Network with 5 nod
 {&#39;ETR_CTR&#39;: BoolDogNode(name=&#39;ETR|CTR complex&#39;, rule=&#39;(ETR &amp; CTR) &amp; !ET&#39;),
  &#39;EIN2&#39;: BoolDogNode(name=&#39;EIN2 protein&#39;, rule=&#39;!ETR_CTR &amp; EIN2&#39;),
  &#39;CTR&#39;: BoolDogNode(name=&#39;CTR protein&#39;, rule=&#39;CTR&#39;),
- &#39;ETR&#39;: BoolDogNode(name=&#39;ETR protein&#39;, rule=&#39;ETR&#39;),
- &#39;ET&#39;: BoolDogNode(name=&#39;ET metabolite&#39;, rule=&#39;ET&#39;)}
+ &#39;ET&#39;: BoolDogNode(name=&#39;ET metabolite&#39;, rule=&#39;ET&#39;),
+ &#39;ETR&#39;: BoolDogNode(name=&#39;ETR protein&#39;, rule=&#39;ETR&#39;)}
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -232,26 +226,13 @@ INFO 2026-03-01 14:24:51,804 booldog.network:__init__ Created Network with 5 nod
 &#39;(ETR &amp; CTR) &amp; !ET&#39;
 </pre></div></div>
 </div>
-<div class="nbinput docutils container">
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">bn</span><span class="o">.</span><span class="n">to_networkx</span><span class="p">(</span><span class="n">as_logic_circuit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-DEBUG 2026-03-01 14:24:51,850 booldog.io.circuit:booldog2circuit Processing rule for ETR_CTR: (ETR &amp; CTR) &amp; !ET
-DEBUG 2026-03-01 14:24:51,852 booldog.io.circuit:resolve_rule Replace ETR &amp; CTR with and_0
-DEBUG 2026-03-01 14:24:51,854 booldog.io.circuit:booldog2circuit Processing rule for EIN2: !ETR_CTR &amp; EIN2
-DEBUG 2026-03-01 14:24:51,855 booldog.io.circuit:booldog2circuit Processing rule for CTR: CTR
-DEBUG 2026-03-01 14:24:51,856 booldog.io.circuit:booldog2circuit Processing rule for ETR: ETR
-DEBUG 2026-03-01 14:24:51,857 booldog.io.circuit:booldog2circuit Processing rule for ET: ET
-</pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
@@ -270,8 +251,8 @@ targets, factors
 ETR_CTR, (ETR &amp; CTR) &amp; !ET
 EIN2, !ETR_CTR &amp; EIN2
 CTR, CTR
-ETR, ETR
 ET, ET
+ETR, ETR
 
 </pre></div></div>
 </div>
@@ -369,16 +350,11 @@ ET, ET
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO 2026-03-01 14:24:52,355 booldog.continuous.semi_quantitative:continuous_simulation Status: Generating ODE system ...
-INFO 2026-03-01 14:24:52,355 booldog.continuous.ode_factory:__init__ Creating ODE system for normalisedhillcube.
-DEBUG 2026-03-01 14:24:52,356 booldog.continuous.ode_factory:homologue_b1 ETR_CTR 1
-DEBUG 2026-03-01 14:24:52,357 booldog.continuous.ode_factory:homologue_b1 EIN2 1
-DEBUG 2026-03-01 14:24:52,358 booldog.continuous.ode_factory:homologue_b1 CTR 1
-DEBUG 2026-03-01 14:24:52,359 booldog.continuous.ode_factory:homologue_b1 ETR 1
-DEBUG 2026-03-01 14:24:52,360 booldog.continuous.ode_factory:homologue_b1 ET 1
-INFO 2026-03-01 14:24:52,361 booldog.continuous.semi_quantitative:continuous_simulation Status: ... done.
-INFO 2026-03-01 14:24:52,361 booldog.continuous.semi_quantitative:continuous_simulation Status: Start
-INFO 2026-03-01 14:24:52,972 booldog.continuous.semi_quantitative:continuous_simulation Status: End
+INFO 2026-03-04 19:00:27,436 booldog.continuous.semi_quantitative:continuous_simulation Status: Generating ODE system ...
+INFO 2026-03-04 19:00:27,437 booldog.continuous.ode_factory:__init__ Creating ODE system for normalisedhillcube.
+INFO 2026-03-04 19:00:27,439 booldog.continuous.semi_quantitative:continuous_simulation Status: ... done.
+INFO 2026-03-04 19:00:27,440 booldog.continuous.semi_quantitative:continuous_simulation Status: Start
+INFO 2026-03-04 19:00:27,991 booldog.continuous.semi_quantitative:continuous_simulation Status: End
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -418,19 +394,14 @@ INFO 2026-03-01 14:24:52,972 booldog.continuous.semi_quantitative:continuous_sim
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO 2026-03-01 14:24:53,319 booldog.continuous.semi_quantitative:continuous_simulation Status: Generating ODE system ...
-INFO 2026-03-01 14:24:53,320 booldog.continuous.ode_factory:__init__ Creating ODE system for normalisedhillcube.
-DEBUG 2026-03-01 14:24:53,321 booldog.continuous.ode_factory:homologue_b1 ETR_CTR 1
-DEBUG 2026-03-01 14:24:53,322 booldog.continuous.ode_factory:homologue_b1 EIN2 1
-DEBUG 2026-03-01 14:24:53,323 booldog.continuous.ode_factory:homologue_b1 CTR 1
-DEBUG 2026-03-01 14:24:53,324 booldog.continuous.ode_factory:homologue_b1 ETR 1
-DEBUG 2026-03-01 14:24:53,325 booldog.continuous.ode_factory:homologue_b1 ET 1
-INFO 2026-03-01 14:24:53,326 booldog.continuous.semi_quantitative:continuous_simulation Status: ... done.
-INFO 2026-03-01 14:24:53,326 booldog.continuous.semi_quantitative:continuous_simulation Status: Start
-INFO 2026-03-01 14:24:53,428 booldog.continuous.semi_quantitative:continuous_simulation Status: Event at 4.0:
+INFO 2026-03-04 19:00:28,318 booldog.continuous.semi_quantitative:continuous_simulation Status: Generating ODE system ...
+INFO 2026-03-04 19:00:28,319 booldog.continuous.ode_factory:__init__ Creating ODE system for normalisedhillcube.
+INFO 2026-03-04 19:00:28,320 booldog.continuous.semi_quantitative:continuous_simulation Status: ... done.
+INFO 2026-03-04 19:00:28,321 booldog.continuous.semi_quantitative:continuous_simulation Status: Start
+INFO 2026-03-04 19:00:28,427 booldog.continuous.semi_quantitative:continuous_simulation Status: Event at 4.0:
         ET -&gt; 0.00 (duration  0)
 
-INFO 2026-03-01 14:24:53,953 booldog.continuous.semi_quantitative:continuous_simulation Status: End
+INFO 2026-03-04 19:00:28,877 booldog.continuous.semi_quantitative:continuous_simulation Status: End
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -465,41 +436,9 @@ INFO 2026-03-01 14:24:53,953 booldog.continuous.semi_quantitative:continuous_sim
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-WARNING 2026-03-01 14:24:54,312 booldog.utils.misc:file_writable files/basic_simulation_event.tsv already exists and will be overwritten!
-INFO 2026-03-01 14:24:54,330 booldog.simulation_result.continuous_result:export Saved simulation results to files/basic_simulation_event.tsv.
+WARNING 2026-03-04 19:00:29,169 booldog.utils.misc:file_writable files/basic_simulation_event.tsv already exists and will be overwritten!
+INFO 2026-03-04 19:00:29,191 booldog.simulation_result.continuous_result:export Saved simulation results to files/basic_simulation_event.tsv.
 </pre></div></div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
 </div>
 </section>
 </section>

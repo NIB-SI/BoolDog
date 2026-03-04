@@ -81,6 +81,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../example.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../formats.html">Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../misc.html">Miscellaneous settings</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul class="current">
@@ -97,9 +98,16 @@
 <li class="toctree-l4"><a class="reference internal" href="utils/index.html">booldog.utils</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#attributes">Attributes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#functions">Functions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#package-contents">Package Contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#booldog.get_pkg_version"><code class="docutils literal notranslate"><span class="pre">get_pkg_version()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#booldog.setup_logger"><code class="docutils literal notranslate"><span class="pre">setup_logger()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#booldog.BoolDogModel"><code class="docutils literal notranslate"><span class="pre">BoolDogModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#booldog.BooleanStateSpace"><code class="docutils literal notranslate"><span class="pre">BooleanStateSpace</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#booldog.__version__"><code class="docutils literal notranslate"><span class="pre">__version__</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#booldog.logger"><code class="docutils literal notranslate"><span class="pre">logger</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -151,6 +159,19 @@
 </ul>
 </div>
 </section>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.__version__" title="booldog.__version__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__version__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#booldog.logger" title="booldog.logger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logger</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="classes">
 <h2>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h2>
 <table class="autosummary longtable docutils align-default">
@@ -158,11 +179,47 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#booldog.BoolDogModel" title="booldog.BoolDogModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BoolDogModel</span></code></a></p></td>
 <td><p>A class to represent a Boolean network.</p></td>
 </tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#booldog.BooleanStateSpace" title="booldog.BooleanStateSpace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BooleanStateSpace</span></code></a></p></td>
+<td><p>Class to contain a subspace of a Boolean Network.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#booldog.get_pkg_version" title="booldog.get_pkg_version"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_pkg_version</span></code></a>()</p></td>
+<td><p>Get version of booldog package</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#booldog.setup_logger" title="booldog.setup_logger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup_logger</span></code></a>([level])</p></td>
+<td><p>Set up logger for BoolDog</p></td>
+</tr>
 </tbody>
 </table>
 </section>
 <section id="package-contents">
 <h2>Package Contents<a class="headerlink" href="#package-contents" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="booldog.get_pkg_version">
+<span class="sig-prename descclassname"><span class="pre">booldog.</span></span><span class="sig-name descname"><span class="pre">get_pkg_version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#booldog.get_pkg_version" title="Link to this definition"></a></dt>
+<dd><p>Get version of booldog package</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>version</strong> – Version of booldog package</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="booldog.setup_logger">
+<span class="sig-prename descclassname"><span class="pre">booldog.</span></span><span class="sig-name descname"><span class="pre">setup_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">logging.INFO</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.setup_logger" title="Link to this definition"></a></dt>
+<dd><p>Set up logger for BoolDog</p>
+</dd></dl>
+
 <dl class="py class">
 <dt class="sig sig-object py" id="booldog.BoolDogModel">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">booldog.</span></span><span class="sig-name descname"><span class="pre">BoolDogModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">primes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modelinfo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.BoolDogModel" title="Link to this definition"></a></dt>
@@ -260,6 +317,68 @@ for more information.</p>
 <dd></dd></dl>
 
 </dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="booldog.BooleanStateSpace">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">booldog.</span></span><span class="sig-name descname"><span class="pre">BooleanStateSpace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_space</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.BooleanStateSpace" title="Link to this definition"></a></dt>
+<dd><p>Class to contain a subspace of a Boolean Network.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="booldog.BooleanStateSpace.network">
+<span class="sig-name descname"><span class="pre">network</span></span><a class="headerlink" href="#booldog.BooleanStateSpace.network" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="booldog.BooleanStateSpace.state_space">
+<span class="sig-name descname"><span class="pre">state_space</span></span><a class="headerlink" href="#booldog.BooleanStateSpace.state_space" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.BooleanStateSpace.set_node_state">
+<span class="sig-name descname"><span class="pre">set_node_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.BooleanStateSpace.set_node_state" title="Link to this definition"></a></dt>
+<dd><p>Set the state of a node in all states of the state space.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node_id</strong> (<em>str</em>) – The identifier of the node to set the state for.</p></li>
+<li><p><strong>state</strong> (<em>int</em>) – The state to set for the node (0 or 1).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If <cite>node_id</cite> is not a valid node identifier in the network, or if <cite>state</cite> is not 0 or 1.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.BooleanStateSpace.plot_state_space">
+<span class="sig-name descname"><span class="pre">plot_state_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'State</span> <span class="pre">Heatmap'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.BooleanStateSpace.plot_state_space" title="Link to this definition"></a></dt>
+<dd><p>Plot the states of the Boolean network as a heatmap.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – Title of the heatmap, default is “State Heatmap”.</p></li>
+<li><p><strong>cmap</strong> (<em>ListedColormap</em><em>, </em><em>optional</em>) – Colormap to use for the heatmap. Default is binary with green (1) and grey (0).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="booldog.BooleanStateSpace.__repr__">
+<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#booldog.BooleanStateSpace.__repr__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="booldog.__version__">
+<span class="sig-prename descclassname"><span class="pre">booldog.</span></span><span class="sig-name descname"><span class="pre">__version__</span></span><a class="headerlink" href="#booldog.__version__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="booldog.logger">
+<span class="sig-prename descclassname"><span class="pre">booldog.</span></span><span class="sig-name descname"><span class="pre">logger</span></span><a class="headerlink" href="#booldog.logger" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 
 </section>
 </section>

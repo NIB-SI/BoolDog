@@ -38,6 +38,14 @@ Module Contents
 
 .. py:class:: ExtendedEnum
 
+   Bases: :py:obj:`enum.Enum`
+
+
+   Generic enumeration.
+
+   Derive from this class to define new enumerations.
+
+
    .. py:method:: values()
       :classmethod:
 

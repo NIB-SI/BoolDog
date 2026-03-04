@@ -15,6 +15,7 @@ Attributes
 
 .. autoapisummary::
 
+   booldog.io.interaction_networks._IGRAPH_AVAILABLE
    booldog.io.interaction_networks.logger
 
 
@@ -34,6 +35,10 @@ Functions
 
 Module Contents
 ---------------
+
+.. py:data:: _IGRAPH_AVAILABLE
+   :value: True
+
 
 .. py:data:: logger
 

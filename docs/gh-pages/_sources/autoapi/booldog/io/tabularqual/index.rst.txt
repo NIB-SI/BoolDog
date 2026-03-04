@@ -18,6 +18,7 @@ Attributes
 
 .. autoapisummary::
 
+   booldog.io.tabularqual._TABULARQUAL_AVAILABLE
    booldog.io.tabularqual.logger
 
 
@@ -39,6 +40,10 @@ Functions
 
 Module Contents
 ---------------
+
+.. py:data:: _TABULARQUAL_AVAILABLE
+   :value: True
+
 
 .. py:data:: logger
 

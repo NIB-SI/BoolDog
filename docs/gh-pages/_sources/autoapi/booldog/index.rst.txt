@@ -25,16 +25,49 @@ Submodules
    /autoapi/booldog/utils/index
 
 
+Attributes
+----------
+
+.. autoapisummary::
+
+   booldog.__version__
+   booldog.logger
+
+
 Classes
 -------
 
 .. autoapisummary::
 
    booldog.BoolDogModel
+   booldog.BooleanStateSpace
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   booldog.get_pkg_version
+   booldog.setup_logger
 
 
 Package Contents
 ----------------
+
+.. py:function:: get_pkg_version()
+
+   Get version of booldog package
+
+   :returns: **version** -- Version of booldog package
+   :rtype: str
+
+
+.. py:function:: setup_logger(level=logging.INFO)
+
+   Set up logger for BoolDog
+
+
 
 .. py:class:: BoolDogModel(nodes=None, primes=None, modelinfo=None)
 
@@ -107,4 +140,46 @@ Package Contents
 
    .. py:method:: __len__()
 
+
+.. py:class:: BooleanStateSpace(network, state_space)
+
+   Class to contain a subspace of a Boolean Network.
+
+
+   .. py:attribute:: network
+
+
+   .. py:attribute:: state_space
+
+
+   .. py:method:: set_node_state(node_id, state)
+
+      Set the state of a node in all states of the state space.
+
+      :param node_id: The identifier of the node to set the state for.
+      :type node_id: str
+      :param state: The state to set for the node (0 or 1).
+      :type state: int
+
+      :raises ValueError: If `node_id` is not a valid node identifier in the network, or if `state` is not 0 or 1.
+
+
+
+   .. py:method:: plot_state_space(title='State Heatmap', cmap=None)
+
+      Plot the states of the Boolean network as a heatmap.
+
+      :param title: Title of the heatmap, default is "State Heatmap".
+      :type title: str, optional
+      :param cmap: Colormap to use for the heatmap. Default is binary with green (1) and grey (0).
+      :type cmap: ListedColormap, optional
+
+
+
+   .. py:method:: __repr__()
+
+
+.. py:data:: __version__
+
+.. py:data:: logger
 

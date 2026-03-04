@@ -4,9 +4,8 @@
    contain the root `toctree` directive.
 
 ========
-BoolDoG
+BoolDog
 ========
-
 
 A Python package for analyses of Boolean and semi-quantitative Boolean networks.
 

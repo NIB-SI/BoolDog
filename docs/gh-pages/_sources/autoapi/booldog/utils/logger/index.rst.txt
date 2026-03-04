@@ -15,7 +15,7 @@ Functions
 Module Contents
 ---------------
 
-.. py:function:: setup_logger(level=logging.DEBUG)
+.. py:function:: setup_logger(level=logging.INFO)
 
    Set up logger for BoolDog
 
