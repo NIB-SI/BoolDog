@@ -2,18 +2,41 @@
 Installation
 ============
 
-Install
-=======
+Install from PyPI
+=================
 
-
-Install from PyPi:
+To install the latest stable version of BoolDog from PyPI, use the following command:
 
 .. code-block:: bash
 
    pip install booldog
 
+Optionally, specify a version.
 
-Install directly from GitHub:
+
+Optional dependencies
+=====================
+
+To install optional dependencies, use the following command:
+
+.. code-block:: bash
+
+   pip install booldog[<optional-dependencies>]
+
+Where ``<optional-dependences>`` is a comma-separated list of the following:
+* ``sbml``: for SBML support (requires python-libsbml)
+* ``networks``: for network analyses (requires networkx and igraph)
+* ``graphviz``: for more elaborate STG visualization (requires pygraphviz)
+
+Or:
+* ``all``: for all optional dependencies
+
+For details see the `pyproject.toml` file in the repository.
+
+Install from GitHub
+===================
+
+Install directly:
 
 .. code-block:: bash
 
@@ -27,25 +50,6 @@ Download and install:
    cd BoolDog
    pip install .
 
-
-Optional dependencies
-=====================
-
-To install optional dependencies, use the following command:
-
-.. code-block:: bash
-
-   pip install booldog[<optional-dependencies>]
-
-Where ``<optional-dependences>`` is a comma-separated list of the following:
-
-* ``sbml``: for SBML support (requires python-libsbml)
-* ``networks``: for network analyses (requires networkx and igraph)
-* ``graphviz``: for more elaborate STG visualization (requires pygraphviz)
-
-Or ``all``: for all optional dependencies
-
-For details see the `pyproject.toml` file in the repository.
 
 Tests
 =====
