@@ -21,6 +21,7 @@ Documentation page: https://nib-si.github.io/BoolDog
    installation
    example
    formats
+   misc
 
 .. toctree::
    :caption: API

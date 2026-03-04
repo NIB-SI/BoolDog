@@ -9,3 +9,4 @@ source/*
 !source/bioschemas.html
 !source/_templates
 !source/tutorials
+!source/misc.rst

@@ -1,7 +1,7 @@
 import logging
 import sys
 
-def setup_logger(level=logging.DEBUG):
+def setup_logger(level=logging.INFO):
     ''' Set up logger for BoolDog
     '''
 
@@ -24,3 +24,4 @@ def setup_logger(level=logging.DEBUG):
 
     logger.propagate = False
 
+    return
