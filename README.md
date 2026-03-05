@@ -5,7 +5,7 @@ A Python package for analyses of Boolean and semi-quantitative Boolean networks.
 ## Documentation
 
 For installation, usage, and examples, see the documentation at 
-[nib-si.github.io/BoolDoG](https://nib-si.github.io/BoolDoG)
+[nib-si.github.io/BoolDog](https://nib-si.github.io/BoolDog)
 
 ## Citation
 
