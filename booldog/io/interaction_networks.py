@@ -438,9 +438,9 @@ def read_graphml(file,
                     except KeyError:
                         pass
                 if symbol is None:
-                    logger.warning(
-                        'Issue with Graphml edge id "%s", no arrow symbol to define interaction type',
-                        graphml_edge_id)
+                    raise ValueError(
+                        f'Issue with Graphml edge id "{graphml_edge_id}": '
+                        'no arrow symbol to define interaction type.')
 
                 logger.debug("Edge %s has yEd arrow type: %s", e["@id"],
                              symbol)
@@ -456,11 +456,15 @@ def read_graphml(file,
                 edge_attrs[graphml_edge_id] = symbol
 
             for e in g.es():
-                if e["id"] in edge_attrs:
-                    e[edge_type_key] = edge_attrs[e["id"]]
-                else:
-                    e[edge_type_key] = None
-                    logger.warning("Edge %s has no edge type.", e["id"])
+                if e["id"] not in edge_attrs:
+                    raise ValueError(
+                        f'Edge "{e["id"]}" has no edge type. This can happen '
+                        'if the installed igraph does not correctly import '
+                        'GraphML edge ids (see '
+                        'https://github.com/igraph/igraph/issues/2892); '
+                        'booldog requires igraph==0.11.9 for yEd_arrow_head '
+                        'support until that regression is released as fixed.')
+                e[edge_type_key] = edge_attrs[e["id"]]
 
     # check if node_id_key is present
     if not (node_id_key in g.vertex_attributes()):
