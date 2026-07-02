@@ -31,7 +31,8 @@ dependencies = [
 sbml = ["python-libsbml>=5.19", "tabularqual"]
 networks = ["networkx", "igraph==0.11.9"]
 graphviz = ["pygraphviz"]
-all = ["python-libsbml>=5.19", "tabularqual", "networkx", "igraph==0.11.9", "pygraphviz"]
+biomodels = ["requests>=2.25"]
+all = ["python-libsbml>=5.19", "tabularqual", "networkx", "igraph==0.11.9", "pygraphviz", "requests>=2.25"]
 
 [tool.setuptools.packages.find]
 include = ["booldog*"]

@@ -24,12 +24,21 @@ To install optional dependencies, use the following command:
    pip install booldog[<optional-dependencies>]
 
 Where ``<optional-dependences>`` is a comma-separated list of the following:
+
 * ``sbml``: for SBML support (requires python-libsbml)
 * ``networks``: for network analyses (requires networkx and igraph)
 * ``graphviz``: for more elaborate STG visualization (requires pygraphviz)
+* ``biomodels``: for fetching models from the BioModels database (requires requests)
 
 Or:
+
 * ``all``: for all optional dependencies
+
+For example, to install all optional dependencies:
+
+.. code-block:: bash
+
+   pip install booldog[all]
 
 For details see the `pyproject.toml` file in the repository.
 
