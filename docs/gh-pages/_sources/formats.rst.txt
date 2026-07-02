@@ -114,6 +114,7 @@ Interactions
 ============
 
 Pairwise interactions between entities can be imported from:
+
 * Graphml files
 * SIF files
 * NetworkX DiGraph objects

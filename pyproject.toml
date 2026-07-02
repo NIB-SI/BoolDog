@@ -34,6 +34,9 @@ graphviz = ["pygraphviz"]
 biomodels = ["requests>=2.25"]
 all = ["python-libsbml>=5.19", "tabularqual", "networkx", "igraph==0.11.9", "pygraphviz", "requests>=2.25"]
 
+# for development
+docs = ["sphinx", "sphinx-rtd-theme", "sphinx-autoapi", "nbsphinx", "nbsphinx-link", "ipython"]
+
 [tool.setuptools.packages.find]
 include = ["booldog*"]
 

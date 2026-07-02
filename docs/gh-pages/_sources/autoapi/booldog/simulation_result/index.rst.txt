@@ -245,12 +245,14 @@ Package Contents
 
 
 
-   .. py:method:: plot_state_space(title='State Heatmap', cmap=None)
+   .. py:method:: plot_state_space(title='State Heatmap', plot_nodes=None, cmap=None)
 
       Plot the states of the Boolean network as a heatmap.
 
       :param title: Title of the heatmap, default is "State Heatmap".
       :type title: str, optional
+      :param plot_nodes: Subset of nodes to plot. If `None`, plot all nodes.
+      :type plot_nodes: None or list of str, optional
       :param cmap: Colormap to use for the heatmap. Default is binary with green (1) and grey (0).
       :type cmap: ListedColormap, optional
 

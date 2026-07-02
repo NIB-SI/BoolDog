@@ -1,1 +1,0 @@
-git+https://github.com/hklarner/pyboolnet@3.0.9

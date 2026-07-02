@@ -187,12 +187,18 @@ Module Contents
 
 
    .. py:attribute:: param_n
+      :value: 3
+
 
 
    .. py:attribute:: param_k
+      :value: 0.5
+
 
 
    .. py:attribute:: param_tau
+      :value: 1
+
 
 
    .. py:attribute:: param_dict
@@ -270,9 +276,13 @@ Module Contents
 
 
    .. py:attribute:: param_gamma
+      :value: 1
+
 
 
    .. py:attribute:: param_h
+      :value: 10
+
 
 
    .. py:attribute:: _A1

@@ -17,11 +17,11 @@ import re
 # -- Project information -----------------------------------------------------
 
 project = 'BoolDog'
-copyright = '2020-2025 National Institute of Biology, Slovenia'
+copyright = '2020-2026 National Institute of Biology, Slovenia'
 author = 'Carissa Bleker'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1'
+release = '0.1.0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -84,6 +84,10 @@ html_favicon = '../figures/icon.ico'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 #html_static_path = ['_static']
+
+# Copied verbatim to the output root. Used to ship a `.nojekyll` marker so
+# GitHub Pages serves the underscore-prefixed Sphinx asset directories as-is.
+html_extra_path = ['_extra']
 
 # def autodoc_skip_member(app, what, name, obj, skip, options):
 

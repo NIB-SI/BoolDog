@@ -6,18 +6,18 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>booldog.io &mdash; BoolDog 0.1 documentation</title>
+  <title>booldog.io &mdash; BoolDog 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
 
   
     <link rel="shortcut icon" href="../../../_static/icon.ico"/>
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=2709fde1"></script>
-      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -33,10 +33,10 @@
   "additionalType": [],
   "applicationCategory": "Computational science tool",
   "codeRepository": [
-    "https://github.com/NIB-SI/BoolDoG"
+    "https://github.com/NIB-SI/BoolDog"
   ],
   "dct:conformsTo": "https://bioschemas.org/profiles/Tool/0.4-DRAFT-2019_07_19",
-  "description": "A Python package for analyses of Boolean and semi-qualitative Boolean networks.",
+  "description": "A Python package for Boolean and semi-quantitative Boolean analysis of networks.",
   "license": [
     "https://spdx.org/licenses/MIT"
   ],
@@ -76,7 +76,7 @@
               <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
           </a>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Manual and guides</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../example.html">Examples</a></li>
@@ -590,12 +590,12 @@ function will check if it can be created.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="booldog.io.BoolDogModelIOFromMixin">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">booldog.io.</span></span><span class="sig-name descname"><span class="pre">BoolDogModelIOFromMixin</span></span><a class="headerlink" href="#booldog.io.BoolDogModelIOFromMixin" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">booldog.io.</span></span><span class="sig-name descname"><span class="pre">BoolDogModelIOFromMixin</span></span><a class="headerlink" href="#booldog.io.BoolDogModelIOFromMixin" title="Link to this definition"></a></dt>
 <dd><p>Mixin providing BoolDogModel.from_XXX constructors
 for supported Boolean / regulatory network formats.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="booldog.io.BoolDogModelIOFromMixin._from_reader">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_from_reader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOFromMixin._from_reader" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">_from_reader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOFromMixin._from_reader" title="Link to this definition"></a></dt>
 <dd><p>Generic constructor wrapper around a reader function.</p>
 <p>Reader functions should take <a href="#id1"><span class="problematic" id="id2">*</span></a>args and <a href="#id3"><span class="problematic" id="id4">**</span></a>kwargs as input and return a
 dictionary of “nodes”, “modelinfo” and “primes” (primes and modelinfo
@@ -604,55 +604,55 @@ are optional, but “nodes” is required).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="booldog.io.BoolDogModelIOFromMixin.from_bnet">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_bnet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOFromMixin.from_bnet" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_bnet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOFromMixin.from_bnet" title="Link to this definition"></a></dt>
 <dd><p>Create model from BoolNet .bnet format.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="booldog.io.BoolDogModelIOFromMixin.from_primes">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_primes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOFromMixin.from_primes" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_primes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOFromMixin.from_primes" title="Link to this definition"></a></dt>
 <dd><p>Create model from prime implicants format.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="booldog.io.BoolDogModelIOFromMixin.from_sbmlqual">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_sbmlqual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOFromMixin.from_sbmlqual" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_sbmlqual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOFromMixin.from_sbmlqual" title="Link to this definition"></a></dt>
 <dd><p>Create model from SBML-qual file.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="booldog.io.BoolDogModelIOFromMixin.from_tabularqual">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_tabularqual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOFromMixin.from_tabularqual" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_tabularqual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOFromMixin.from_tabularqual" title="Link to this definition"></a></dt>
 <dd><p>Create model from tabular-qual format.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="booldog.io.BoolDogModelIOFromMixin.from_interactions">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_interactions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOFromMixin.from_interactions" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_interactions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOFromMixin.from_interactions" title="Link to this definition"></a></dt>
 <dd><p>Create model from generic interaction table.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="booldog.io.BoolDogModelIOFromMixin.from_sif">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_sif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOFromMixin.from_sif" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_sif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOFromMixin.from_sif" title="Link to this definition"></a></dt>
 <dd><p>Create model from SIF interaction network.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="booldog.io.BoolDogModelIOFromMixin.from_networkx">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_networkx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOFromMixin.from_networkx" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_networkx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOFromMixin.from_networkx" title="Link to this definition"></a></dt>
 <dd><p>Create model from networkx graph.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="booldog.io.BoolDogModelIOFromMixin.from_igraph">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_igraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOFromMixin.from_igraph" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_igraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOFromMixin.from_igraph" title="Link to this definition"></a></dt>
 <dd><p>Create model from igraph object or file.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="booldog.io.BoolDogModelIOFromMixin.from_graphml">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_graphml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOFromMixin.from_graphml" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_graphml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOFromMixin.from_graphml" title="Link to this definition"></a></dt>
 <dd><p>Create model from GraphML file.</p>
 </dd></dl>
 
@@ -660,11 +660,11 @@ are optional, but “nodes” is required).</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="booldog.io.BoolDogModelIOToMixin">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">booldog.io.</span></span><span class="sig-name descname"><span class="pre">BoolDogModelIOToMixin</span></span><a class="headerlink" href="#booldog.io.BoolDogModelIOToMixin" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">booldog.io.</span></span><span class="sig-name descname"><span class="pre">BoolDogModelIOToMixin</span></span><a class="headerlink" href="#booldog.io.BoolDogModelIOToMixin" title="Link to this definition"></a></dt>
 <dd><p>Mixin providing to_XXX export methods for supported Boolean / regulatory network formats.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="booldog.io.BoolDogModelIOToMixin._to_writer">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_to_writer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">writer</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOToMixin._to_writer" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">_to_writer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">writer</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.io.BoolDogModelIOToMixin._to_writer" title="Link to this definition"></a></dt>
 <dd><p>Generic constructor wrapper around a writer function.</p>
 <p>Writer functions should take <a href="#id5"><span class="problematic" id="id6">*</span></a>args and <a href="#id7"><span class="problematic" id="id8">**</span></a>kwargs as input and return a
 string or write to a file. The first argument should always be the
@@ -726,7 +726,7 @@ to various formats, and centralizes any common logic needed.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2020-2025 National Institute of Biology, Slovenia.</p>
+    <p>&#169; Copyright 2020-2026 National Institute of Biology, Slovenia.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

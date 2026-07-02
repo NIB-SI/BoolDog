@@ -6,18 +6,18 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>booldog.simulation_result.boolean_result &mdash; BoolDog 0.1 documentation</title>
+  <title>booldog.simulation_result.boolean_result &mdash; BoolDog 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
 
   
     <link rel="shortcut icon" href="../../../../_static/icon.ico"/>
       <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../../_static/documentation_options.js?v=2709fde1"></script>
-      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -33,10 +33,10 @@
   "additionalType": [],
   "applicationCategory": "Computational science tool",
   "codeRepository": [
-    "https://github.com/NIB-SI/BoolDoG"
+    "https://github.com/NIB-SI/BoolDog"
   ],
   "dct:conformsTo": "https://bioschemas.org/profiles/Tool/0.4-DRAFT-2019_07_19",
-  "description": "A Python package for analyses of Boolean and semi-qualitative Boolean networks.",
+  "description": "A Python package for Boolean and semi-quantitative Boolean analysis of networks.",
   "license": [
     "https://spdx.org/licenses/MIT"
   ],
@@ -76,7 +76,7 @@
               <img src="../../../../_static/logo.png" class="logo" alt="Logo"/>
           </a>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Manual and guides</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../example.html">Examples</a></li>
@@ -174,12 +174,12 @@
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
 <dl class="py data">
 <dt class="sig sig-object py" id="booldog.simulation_result.boolean_result._CYTOSCAPE_AVAILABLE">
-<span class="sig-prename descclassname"><span class="pre">booldog.simulation_result.boolean_result.</span></span><span class="sig-name descname"><span class="pre">_CYTOSCAPE_AVAILABLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#booldog.simulation_result.boolean_result._CYTOSCAPE_AVAILABLE" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">booldog.simulation_result.boolean_result.</span></span><span class="sig-name descname"><span class="pre">_CYTOSCAPE_AVAILABLE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></span><a class="headerlink" href="#booldog.simulation_result.boolean_result._CYTOSCAPE_AVAILABLE" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="booldog.simulation_result.boolean_result._PILLOW_AVALIBLE">
-<span class="sig-prename descclassname"><span class="pre">booldog.simulation_result.boolean_result.</span></span><span class="sig-name descname"><span class="pre">_PILLOW_AVALIBLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#booldog.simulation_result.boolean_result._PILLOW_AVALIBLE" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">booldog.simulation_result.boolean_result.</span></span><span class="sig-name descname"><span class="pre">_PILLOW_AVALIBLE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></span><a class="headerlink" href="#booldog.simulation_result.boolean_result._PILLOW_AVALIBLE" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py data">
@@ -194,7 +194,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="booldog.simulation_result.boolean_result.BooleanStateSpace">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">booldog.simulation_result.boolean_result.</span></span><span class="sig-name descname"><span class="pre">BooleanStateSpace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_space</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.simulation_result.boolean_result.BooleanStateSpace" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">booldog.simulation_result.boolean_result.</span></span><span class="sig-name descname"><span class="pre">BooleanStateSpace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_space</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.simulation_result.boolean_result.BooleanStateSpace" title="Link to this definition"></a></dt>
 <dd><p>Class to contain a subspace of a Boolean Network.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="booldog.simulation_result.boolean_result.BooleanStateSpace.network">
@@ -225,12 +225,13 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="booldog.simulation_result.boolean_result.BooleanStateSpace.plot_state_space">
-<span class="sig-name descname"><span class="pre">plot_state_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'State</span> <span class="pre">Heatmap'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.simulation_result.boolean_result.BooleanStateSpace.plot_state_space" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">plot_state_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'State</span> <span class="pre">Heatmap'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_nodes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.simulation_result.boolean_result.BooleanStateSpace.plot_state_space" title="Link to this definition"></a></dt>
 <dd><p>Plot the states of the Boolean network as a heatmap.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – Title of the heatmap, default is “State Heatmap”.</p></li>
+<li><p><strong>plot_nodes</strong> (<em>None</em><em> or </em><em>list</em><em> of </em><em>str</em><em>, </em><em>optional</em>) – Subset of nodes to plot. If <cite>None</cite>, plot all nodes.</p></li>
 <li><p><strong>cmap</strong> (<em>ListedColormap</em><em>, </em><em>optional</em>) – Colormap to use for the heatmap. Default is binary with green (1) and grey (0).</p></li>
 </ul>
 </dd>
@@ -246,7 +247,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="booldog.simulation_result.boolean_result.BooleanSimulationResult">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">booldog.simulation_result.boolean_result.</span></span><span class="sig-name descname"><span class="pre">BooleanSimulationResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_states</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.simulation_result.boolean_result.BooleanSimulationResult" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">booldog.simulation_result.boolean_result.</span></span><span class="sig-name descname"><span class="pre">BooleanSimulationResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_states</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#booldog.simulation_result.boolean_result.BooleanSimulationResult" title="Link to this definition"></a></dt>
 <dd><p>Class to contain simulation results</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="booldog.simulation_result.boolean_result.BooleanSimulationResult.network">
@@ -377,7 +378,7 @@ the function may help, and increasing the <cite>sleep</cite> parameter may also 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2020-2025 National Institute of Biology, Slovenia.</p>
+    <p>&#169; Copyright 2020-2026 National Institute of Biology, Slovenia.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
