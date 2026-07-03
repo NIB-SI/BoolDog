@@ -1,5 +1,7 @@
 # sphinx documentation
 build
+_build
+.doctrees
 source/*
 !source/conf.py
 !source/index.rst

@@ -4,7 +4,7 @@
 
 [nib-si.github.io/BoolDoG](https://nib-si.github.io/BoolDoG)
 
-## To build
+## Building Locally
 
 Docs are built with Sphinx (sphinx-rtd-theme, sphinx-autoapi, nbsphinx). These are
 declared as the `docs` optional dependency group in the project's `pyproject.toml`,
@@ -20,29 +20,23 @@ or with pip:
 Then build the HTML docs (prefix commands with `poetry run` if using Poetry):
 
     cd docs
-    make html
-
-This writes the built pages to `docs/build/html`. To rebuild from scratch (clearing
-Sphinx's cached doctrees first):
-
     make clean
     make html
 
-## Publish
+This writes the built pages to `docs/build/html`. To view them locally, open `docs/build/html/index.html` in your browser.
 
-To push rebuilt docs to GitHub Pages, after reviewing the HTML output, mirror
-`build/html` into the tracked `gh-pages` folder (served via GitHub Pages from `/docs`
-on `main`). Use `rsync --delete` rather than `cp` so pages removed or renamed since the
-last publish don't linger:
+## Publishing
 
-    rsync -a --delete build/html/ gh-pages/
+Documentation is automatically built and deployed on every push to `main` that modifies files in the `docs/`, 'tutorials', or `booldog/` directories.
 
-Preview what would change first with `rsync -an --delete build/html/ gh-pages/`.
+The GitHub Actions workflow (.github/workflows/deploy-docs.yml) handles:
 
-Then commit and push the changes to `docs/gh-pages`.
+1. Building the Sphinx documentation
+2. Deploying to the gh-pages branch
+3. Publishing to GitHub Pages at https://nib-si.github.io/BoolDog
 
 ## Style guide
 
-Follow numpy documentation guidelines
+Follow numpy documentation guidelines:
 
 https://www.sphinx-doc.org/en/master/usage/extensions/example_numpy.html#example-numpy
