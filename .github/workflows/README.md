@@ -6,11 +6,12 @@ change touches dependencies (`pyproject.toml`), `booldog/`, `tutorials/`,
 the workflow for the exact list. Two jobs, each matrixed across
 `{ubuntu, macos, windows}-latest` x Python `{3.12, 3.13}`:
 
-- **test**: installs `.[networks,sbml,biomodels]` and runs
+- **test**: installs `.[networks,sbml,biomodels,test]` and runs
   `python -m unittest discover .` in `tests/`.
 - **tutorials**: matrixed additionally over `notebook: [tutorial-basic,
   tutorial-advanced]`. Every notebook is treated the same way: strip any
-  `# ci-skip: ...` cells (see below), then execute the result headlessly with
+  `# ci-skip: ...` cells and inject a BioModels-cassette setup cell if
+  needed (see below), then execute the result headlessly with
   `jupyter execute`.
 
 The Python/OS matrix is limited to 3.12/3.13 because those are the versions
@@ -38,6 +39,20 @@ matching cell (`.github/scripts/strip_ci_skip_cells.py`) before execution;
 the tracked notebook itself is untouched, so it still renders normally in
 Jupyter, GitHub, and the docs build.
 
+## Caching live BioModels API calls
+
+`tutorial-advanced.ipynb` calls `booldog.io.biomodels.fetch_model_info`/
+`fetch_model`, which hit the live BioModels API — unreliable from CI
+runner IPs (same issue `tests/test_biomodels.py` has). Rather than adding
+a `vcrpy` dependency to the tracked, user-facing notebook,
+`strip_ci_skip_cells.py` detects any notebook that imports
+`booldog.io.biomodels` and prepends a hidden setup cell (only to the
+throwaway CI copy) that monkey-patches those two functions with VCR
+cassette replay before the notebook's own imports run. Cassettes live in
+`tests/cassettes/` alongside `test_biomodels.py`'s, prefixed
+`notebook_*.yaml`. Record/refresh them the same way: run the (stripped)
+notebook once with real network access, without `CI=true` set.
+
 ## Adding a new tutorial notebook
 
 Add its basename (without `.ipynb`) to the `notebook` matrix list in
@@ -47,7 +62,7 @@ pipeline as the existing tutorials.
 ## Reproducing locally
 
 ```bash
-pip install .[networks,sbml,biomodels] nbclient ipykernel
+pip install .[networks,sbml,biomodels,test] nbclient ipykernel
 
 # tests
 cd tests && python -m unittest discover .

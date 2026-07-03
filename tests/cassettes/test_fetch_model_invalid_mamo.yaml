@@ -1,0 +1,294 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate, zstd
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.34.2
+    method: GET
+    uri: https://www.biomodels.org//BIOMD0000000500?format=json
+  response:
+    body:
+      string: "{\r\n  \"name\" : \"Begitt2014 - STAT1 cooperative DNA binding - single
+        GAS polymer model\",\r\n  \"description\" : \"<notes xmlns=\\\"http://www.sbml.org/sbml/level2/version4\\\">
+        \     <body xmlns=\\\"http://www.w3.org/1999/xhtml\\\">        <div class=\\\"dc:title\\\">Begitt2014
+        - STAT1 cooperative DNA binding - single GAS polymer model</div>            <div
+        class=\\\"dc:description\\\">      <p>The importance of STAT1-cooperative
+        DNA binding in type 1 and type 2 interferon signalling has been studies using
+        experimental and modelling approaches. The authors have developed two ODE
+        models to describe STAT1 binding to short promoter regions of DNA, namely
+        \\\"single GAS polymer model\\\" and \\\"double GAS polymer model\\\" considering
+        binding to single or double GAS sites, respectively. The length of DNA in
+        the single GAS model was three sites and four sites in double GAS model. This
+        model correspond to the \\\"single GAS polymer model\\\".</p>                </div>
+        \           <div class=\\\"dc:bibliographicCitation\\\">      <p>This model
+        is described in the article:</p>                <div class=\\\"bibo:title\\\">
+        \       <a href=\\\"http://identifiers.org/pubmed/24413774\\\" title=\\\"Access
+        to this publication\\\">STAT1-cooperative DNA binding distinguishes type 1
+        from type 2 interferon signaling.</a>                    </div>                <div
+        class=\\\"bibo:authorList\\\">Begitt A, Droescher M, Meyer T, Schmid CD, Baker
+        M, Antunes F, Owen MR, Naumann R, Decker T, Vinkemeier U</div>                <div
+        class=\\\"bibo:Journal\\\">Nat Immunol. 2014 Feb;15(2):168-76.</div>                <p>Abstract:</p>
+        \               <div class=\\\"bibo:abstract\\\">        <p>STAT1 is an indispensable
+        component of a heterotrimer (ISGF3) and a STAT1 homodimer (GAF) that function
+        as transcription regulators in type 1 and type 2 interferon signaling, respectively.
+        To investigate the importance of STAT1-cooperative DNA binding, we generated
+        gene-targeted mice expressing cooperativity-deficient STAT1 with alanine substituted
+        for Phe77. Neither ISGF3 nor GAF bound DNA cooperatively in the STAT1F77A
+        mouse strain, but type 1 and type 2 interferon responses were affected differently.
+        Type 2 interferon-mediated transcription and antibacterial immunity essentially
+        disappeared owing to defective promoter recruitment of GAF. In contrast, STAT1
+        recruitment to ISGF3 binding sites and type 1 interferon-dependent responses,
+        including antiviral protection, remained intact. We conclude that STAT1 cooperativity
+        is essential for its biological activity and underlies the cellular responses
+        to type 2, but not type 1 interferon.</p>                    </div>                </div>
+        \           <div class=\\\"dc:publisher\\\">      <p>This model is hosted
+        on        <a href=\\\"http://www.ebi.ac.uk/biomodels/\\\">BioModels Database</a>
+        \           and identifiedby:        <a href=\\\"http://identifiers.org/biomodels.db/BIOMD0000000500\\\">BIOMD0000000500</a>
+        \           .        </p>                <p>To cite BioModels Database, please
+        use:        <a href=\\\"http://identifiers.org/pubmed/20587024\\\" title=\\\"Latest
+        BioModels Database publication\\\">BioModels Database: An enhanced, curated
+        and annotated resourcefor published quantitative kinetic models</a>            .
+        \       </p>                </div>            <div class=\\\"dc:license\\\">
+        \     <p>To the extent possible under law, all copyright and related orneighbouring
+        rights to this encoded model have been dedicated to the publicdomain worldwide.
+        Please refer to        <a href=\\\"http://creativecommons.org/publicdomain/zero/1.0/\\\"
+        title=\\\"Access to: CC0 1.0 Universal (CC0 1.0), Public Domain Dedication\\\">CC0
+        Public DomainDedication</a>            for more information.        </p>                </div>
+        \           </body>          </notes>\",\r\n  \"format\" : {\r\n    \"name\"
+        : \"SBML\",\r\n    \"identifier\" : \"SBML\",\r\n    \"version\" : \"L2V4\"\r\n
+        \ },\r\n  \"publication\" : {\r\n    \"type\" : \"PubMed ID\",\r\n    \"accession\"
+        : \"24413774\",\r\n    \"journal\" : \"Nature immunology\",\r\n    \"title\"
+        : \"STAT1-cooperative DNA binding distinguishes type 1 from type 2 interferon
+        signaling.\",\r\n    \"affiliation\" : \"1] School of Life Sciences, University
+        of Nottingham, Nottingham, UK. [2].\",\r\n    \"synopsis\" : \"STAT1 is an
+        indispensable component of a heterotrimer (ISGF3) and a STAT1 homodimer (GAF)
+        that function as transcription regulators in type 1 and type 2 interferon
+        signaling, respectively. To investigate the importance of STAT1-cooperative
+        DNA binding, we generated gene-targeted mice expressing cooperativity-deficient
+        STAT1 with alanine substituted for Phe77. Neither ISGF3 nor GAF bound DNA
+        cooperatively in the STAT1F77A mouse strain, but type 1 and type 2 interferon
+        responses were affected differently. Type 2 interferon-mediated transcription
+        and antibacterial immunity essentially disappeared owing to defective promoter
+        recruitment of GAF. In contrast, STAT1 recruitment to ISGF3 binding sites
+        and type 1 interferon-dependent responses, including antiviral protection,
+        remained intact. We conclude that STAT1 cooperativity is essential for its
+        biological activity and underlies the cellular responses to type 2, but not
+        type 1 interferon.\",\r\n    \"year\" : 2014,\r\n    \"month\" : \"2\",\r\n
+        \   \"volume\" : \"15\",\r\n    \"issue\" : \"2\",\r\n    \"pages\" : \"168-176\",\r\n
+        \   \"link\" : \"http://identifiers.org/pubmed/24413774\",\r\n    \"authors\"
+        : [\r\n      {\r\n        \"name\" : \"Andreas Begitt\",\r\n        \"institution\"
+        : \"1] School of Life Sciences, University of Nottingham, Nottingham, UK.
+        [2].\"\r\n      },\r\n      {\r\n        \"name\" : \"Mathias Droescher\",\r\n
+        \       \"institution\" : \"1] School of Life Sciences, University of Nottingham,
+        Nottingham, UK. [2] [3].\"\r\n      },\r\n      {\r\n        \"name\" : \"Thomas
+        Meyer\",\r\n        \"institution\" : \"1] Klinik f\xFCr Psychosomatische
+        Medizin und Psychotherapie, Universit\xE4tsmedizin G\xF6ttingen, G\xF6ttingen,
+        Germany. [2].\"\r\n      },\r\n      {\r\n        \"name\" : \"Christoph D
+        Schmid\",\r\n        \"institution\" : \"1] Swiss Tropical and Public Health
+        Institute, Basel, Switzerland. [2] Universit\xE4t Basel, Basel, Switzerland.\"\r\n
+        \     },\r\n      {\r\n        \"name\" : \"Michelle Baker\",\r\n        \"institution\"
+        : \"School of Computer Science, University of Nottingham, Nottingham, UK.
+        michelle.baker@nottingham.ac.uk.\",\r\n        \"orcid\" : \"0000-0002-8926-7689\"\r\n
+        \     },\r\n      {\r\n        \"name\" : \"Filipa Antunes\",\r\n        \"institution\"
+        : \"1] School of Life Sciences, University of Nottingham, Nottingham, UK.
+        [2].\"\r\n      },\r\n      {\r\n        \"name\" : \"Klaus-Peter Knobeloch\"\r\n
+        \     },\r\n      {\r\n        \"name\" : \"Markus R Owen\",\r\n        \"institution\"
+        : \"School of Mathematical Sciences and Centre for Mathematical Medicine and
+        Biology, University of Nottingham, Nottingham, UK.\",\r\n        \"orcid\"
+        : \"0000-0002-3028-9138\"\r\n      },\r\n      {\r\n        \"name\" : \"Ronald
+        Naumann\",\r\n        \"institution\" : \"Max-Planck-Institut f\xFCr molekulare
+        Zellbiologie und Genetik, Dresden, Germany.\"\r\n      },\r\n      {\r\n        \"name\"
+        : \"Thomas Decker\",\r\n        \"institution\" : \"Department f\xFCr Mikrobiologie
+        und Immunbiologie, Universit\xE4t Wien, Wien, Austria.\"\r\n      },\r\n      {\r\n
+        \       \"name\" : \"Uwe Vinkemeier\",\r\n        \"institution\" : \"School
+        of Life Sciences, University of Nottingham, Nottingham, UK.\",\r\n        \"orcid\"
+        : \"0000-0001-6924-1783\"\r\n      }\r\n    ]\r\n  },\r\n  \"files\" : {\r\n
+        \   \"main\" : [\r\n      {\r\n        \"name\" : \"BIOMD0000000500_url.xml\",\r\n
+        \       \"description\" : \"SBML L2V4 representation of Begitt2014 - STAT1
+        cooperative DNA binding - single GAS polymer model\",\r\n        \"fileSize\"
+        : \"85955\",\r\n        \"mimeType\" : \"application/xml\",\r\n        \"md5sum\"
+        : \"d8090cf1b26b6691847a1e0c6b4b4b26\",\r\n        \"sha1sum\" : \"6ed5712e4c5656a4846501bc7a5c90125db9f4e8\",\r\n
+        \       \"sha256sum\" : \"c3e73347c81976e830a23f6fc88c193f639ea4742a4937997c1fe28a1757ebc6\"\r\n
+        \     }\r\n    ],\r\n    \"additional\" : [\r\n      {\r\n        \"name\"
+        : \"BIOMD0000000500-biopax2.owl\",\r\n        \"description\" : \"Auto-generated
+        BioPAX (Level 2)\",\r\n        \"fileSize\" : \"30978\",\r\n        \"mimeType\"
+        : \"application/rdf+xml\",\r\n        \"md5sum\" : \"ba63683fb5b342177401d514c89b5963\",\r\n
+        \       \"sha1sum\" : \"c6e13e49cba59df3065528fe3b9bd4b3f7dd0f57\",\r\n        \"sha256sum\"
+        : \"9d2715825a5d164c49b6a06743316b23a674e79c97d8575924cf42a359488c10\"\r\n
+        \     },\r\n      {\r\n        \"name\" : \"BIOMD0000000500-biopax3.owl\",\r\n
+        \       \"description\" : \"Auto-generated BioPAX (Level 3)\",\r\n        \"fileSize\"
+        : \"50580\",\r\n        \"mimeType\" : \"application/rdf+xml\",\r\n        \"md5sum\"
+        : \"b67838f7180a0262cd4a3f38c0876b82\",\r\n        \"sha1sum\" : \"9b0f96c598056a8fcb331edc28ae1bc10e7b1305\",\r\n
+        \       \"sha256sum\" : \"19efa01952343cea7a8636c8bd1af7b713be78214306d5f0c2193ac9f9ff73df\"\r\n
+        \     },\r\n      {\r\n        \"name\" : \"BIOMD0000000500.pdf\",\r\n        \"description\"
+        : \"Auto-generated PDF file\",\r\n        \"fileSize\" : \"282291\",\r\n        \"mimeType\"
+        : \"application/pdf\",\r\n        \"md5sum\" : \"92c50120c2dc526d7df3ab2aa2555873\",\r\n
+        \       \"sha1sum\" : \"8dae4c0751f9dd2898883c6a4e705299ff4bc231\",\r\n        \"sha256sum\"
+        : \"af02dc500914523fd0f689197a02c093e8631142f11c9ede6c42992607cb9317\"\r\n
+        \     },\r\n      {\r\n        \"name\" : \"BIOMD0000000500.png\",\r\n        \"description\"
+        : \"Auto-generated Reaction graph (PNG)\",\r\n        \"fileSize\" : \"486302\",\r\n
+        \       \"mimeType\" : \"image/png\",\r\n        \"md5sum\" : \"9d8362b07a42f63f08db91eb55978a27\",\r\n
+        \       \"sha1sum\" : \"b6c8504925e16963941a55ab59be1250b25342ba\",\r\n        \"sha256sum\"
+        : \"623f02797278ad114f53ebbf508f254aa04ff6db484cba2d3eb7e4779d4958f0\"\r\n
+        \     },\r\n      {\r\n        \"name\" : \"BIOMD0000000500.svg\",\r\n        \"description\"
+        : \"Auto-generated Reaction graph (SVG)\",\r\n        \"fileSize\" : \"65924\",\r\n
+        \       \"mimeType\" : \"image/svg+xml\",\r\n        \"md5sum\" : \"7c11a4c229590688a3d978dfa1a7180d\",\r\n
+        \       \"sha1sum\" : \"235908f984979cb494735b9f7aeb065a3792248b\",\r\n        \"sha256sum\"
+        : \"f364267f4120da1af8562ccebbd0b16e023d3a59eeec1298f3fe3e64dbade967\"\r\n
+        \     },\r\n      {\r\n        \"name\" : \"MODEL1311130001_highcoop.cps\",\r\n
+        \       \"description\" : \"Copasi file that generates the plot corresponding
+        to high cooperativity (red plot).\",\r\n        \"fileSize\" : \"91194\",\r\n
+        \       \"mimeType\" : \"application/xml\",\r\n        \"md5sum\" : \"ad13efa9f178463a56a4cc8ed7493140\",\r\n
+        \       \"sha1sum\" : \"14fa6c754966e90b4787c8af1bd76b8ec489d893\",\r\n        \"sha256sum\"
+        : \"d1ab14a0dabadba90faaf2f747794cc79924f6e66c862f79cbb2f886ef092809\"\r\n
+        \     },\r\n      {\r\n        \"name\" : \"MODEL1311130001_highcoop.sedml\",\r\n
+        \       \"description\" : \"CRBM-processed SED-ML file, based on original
+        COPASI save file export.\",\r\n        \"fileSize\" : \"23229\",\r\n        \"mimeType\"
+        : \"application/xml\",\r\n        \"md5sum\" : \"2ebee60abad7e2cb79cf5129e15f3c9b\",\r\n
+        \       \"sha1sum\" : \"4f0b0531051fecabad183b325bd5d1896e1331d6\",\r\n        \"sha256sum\"
+        : \"39ee2e0cad904d8f388fccad43134c5f429d84f19c7da44685683344966f5a63\"\r\n
+        \     },\r\n      {\r\n        \"name\" : \"MODEL1311130001_lowcoop-biopax2.owl\",\r\n
+        \       \"description\" : \"Auto-generated BioPAX (Level 2) file.\",\r\n        \"fileSize\"
+        : \"23709\",\r\n        \"mimeType\" : \"application/rdf+xml\",\r\n        \"md5sum\"
+        : \"b97f3b034149077408ca0866a5613ab3\",\r\n        \"sha1sum\" : \"252b5c1a6fa4614ec6e1ad1319fee093d5ed7280\",\r\n
+        \       \"sha256sum\" : \"ef2feb50190afb23231ffbb9aa92b8e8ff31941d130bc9d7ba0bf16c65abb6be\"\r\n
+        \     },\r\n      {\r\n        \"name\" : \"MODEL1311130001_lowcoop-biopax3.owl\",\r\n
+        \       \"description\" : \"Auto-generated BioPAX (Level 3) file.\",\r\n        \"fileSize\"
+        : \"43218\",\r\n        \"mimeType\" : \"application/rdf+xml\",\r\n        \"md5sum\"
+        : \"5e61d934cf5be7cdb40696e24588395b\",\r\n        \"sha1sum\" : \"ec6ab13f1de0f0856b88ef9a8c2bf62caedf41b3\",\r\n
+        \       \"sha256sum\" : \"d3cbe28a715274e5fb59ed558696ad4b37aab8b19bcc0d63b79e16528e74f14e\"\r\n
+        \     },\r\n      {\r\n        \"name\" : \"MODEL1311130001_lowcoop.cps\",\r\n
+        \       \"description\" : \"Copasi file that generates the plot corresponding
+        to low cooperativity (orange plot).\",\r\n        \"fileSize\" : \"104745\",\r\n
+        \       \"mimeType\" : \"application/xml\",\r\n        \"md5sum\" : \"fe52336279ca198db5831a7cb403a8a8\",\r\n
+        \       \"sha1sum\" : \"e255910c2bf353a9ae16e4fb9f7d3f625c90bd3f\",\r\n        \"sha256sum\"
+        : \"2a1d0aef46de07e369319d44126c70a2cd735f0a9253a7373a265b7c0aaaecae\"\r\n
+        \     },\r\n      {\r\n        \"name\" : \"MODEL1311130001_lowcoop.sedml\",\r\n
+        \       \"description\" : \"CRBM-processed SED-ML file, based on original
+        COPASI save file export.\",\r\n        \"fileSize\" : \"23232\",\r\n        \"mimeType\"
+        : \"application/xml\",\r\n        \"md5sum\" : \"d40d03d69fda67f5b86c8f45bb2dcc7a\",\r\n
+        \       \"sha1sum\" : \"8fd964c3e20e5534b452d7f4735c870aa9c0076b\",\r\n        \"sha256sum\"
+        : \"a5a29a99860341b2e8626802133d5d694f39ee223f6f6f162c6c1a45c4f29568\"\r\n
+        \     },\r\n      {\r\n        \"name\" : \"MODEL1311130001_lowcoop.xml\",\r\n
+        \       \"description\" : \"SBML file that is set to have condition (Kon_P1
+        = 1000s-1) for low cooperativity (orange plot).\",\r\n        \"fileSize\"
+        : \"65884\",\r\n        \"mimeType\" : \"application/xml\",\r\n        \"md5sum\"
+        : \"2acf7cf892140555bbb9c952ea22f2ab\",\r\n        \"sha1sum\" : \"bc2f8f310c178d384dffeb75d7da02f5de994f71\",\r\n
+        \       \"sha256sum\" : \"26dfb2a931af2cf9ce47ee23bc73b8ab08638986e315d0eb676559c618558b3d\"\r\n
+        \     },\r\n      {\r\n        \"name\" : \"curation_image.png\",\r\n        \"description\"
+        : \"Reproduced figure(s) from original curation.\",\r\n        \"fileSize\"
+        : \"27105\",\r\n        \"mimeType\" : \"image/png\",\r\n        \"md5sum\"
+        : \"ca3782bba478ad9a8d35d0fa095a6480\",\r\n        \"sha1sum\" : \"7450efdce876f274ae3e3e4895d0dac8d06d8ebd\",\r\n
+        \       \"sha256sum\" : \"fd0bfec6a4fa01bcc234e78eae3b31c0361625df8c75172717d9b2b1a9b30f2e\"\r\n
+        \     },\r\n      {\r\n        \"name\" : \"curation_notes.txt\",\r\n        \"description\"
+        : \"Notes from original curation (describes curation_image).\",\r\n        \"fileSize\"
+        : \"595\",\r\n        \"mimeType\" : \"text/plain\",\r\n        \"md5sum\"
+        : \"cd1e738869e4b3295f5f432f4730550b\",\r\n        \"sha1sum\" : \"3279d1f5fbbc37bf3f5966356caef464840b1fcc\",\r\n
+        \       \"sha256sum\" : \"c5e1c975beaefb36951016842893a9bd94c136a64f0f086fff710b4a4d68d15b\"\r\n
+        \     },\r\n      {\r\n        \"name\" : \"manifest.xml\",\r\n        \"description\"
+        : \"Auto-generated manifest file for OMEX archives.\",\r\n        \"fileSize\"
+        : \"2125\",\r\n        \"mimeType\" : \"application/xml\",\r\n        \"md5sum\"
+        : \"f9a4c6e3db55a2fccd22d673a42adc45\",\r\n        \"sha1sum\" : \"d7b85a49067fdf08c8ae1c6baefa54a805651e27\",\r\n
+        \       \"sha256sum\" : \"37bff089793f918c3f52562b4da0ed1cc8f11df471e87d95cae1fa940e29ec3f\"\r\n
+        \     },\r\n      {\r\n        \"name\" : \"metadata.rdf\",\r\n        \"description\"
+        : \"Auto-generated annotation metadata file.\",\r\n        \"fileSize\" :
+        \"5488\",\r\n        \"mimeType\" : \"application/rdf+xml\",\r\n        \"md5sum\"
+        : \"cbb2ec88a05c2e3745ff72010b44c711\",\r\n        \"sha1sum\" : \"729e2f0069ba8ae71cab3baa9b6f294ac4b7aa36\",\r\n
+        \       \"sha256sum\" : \"4e9dd5dec720268cbb22e2547a9ad7717f73734cfef0384493885756380d138f\"\r\n
+        \     }\r\n    ]\r\n  },\r\n  \"history\" : {\r\n    \"revisions\" : [\r\n
+        \     {\r\n        \"version\" : 1,\r\n        \"submitted\" : 1384347628,\r\n
+        \       \"submitter\" : \"Michelle Baker\",\r\n        \"comment\" : \"Original
+        import of SingleGASBegitt2013_STAT\"\r\n      },\r\n      {\r\n        \"version\"
+        : 2,\r\n        \"submitted\" : 1412874451,\r\n        \"submitter\" : \"Michelle
+        Baker\",\r\n        \"comment\" : \"Current version of Begitt2014 - STAT1
+        cooperative DNA binding - single GAS polymer model\"\r\n      },\r\n      {\r\n
+        \       \"version\" : 3,\r\n        \"submitted\" : 1545412983,\r\n        \"submitter\"
+        : \"administrator\",\r\n        \"comment\" : \"Include the additional files
+        provided by the submitter in the original submission: MODEL1311130001_lowcoop.xml,
+        MODEL1311130001_lowcoop.cps, MODEL1311130001_highcoop.cps\"\r\n      },\r\n
+        \     {\r\n        \"version\" : 4,\r\n        \"submitted\" : 1724279393,\r\n
+        \       \"submitter\" : \"Lucian Smith\",\r\n        \"comment\" : \"CRBM-sponsored
+        manual and automated updates.\"\r\n      }\r\n    ]\r\n  },\r\n  \"firstPublished\"
+        : 1725285250,\r\n  \"submissionId\" : \"MODEL1311130001\",\r\n  \"publicationId\"
+        : \"BIOMD0000000500\",\r\n  \"modellingApproach\" : {\r\n    \"accession\"
+        : \"MAMO_0000046\",\r\n    \"name\" : \"ordinary differential equation model\",\r\n
+        \   \"resource\" : \"http://identifiers.org/mamo/MAMO_0000046\"\r\n  },\r\n
+        \ \"curationStatus\" : \"CURATED\",\r\n  \"modelTags\" : [\r\n    \"Manuscript
+        Accepted\"\r\n  ],\r\n  \"contributors\" : {\r\n    \"Curator\" : [\r\n      {\r\n
+        \       \"name\" : \"Lucian Smith\",\r\n        \"email\" : \"lpsmith@uw.edu\",\r\n
+        \       \"affiliation\" : \"University of Washington\",\r\n        \"orcid\"
+        : \"0000-0001-7002-6386\",\r\n        \"external\" : false\r\n      }\r\n
+        \   ],\r\n    \"Modeller\" : [\r\n      {\r\n        \"name\" : \"Michelle
+        Baker\",\r\n        \"email\" : \"pmxmb2@nottingham.ac.uk\",\r\n        \"affiliation\"
+        : \"University of Nottingham\",\r\n        \"external\" : false\r\n      },\r\n
+        \     {\r\n        \"name\" : \"Michelle Baker\",\r\n        \"email\" : \"michelle.baker@nottingham.ac.uk\",\r\n
+        \       \"affiliation\" : \"University of Nottingham\",\r\n        \"external\"
+        : false\r\n      },\r\n      {\r\n        \"name\" : \"administrator\",\r\n
+        \       \"email\" : \"develop@biomodels.org\",\r\n        \"affiliation\"
+        : \"EMBL - European Bioinformatics Institute (EBI)\",\r\n        \"external\"
+        : false\r\n      }\r\n    ]\r\n  },\r\n  \"vcsIdentifier\" : \"aaa\",\r\n
+        \ \"modelLevelAnnotations\" : [\r\n    {\r\n      \"qualifier\" : \"bqbiol:hasTaxon\",\r\n
+        \     \"accession\" : \"10090\",\r\n      \"name\" : \"Mus musculus\",\r\n
+        \     \"resource\" : \"Taxonomy\",\r\n      \"uri\" : \"http://identifiers.org/taxonomy/10090\"\r\n
+        \   },\r\n    {\r\n      \"qualifier\" : \"bqmodel:is\",\r\n      \"accession\"
+        : \"MODEL1311130001\",\r\n      \"resource\" : \"BioModels Database\",\r\n
+        \     \"uri\" : \"http://identifiers.org/biomodels.db/MODEL1311130001\"\r\n
+        \   },\r\n    {\r\n      \"qualifier\" : \"bqmodel:is\",\r\n      \"accession\"
+        : \"BIOMD0000000500\",\r\n      \"resource\" : \"BioModels Database\",\r\n
+        \     \"uri\" : \"http://identifiers.org/biomodels.db/BIOMD0000000500\"\r\n
+        \   },\r\n    {\r\n      \"qualifier\" : \"bqmodel:isDescribedBy\",\r\n      \"accession\"
+        : \"24413774\",\r\n      \"resource\" : \"PubMed\",\r\n      \"uri\" : \"http://identifiers.org/pubmed/24413774\"\r\n
+        \   },\r\n    {\r\n      \"qualifier\" : \"bqbiol:isVersionOf\",\r\n      \"accession\"
+        : \"GO:0060333\",\r\n      \"name\" : \"interferon-gamma-mediated signaling
+        pathway\",\r\n      \"resource\" : \"Gene Ontology\",\r\n      \"uri\" : \"http://identifiers.org/go/GO:0060333\"\r\n
+        \   },\r\n    {\r\n      \"qualifier\" : \"bqbiol:hasProperty\",\r\n      \"accession\"
+        : \"MAMO_0000046\",\r\n      \"name\" : \"Ordinary differential equation model\",\r\n
+        \     \"resource\" : \"Mathematical Modelling Ontology\",\r\n      \"uri\"
+        : \"http://identifiers.org/mamo/MAMO_0000046\"\r\n    }\r\n  ]\r\n}"
+    headers:
+      Cache-Control:
+      - no-store, no-cache, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Fri, 03 Jul 2026 16:13:52 GMT
+      Expires:
+      - '0'
+      Permissions-Policy:
+      - geolocation=(), camera=(), microphone=()
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Server:
+      - Apache
+      Set-Cookie:
+      - SESSION=b44a3d64-87df-4088-b013-28c64940f33d; Path=/; HttpOnly
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Origin
+      Via:
+      - 1.1 biomodels.org, 1.1 836734bab8cee1b73f175a04bccde9fa.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - Oa1iIdKgNPR2GcCNTe-CPbUlzxmRAqXnOXKny7xzXx43kX_sC_uFJw==
+      X-Amz-Cf-Pop:
+      - VIE50-P3
+      X-Cache:
+      - Miss from cloudfront
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 200
+      message: ''
+version: 1

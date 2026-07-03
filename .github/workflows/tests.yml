@@ -44,7 +44,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Install BoolDog with test extras
-        run: pip install .[networks,sbml,biomodels]
+        run: pip install .[networks,sbml,biomodels,test]
 
       - name: Run tests
         run: python -m unittest discover .
@@ -70,7 +70,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Install BoolDog with tutorial extras
-        run: pip install .[networks,sbml,biomodels] nbclient ipykernel
+        run: pip install .[networks,sbml,biomodels,test] nbclient ipykernel
 
       - name: Strip ci-skip cells (e.g. cells requiring Cytoscape Desktop)
         run: >
