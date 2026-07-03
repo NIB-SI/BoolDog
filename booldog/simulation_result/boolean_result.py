@@ -125,7 +125,7 @@ class BooleanStateSpace():
         for s in self.state_space:
             s[node_id] = state
 
-    def plot_state_space(self, title="State Heatmap", cmap=None):
+    def plot_state_space(self, title="State Heatmap", plot_nodes=None, cmap=None):
         """
         Plot the states of the Boolean network as a heatmap.
 
@@ -133,7 +133,8 @@ class BooleanStateSpace():
         ----------
         title : str, optional
             Title of the heatmap, default is "State Heatmap".
-
+        plot_nodes: None or list of str, optional
+            Subset of nodes to plot. If `None`, plot all nodes.
         cmap : ListedColormap, optional
             Colormap to use for the heatmap. Default is binary with green (1) and grey (0).
 
@@ -144,7 +145,11 @@ class BooleanStateSpace():
             cmap = ListedColormap([DEFAULT_COLOURS[0], DEFAULT_COLOURS[1]])
 
         # Extract node names and states
-        nodes = self.network.node_ids
+        if plot_nodes:
+            nodes = [node_id for node_id in nodes if node_id in self.network.node_ids]
+        else:
+            nodes = self.network.node_ids
+
         states = np.array([[state[node] for node in nodes] for state in self.state_space]).T
 
         # Create the heatmap
