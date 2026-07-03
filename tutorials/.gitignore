@@ -1,0 +1,2 @@
+# CI-only stripped/executed notebook copies (see .github/workflows/tests.yml)
+.ci-*.ipynb

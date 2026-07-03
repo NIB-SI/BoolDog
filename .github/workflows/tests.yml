@@ -1,0 +1,83 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'pyproject.toml'
+      - 'booldog/**'
+      - 'tutorials/**'
+      - 'tests/**'
+      - '.github/workflows/tests.yml'
+      - '.github/scripts/**'
+  pull_request:
+    paths:
+      - 'pyproject.toml'
+      - 'booldog/**'
+      - 'tutorials/**'
+      - 'tests/**'
+      - '.github/workflows/tests.yml'
+      - '.github/scripts/**'
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: ["3.12", "3.13"]
+
+    runs-on: ${{ matrix.os }}
+    # macos-latest is Apple Silicon; pyboolnet ships an Intel-only binary
+    # that crashes on any model instantiation there (NIB-SI/BoolDog#6).
+    # Not fixable in this repo - kept for visibility, not as a hard gate.
+    continue-on-error: ${{ matrix.os == 'macos-latest' }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install BoolDog with test extras
+        run: pip install .[networks,sbml,biomodels]
+
+      - name: Run tests
+        run: python -m unittest discover .
+        working-directory: tests
+
+  tutorials:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: ["3.12", "3.13"]
+        notebook: [tutorial-basic, tutorial-advanced]
+
+    runs-on: ${{ matrix.os }}
+    # See note on the `test` job above re: macos-latest / NIB-SI/BoolDog#6.
+    continue-on-error: ${{ matrix.os == 'macos-latest' }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install BoolDog with tutorial extras
+        run: pip install .[networks,sbml,biomodels] nbclient ipykernel
+
+      - name: Strip ci-skip cells (e.g. cells requiring Cytoscape Desktop)
+        run: >
+          python .github/scripts/strip_ci_skip_cells.py
+          tutorials/${{ matrix.notebook }}.ipynb
+          tutorials/.ci-${{ matrix.notebook }}.ipynb
+
+      - name: Execute ${{ matrix.notebook }}
+        run: jupyter execute --kernel_name=python3 --timeout=300 .ci-${{ matrix.notebook }}.ipynb
+        working-directory: tutorials
