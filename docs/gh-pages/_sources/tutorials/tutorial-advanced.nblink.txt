@@ -1,6 +1,0 @@
-{
-    "path": "../../../tutorials/tutorial-advanced.ipynb",
-    "extra-media": [
-        "../../../tutorials/files/triggered_ii.gif"
-      ]    
-}

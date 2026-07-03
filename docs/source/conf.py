@@ -85,10 +85,6 @@ html_favicon = '../figures/icon.ico'
 # so a file named "default.css" will overwrite the builtin "default.css".
 #html_static_path = ['_static']
 
-# Copied verbatim to the output root. Used to ship a `.nojekyll` marker so
-# GitHub Pages serves the underscore-prefixed Sphinx asset directories as-is.
-html_extra_path = ['_extra']
-
 # def autodoc_skip_member(app, what, name, obj, skip, options):
 
 #     # print(app, what, name, obj, skip, options)
