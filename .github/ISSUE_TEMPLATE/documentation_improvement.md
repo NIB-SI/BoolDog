@@ -8,7 +8,7 @@ assignees: ''
 ---
 
 **Describe the issue**
-A clear and concise description of what documentaion is inaccurate or missing.
+A clear and concise description of what documentation is inaccurate or missing.
 
 **Location**
 Function, object, or module with the problematic documentation.
