@@ -46,8 +46,10 @@ jobs:
       - name: Install BoolDog with test extras
         run: pip install .[networks,sbml,biomodels,test]
 
-      - name: Run tests
-        run: python -m unittest discover .
+      - name: Run tests with coverage
+        run: |
+          coverage run --source=booldog -m unittest discover .
+          coverage report -m --fail-under=45
         working-directory: tests
 
   tutorials:

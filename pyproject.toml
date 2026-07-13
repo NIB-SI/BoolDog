@@ -44,7 +44,7 @@ all = ["python-libsbml>=5.19", "tabularqual", "networkx", "igraph==0.11.9", "pyg
 
 # for development
 docs = ["sphinx", "sphinx-rtd-theme", "sphinx-autoapi", "nbsphinx", "nbsphinx-link", "ipython"]
-test = ["vcrpy"]
+test = ["vcrpy", "coverage"]
 
 [tool.setuptools.packages.find]
 include = ["booldog*"]
