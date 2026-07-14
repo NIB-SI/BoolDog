@@ -19,3 +19,7 @@ ipython_config.py
 # Project specific
 development*
 dev*
+
+# coverage
+.coverage
+htmlcov/

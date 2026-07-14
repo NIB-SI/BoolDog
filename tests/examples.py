@@ -21,6 +21,16 @@ class BooleanNetworkExamples:
 
     TABULARQUAL_FILE = "data/example.xlsx"
 
+    # A: self-activating input node (only activators). C: purely inhibited
+    # by A (only inhibitors). D: constant, no regulators at all. Covers
+    # regulator-count edge cases (activators-only, inhibitors-only, none)
+    # that don't all occur in BNET above.
+    BNET_REGULATOR_EDGE_CASES = """targets, factors
+    A, A
+    C, !A
+    D, 0
+    """
+
 class InteractionNetworkExamples:
 
     PRIMES_SQUAD = {

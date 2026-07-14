@@ -395,7 +395,7 @@ class BooleCubeODE(ODE):
         #return lambda x: x
 
     def write_c_code(self):
-        pass
+        raise NotImplementedError("TODO!")
 
 
 class SquadODE(ODE):
@@ -460,6 +460,12 @@ class SquadODE(ODE):
         # needed for computations
         col_ones = np.ones((self.n))
         self._A1 = self.activations.dot(col_ones)
+        # Di Cara et al (2007) eq. 2 has (1 - sum(alpha_n)) / sum(alpha_n)
+        # for the activator prefactor (a "-", not a "+"). Probably an
+        # error: taken literally it violates the paper's own 0 <= omega <= 1
+        # bound (e.g. two fully-active default-weight activators give omega =
+        # -1/3), whereas "+1" here (as implemented below) correctly gives
+        # omega = 1 when fully activated with no inhibitors.
         self._a1 = (1 + self._A1) / self._A1
         self._B1 = self.inhibitions.dot(col_ones)
         self._b1 = (1 + self._B1) / self._B1
@@ -489,7 +495,16 @@ class SquadODE(ODE):
         return o
 
     def _dxdt_transform(self, x, w):
-        ''' Equation (2) of Di Cara et al (2007) '''
+        ''' Equation (2) of Di Cara et al (2007).
+
+        The numerator's second exponent here uses (w - 0.5); the 2007 paper's
+        equation has just w (no shift). This matches the boundary-normalised
+        variant used in later work building on SQUAD (e.g. Martinez-Sosa &
+        Mendoza, 2013), which gives f(0)=0 and f(1)=1 exactly whilethe 2007
+        form does not (f(0) != 0, f(1) != 1 for finite h).
+        Confirmed against a later SQUAD reimplementation in
+        https://github.com/caramirezal/SQUADBookChapter
+        '''
         return (-np.exp(0.5*self.param_h) + np.exp(-self.param_h*(w-0.5))) / \
               ((1-np.exp(0.5*self.param_h))*(1+np.exp(-self.param_h*(w-0.5))))\
                 - self.param_gamma*x
