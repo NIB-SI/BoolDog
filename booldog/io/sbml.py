@@ -34,6 +34,10 @@ logger = logging.getLogger(__name__)
 # are missing, need to check against SBML_MAX_INT. Value from libsbml C code.
 # TODO: is there a better option?
 SBML_INT_MAX = 2147483647
+'''int: Sentinel value libsbml uses for "unset" integer attributes (e.g. a
+qualitative species/transition's threshold or output level). Compared
+against to determine whether such an attribute was actually set in the
+SBML file.'''
 
 # BoolNet rule tokens
 TOKEN_REGEX = re.compile(r"""
@@ -47,6 +51,10 @@ TOKEN_REGEX = re.compile(r"""
         [A-Za-z_][A-Za-z0-9_]*  # identifier (letters, numbers, underscore)
     )
 """, re.VERBOSE)
+'''re.Pattern: Tokenizes a bnet-format rule string into ``!``, ``&``, ``|``,
+``(``, ``)`` and identifier tokens, ignoring surrounding whitespace. Used by
+:meth:`SBMLQualWriter._rule_to_formula` to translate bnet rule syntax into
+the ``&&``/``||`` syntax accepted by ``libsbml.parseL3Formula``.'''
 
 ##############################
 # Utility classes/functions
@@ -58,21 +66,33 @@ class BoolDogSBMLException(Exception):
 
 
 class SBMLQualReader:
+    '''Read an SBML-qual XML file, converting each transition to a
+    bnet-format Boolean rule.
+
+    Parameters
+    ----------
+    file : str or path-like
+        Path to SBML-qual file containing a Boolean network.
+
+    Raises
+    ------
+    ImportError
+        If libsbml is not installed.
+    BoolDogSBMLException
+        If the SBML document fails to parse without errors, has no 'qual'
+        plugin, or a transition's function term fails to parse (see
+        :meth:`TransitionParser.parse_function`).
+    '''
 
     def __init__(self, file):
-        '''Read SBML-qual xml file to a BooleanNetwork object, via bnet.
-
-        Parameters
-        ----------
-        file : str or path-like
-            Path to SBML-qual file containing a Boolean network.
-
-        '''
 
         if not _SBML_AVAILABLE:
             raise ImportError("libsbml is not available.")
         self.file = file
+        '''str or path-like: Path to the SBML-qual file, as given at
+        construction.'''
         self.document = SBMLReader().readSBML(file)
+        '''libsbml.SBMLDocument: The parsed SBML document.'''
 
         if self.document.getNumErrors() > 0:
             for i in range(self.document.getNumErrors()):
@@ -81,18 +101,44 @@ class SBMLQualReader:
             raise BoolDogSBMLException("SBML file contains errors.")
 
         self.model = self.document.getModel()
+        '''libsbml.Model: The SBML model contained in :attr:`document`.'''
         self.model_id = self.model.getId()
+        '''str: The SBML model's id attribute.'''
 
         self.plugin = self._get_qual_plugin()
+        '''libsbml.QualModelPlugin: The 'qual' package plugin of
+        :attr:`model`, providing access to qualitative species and
+        transitions.'''
 
         species = self._get_all_species()
         self.all_species = [s[0] for s in species]
+        '''list of str: Ids of all qualitative species defined in the
+        model.'''
         self.species_names = {s[0]: s[1] for s in species}
+        '''dict: Mapping of qualitative species id to its (possibly empty)
+        SBML name attribute.'''
 
         self.transitions = self._get_all_transitions()
+        '''list of libsbml.Transition: All transitions defined in the
+        model.'''
         self.rules = self._get_all_rules()
+        '''dict: Mapping of output species id to its bnet-format Boolean
+        rule string, derived from the model's transitions (see
+        :meth:`_get_all_rules`).'''
 
     def _get_qual_plugin(self):
+        '''Find and return the model's 'qual' package plugin.
+
+        Returns
+        -------
+        libsbml.QualModelPlugin
+            The 'qual' plugin attached to :attr:`model`.
+
+        Raises
+        ------
+        BoolDogSBMLException
+            If the model has no plugin with package name 'qual'.
+        '''
         for i in range(self.document.getNumPlugins()):
             plugin = self.model.getPlugin(i)
             if plugin.getPackageName() == 'qual':
@@ -100,17 +146,46 @@ class SBMLQualReader:
         raise BoolDogSBMLException("SBML file missing 'qual' plugin.")
 
     def _get_all_species(self):
+        '''List all qualitative species defined via the 'qual' plugin.
+
+        Returns
+        -------
+        list of tuple
+            ``(id, name)`` pairs for every qualitative species in
+            :attr:`plugin`, in declaration order.
+        '''
         return [(self.plugin.getQualitativeSpecies(i).getId(),
                  self.plugin.getQualitativeSpecies(i).getName())
                 for i in range(self.plugin.getNumQualitativeSpecies())]
 
     def _get_all_transitions(self):
+        '''List all transitions defined via the 'qual' plugin.
+
+        Returns
+        -------
+        list of libsbml.Transition
+            Every transition in :attr:`plugin`, in declaration order.
+        '''
         return [
             self.plugin.getTransition(i)
             for i in range(self.plugin.getNumTransitions())
         ]
 
     def _get_all_rules(self):
+        '''Derive a bnet-format Boolean rule for each transition's output
+        species.
+
+        For each transition, inputs/outputs are extracted with
+        :meth:`TransitionParser.parse_io` and its function term is parsed
+        with :meth:`TransitionParser.parse_function`; the resulting rule
+        string is assigned to every one of that transition's output
+        species.
+
+        Returns
+        -------
+        dict
+            Mapping of output species id to its bnet-format rule string.
+        '''
 
         rules = {}
         for transition in self.transitions:
@@ -158,9 +233,28 @@ class TransitionParser:
         Returns
         -------
         inputs: dict
-            Dictionary of id: species information for this transition's inputs
+            Dictionary mapping each input's id to a dict of its species
+            information: ``"id"``, ``"species"`` (qualitative species id),
+            ``"sign"``, ``"threshold"`` (int, or None if unset in the SBML
+            file), and ``"transition_effect"``.
         outputs: list
-            List of this transition's outputs (dependents)
+            List of dicts (one per transition output), each with keys
+            ``"species"``, ``"transition_effect"`` and ``"output_level"``
+            (int, or None if unset).
+
+        Notes
+        -----
+        Warnings are logged (not raised) for inputs/outputs referencing a
+        species not in `all_species`, inputs with a transition effect other
+        than "None", or inputs with a threshold that isn't 0 or 1 — these
+        are conditions this Boolean-only SBML-qual reader does not support,
+        but does not treat as fatal for inputs.
+
+        For outputs, an unrecognised species, an unsupported transition
+        effect (i.e. not "assignmentLevel"), or a set output level are all
+        logged as warnings, but also stop collection of any further
+        outputs for this transition (the loop uses ``break`` rather than
+        skipping just the offending output).
         '''
 
         inputs = {}
@@ -245,6 +339,30 @@ class TransitionParser:
         -------
         logic_rule: str
             Logic rule of this transition (in bnet format)
+
+        Raises
+        ------
+        BoolDogSBMLException
+            If :meth:`MathMLParser.parse` fails to parse a function term's
+            MathML.
+
+        Notes
+        -----
+        Function terms named "defaultTerm" are skipped (the actual default
+        result is read separately from ``transition.getDefaultTerm()``).
+        Every other function term is parsed to a bnet-format expression via
+        :meth:`MathMLParser.parse`, and sorted by its ``ResultLevel`` into
+        an ``activation`` list (level 1) or ``inhibition`` list (level 0 or
+        anything else).
+
+        The final rule is built as:
+
+        * ``"( a1 | a2 | ... ) & !( i1 | i2 | ... )"`` if there is at least
+          one activation and one inhibition term;
+        * ``"( a1 | a2 | ... )"`` if there are only activation terms;
+        * ``"!( i1 | i2 | ... )"`` if there are only inhibition terms;
+        * ``str(default_term)`` (i.e. ``"0"`` or ``"1"``) if there are no
+          non-default function terms at all.
         '''
 
         function_terms = transition.getListOfFunctionTerms()
@@ -310,10 +428,46 @@ class TransitionParser:
 
 
 class MathMLParser:
-    '''Parse MathML to bnet format'''
+    '''Recursively parse a libsbml MathML AST (as used in SBML-qual
+    FunctionTerms) into a bnet-format Boolean rule string.'''
 
     @staticmethod
     def parse(node, all_species, inputs, level=0):
+        '''Recursively parse a MathML AST node to bnet syntax.
+
+        Parameters
+        ----------
+        node : libsbml.ASTNode
+            The (sub-)expression to parse.
+        all_species : list
+            List of ids of all species present in the model; leaf nodes
+            named after one of these are treated as species references.
+        inputs : dict
+            Mapping of transition input id to its species information (as
+            returned by :meth:`TransitionParser.parse_io`); leaf nodes
+            named after one of these keys are resolved to that input's
+            ``"threshold"`` value.
+        level : int, optional
+            Current recursion depth, used by :meth:`_handle_operator` to
+            decide whether to wrap the result in parentheses (top-level
+            expressions, ``level == 0``, are not parenthesised). Default 0.
+
+        Returns
+        -------
+        str or int
+            For a leaf node: the species id (str) if it names a species in
+            `all_species`; the referenced input's threshold (int or None)
+            if it names a key in `inputs`; or the node's integer value
+            (int) if it is an integer literal. For an internal node: the
+            bnet-format string built by :meth:`_handle_operator` from its
+            (recursively parsed) children.
+
+        Raises
+        ------
+        ValueError
+            If a leaf node's name matches neither a species nor an input
+            id, and it is not an integer literal.
+        '''
         node_name = node.getName()
         if node.getNumChildren() == 0:
             if node_name in all_species:
@@ -337,6 +491,36 @@ class MathMLParser:
 
     @staticmethod
     def _handle_operator(operator, children, level):
+        '''Combine already-parsed child expressions with a MathML
+        operator, into a bnet-format expression string.
+
+        Parameters
+        ----------
+        operator : str
+            MathML operator name (e.g. "and", "or", "times", "plus", "xor",
+            "not", or a comparison: "eq", "neq", "gt", "lt", "geq", "leq").
+        children : list
+            The operator's operands, already parsed to bnet-format strings
+            (or, for comparisons, possibly ints — see
+            :meth:`_handle_comparison`).
+        level : int
+            Recursion depth of the containing expression (see
+            :meth:`parse`); if greater than 0 the combined "and"/"or"
+            expression is wrapped in parentheses.
+
+        Returns
+        -------
+        str
+            The combined bnet-format expression. "times"/"plus" are
+            treated as "and"/"or" respectively (a common encoding when
+            Boolean values are represented as 0/1 numerically).
+
+        Raises
+        ------
+        ValueError
+            If `operator` is "not" and does not have exactly one child, or
+            if `operator` is not one of the recognised MathML operators.
+        '''
 
         if operator in ["and", "times"]:
             op = " & "  # Treat "times" as a logical "and"
@@ -358,7 +542,27 @@ class MathMLParser:
 
     @staticmethod
     def _handle_xor(children):
-        '''Create disjunctive normal form (DNF) of an xor '''
+        '''Combine already-parsed child expressions with an n-ary xor,
+        via a minimal disjunctive normal form (DNF).
+
+        Since bnet syntax has no native xor operator, each of `children`
+        (bnet-format expression strings) is treated as an opaque Boolean
+        variable, an n-input xor truth table over them is built, and
+        :func:`booldog.utils.boolean_normal_forms.functions2mindnf` is used
+        to minimise it to a DNF bnet-format expression string, substituting
+        the original child expression strings back in as "variable names".
+
+        Parameters
+        ----------
+        children : list of str
+            The xor's operands, already parsed to bnet-format strings.
+
+        Returns
+        -------
+        str
+            A minimal-DNF bnet-format expression equivalent to the xor of
+            `children`.
+        '''
 
         def xor(*l):
             return not (sum(l) % 2 == 0)
@@ -368,7 +572,39 @@ class MathMLParser:
 
     @staticmethod
     def _handle_comparison(operator, children):
-        '''Return bnet form of an (mathml) operator between two children.'''
+        '''Return the bnet form of a MathML comparison operator applied to
+        two already-parsed operands.
+
+        Parameters
+        ----------
+        operator : str
+            One of "eq", "neq", "gt", "lt", "geq", "leq".
+        children : list
+            Exactly two operands: each either a bnet-format expression
+            string (a Boolean-valued sub-expression) or an int (a
+            threshold/integer-literal leaf value, from :meth:`parse`).
+
+        Returns
+        -------
+        str
+            The bnet-format result of applying `operator` to the two
+            operands:
+
+            * if both operands are int: the Python comparison's Boolean
+              result, as the string ``"True"``/``"False"`` (via
+              ``str(bool_result)``, not bnet's own ``"1"``/``"0"``);
+            * if exactly one operand is an int (0 or 1): a simplified
+              bnet-format expression referencing only the variable
+              operand (e.g. ``x >= 1`` is just ``x``; ``x >= 0`` is
+              always true, i.e. ``"1"``);
+            * if neither operand is an int: a full bnet-format Boolean
+              expression combining both operands' expression strings.
+
+        Raises
+        ------
+        ValueError
+            If `children` does not have exactly two elements.
+        '''
 
         if len(children) != 2:
             raise ValueError(f"{operator} requires two operands.")
@@ -411,9 +647,30 @@ class MathMLParser:
 
 
 class SBMLQualWriter:
+    '''Build and write an SBML-qual representation of a Boolean
+    :class:`BoolDogModel`.
+
+    Each node becomes a qualitative species (id sanitised to alphanumerics
+    only), and each node's rule becomes a Transition with a single
+    FunctionTerm (result level 1, built from the rule via
+    :meth:`_rule_to_formula`) and a DefaultTerm of result level 0.
+
+    Parameters
+    ----------
+    network : BoolDogModel
+        The Boolean network to export.
+    level : int, optional
+        SBML level. Default 3.
+    version : int, optional
+        SBML version. Default 1.
+    qual_version : int, optional
+        Version of the 'qual' package. Default 1.
+    '''
 
     def __init__(self, network, level=3, version=1, qual_version=1):
         self.network = network
+        '''BoolDogModel: The network being exported, as given at
+        construction.'''
 
         ns = SBMLNamespaces(level, version, "qual", qual_version)
         doc = SBMLDocument(ns)
@@ -430,8 +687,12 @@ class SBMLQualWriter:
 
         # get a QualModelPlugin object plugged in the model object.
         self.mplugin = model.getPlugin("qual")
+        '''libsbml.QualModelPlugin: The 'qual' plugin of the SBML model
+        being built, used to create qualitative species and transitions.'''
 
         self.node_dict = {}
+        '''dict: Mapping of BoolDog node identifier to its sanitised
+        SBML-qual species id, populated by :meth:`_add_species`.'''
 
         self._add_species()
         self._add_transitions()
@@ -442,8 +703,21 @@ class SBMLQualWriter:
                 logger.warning("SBML error: %s", doc.getError(i).getMessage())
 
         self.doc = doc
+        '''libsbml.SBMLDocument: The fully-built SBML document, ready to be
+        written out with :meth:`write`.'''
 
     def write(self, outfile):
+        '''Write the built SBML document to file.
+
+        Parameters
+        ----------
+        outfile : str or Path
+            Path to write the SBML-qual XML file to.
+
+        Returns
+        -------
+        None
+        '''
 
         if isinstance(outfile, Path):
             outfile = str(outfile)
@@ -453,6 +727,19 @@ class SBMLQualWriter:
                     outfile)
 
     def _add_species(self):
+        '''Create a qualitative species for every node in :attr:`network`.
+
+        The SBML id is derived from the node identifier by lower-casing it
+        and stripping any non-alphanumeric/underscore characters (so it is
+        recorded in :attr:`node_dict`, since it may no longer match the
+        original node identifier). Each species is placed in the single
+        compartment "c", marked constant according to
+        ``network.is_constant(node)``, and named after ``node.name``.
+
+        Returns
+        -------
+        None
+        '''
         for node_id, node in self.network.nodes.items():
             node_id_sbml = re.sub(r'[\W_]+', '', node_id.lower())
             species = self.mplugin.createQualitativeSpecies()
@@ -463,6 +750,27 @@ class SBMLQualWriter:
             self.node_dict[node_id] = node_id_sbml
 
     def _add_transitions(self):
+        '''Create a Transition for every node in :attr:`network`, encoding
+        its Boolean rule.
+
+        Each transition has a single output (the node itself, with
+        transition effect "assignmentLevel"), one FunctionTerm (result
+        level 1) whose math is the node's rule converted via
+        :meth:`_rule_to_formula`, and a DefaultTerm of result level 0.
+        Transition inputs (regulator thresholds) are not currently created;
+        see the commented-out code and :meth:`_rule_to_formula`'s Notes for
+        the planned (not yet implemented) threshold support.
+
+        Returns
+        -------
+        None
+
+        Raises
+        ------
+        BoolDogSBMLException
+            If building the MathML formula for a node's rule fails (wraps
+            the underlying exception).
+        '''
         for target in self.network.nodes.values():
             rule = target.rule
             target_id = self.node_dict[target.identifier]
@@ -503,15 +811,45 @@ class SBMLQualWriter:
             transition.createDefaultTerm().setResultLevel(0)
 
     def _rule_to_formula(self, rule, input_node_dict):
-        ''' Rule (as in bnet) to a formula as supported by parseL3Formula
+        ''' Convert a bnet-format rule to a MathML AST, as supported by
+        ``libsbml.parseL3Formula``.
+
+        Parameters
+        ----------
+        rule : str
+            A Boolean rule in bnet format (using node identifiers as they
+            appear in :attr:`network`, e.g. ``"A & !B"``).
+        input_node_dict : dict
+            Currently unused by this method (reserved/accepted for the
+            planned threshold support described below, but not read here).
+
+        Returns
+        -------
+        libsbml.ASTNode
+            The MathML AST parsed from the reformatted formula (the return
+            value of ``libsbml.parseL3Formula``), suitable for
+            ``FunctionTerm.setMath``.
+
+        Raises
+        ------
+        KeyError
+            If an identifier token in `rule` is not a key of
+            :attr:`node_dict` (i.e. not a node of :attr:`network`).
 
         Notes
         -----
 
-        Replaces:
+        Tokenizes `rule` with :data:`TOKEN_REGEX` and, for each token,
+        replaces:
 
         * `&`  with `&&`
         * `|`  with `||`
+        * identifiers with their sanitised SBML species id
+          (``self.node_dict[tok]``)
+        * `!`, `(`, `)` are kept as-is
+
+        then parses the reassembled string with
+        ``libsbml.parseL3Formula``.
 
         To support thresholds, we need to replace the bnet format with a
         format supported by libsbml's parseL3Formula:
@@ -549,18 +887,36 @@ class SBMLQualWriter:
 ###############################
 
 def read_sbmlqual(file):
-    ''' Create Network from a SBML-qual file
+    ''' Parse an SBML-qual file into the data needed to construct a
+    :py:class:`BoolDogModel`.
 
     Parameters
     ----------
     file : str
         Path to SBML-qual file.
 
+    Returns
+    -------
+    data : dict
+        Dictionary with keys ``"nodes"`` (list of :class:`BoolDogNode`, one
+        per qualitative species; nodes with no associated transition get
+        ``rule=None``), ``"modelinfo"`` (:class:`BoolDogModelInfo`, with
+        ``identifier`` set to the SBML model id and ``source_format`` set
+        to ``"sbml-qual"``), and ``"primes"`` (``None``, since primes are
+        not computed by this reader). Suitable for ``BoolDogModel(**data)``.
+
+    Raises
+    ------
+    ImportError
+        If libsbml is not installed.
+
     Notes
     -----
 
     The SBML-qual file is converted to a Boolean network using libsbml, via
-    the bnet format. To access the bnet format directly, you can use `py:booldog.io.sbmlqual2bnet`.
+    the bnet format. To access the bnet format directly, you can construct
+    a :class:`SBMLQualReader` and call its :meth:`SBMLQualReader.to_bnet`
+    method.
 
 
     '''
@@ -600,7 +956,34 @@ def read_sbmlqual(file):
 
 
 def write_sbmlqual(model, outfile, **kwargs):
-    ''' '''
+    ''' Write a BoolDogModel object to an SBML-qual file, via
+    :class:`SBMLQualWriter`.
+
+    Parameters
+    ----------
+    model : BoolDogModel
+        A BoolDog object representing a Boolean network.
+    outfile : str or Path
+        Path to write the SBML-qual XML file to.
+    **kwargs
+        Forwarded to :meth:`SBMLQualWriter.write`. ``SBMLQualWriter`` is
+        also always constructed with its default
+        ``level``/``version``/``qual_version``; those are not currently
+        configurable from this function.
+
+    Returns
+    -------
+    None
+
+    Raises
+    ------
+    ImportError
+        If libsbml is not installed.
+    TypeError
+        **Known bug, not intentional behaviour**: :meth:`SBMLQualWriter.write`
+        only accepts ``outfile``, so passing any keyword arguments in
+        ``**kwargs`` here raises `TypeError`. See ``KNOWN_BUGS.md``.
+    '''
 
     # IDEA: Keep the original (and updated) logic rules as
     # attribute, and have an option to use them to create the sbml -qual

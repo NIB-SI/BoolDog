@@ -1,4 +1,5 @@
-'''Booldog networks interact with Cytoscape
+'''Export BoolDog Boolean models to a running Cytoscape session, via the
+optional `py4cytoscape <https://py4cytoscape.readthedocs.io/>`_ dependency.
 '''
 
 from booldog.resources import cytoscape_style_xml
@@ -14,6 +15,15 @@ except ImportError as e:
 # ---- Utility functions ------------------------------------------------------
 
 def silence_p4c_loggers():
+    """Raise the log level of py4cytoscape's loggers to CRITICAL.
+
+    Silences the informational/warning messages that py4cytoscape emits by
+    default, so that BoolDog's own logging output is not cluttered.
+
+    Notes
+    -----
+    Called automatically at import time (if py4cytoscape is available).
+    """
     import logging
     loggers = [
         logging.getLogger("py4..."),
@@ -27,7 +37,22 @@ if _CYTOSCAPE_AVAILABLE:
 
 @silence_stdout
 def test_cytoscape_connection():
-    """Test if a connection to Cytoscape can be established."""
+    """Test if a connection to Cytoscape can be established.
+
+    Returns
+    -------
+    bool
+        True, if a running Cytoscape instance was successfully pinged.
+
+    Raises
+    ------
+    ImportError
+        If the optional `py4cytoscape <https://py4cytoscape.readthedocs.io/>`_
+        dependency is not installed.
+    ConnectionError
+        If py4cytoscape is installed but no running Cytoscape instance could
+        be reached.
+    """
     if not _CYTOSCAPE_AVAILABLE:
         raise ImportError(
             'py4cytoscape (https://py4cytoscape.readthedocs.io/) '

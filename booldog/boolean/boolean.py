@@ -33,14 +33,21 @@ class BooleanNetworkMixin():
     '''
 
     def get_primes(self):
-        ''' Get prime implicants
-        Parameters
-        ----------
+        '''Compute the prime implicants of the network from its current node rules.
+
+        Converts the network to bnet format (via :meth:`to_bnet`) and calls
+        ``pyboolnet.external.bnet2primes.bnet_text2primes`` on the result.
 
         Returns
         -------
         primes : dict
             Prime implicants of the Boolean network.
+
+        Raises
+        ------
+        ValueError
+            If the underlying call to bnet2primes fails (returns ``None``),
+            e.g. because the bnet text could not be parsed.
         '''
 
         bnet = self.to_bnet()
@@ -58,8 +65,9 @@ class BooleanNetworkMixin():
 
         Parameters
         ----------
-        node : str or BoolDogNode
-            Node identifier or BoolDogNode object.
+        node_id : str or BoolDogNode
+            Node identifier or `BoolDogNode` object. Validated and normalised
+            to its identifier by the `validate_node_argument` decorator.
 
         Returns
         -------
@@ -72,7 +80,10 @@ class BooleanNetworkMixin():
         return self.nodes[node_id].rule
 
     def primes_to_matrices(self) -> tuple[np.ndarray, np.ndarray]:
-        '''Represent Boolean network a "activation" and "inhibition" matrices.
+        '''Represent the Boolean network as an "activation" and an
+        "inhibition" matrix, derived from the sign of each edge of the
+        network's interaction graph (`pyboolnet.interaction_graphs.
+        primes2igraph`).
 
         Returns
         ----------
@@ -84,9 +95,14 @@ class BooleanNetworkMixin():
 
         Notes
         ----------
-        Only if graph is of type threshold (i.e. SQUAD) does this make sense.
-        Used in SquadODE
-        Create logic matrices
+        This only makes sense for networks whose regulatory logic can be
+        interpreted as a combination of independent activators/inhibitors
+        (i.e. threshold/SQUAD-style networks); it is used by
+        `booldog.continuous.ode_factory.SquadODE` to build its ODE system.
+        The sign of each edge is taken from the interaction graph built by
+        `pyboolnet.interaction_graphs.primes2igraph`; if an edge's sign set
+        contains neither 1 nor -1 a warning is logged and the edge is
+        otherwise ignored.
 
         TODO
         ----
@@ -116,14 +132,26 @@ class BooleanNetworkMixin():
 
         Parameters
         ----------
-        fixed : dict
-            A dictionary of {node:state} to be kept fixed, with
-            node in graph.nodes, and state in {0, 1}.
+        fixed : dict, optional
+            A dictionary of {node: state} for nodes to be kept fixed, with
+            node in `self.nodes` and state in {0, 1}. All other nodes are
+            free and every combination of their values is generated. If not
+            given, every node is free (i.e. all 2**n states are generated).
+
+        Returns
+        -------
+        iterator
+            If `fixed` is None, the cartesian product
+            `itertools.product([0, 1], repeat=self.n)` of length-n 0/1
+            tuples (all 2**n states, unmapped to node identifiers).
+            If `fixed` is given, a generator is returned instead (see
+            Yields).
 
         Yields
         ----------
         state : np.array
-            length n array with a state of the graph.
+            length n array with a state of the graph, indexed by
+            `self.index`; only produced when `fixed` is given.
 
         '''
         if fixed is None:
@@ -147,11 +175,23 @@ class BooleanNetworkMixin():
             yield this_state_array
 
     def inactivate_state(self):
-        '''A state space with all nodes inactive'''
+        '''Build a single-state `BooleanStateSpace` with all nodes inactive
+        (i.e. the all-0 state).
+
+        Returns
+        -------
+        BooleanStateSpace
+        '''
         return BooleanStateSpace(self, ["0" * self.n])
 
     def activate_state(self):
-        '''A state space with all nodes active'''
+        '''Build a single-state `BooleanStateSpace` with all nodes active
+        (i.e. the all-1 state).
+
+        Returns
+        -------
+        BooleanStateSpace
+        '''
         return BooleanStateSpace(self, ["1" * self.n])
 
     def boolean_simulation(self, initial_states=None):
@@ -160,13 +200,22 @@ class BooleanNetworkMixin():
 
         Parameters
         ----------
-        initial_states : int, str, list, dict, or BooleanStateSpace, optional
-            Initial states, see Notes for format
+        initial_states : str, list, dict, callable, or BooleanStateSpace, optional
+            Initial states, see Notes for format. If not given, every state
+            is treated as initial (the full state transition graph is
+            built).
+
+        Returns
+        -------
+        BooleanSimulationResult
+            The (synchronous) state transition graph, together with the
+            standardised initial states.
 
         Notes
         ----------
-        This is a wrapper for pyboolnet.state_transition_graphs.primes2stg,
-        and therefore takes the same argument format for initial states.
+        This is a wrapper for pyboolnet.state_transition_graphs.primes2stg
+        with the update scheme fixed to ``"synchronous"``, and therefore
+        takes the same argument format for initial states.
 
         **From pyboolnet documentation:**
 
@@ -201,11 +250,32 @@ class BooleanNetworkMixin():
             self, stg, self.standard_states_format(initial_states))
 
     def standard_states_format(self, states):
-        '''
+        '''Convert a set of states, given in any of the formats accepted by
+        `boolean_simulation`/`pyboolnet.state_transition_graphs.primes2stg`,
+        to a plain list of state strings.
+
+        Parameters
+        ----------
+        states : None, str, dict, list, or callable
+            - None: returns None (no standardisation is performed).
+            - a callable taking a state in dict format (`{node_id: 0/1}`)
+              and returning a bool: every state of the full state space for
+              which it returns True is included.
+            - a str or dict subspace (e.g. ``"--1"`` or ``{"v3": 1}``): all
+              states contained in that subspace are included (via
+              `pyboolnet.state_space.list_states_in_subspace`).
+            - otherwise (e.g. a list of str/dict states): each element is
+              converted to its string representation.
+
+        Returns
+        -------
+        list of str, or None
+            The states in string representation, or None if `states` is
+            None.
 
         Notes
         -----
-
+        Mirrors the state-format handling of pyboolnet's ``primes2stg``, see
         https://github.com/hklarner/pyboolnet/blob/529860bc1185277fb2b5e0f3b36c9ba6c7b9fe2f/pyboolnet/state_transition_graphs.py#L124-L135
         '''
 
@@ -231,7 +301,19 @@ class BooleanNetworkMixin():
         return fringe
 
     def steady_states(self):
-        '''All steady states of the Boolean graph.
+        '''Compute all steady states (fixed points) of the Boolean network.
+
+        Returns
+        -------
+        BooleanStateSpace
+            The steady states of the network.
+
+        Notes
+        -----
+        This is a wrapper for `pyboolnet.trap_spaces.compute_steady_states`,
+        which uses the Potassco ASP solver to compute steady states as a
+        special case of trap spaces (using its defaults, at most 1000
+        steady states are returned).
         '''
 
         all_steady_states = compute_steady_states(self.primes)
@@ -239,18 +321,24 @@ class BooleanNetworkMixin():
 
     @validate_node_argument
     def get_parents(self, node_id):
-        '''Fetch regulators/inputs to a node
+        '''Fetch regulators/inputs to a node.
 
         Parameters
         ----------
-        node : str
-            Node name
+        node_id : str or BoolDogNode
+            Node identifier or `BoolDogNode` object. Validated and
+            normalised to its identifier by the `validate_node_argument`
+            decorator.
 
         Returns
         ----------
-        parents : set
-            Set of parent nodes
+        parents : list
+            Sorted list of identifiers of the nodes that regulate `node_id`
+            (i.e. appear in its update rule).
 
+        Notes
+        -----
+        This is a wrapper for `pyboolnet.prime_implicants.find_predecessors`.
         '''
         return find_predecessors(self.primes, [node_id])
 
@@ -258,9 +346,32 @@ class BooleanNetworkMixin():
                    # [key for d in self.primes[node][1] for key in d.keys()])
 
     def get_interactions(self, direction='out'):
-        '''
-        direction out: interactions[a][b]  a --> b
-        direction in:  interactions[a][b]  a <-- b
+        '''Build a nested dict of pairwise regulatory signs from the
+        network's interaction graph.
+
+        Parameters
+        ----------
+        direction : {'out', 'in'}, optional
+            direction out: interactions[a][b] describes the edge a --> b
+            (`a` regulates `b`).
+            direction in: interactions[a][b] describes the edge a <-- b
+            (`b` regulates `a`).
+            Any other value logs a warning and returns an empty dict.
+
+        Returns
+        -------
+        interactions : collections.defaultdict of dict
+            interactions[a][b] = sign, where sign is 1 (activation) or -1
+            (inhibition) — one of the signs from the interaction-graph edge
+            (see `pyboolnet.interaction_graphs.primes2igraph`); an edge with
+            both signs recorded (dual interaction) is not distinguished
+            from a single-signed edge.
+
+        Notes
+        -----
+        Wraps `pyboolnet.interaction_graphs.primes2igraph`. See also
+        `primes_to_matrices`, which builds a similar (but dense-matrix,
+        binary) representation.
         '''
         interactions = defaultdict(dict)
         intgraph = primes2igraph(self.primes)
@@ -285,21 +396,24 @@ class BooleanNetworkMixin():
     @validate_node_argument
     def is_constant(self, node_id):
         '''
-        Whether node is a constant (has no input) in the network.
+        Whether node is a constant (i.e. its rule is a fixed 0 or 1,
+        independent of any other node) in the network.
 
         Parameters
         ----------
-        node_id : str
-            Node identifier
+        node_id : str or BoolDogNode
+            Node identifier or `BoolDogNode` object. Validated and
+            normalised to its identifier by the `validate_node_argument`
+            decorator.
 
         Returns
         ----------
         constant : bool
-            Whether `node` is a constant
+            Whether `node_id` is a constant.
 
         Notes
         -----
-        This is a wrapper for pyboolnet.prime_implicants.is_constant.
+        This is a wrapper for `pyboolnet.prime_implicants.is_constant`.
 
         '''
 
@@ -307,15 +421,18 @@ class BooleanNetworkMixin():
 
     def list_network_inputs(self):
         '''
-        List all nodes that have no regulators/inputs in the network.
+        List all input nodes of the network, i.e. nodes whose own value is
+        their only regulator (`node, node` as a bnet rule) so that their
+        value never changes under simulation.
 
         Returns
         ----------
         inputs : list
-            List of input node names
+            Sorted list of input node identifiers.
 
         Notes
         -----
+        This is a wrapper for `pyboolnet.prime_implicants.find_inputs`.
 
         '''
 

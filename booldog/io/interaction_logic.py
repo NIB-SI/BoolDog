@@ -16,7 +16,12 @@ def interactions2rules(
     activator_symbol: int | str = 1,
     inhibitor_symbol: int | str = -1,
 ) -> Dict[str, Callable]:
-    '''Convert interactions directly to prime implicants.
+    '''Convert a list of signed interactions into Boolean update rules.
+
+    Interactions are first grouped by target node (see
+    `_normalise_and_collect_regulators`), then each target's Boolean rule
+    string (bnet-format, e.g. "A | B & !C") is built from its regulators by
+    `logic`.
 
     Parameters
     ----------
@@ -34,14 +39,17 @@ def interactions2rules(
     logic : LogicBuilder, optional
         An optional logic builder to use for constructing the update functions.
         If not provided, the default is `SquadLogic`, which implements the SQUAD logic:
-        A node is active iff:
+        A node is active iff::
+
             (any activator is active) AND (no inhibitor is active)
 
 
     Returns
     -------
     dict
-        A dictionary mapping node identifiers to their corresponding prime implicants.
+        A dictionary mapping each target node identifier to its Boolean
+        update rule, as a bnet-format rule string (not a prime-implicant
+        object) produced by ``logic.build``.
 
     '''
 
@@ -62,7 +70,27 @@ def interactions2rules(
 # ---- Interaction preprocessing ----------------------------------------------
 
 def _normalise_and_collect_regulators(interactions, activator_symbol, inhibitor_symbol):
-    """Normalize signs and orient interactions as target → regulators."""
+    """Normalize signs and orient interactions as target -> regulators.
+
+    Parameters
+    ----------
+    interactions : list of tuple
+        Interactions as (source, target, sign) tuples.
+    activator_symbol : int or str
+        The value of `sign` that represents activation; normalized to ``1``.
+    inhibitor_symbol : int or str
+        The value of `sign` that represents inhibition; normalized to ``-1``.
+
+    Returns
+    -------
+    dict
+        A dictionary mapping each target node identifier to a dict of its
+        regulators, i.e. ``{target: {regulator: 1 or -1, ...}, ...}``.
+        Interactions whose `sign` matches neither `activator_symbol` nor
+        `inhibitor_symbol` are dropped (a warning is logged) rather than
+        included in the result. If the same (source, target) pair appears
+        more than once, only the last occurrence is kept.
+    """
     translate = {
         activator_symbol: 1,
         inhibitor_symbol: -1,
@@ -87,20 +115,61 @@ def _normalise_and_collect_regulators(interactions, activator_symbol, inhibitor_
 # ---- Logic interface --------------------------------------------------------
 
 class LogicBuilder:
-    """Abstract base class for Boolean logic builders."""
+    """Abstract base class for Boolean logic builders.
+
+    Subclasses implement `build` to turn a node's set of signed regulators
+    into a Boolean rule string (bnet format), pluggable into
+    `interactions2rules`.
+    """
 
     def build(self, node: str, regulators: Mapping[str, int]) -> str:
-        """Return an update rule for `node`."""
+        """Return an update rule for `node`.
+
+        Parameters
+        ----------
+        node : str
+            Identifier of the target node the rule is being built for.
+        regulators : Mapping[str, int]
+            Mapping of regulator node identifier to normalized sign
+            (``1`` for activator, ``-1`` for inhibitor).
+
+        Returns
+        -------
+        str
+            A Boolean rule string (bnet format) for `node`.
+        """
         raise NotImplementedError
 
 class SquadLogic(LogicBuilder):
     """SQUAD logic:
 
-    A node is active iff:
+    A node is active iff::
+
         (any activator is active) AND (no inhibitor is active)
     """
 
     def build(self, node: str, regulators: Mapping[str, int]) -> str:
+        """Build the SQUAD-logic rule for `node` from its regulators.
+
+        Parameters
+        ----------
+        node : str
+            Identifier of the target node the rule is being built for
+            (unused other than for interface compatibility with
+            `LogicBuilder.build`).
+        regulators : Mapping[str, int]
+            Mapping of regulator node identifier to normalized sign
+            (``1`` for activator, ``-1`` for inhibitor).
+
+        Returns
+        -------
+        str
+            A Boolean rule string (bnet format): ``"0"`` if there are no
+            regulators; the activators OR-ed together if there are no
+            inhibitors; the negated inhibitors AND-ed together if there are
+            no activators; otherwise ``"(activators OR-ed) & (negated
+            inhibitors AND-ed)"``.
+        """
         activators = [r for r, s in regulators.items() if s == 1]
         inhibitors = [r for r, s in regulators.items() if s == -1]
 

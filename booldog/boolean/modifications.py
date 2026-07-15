@@ -22,12 +22,19 @@ class ModificationTypes(ExtendedEnum):
 
 
 class Modification():
-    '''Class to represent a modification to the Boolean network.'''
+    '''Represents a single modification made (or to be made) to a Boolean
+    network. Used both as the audit-trail record appended to
+    `BoolDogModel.modifications` by `_track_network_modifications`, and as
+    the input format accepted by `modify_network`.
+    '''
 
     def __init__(self, modification_type, node_id, rule=None):
         self.type = modification_type
+        '''ModificationTypes : the type of modification (add, remove, or update).'''
         self.node_id = node_id
+        '''str or list of str : identifier(s) of the node(s) affected.'''
         self.rule = rule
+        '''str or None : the rule (bnet form) associated with the modification, if any.'''
 
     def __repr__(self):
         return f"Modification(type={self.type}, node_id={self.node_id}, rule={self.rule})"
@@ -39,14 +46,41 @@ class BooleanNetworkModificationMixin():
     '''
     def _track_network_modifications(self, modification_type, node_id, rule=None):
         '''
-        Keep track of network modifications
+        Append a `Modification` record to `self.modifications`, the model's
+        audit trail of changes made via `add_node`/`remove_node(s)`/
+        `update_node`.
+
+        Parameters
+        ----------
+        modification_type : ModificationTypes
+            Type of modification performed.
+        node_id : str or list of str
+            Identifier(s) of the node(s) affected.
+        rule : str, optional
+            The rule (bnet form) associated with the modification, if any.
         '''
         self.modifications.append(
             Modification(modification_type, node_id, rule=rule))
 
     # function to update the object attributes
     def _update_model_object(self, uncache_primes=True):
-        '''Update the model attributes after a modification.'''
+        '''Refresh the model's derived bookkeeping after a node addition,
+        removal, or rule update.
+
+        Recomputes `self.node_ids`/`self.index` (via
+        `BoolDogModel._set_node_ids_and_index`) and, unless the caller has
+        already updated `self.primes` in place (e.g. via
+        `pyboolnet.prime_implicants.create_variables`/`remove_variables`),
+        invalidates the cached primes so they are recomputed from the
+        node rules the next time `primes` is accessed.
+
+        Parameters
+        ----------
+        uncache_primes : bool, optional
+            Whether to invalidate the primes cache (default True). Pass
+            False when the primes have already been updated in place by
+            the caller.
+        '''
 
         self._set_node_ids_and_index() # Mixin function
 
@@ -60,27 +94,44 @@ class BooleanNetworkModificationMixin():
 
         Parameters
         ----------
-        modifications : list
-            List of Modification objects.
+        modifications : list of Modification
+            List of `Modification` objects, applied in the order given.
 
         Returns
         ----------
         None
             The network is modified in place.
 
+        Raises
+        ------
+        AttributeError
+            **Known bug, not intentional behaviour**: this method reads
+            ``modification.modification_type``, but `Modification` only
+            ever sets ``self.type`` (see its `__init__`) — so calling
+            `modify_network` with any non-empty list currently raises
+            `AttributeError` immediately, regardless of modification type.
+            Separately, its "update" branch calls a nonexistent
+            ``self.update_rule(...)`` (the real method is `update_node`).
+            See ``KNOWN_BUGS.md``.
+
         Notes
         -----
 
-        Each Modification object must have the following attributes:
-        - modification_type : str
-            Type of modification. One of "add_node", "remove_node", "update".
-        - node : str or list
-            Name of node(s) to modify.
-        - rule : str or None
-            Rule to define the update function of `node`, in bnet form.
-            All nodes in `rule` need to be defined in Network.
+        Each `Modification` object has the following attributes:
 
-        The modifications are applied in the order they are given.
+        - type : ModificationTypes
+          Type of modification. One of `ModificationTypes.ADD`
+          ("add_node"), `ModificationTypes.REMOVE` ("remove_node"), or
+          `ModificationTypes.UPDATE` ("update").
+        - node_id : str or list
+          Identifier(s) of node(s) to modify.
+        - rule : str or None
+          Rule to define the update function of `node_id`, in bnet form.
+          All nodes in `rule` need to be defined in Network.
+
+        The modifications are applied in the order they are given, by
+        dispatching each one to `add_node`, `remove_nodes`, or (for
+        "update") the equivalent of `update_node`.
         A node cannot be removed if other nodes depend on it (i.e. it occurs in
         their update logic). To remove such a node, either also remove all of
         its dependants, or first update the logic rule of its dependants to
@@ -111,12 +162,13 @@ class BooleanNetworkModificationMixin():
 
     def remove_node(self, node_id):
         '''
-        Removes `node` from the network.
+        Removes `node_id` from the network. Convenience wrapper around
+        `remove_nodes` for a single node.
 
         Parameters
         ----------
-        node : str
-            Names of node to remove
+        node_id : str
+            Identifier of the node to remove.
 
         Returns
         ----------
@@ -135,7 +187,26 @@ class BooleanNetworkModificationMixin():
         self.remove_nodes(node_id)
 
     def _test_node_removabilty(self, node_ids):
-        '''Test if a node (set) can be removed from the network.
+        '''Check that removing all of `node_ids` from the network at once is
+        valid, i.e. that no node outside `node_ids` depends on (is a
+        successor of) any node in `node_ids`.
+
+        Parameters
+        ----------
+        node_ids : list of str
+            Identifiers of the nodes to be removed together.
+
+        Returns
+        -------
+        None
+
+        Raises
+        ------
+        ValueError
+            If any node in `node_ids` has a dependant (successor, via
+            `pyboolnet.prime_implicants.find_successors`) that is not
+            itself also being removed. The message lists, for each such
+            node, which of its dependants block the removal.
         '''
 
         hit = {
@@ -163,12 +234,21 @@ class BooleanNetworkModificationMixin():
 
         Parameters
         ----------
-        node_ids : list
-            List of identifiers of nodes to remove
+        node_ids : str or list of str
+            Identifier, or list of identifiers, of nodes to remove. A
+            single string is treated as one node identifier.
 
         Returns
         ----------
         None
+
+        Raises
+        ------
+        ValueError
+            If any of `node_ids` is not present in the network, or if
+            removing all of `node_ids` together would leave a dependant
+            node whose rule still refers to a removed node (see
+            `_test_node_removabilty`).
 
         Notes
         -----
@@ -204,16 +284,28 @@ class BooleanNetworkModificationMixin():
 
         Parameters
         ----------
-        node : str
-            Node name
+        node_id : str
+            Identifier of the new node. Must not already be present in
+            the network.
         rule : str
-            Rule to define update of `node`, in bnet form. All nodes in
+            Rule to define update of `node_id`, in bnet form. All nodes in
             `rule` need to be defined in Network.
+        name : str, optional
+            Not currently used by this method (the created `BoolDogNode`
+            is constructed without a `name`, so it falls back to
+            `node_id`; see `BoolDogNode.__post_init__`).
 
         Returns
         ----------
         None
 
+        Raises
+        ------
+        ValueError
+            If `node_id` is already present in the network.
+
+        Notes
+        -----
         This is a wrapper for pyboolnet.prime_implicants.create_variables.
         '''
         if node_id in self.nodes:
@@ -234,21 +326,35 @@ class BooleanNetworkModificationMixin():
                     rule,
                     modification_type=ModificationTypes.UPDATE):
         '''
-        Update (modify) or add the logic rule defining the update of `node`.
-        If `node` does not yet exist, it will be added, if it does exist, its
-        update logic will be overwritten.
+        Update (overwrite) the logic rule defining the update of `node_id`.
+        `node_id` must already exist in the network; use `add_node` to add
+        a new node instead.
 
         Parameters
         ----------
         node_id : str
-            Node identifier
+            Identifier of the (existing) node whose rule is to be updated.
         rule : str
-            New rule to define update of `node`, in bnet form. All nodes in
-            `rule` need to be defined in Network.
+            New rule to define update of `node_id`, in bnet form. All nodes
+            in `rule` need to be defined in Network.
+        modification_type : ModificationTypes, optional
+            The modification type recorded in the audit trail
+            (`self.modifications`) for this change. Defaults to
+            `ModificationTypes.UPDATE`.
 
         Returns
         ----------
         None
+
+        Raises
+        ------
+        ValueError
+            If `node_id` is not already present in the network.
+
+        Notes
+        -----
+        If `rule` is identical to the node's current rule, a warning is
+        logged and no update (and no audit-trail entry) is made.
 
         This is a wrapper for pyboolnet.prime_implicants.create_variables.
         '''

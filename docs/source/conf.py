@@ -44,6 +44,15 @@ extensions = [
 
 # Autoapi settings
 autoapi_dirs = ['../../booldog']
+# booldog/__init__.py re-exports classes from their defining submodules
+# (e.g. BoolDogModel from booldog.network). Without this, AutoAPI's default
+# 'imported-members' option documents each of those a second time at the
+# re-export location, causing duplicate object/label warnings and ambiguous
+# cross-references.
+autoapi_options = [
+    'members', 'undoc-members', 'private-members', 'show-inheritance',
+    'show-module-summary', 'special-members',
+]
 
 
 # Napoleon settings
@@ -116,6 +125,19 @@ html_favicon = '../figures/icon.ico'
 #     # booldog.ode_factory.ODE.__module__ = 'booldog.ode'
 
 
+def ensure_extra_media_dirs_exist(_):
+    # nbsphinx_link's collect_extra_media() copies a single "extra-media"
+    # file via shutil.copy without creating its destination's parent
+    # directory first (unlike its directory-copy branch, which does).
+    # tutorial-advanced.nblink's extra-media entry is a single file nested
+    # under tutorials/files/, so without this the copy fails with
+    # FileNotFoundError since docs/source/tutorials/files/ doesn't exist yet.
+    os.makedirs(
+        os.path.join(os.path.dirname(__file__), "tutorials", "files"),
+        exist_ok=True,
+    )
+
+
 def ensure_pandoc_installed(_):
     try:
         import pypandoc
@@ -132,6 +154,7 @@ def ensure_pandoc_installed(_):
 
 def setup(app):
     app.connect("builder-inited", ensure_pandoc_installed)
+    app.connect("builder-inited", ensure_extra_media_dirs_exist)
     # nbsphinx omits image/gif from its MIME-type pipeline, so animated GIFs
     # produced by display(IPython.display.Image(...)) fall back to the
     # text/plain repr.  Three patches are needed:

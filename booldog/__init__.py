@@ -1,7 +1,13 @@
 # Copyright (C) 2020-2026 National Institute of Biology, Slovenia
 # Author: Carissa Bleker
 # Contact: carissa.bleker@nib.si
-"""`booldog`: A Python package for analyses of Boolean and semi-quantitative Boolean networks"""
+"""`booldog`: A Python package for analyses of Boolean and semi-quantitative Boolean networks.
+
+This top-level package module re-exports the public API (`BoolDogModel`,
+`BooleanStateSpace`), exposes the installed package version as
+`__version__` (via `booldog.utils.misc.get_pkg_version`), and configures
+package-wide logging (via `booldog.utils.logger.setup_logger`) on import.
+"""
 
 import sys
 import logging

@@ -21,7 +21,7 @@ def booldog2networkx(model, as_logic_circuit=True):
     as_logic_circuit: bool
         If True, the graph is exported as a logic circuit (Boolean rules
         are represented as "logical" nodes (and, or, not) and edges.
-        Otherwise, it is exported as a directed interaction graph. Default is False.
+        Otherwise, it is exported as a directed interaction graph. Default is True.
 
 
     Returns
@@ -29,12 +29,19 @@ def booldog2networkx(model, as_logic_circuit=True):
     graph : networkx.DiGraph
         A networkx graph with the same nodes as the input network.
         If `as_logic_circuit` is True, Boolean rules are represented as
-        "logical" nodes (and, or, not) and edges.
+        "logical" nodes (and, or, not) and edges. Otherwise, each node has a
+        "type" attribute ("species") and each edge has a "type" attribute
+        derived from pyboolnet's "sign" edge attribute ("activation",
+        "inhibition", "mixed", or "none"). In both cases, every model node
+        also gets "rule" and "label" attributes copied from the
+        corresponding `BoolDogNode`.
 
     Notes
     -----
 
-    See also pyboolnet.interaction_graphs.primes2igraph.
+    When `as_logic_circuit` is False, the interaction graph is built via
+    :func:`pyboolnet.interaction_graphs.primes2igraph` (despite its name,
+    this returns a networkx.DiGraph).
 
     '''
 

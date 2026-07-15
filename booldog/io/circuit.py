@@ -1,5 +1,11 @@
 '''
-Function to transform booldog:Network to DiGraph
+Convert a BoolDogModel's Boolean rules into a logic-circuit graph.
+
+Each node's Boolean rule (a string using ``&``, ``|``, ``!``) is parsed and
+expanded into explicit "logical" AND/OR/NOT nodes wired up with edges, in
+addition to the original "species" nodes. This produces a
+:class:`networkx.DiGraph` circuit representation of the model, as used by
+``booldog2networkx``/``booldog2igraph`` when ``as_logic_circuit=True``.
 '''
 import logging
 
@@ -17,7 +23,19 @@ logger = logging.getLogger(__name__)
 PAREN_RE = re.compile(r"\([^()]*\)")
 
 def clean_line(line):
-    ''' Makes sure line is a Boolean rule, and not a header or comment
+    ''' Strip a bnet-style line down to its Boolean-rule content.
+
+    Parameters
+    ----------
+    line : str
+        A single line of text (e.g. from a bnet file).
+
+    Returns
+    -------
+    str or None
+        ``None`` if, once stripped, `line` is exactly the bnet header line
+        ("targets, factors"). Otherwise, the part of `line` before any
+        trailing "#" comment, stripped of surrounding whitespace.
     '''
     line = line.strip()
     if line == "targets, factors":
@@ -35,23 +53,37 @@ class BooleanOperators:
     is used to make the code more readable and maintainable.
     '''
     AND = "&"
+    '''str : symbol used for the Boolean AND operator in rule strings.'''
     OR = "|"
+    '''str : symbol used for the Boolean OR operator in rule strings.'''
     NOT = "!"
+    '''str : symbol used for the Boolean NOT operator in rule strings.'''
 
 class BooleanDiGraph(nx.DiGraph):
-    ''' Simple helper class to track logic nodes '''
+    ''' A :class:`networkx.DiGraph` subclass that also tracks how many AND, OR,
+    and NOT logic nodes it contains, so that newly added logic nodes get
+    unique, sequential labels (e.g. "and_0", "and_1", ...).
+    '''
 
     def __init__(self):
 
         super().__init__()
 
         self.and_count = 0
+        '''int : number of AND nodes added so far, used to generate the next unique "and_<n>" node id.'''
         self.or_count = 0
+        '''int : number of OR nodes added so far, used to generate the next unique "or_<n>" node id.'''
         self.not_count = 0
+        '''int : number of NOT nodes added so far, used to generate the next unique "not_<n>" node id.'''
 
     def add_and(self):
         '''
-        Add a AND node to the graph.
+        Add a new AND logic node ("and_<n>") to the graph.
+
+        Returns
+        -------
+        node : str
+            The identifier of the newly added node (e.g. "and_0").
         '''
 
         node = f"and_{self.and_count}"
@@ -62,7 +94,12 @@ class BooleanDiGraph(nx.DiGraph):
 
     def add_or(self):
         '''
-        Add a OR node to the graph.
+        Add a new OR logic node ("or_<n>") to the graph.
+
+        Returns
+        -------
+        node : str
+            The identifier of the newly added node (e.g. "or_0").
         '''
 
         node = f"or_{self.or_count}"
@@ -73,7 +110,12 @@ class BooleanDiGraph(nx.DiGraph):
 
     def add_not(self):
         '''
-        Add a NOT node to the graph.
+        Add a new NOT logic node ("not_<n>") to the graph.
+
+        Returns
+        -------
+        node : str
+            The identifier of the newly added node (e.g. "not_0").
         '''
 
         node = f"not_{self.not_count}"
@@ -97,10 +139,13 @@ def booldog2circuit(model):
 
     Returns
     -------
-    graph : BooleanDiGraph
-        A networkx.DiGraph with the same nodes as the input network.
-        Boolean rules are represented as additional "logical" nodes
-        (and, or, not) and edges.
+    graph : networkx.DiGraph
+        A plain networkx.DiGraph (built from an internal BooleanDiGraph) with
+        one "species" node per model node, plus additional "logical" AND/OR/NOT
+        nodes and edges representing each node's Boolean rule. An edge of type
+        "update_function" connects the final logic node of a rule to the
+        species node it updates. Nodes whose rule is empty/falsy have no
+        incoming update-function edge (a warning is logged instead).
     '''
 
 

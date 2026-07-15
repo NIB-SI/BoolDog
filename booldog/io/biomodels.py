@@ -1,4 +1,5 @@
-''' API to download and use SBML-qual models from bio.models directly. '''
+''' API to download and use SBML-qual models from the BioModels database
+(https://www.biomodels.org/) directly. '''
 
 import logging
 import re
@@ -36,8 +37,10 @@ def fetch_model(model_id,
         BioModels model identifier (e.g. 'BIOMD0000000562')
 
     sbml_file: str
-        Name of the file containing the model in the BioModels registry.
-        Optional, if not given, will be determined from the model info.
+        Currently unused: this argument's value is discarded and always
+        overwritten by the name found in the model's metadata (via
+        ``model_info['files']['main']``, the first entry whose description
+        starts with "sbml"/"SBML") before use.
 
     local_file: str or path-like
         Name of path to save the downloaded model to. Optional, if not given
@@ -54,10 +57,22 @@ def fetch_model(model_id,
     local_file: str
         Name of the local file containing the download.
 
+    Raises
+    ------
+    ValueError
+        If ``check_modelling_approach`` is True and the model's
+        "modellingApproach" annotation is not in :data:`MAMO_ACCESSIONS`;
+        if the model's format (per its metadata) is not SBML; if no file
+        in the model's metadata has a description starting with
+        "SBML"/"sbml"; or if the download request fails (see
+        :func:`_download`).
+
     Notes
     --------
-    This first collects the model info/metadata, and uses the 'files' --> 'main' attribute
-    to find the first file with 'SBML'/'sbml' in the beginning of the description.
+    This first collects the model info/metadata, and uses the 'files' --> 'main'
+    attribute to find a file whose description starts with 'SBML'/'sbml'
+    (case-insensitive). If more than one file matches, the last matching
+    entry in the list is used (the loop does not stop at the first match).
 
     Will always overwrite an existing file.
 
@@ -101,29 +116,47 @@ def fetch_model_info(model_id):
     ----------
     model_id: str
         BioModels model identifier (e.g. 'BIOMD0000000562')
+
     Returns
     -------
     dict
-        Model info/metadata as a dictionary.
+        Model info/metadata as a dictionary, parsed directly from the JSON
+        response of BioModels' ``GET /{model_id}?format=json`` endpoint.
     '''
     response = requests.get(f"{BIOMODELS_BASE_URL}/{model_id}?format=json", timeout=30)
     return response.json()
 
 # GET /model/download/{model_id}
 def _download(model_id, filename=None, local_file=None):
-    '''Downloads a file from a model in BioModels
+    '''Downloads a file from a model in BioModels, via
+    ``GET /model/download/{model_id}``.
 
     Parameters
     ----------
 
     model_id: str
-        BioModels model identifier (e.g. )
+        BioModels model identifier (e.g. 'BIOMD0000000562')
+
+    filename: str, optional
+        Name of a specific file within the model's archive to download
+        (passed as the ``filename`` query parameter). If None, the whole
+        model archive is downloaded instead.
+
+    local_file: str or path-like, optional
+        Path to save the downloaded content to. If None, defaults to
+        ``filename`` (if given) or ``"{model_id}.omex"`` (if not), saved
+        relative to the current working directory.
 
     Returns
     -------
 
-    local_file: str
-        Name of the local file containing the download.
+    local_file: str or Path
+        Name/path of the local file containing the download.
+
+    Raises
+    ------
+    ValueError
+        If the HTTP response indicates failure (non-OK status code).
 
     '''
     download_url = f"{BIOMODELS_BASE_URL}/model/download/{model_id}"

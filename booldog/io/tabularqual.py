@@ -1,9 +1,11 @@
 '''
-Load TabularQual files
+Load TabularQual files.
 
 Spec: https://github.com/sys-bio/TabularQual/blob/main/doc/TabularQual_specification_v0.1.2.docx
 
-Use tabularqual converter to convert TaabularQual files to SBML-qual, then load them using the SBML-qual reader.
+Uses the ``tabularqual`` package (optional ``sbml`` extra) to convert
+TabularQual spreadsheet files to SBML-qual, then loads them using the
+SBML-qual reader (:func:`booldog.io.sbml.read_sbmlqual`).
 '''
 
 import logging
@@ -20,30 +22,33 @@ from booldog.io.sbml import read_sbmlqual
 logger = logging.getLogger(__name__)
 
 class TabularQualReader:
-    '''Reader for TabularQual files.'''
+    '''Reader for TabularQual files, via conversion to SBML-qual.
+
+    Requires the optional ``tabularqual`` package to be installed (part of
+    the ``sbml`` extra).
+
+    Parameters
+    ----------
+    model_path : str
+        Path to the TabularQual spreadsheet file.
+    '''
 
     def __init__(self, model_path):
-        '''Initialise the reader.
-
-        Parameters
-        ----------
-        model_path : str
-            Path to the TabularQual file.
-
-        Returns
-        -------
-        None
-
-        '''
         self.model_path = model_path
+        '''str: Path to the TabularQual spreadsheet file, as given at
+        construction.'''
 
     def read(self):
-        '''Read the TabularQual file and return a BoolDogModel.
+        '''Convert the TabularQual file to SBML-qual (in a temporary file)
+        and parse it with :func:`booldog.io.sbml.read_sbmlqual`.
 
         Returns
         -------
-        BoolDogModel
-            The BoolDogModel generated from the TabularQual file.
+        data : dict
+            Dictionary with keys ``"nodes"``, ``"modelinfo"`` and
+            ``"primes"`` as returned by
+            :func:`booldog.io.sbml.read_sbmlqual`. Suitable for
+            ``BoolDogModel(**data)``.
 
         '''
 
@@ -58,17 +63,25 @@ class TabularQualReader:
 ###############################
 
 def read_tabularqual(model_path):
-    '''Read a TabularQual file and return a BoolDogModel.
+    '''Parse a TabularQual file into the data needed to construct a
+    :py:class:`BoolDogModel`.
 
     Parameters
     ----------
     model_path : str
-        Path to the TabularQual file.
+        Path to the TabularQual spreadsheet file.
 
     Returns
     -------
-    BoolDogModel
-        The BoolDogModel generated from the TabularQual file.
+    data : dict
+        Dictionary with keys ``"nodes"``, ``"modelinfo"`` and ``"primes"``,
+        as returned by :meth:`TabularQualReader.read`. Suitable for
+        ``BoolDogModel(**data)``.
+
+    Raises
+    ------
+    ImportError
+        If the optional ``tabularqual`` package is not installed.
 
     '''
 

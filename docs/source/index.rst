@@ -40,15 +40,8 @@ Key features include:
    formats
    misc
 
-.. toctree::
-   :caption: API
-   :maxdepth: 2
-
-   api/booldog
-
-
 Citation
-=======
+========
 
 If you use BoolDog in your research, please cite:
 

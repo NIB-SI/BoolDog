@@ -1,4 +1,12 @@
-''''''
+'''Continuous / semi-quantitative simulation of Boolean networks via ODEs.
+
+Provides :py:class:`ContinuousMixin`, the mixin used by
+:py:class:`booldog.BoolDogModel` to convert Boolean rules into an ODE
+system (`transform_bool_to_continuous`) and to run time-course
+simulations of it, including timed node perturbations
+(`continuous_simulation`). The actual ODE construction is delegated to
+:py:func:`booldog.continuous.ode_factory.ode_factory`.
+'''
 
 import logging
 
@@ -14,37 +22,46 @@ logger = logging.getLogger(__name__)
 
 
 class ContinuousMixin:
-    '''Class for Continuous simulations functions.
+    '''Mixin providing continuous/semi-quantitative simulation methods.
 
-    This class is not intended to be used directly, but rather as a mixin.
+    Mixed into :py:class:`booldog.BoolDogModel`; not intended to be
+    used directly.
     '''
 
 
     def transform_bool_to_continuous(self,
                                      transform="normalisedhillcube",
                                      **kwargs):
-        '''Generate an ODE from RegulatoryNetwork/Boolean graph.
+        '''Build an ODE system from this Boolean network.
 
-        Note that the Network object is kept in memory as the primes of
-        the Boolean network. This means that importing the graph may take a
-        while, depending on the size of the network.
+        A thin wrapper around
+        :py:func:`booldog.continuous.ode_factory.ode_factory` that
+        passes `self` (this `BoolDogModel` instance) through as the
+        network to convert. The returned ODE object keeps a reference
+        to `self` (as `ODE.boolean_network`) rather than copying it.
 
         Parameters
         ----------
-        transform : str
-            One of accepted transforms. See `booldog.ode.transforms` for
-            accepted options.
+        transform : str, optional
+            One of the accepted transforms (case-insensitive). See
+            `booldog.continuous.ode_factory.transforms` for options.
+            Defaults to ``'normalisedhillcube'``.
 
         Other Parameters
         ----------------
         **kwargs
-            Additional keyword arguments passed to :py:func:`booldog.ODE`.
-
+            Additional keyword arguments passed to the selected ODE
+            class's constructor; see
+            `booldog.continuous.ode_factory.ode_factory` for the
+            per-transform options.
 
         Returns
-        ----------
-
-
+        -------
+        ode_system : booldog.continuous.ode_factory.ODE
+            The constructed ODE system - a
+            `booldog.continuous.ode_factory.BooleCubeODE` or
+            `booldog.continuous.ode_factory.SquadODE` instance,
+            depending on `transform`.
         '''
         ode_system = ode_factory(self, transform, **kwargs)
         return ode_system
@@ -62,38 +79,55 @@ class ContinuousMixin:
 
         Parameters
         ----------
-        node_events :  None or list of dict, optional
+        node_events :  None, dict, or list of dict, optional
             List of node events with a dictionary defining each event.
-            See :ref:`Notes <tagnotesne>` for description of event definitions.
+            A single event may be passed as a bare dict instead of a
+            one-element list. See :ref:`Notes <tagnotesne>` for
+            description of event definitions.
         edge_events :  None or list of dict, optional
-            Disrupt connections #TODO not implemented
+            Disrupt connections #TODO not implemented. Currently only
+            stored on the returned result object; has no effect on the
+            simulation itself.
         t_min, t_max : float, optional
             Interval of integration, simulation starts with `t=t_min` and
             integrates until it reaches `t=t_max`.
         initial_state : float or int or array or dict, optional
             Initial state of nodes. See :ref:`Notes <tagnotesis>` for
             description of format.
-        ode_system: None or :py:func:`booldog.ODE`, optional
+        ode_system : None or booldog.continuous.ode_factory.ODE, optional
             If none, the ODE is created with
-            :py:func:`transform_bool_to_continuous`
+            `transform_bool_to_continuous`.
+        solver : callable, optional
+            ODE solver with a `scipy.integrate.solve_ivp`-compatible
+            signature (`fun`, `t_span`, `y0`, `events`, `args`,
+            `max_step`, ...), called once per perturbation segment.
+            Defaults to `scipy.integrate.solve_ivp` itself.
 
         Other Parameters
         ----------------
         **kwargs
             If ode_system is None, additional keyword arguments are
-            passed to :py:func:`transform_bool_to_continuous`.
-            For description of these arguments see :py:func:`booldog.ODE`.
-
-            If `plot=True` , additional keyword arguments are
-            passed to :py:func:`plot_simulation`.
+            passed to `transform_bool_to_continuous` (and from there to
+            the selected ODE class's constructor; see
+            `booldog.continuous.ode_factory.ode_factory` for the
+            per-transform options).
 
         Returns
         -------
-        r : object #TODO
-        t : ndarray, shape (n_time_points,)
-            Time-points.
-        y : ndarray, shape (n_time_points, n_nodes)
-            Values of the solution at t.
+        result : booldog.simulation_result.continuous_result.ContinuousSimulationResult
+            Container for the simulation output, with (among others)
+            attributes:
+
+            - `t` : ndarray, shape (n_time_points,) - combined
+              time-points across all perturbation segments.
+            - `y` : ndarray, shape (n_time_points, n_nodes) - state
+              values at each time-point in `t`.
+            - `ode_system` : the `booldog.continuous.ode_factory.ODE`
+              instance used for the simulation.
+            - `node_events`, `edge_events` : the events passed in.
+
+            See `ContinuousSimulationResult` for its `plot` and `export`
+            methods.
 
         Notes
         -----
@@ -111,7 +145,7 @@ class ContinuousMixin:
             if longer than 0, (i.e. not a point perturbation)
 
             Example - at timepoint 10, node X is set to 0.25 for 5 time-steps.
-            and at timepoint 12, node Y and Z are set to 1 for 0
+            and at timepoint 12, node Y and X are set to 1 for 0
             timesteps::
 
                 node_events = [

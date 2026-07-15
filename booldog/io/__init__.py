@@ -1,4 +1,6 @@
-''' Read Boolean or regulatory networks from various formats.
+''' Mixins that expose ``BoolDogModel.from_XXX``/``to_XXX`` constructors and
+exporters, dispatching to the reader/writer functions implemented in the
+sibling ``booldog.io`` modules (one module per supported file/object format).
 '''
 import logging
 from io import StringIO
@@ -37,7 +39,7 @@ class BoolDogModelIOFromMixin:
         """
         Generic constructor wrapper around a reader function.
 
-        Reader functions should take *args and **kwargs as input and return a
+        Reader functions should take ``*args`` and ``**kwargs`` as input and return a
         dictionary of "nodes", "modelinfo" and "primes" (primes and modelinfo
         are optional, but "nodes" is required).
         """
@@ -56,49 +58,82 @@ class BoolDogModelIOFromMixin:
 
     @classmethod
     def from_bnet(cls, *args, **kwargs):
-        """Create model from BoolNet .bnet format."""
+        """Create model from BoolNet .bnet format.
+
+        Forwards all arguments to :func:`booldog.io.bnet.read_bnet`.
+        """
         return cls._from_reader(read_bnet, *args, **kwargs)
 
     @classmethod
     def from_primes(cls, *args, **kwargs):
-        """Create model from prime implicants format."""
+        """Create model from prime implicants format.
+
+        Forwards all arguments to :func:`booldog.io.primes.read_primes`.
+        """
         return cls._from_reader(read_primes, *args, **kwargs)
 
     @classmethod
     def from_sbmlqual(cls, *args, **kwargs):
-        """Create model from SBML-qual file."""
+        """Create model from SBML-qual file.
+
+        Forwards all arguments to :func:`booldog.io.sbml.read_sbmlqual`.
+        """
         return cls._from_reader(read_sbmlqual, *args, **kwargs)
 
     @classmethod
     def from_tabularqual(cls, *args, **kwargs):
-        """Create model from tabular-qual format."""
+        """Create model from tabular-qual format.
+
+        Forwards all arguments to
+        :func:`booldog.io.tabularqual.read_tabularqual`.
+        """
         return cls._from_reader(read_tabularqual, *args, **kwargs)
 
     # ---- Interaction / graph-based formats ----------------------------------
 
     @classmethod
     def from_interactions(cls, *args, **kwargs):
-        """Create model from generic interaction table."""
+        """Create model from generic interaction table.
+
+        Forwards all arguments to
+        :func:`booldog.io.interaction_networks.read_interactions`.
+        """
         return cls._from_reader(read_interactions, *args, **kwargs)
 
     @classmethod
     def from_sif(cls, *args, **kwargs):
-        """Create model from SIF interaction network."""
+        """Create model from SIF interaction network.
+
+        Forwards all arguments to
+        :func:`booldog.io.interaction_networks.read_sif`.
+        """
         return cls._from_reader(read_sif, *args, **kwargs)
 
     @classmethod
     def from_networkx(cls, *args, **kwargs):
-        """Create model from networkx graph."""
+        """Create model from networkx graph.
+
+        Forwards all arguments to
+        :func:`booldog.io.interaction_networks.read_networkx`.
+        """
         return cls._from_reader(read_networkx, *args, **kwargs)
 
     @classmethod
     def from_igraph(cls, *args, **kwargs):
-        """Create model from igraph object or file."""
+        """Create model from igraph object or file.
+
+        Forwards all arguments to
+        :func:`booldog.io.interaction_networks.read_igraph`.
+        """
         return cls._from_reader(read_igraph, *args, **kwargs)
 
     @classmethod
     def from_graphml(cls, *args, **kwargs):
-        """Create model from GraphML file."""
+        """Create model from GraphML file.
+
+        Forwards all arguments to
+        :func:`booldog.io.interaction_networks.read_graphml`.
+        """
         return cls._from_reader(read_graphml, *args, **kwargs)
 
 
@@ -114,7 +149,7 @@ class BoolDogModelIOToMixin:
         """
         Generic constructor wrapper around a writer function.
 
-        Writer functions should take *args and **kwargs as input and return a
+        Writer functions should take ``*args`` and ``**kwargs`` as input and return a
         string or write to a file. The first argument should always be the
         model instance (self). An optional keyword argument "outfile" can be
         used to specify an output file path.
@@ -122,6 +157,10 @@ class BoolDogModelIOToMixin:
         This constructor presents a consistent interface for exporting models
         to various formats, and centralizes any common logic needed.
 
+        Notes
+        -----
+        None of the ``to_XXX`` methods below currently call this helper; they
+        call their writer function directly instead.
         """
 
         logger.debug(

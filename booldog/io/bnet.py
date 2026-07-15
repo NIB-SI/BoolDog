@@ -25,14 +25,47 @@ BNET_REGULATORS_REGEX = r"\b[A-Za-z_][A-Za-z0-9_]*\b"
 BNET_HEADER = "targets, factors"
 
 class BnetParser:
+    '''Parse the body of a bnet-format string into per-node Boolean rules.
+
+    Parameters
+    ----------
+    bnet : str
+        Text in bnet format (one ``target, rule`` line per node; blank
+        lines, a ``"targets, factors"`` header line, and lines starting
+        with ``#`` are ignored).
+    '''
 
     def __init__(self, bnet):
         self.bnet = bnet
+        '''str: The raw bnet text passed in at construction.'''
         self.rules = self._get_rules(bnet)
+        '''dict: Mapping of node identifier to its bnet-format rule string
+        (see :meth:`_get_rules`).'''
 
     def _get_rules(self, bnet_str):
-        '''Boolean rules per node.
+        '''Parse bnet text into a dict of node identifier to rule string.
 
+        Any regulator referenced in a rule that does not itself appear as a
+        target elsewhere in the text is also added to the returned dict,
+        with an empty string as its rule (i.e. it is treated as an input
+        node with no update function).
+
+        Parameters
+        ----------
+        bnet_str : str
+            Text in bnet format.
+
+        Returns
+        -------
+        rules : dict
+            Mapping of node identifier (str) to rule (str). Nodes with no
+            defined rule (regulator-only/input nodes) map to ``""``.
+
+        Raises
+        ------
+        ValueError
+            If a non-blank, non-header, non-comment line does not match the
+            expected ``target, rule`` bnet line format.
         '''
         rules = {}
 
@@ -72,25 +105,36 @@ class BnetParser:
 ###############################
 
 def read_bnet(bnet, node_names=None):
-    ''' Generate a BoolDogModel object from a Boolean network in boolnet
-    (bnet) format.
+    ''' Parse a Boolean network in BoolNet (bnet) format into the data
+    needed to construct a :py:class:`BoolDogModel`.
 
-    For complete documentation, see :doc:`pyboolnet:modules/file_exchange`.
+    For complete documentation of the bnet format, see
+    :doc:`pyboolnet:modules/file_exchange`.
 
     Parameters
     ----------
-    file : str
-        Path to the bnet file
+    bnet : str
+        Either a path to a bnet file, or a string already containing the
+        bnet-format text (checked with ``os.path.exists``; if it isn't an
+        existing path, it is parsed directly as bnet text).
+    node_names : dict, optional
+        Mapping of node identifier to a display name, used to populate
+        :attr:`BoolDogNode.name` for each parsed node. Nodes not present in
+        this dict (or if ``node_names`` is None) get no explicit name (see
+        :class:`BoolDogNode`, whose ``name`` defaults to the identifier).
 
     Returns
     -------
-    rn: BoolDog
-        An object of type :ref:`py:class:BoolDogModel`.
-
+    data : dict
+        Dictionary with keys ``"nodes"`` (list of :class:`BoolDogNode`),
+        ``"modelinfo"`` (:class:`BoolDogModelInfo`, with ``source_format``
+        set to ``"bnet"``), and ``"primes"`` (``None``, since primes are
+        not computed by this reader). Suitable for ``BoolDogModel(**data)``.
 
     Notes
     -----
-    The format of the output file is described at :ref:`boolnet_format`.
+    The format of the output file is described at
+    :doc:`pyboolnet:modules/file_exchange`.
 
     '''
 
@@ -143,13 +187,22 @@ def write_bnet(model, outfile=None, from_primes=False, header=True, minimize=Fal
     Returns
     -------
     str or None
-        Returns the bnet string if ``outfile`` is None, otherwise None.
+        If ``from_primes`` is False: returns the bnet string if ``outfile``
+        is None, otherwise writes it to ``outfile`` and returns None.
+        If ``from_primes`` is True: always returns None, **even when**
+        ``outfile`` **is None** — this is a known bug/inconsistency, not
+        intentional: the bnet text produced by
+        ``pyboolnet.file_exchange.primes2bnet`` is only written out when
+        ``outfile`` is given, and is silently discarded (not returned as a
+        string, and not written anywhere) if ``outfile`` is None. See
+        ``KNOWN_BUGS.md``.
 
     Notes
     -----
     The output file will be overwritten if it already exists.
 
-    The format of the output file is described at :ref:`boolnet_format`.
+    The format of the output file is described at
+    :doc:`pyboolnet:modules/file_exchange`.
     '''
     if from_primes:
         file_exchange.primes2bnet(

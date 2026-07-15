@@ -2,7 +2,7 @@
 This is a modification of pyboolnet.boolean_normal_forms module (originally PyBoolNet.QuineMcCluskey),
 specifically the function functions2mindnf, ca line 130.
 
-The original:
+The original::
 
     expressions = {}
     for name, func in functions.items():
@@ -104,7 +104,7 @@ def functions2mindnf(functions: Dict[str, callable]) -> Dict[str, str]:
     **example**:
 
         >>> funcs = {"v1": lambda v1,v2: v1 or not v2, "v2": lambda: 1}
-        >>> mindnf = functions2primes(funcs)
+        >>> mindnf = functions2mindnf(funcs)
         >>> mindnf["v1"]
         ((! v2) | v1)
     """
@@ -172,6 +172,11 @@ def functions2primes(functions: Dict[str, callable]) -> dict:
 
     **returns**:
         * *primes*: primes implicants
+
+    **raises**:
+        * *ValueError*: if the minimal DNF expressions derived from
+          *functions* cannot be parsed back into prime implicants (i.e.
+          `pyboolnet.external.bnet2primes.bnet_text2primes` returns ``None``)
 
     **example**:
 

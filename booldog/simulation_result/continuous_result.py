@@ -1,4 +1,8 @@
-'''Continuos simulation result class'''
+'''Continuous simulation result class.
+
+Contains :class:`ContinuousSimulationResult`, returned by
+:py:meth:`~booldog.continuous.semi_quantitative.ContinuousMixin.continuous_simulation`.
+'''
 
 from pathlib import Path
 
@@ -13,7 +17,11 @@ import logging
 logger = logging.getLogger(__name__)
 
 class ContinuousSimulationResult():
-    """Class to contain simulation results"""
+    """Class to contain the result of a continuous (semi-quantitative) ODE
+    simulation of a Boolean network: the time-points and solution values,
+    the :class:`~booldog.continuous.ode_factory.ODE` system used to generate
+    them, and any node/edge perturbation events applied. Returned by
+    :py:meth:`~booldog.continuous.semi_quantitative.ContinuousMixin.continuous_simulation`."""
 
     def __init__(self,
                  network,
@@ -22,16 +30,56 @@ class ContinuousSimulationResult():
                  ode_system,
                  node_events=None,
                  edge_events=None):
+        '''
+        Parameters
+        ----------
+        network : BoolDogModel
+            The network the simulation was run on.
+        t : ndarray
+            1D array of time-points of the simulation.
+        y : ndarray
+            2D array of simulated values, of shape
+            ``(len(t), len(network.nodes))``; column order matches
+            `network.index`/`network.node_ids`.
+        ode_system : ODE
+            The :class:`~booldog.continuous.ode_factory.BooleCubeODE` or
+            :class:`~booldog.continuous.ode_factory.SquadODE` instance used
+            to generate the simulation.
+        node_events : list of dict or None, optional
+            Node perturbation events applied during the simulation, each a
+            dict with keys ``'time'``, ``'node'``, ``'value'`` and
+            (optionally) ``'duration'`` — see
+            :py:meth:`~booldog.continuous.semi_quantitative.ContinuousMixin.continuous_simulation`
+            for details.
+        edge_events : list or None, optional
+            Edge perturbation events; not currently implemented upstream
+            (see Notes).
+        '''
 
         # copy Network so that edits to original do not affect this object
         self.network = network  #.copy()
+        '''BoolDogModel : the network the simulation was run on.'''
+
         self.ode_system = ode_system
+        '''ODE : the :class:`~booldog.continuous.ode_factory.BooleCubeODE` or
+        :class:`~booldog.continuous.ode_factory.SquadODE` instance used to
+        generate this simulation.'''
 
         self.t = t
+        '''ndarray : 1D array of time-points of the simulation.'''
+
         self.y = y
+        '''ndarray : 2D array of simulated values, shape
+        ``(len(t), len(network.nodes))``, column order matching
+        `network.index`/`network.node_ids`.'''
 
         self.node_events = node_events
+        '''list of dict or None : node perturbation events applied during the
+        simulation (see `__init__` Parameters).'''
+
         self.edge_events = edge_events
+        '''list or None : edge perturbation events; not currently implemented
+        upstream.'''
 
     def export(self, outfile, decimals=5):
         '''
@@ -49,6 +97,7 @@ class ContinuousSimulationResult():
         Notes
         -----
         The output file will contain:
+
             - nodelist
             - ODE transform
             - ODE parameters
@@ -57,11 +106,23 @@ class ContinuousSimulationResult():
             - solution/y
 
         The output will be tab-separated and can be read into a pandas DataFrame.
-        If you want to use `pandas` to read the file, you can use the following code:
-        df = pd.read_csv(outfile, sep="\t")
+        If you want to use `pandas` to read the file, you can use the following code::
+
+            df = pd.read_csv(outfile, sep="\\t")
+
+        Raises
+        ------
+        AttributeError
+            **Known bug**, not intentional behaviour: the "ODE parameters"
+            line(s) are written from ``ode_system.param_dict``, an
+            attribute that only exists on
+            :class:`~booldog.continuous.ode_factory.BooleCubeODE`.
+            Exporting a :class:`~booldog.continuous.ode_factory.SquadODE`-based
+            result currently raises `AttributeError` instead of exporting.
+            See ``KNOWN_BUGS.md``.
         '''
 
-        # check if expert path is "writeable" if is not False:
+        # check if export path is "writeable" if is not False:
         outfile = Path(outfile)
         file_writable(outfile)
 
@@ -105,28 +166,51 @@ class ContinuousSimulationResult():
 
 
     def plot(self, file=None, plot_nodes=None, title=None, figsize=(20, 10)):
-        """Plot simulation results.
+        """Plot the simulated time-series for each node.
 
-        Called by :py:func:`continous_simulation`.
+        Each requested node (or group of nodes, see `plot_nodes`) is plotted
+        as a line of relative concentration against time, on axes shared
+        across subplots. Vertical dashed lines mark the start (and, if given,
+        end) times of any `node_events`/`edge_events` recorded on this
+        result.
 
         Parameters
         ----------
+        file : str or Path or None, optional
+            If given, the figure is saved to this path (via
+            ``plt.savefig(file, bbox_inches="tight")``) instead of being
+            shown interactively. Default `None`.
         plot_nodes :  None or list of str or list of lists of str, optional
-            Subset of nodes to plot. If `None`, plot all nodes. If a list of
-            lists, each sublist is plotted as a subplot.
-        title : None or string or list of string
-            If str, main title of the plot. If a list of str, subtitles of
-            subplots as defined by `plot_node`. In this case `plot_nodes`
-            should be a list of lists, and `title` should be the same length as
-            `plot_nodes`.
-        figsize : (float, float)
-            Width, height in inches.
+            Subset of nodes to plot. If `None`, plot all nodes on a single
+            axes. If a list of node identifiers, plot only those nodes on a
+            single axes. If a list of lists of node identifiers, each sublist
+            is plotted on its own subplot (one row per sublist).
+        title : None or str or list of str, optional
+            If `plot_nodes` is `None`/empty and `title` is a str, it is used
+            as the (single) axes title. If `plot_nodes` is given (flat or
+            nested list) and `title` is a str, it is used as a figure-level
+            title instead (see Notes). If a list of str, used as the
+            per-subplot subtitles as defined by `plot_nodes`; `plot_nodes`
+            should then be a list of lists, and `title` should be the same
+            length as `plot_nodes` (otherwise a warning is logged and
+            subtitles are omitted).
+        figsize : (float, float), optional
+            Width, height in inches, passed to ``plt.subplots``. Default
+            ``(20, 10)``.
 
         Returns
-        ----------
-        fig :  matplotlib.figure.Figure
-        axes : array of matplotlib.axes.Axes
+        -------
+        fig : matplotlib.figure.Figure
+        axes : ndarray of matplotlib.axes.Axes
+            Array of axes, one row per (sub)plot.
 
+        Notes
+        -----
+        If `plot_nodes` is `None`/empty, a single axes is drawn and a string
+        `title` (if given) is used directly as that axes' title. Otherwise
+        (`plot_nodes` given, flat or nested), a string `title` is instead used
+        as a figure-level ``suptitle``, and per-axes titles are only set from
+        a list `title` matching the number of (sub)plots.
         """
 
         # collect vertical lines at events
@@ -238,7 +322,32 @@ class ContinuousSimulationResult():
         return fig, axes
 
     def _plot_one_ax(self, ax, x, y, legend_labels, vlines=None, title=None):
-        '''Helper func that plots on a subplot axes'''
+        '''Helper method that draws one subplot of :py:meth:`plot`: plots
+        `y` against `x` as lines with a legend, fixed y-limits of (0, 1),
+        offset spines, and optional vertical event markers.
+
+        Parameters
+        ----------
+        ax : matplotlib.axes.Axes
+            The axes to plot on.
+        x : ndarray
+            1D array of time-points (x-values), shared by all lines.
+        y : ndarray
+            2D array of values to plot, one column per line/node (passed
+            directly to ``ax.plot(x, y)``).
+        legend_labels : list of str
+            Legend label for each column of `y`, in the same order.
+        vlines : list of float or None, optional
+            x-positions at which to draw dashed grey vertical lines (e.g.
+            event times). Default `None` (no lines).
+        title : str or None, optional
+            If given, set as this axes' title.
+
+        Returns
+        -------
+        None
+            The axes `ax` is modified in place.
+        '''
 
         ymin, ymax = 0, 1
         xmin, xmax = 0, max(x)

@@ -1,5 +1,5 @@
 '''
-Function to transform booldog:Network to DiGraph
+Function to transform a booldog:BoolDogModel into an igraph.Graph.
 '''
 import logging
 from pyboolnet.interaction_graphs import primes2igraph
@@ -25,7 +25,7 @@ def booldog2igraph(model, as_logic_circuit=True):
     as_logic_circuit: bool
         If True, the graph is exported as a logic circuit (Boolean rules
         are represented as "logical" nodes (and, or, not) and edges.
-        Otherwise, it is exported as a directed interaction graph. Default is False.
+        Otherwise, it is exported as a directed interaction graph. Default is True.
 
     Returns
     -------
@@ -39,7 +39,7 @@ def booldog2igraph(model, as_logic_circuit=True):
     See also pyboolnet.interaction_graphs.primes2igraph.
 
     Implemented via conversion to Networkx DiGraph, then to igraph Graph,
-    to reuse pyboolet function and logic circuits code.
+    to reuse pyboolnet function and logic circuits code.
     '''
 
     if not _IGRAPH_AVAILABLE:

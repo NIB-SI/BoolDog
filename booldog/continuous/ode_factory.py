@@ -1,3 +1,12 @@
+'''Build ODE systems (continuous relaxations) from Boolean networks.
+
+:func:`ode_factory` is the main entry point: given a
+:py:class:`booldog.BoolDogModel` and a transform name, it returns an
+:py:class:`ODE` subclass instance (:py:class:`BooleCubeODE` or
+:py:class:`SquadODE`) whose `dxdt` callable is suitable for
+`scipy.integrate.solve_ivp`.
+'''
+
 import inspect
 import logging
 from itertools import product
@@ -14,26 +23,28 @@ logger = logging.getLogger(__name__)
 
 
 def ode_factory(network, transform, **kwargs):
-    '''Create a :py:class:`booldog.ode.ODE` from :py:class:`Network`.
+    '''Create an :py:class:`ODE` instance from a Boolean network.
 
     Parameters
     ----------
-    network : :py:class:`Network` or :py:class:`BooleanNetwork`
-        Input network.
+    network : booldog.BoolDogModel
+        Input Boolean network to transform.
 
     transform : str
-        One of accepted transforms. See :py:data:`booldog.ode.transforms` or
-        :ref:`Notes <tagnotesode>` for options.
+        One of the accepted transforms (case-insensitive). See
+        :py:data:`transforms` or :ref:`Notes <tagnotesode>` for options.
 
     Other Parameters
     ----------------
     **kwargs
-        Additional arguments and keyword arguments passed to specific ODE class.
+        Additional arguments and keyword arguments passed to the
+        selected ODE class's constructor.
 
     Returns
     -------
-    ode : :py:class:`booldog.ode.ODE`
-        A ODE system
+    ode : ODE
+        A :py:class:`BooleCubeODE` or :py:class:`SquadODE` instance
+        (an :py:class:`ODE` subclass), depending on `transform`.
 
 
     .. _tagnotesode:
@@ -44,7 +55,7 @@ def ode_factory(network, transform, **kwargs):
     arguments (`**kwargs`).
 
     The class per transform is defined in
-    :py:data:`booldog.ode.ode_classes`.
+    :py:data:`ode_classes`.
 
     If the parameter is an int or float, the value is assigned for
     all variables. Otherwise the parameter argument should be a dict
@@ -57,25 +68,25 @@ def ode_factory(network, transform, **kwargs):
 
         'squad'
 
-            - :py:class:`booldog.ode.SquadODE`
-            - gamma : self-decay
-            - h :  sigmoid gain
+            - :py:class:`SquadODE`
+            - gamma : decay rate
+            - h : sigmoidal gain
 
         'boolecube'
 
-            - :py:class:`booldog.ode.BoolCubeODE`
+            - :py:class:`BooleCubeODE`
             - tau : life-time of species
 
         'hillcube'
 
-            - :py:class:`booldog.ode.BoolCubeODE`
+            - :py:class:`BooleCubeODE`
             - tau : life-time of species
             - n : Hill coefficient
             - k : Hill dissociation constant
 
         'normalisedhillcube'
 
-            - :py:class:`booldog.ode.BoolCubeODE`
+            - :py:class:`BooleCubeODE`
             - tau : life-time of species
             - n : Hill coefficient
             - k : Hill dissociation constant
@@ -102,23 +113,32 @@ def ode_factory(network, transform, **kwargs):
 
 
 class ODE():
-    '''Generic ODE class produced by factory.
+    '''Base class for the ODE systems built by :func:`ode_factory`.
 
-    Parent class is a variable, and defined by `transform` argument. '''
+    Not intended to be instantiated directly. Its subclasses
+    (:py:class:`BooleCubeODE`, :py:class:`SquadODE` — selected via the
+    `transform` argument) each build their own `dxdt` right-hand-side
+    function; this class only provides the shared `event_function` (used
+    by `scipy.integrate.solve_ivp` to stop integration exactly at a
+    perturbation time) and `update` (rebuild `dxdt`, e.g. after freezing
+    a subset of nodes) machinery.
+    '''
 
     def __init__(self, network, transform):
-        '''Initialise ODE
+        '''Initialise the base ODE attributes.
 
         Parameters
         ----------
-        network : :py:class:`booldog.BooleanNetwork`
+        network : booldog.BoolDogModel
+            Input Boolean network.
         transform : str
+            Name of the transform being constructed (e.g. ``'squad'``,
+            ``'boolecube'``); stored as-is on `self.transform`.
 
-        Other Parameters
-        ----------
-        **kwargs
-            In the case `network` is not a BooleanNetwork instance, additional
-            keyword arguments passed to :py:class:`booldog.BooleanNetwork`.
+        Notes
+        -----
+        If `transform` is ``'placeholder'`` this returns immediately
+        without setting any attributes.
         '''
         if transform == 'placeholder':
             return
@@ -128,39 +148,47 @@ class ODE():
         #                     f"not {type(network)}. ")
 
         self.n = len(network)
+        '''int : number of nodes in the network.'''
         self.boolean_network = network
+        '''booldog.BoolDogModel : the underlying Boolean network.'''
         self.transform = transform
+        '''str : name of the transform used to build this ODE system.'''
 
         logger.info("Creating ODE system for %s.", transform)
 
     def event_function(self, t, x, event_t, *args):
         '''Event function for `events` of `scipy.integrate.solve_ivp`.
 
+        Returns the signed time-to-event (`t - event_t`); its root is
+        `event_t`, so `solve_ivp` uses it to stop integration exactly at
+        that time (e.g. so a node perturbation can then be applied).
+
         Parameters
         ----------
         t : float
-            Time-point of simulation
-        x : narray
-
+            Current time-point of the simulation.
+        x : ndarray
+            Current state (unused; present to match the event-function
+            signature expected by `solve_ivp`).
         event_t : float
-            Time-point of event
-
+            Time-point at which the event should trigger.
         *args
-            ignored
-
-        Attributes
-        ----------
-        terminal : True
-
+            Ignored; absorbs any extra positional arguments `solve_ivp`
+            passes via its `args=` parameter.
         '''
         return t - event_t
 
     event_function.terminal = True
+    '''bool : Marks `event_function` as a terminal event, i.e.
+    `scipy.integrate.solve_ivp` stops integration as soon as it
+    triggers.'''
 
     def update(self, off_nodes=None):
-        ''' Resets dxdt
+        ''' Recompute and reset `self.dxdt`.
 
-        Shortcut to ODE class's `_get_system` method.
+        Shortcut to the ODE subclass's `_get_system` method; used e.g.
+        to change which nodes are held constant partway through a
+        simulation.
 
         Parameters
         ----------
@@ -178,49 +206,47 @@ class ODE():
 
 # https://github.com/krumsieklab/Odefy/blob/11d048d550a8f64250ba01f76f5a83048c8be6cf/Odefy-1.20/code/models/CreateCubeCalls.m
 class BooleCubeODE(ODE):
-    '''An ODE class.
+    '''ODE system built via multivariate polynomial (multilinear)
+    interpolation of a Boolean network's prime implicants.
 
-    Use of multivariate polynomial interpolation for the transformation of a
-     Boolean graph to a system of ODEs.
-
-    Attributes
-    ----------
-    dxdt : function
-
-    param_tau : arraylike
-        life-time of species
-
-    param_n : arraylike
-        Hill coefficient
-
-    param_k : arraylike
-        Hill dissociation constant
-
-    param_dict : dict
-        track parameters
-     '''
+    Backs the ``'boolecube'``, ``'hillcube'``, and
+    ``'normalisedhillcube'`` transforms; `transform` selects which
+    `transform_function` (`identity`, `hill`, or `normalised_hill`
+    respectively) is applied to the state before interpolation.
+    '''
 
     def __init__(self, network, transform, tau=1, n=3, k=0.5, **kwargs):
-        ''' Initialise BoolCube ODE system.
+        ''' Initialise a BooleCubeODE system.
 
         Parameters
         ----------
+        network : booldog.BoolDogModel
+            Input Boolean network.
         transform : str
+            One of ``'boolecube'``, ``'hillcube'``,
+            ``'normalisedhillcube'``; selects `transform_function`.
 
         tau : int, float, or dict, optional
-            life-time of species
+            Life-time of species (per-node relaxation time). A node
+            with ``tau == 0`` has its derivative forced to 0, i.e. it is
+            held constant.
 
         n : int, float, or dict, optional
-            Hill coefficient
+            Hill coefficient, used by the `hill`/`normalised_hill`
+            transform functions (has no effect for ``'boolecube'``,
+            which uses `identity`).
 
         k : int, float, or dict, optional
-            Hill dissociation constant
+            Hill dissociation constant, used by the `hill`/
+            `normalised_hill` transform functions (has no effect for
+            ``'boolecube'``).
 
-        Notes
-        ----------
-        Only used as Parent class.
-
-        tau_i = zero --> dx_i/dt = 0
+        Other Parameters
+        ----------------
+        **kwargs
+            Ignored; accepted so that :func:`ode_factory` can pass
+            shared keyword arguments without every transform needing to
+            accept them.
 
         References
         ----------
@@ -235,15 +261,21 @@ class BooleCubeODE(ODE):
 
 
         self.param_n = parameter_to_array(n, self.boolean_network.index)
+        '''arraylike : Hill coefficient'''
         self.param_k = parameter_to_array(k, self.boolean_network.index)
+        '''arraylike : Hill dissociation constant'''
 
         self.param_tau = parameter_to_array(tau, self.boolean_network.index)
+        '''arraylike : life-time of species'''
 
         self.param_dict = {
             "n": self.param_n,
             "k": self.param_k,
             "tau": self.param_tau
         }
+        '''dict : convenience mapping from parameter name ("n", "k",
+        "tau") to its per-node array (`param_n`, `param_k`,
+        `param_tau`).'''
 
         if transform == 'boolecube':
             self.transform_function = self.identity
@@ -259,22 +291,85 @@ class BooleCubeODE(ODE):
 
         # returns an array function
         self.B1 = self.homologue_b1()
+        '''function : multilinear interpolation of the network's Boolean
+        rules, ``B1(x) -> ndarray``; see `homologue_b1`.'''
 
         # returns an array function
         self.dxdt = self._get_system()
+        '''function : the ODE system's right-hand side, dx/dt = f(t, x)'''
 
 
     def hill(self, x_array):
+        '''Hill-function transform of a state vector.
+
+        Parameters
+        ----------
+        x_array : ndarray
+            State to transform, shape ``(n,)`` (per-node values, typically
+            in [0, 1]).
+
+        Returns
+        -------
+        ndarray
+            ``x_array**n / (x_array**n + k**n)``, computed element-wise
+            using the per-node `param_n`/`param_k` arrays. Same shape as
+            `x_array`.
+        '''
         return x_array**self.param_n / \
                (x_array**self.param_n + self.param_k**self.param_n)
 
     def normalised_hill(self, x_array):
+        '''Hill-function transform, normalised so that
+        ``normalised_hill(1) == 1``.
+
+        Parameters
+        ----------
+        x_array : ndarray
+            State to transform, shape ``(n,)``.
+
+        Returns
+        -------
+        ndarray
+            `hill(x_array) / hill(1)`, element-wise. Same shape as `x_array`.
+        '''
         return self.hill(x_array) / self.hill(1)
 
     def identity(self, x_array):
+        '''No-op transform, used for the ``'boolecube'`` transform.
+
+        Parameters
+        ----------
+        x_array : ndarray
+            State to transform, shape ``(n,)``.
+
+        Returns
+        -------
+        ndarray
+            `x_array`, unchanged.
+        '''
         return x_array
 
     def _get_system(self, off_nodes=None):
+        '''Build the `dxdt(t, x_array, *args)` right-hand-side function.
+
+        Nodes with `param_tau == 0` are automatically added to
+        `off_nodes` (their derivative is always 0), in addition to any
+        indices passed in explicitly.
+
+        Parameters
+        ----------
+        off_nodes : iterable of int, optional
+            Node **indices** whose derivative should be forced to 0
+            (held constant), on top of any zero-`tau` nodes.
+
+        Returns
+        -------
+        dxdt : callable
+            Function ``dxdt(t, x_array, *args) -> ndarray`` giving
+            ``dx/dt = (B1(transform_function(x)) - x) / tau``
+            element-wise, after clipping `x_array` to [0, 1]; suitable
+            as the `fun` argument of `scipy.integrate.solve_ivp`.
+        '''
 
         if off_nodes is None:
             off_nodes = set()
@@ -296,13 +391,33 @@ class BooleCubeODE(ODE):
         return dxdt
 
     def homologue_b1(self):
-        ''' Create function to calculate the multivariate polynomial
-        interpolation of Boolean functions
+        '''Build the multilinear-interpolation function `B1(x)`.
+
+        For each node, enumerates the states consistent with its
+        positive prime implicants (expanding any parents left free by a
+        prime over all their combinations) and sums, over those states,
+        a product of ``x[j]`` (parent j on in that state) or
+        ``(1-x[j])`` (parent j off) terms - the standard multilinear
+        extension of a Boolean function to the unit hypercube [1]. The
+        resulting per-node expression strings are compiled with `eval`
+        into a single vectorised function operating on the whole state
+        array.
+
+        If a node's expression is too large to compile (`eval` raising
+        `RecursionError`), that node's contribution is left as the
+        constant string ``'0'`` and a message is logged.
 
         Returns
-        ----------
-        B1 : function
+        -------
+        B1 : callable
+            Function ``B1(x) -> ndarray`` mapping a state vector ``x``
+            (length ``self.n``) to the per-node multilinear-interpolation
+            values.
 
+        References
+        ----------
+        [1] Wittmann et al. (2009); see the references on
+        `BooleCubeODE`.
         '''
         # spaces = set()
         # sums = []
@@ -395,50 +510,58 @@ class BooleCubeODE(ODE):
         #return lambda x: x
 
     def write_c_code(self):
+        '''Not implemented.
+
+        Raises
+        ------
+        NotImplementedError
+        '''
         raise NotImplementedError("TODO!")
 
 
 class SquadODE(ODE):
-    '''An ODE parent class.
+    '''ODE system built via the SQUAD sigmoidal transform of a Boolean
+    network's activator/inhibitor structure.
 
-    Use of SQUAD for the transformation of a Boolean graph to a system of ODEs.
+    Backs the ``'squad'`` transform.
 
     Attributes
     ----------
-    dxdt : function
-
-    param_gamma : arraylike
-        decay rate
-
-    param_h : arraylike
-        sigmoidal gain
-
     activations : arraylike
-        activator matrix
+        n x n activator matrix (`activations[i, j] == 1` iff node j
+        activates node i); see `booldog.boolean.boolean.
+        BooleanNetworkMixin.primes_to_matrices`.
 
     inhibitions : arraylike
-        inhibitor matrix
+        n x n inhibitor matrix (`inhibitions[i, j] == 1` iff node j
+        inhibits node i); see `primes_to_matrices`.
 
     '''
 
     def __init__(self, network, transform, gamma=1, h=10, **kwargs):
-        '''Transform a activations and inhibitions of a Boolean network
-        into an ODE system via SQUAD transform.
+        '''Build a SQUAD ODE system from a Boolean network's activator/
+        inhibitor structure.
 
         Parameters
         ----------
+        network : booldog.BoolDogModel
+            Input Boolean network.
 
         transform : str
+            Expected to be ``'squad'``.
 
         gamma : int, float, or dict, optional
-            decay rate
+            Per-node decay rate.
 
         h : int, float, or dict, optional
-            sigmoidal gain
+            Per-node sigmoidal gain.
 
-        Notes
-        ----------
-        Only used as Parent class.
+        Other Parameters
+        ----------------
+        **kwargs
+            Ignored; accepted so that :func:`ode_factory` can pass
+            shared keyword arguments without every transform needing to
+            accept them.
 
         References
         ----------
@@ -450,7 +573,9 @@ class SquadODE(ODE):
 
         self.param_gamma = parameter_to_array(gamma,
                                               self.boolean_network.index)
+        '''arraylike : decay rate'''
         self.param_h = parameter_to_array(h, self.boolean_network.index)
+        '''arraylike : sigmoidal gain'''
 
         # print(self.param_gamma)
         # print(self.param_h)
@@ -471,6 +596,7 @@ class SquadODE(ODE):
         self._b1 = (1 + self._B1) / self._B1
 
         self.dxdt = self._get_system()
+        '''function : the ODE system's right-hand side, dx/dt = f(t, x)'''
 
     def _omega(self, x):
         '''
@@ -510,6 +636,22 @@ class SquadODE(ODE):
                 - self.param_gamma*x
 
     def _get_system(self, off_nodes=[]):
+        '''Build the `dxdt(t, x_array, *args)` right-hand-side function.
+
+        Parameters
+        ----------
+        off_nodes : iterable of int, optional
+            Node **indices** whose derivative should be forced to 0
+            (held constant).
+
+        Returns
+        -------
+        dxdt : callable
+            Function ``dxdt(t, x_array, *args) -> ndarray`` computing
+            `_dxdt_transform(x, _omega(x))` element-wise, after clipping
+            `x_array` to [0, 1]; suitable as the `fun` argument of
+            `scipy.integrate.solve_ivp`.
+        '''
 
         def dxdt(t, x_array, *args):
             x_array[x_array < 0] = 0

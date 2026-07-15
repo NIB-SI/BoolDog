@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 
 
 def networkx2interactions(g, edge_type_key="interaction", **_):
-    ''' Convert a NetworkX Graph into a nested dictionary of interactions.
+    ''' Convert a NetworkX Graph into a list of interactions.
 
     Parameters
     ----------
@@ -41,9 +41,9 @@ def networkx2interactions(g, edge_type_key="interaction", **_):
 
     Returns
     -------
-    dict of dict
-        A nested dictionary where `interactions[source][target] = symbol`, with
-        `symbol` being the edge attribute specified by `edge_type_key`.
+    list of tuple
+        A list of (source, target, symbol) tuples, one per edge of `g`, where
+        `symbol` is the value of the `edge_type_key` edge attribute.
     '''
 
     interactions = []
@@ -70,9 +70,11 @@ def igraph2interactions(g, node_id_key="name", edge_type_key="interaction"):
 
     Returns
     -------
-    dict of dict
-        A nested dictionary where `interactions[source][target] = symbol`, with
-        `symbol` being the edge attribute specified by `edge_type_key`.
+    list of tuple
+        A list of (source, target, symbol) tuples, one per edge of `g`,
+        where `source`/`target` are the `node_id_key` vertex attribute values
+        of the edge's endpoints, and `symbol` is the value of the
+        `edge_type_key` edge attribute.
     '''
     interactions = []
     for e in g.es():
@@ -104,8 +106,13 @@ def read_interactions(interactions_input, node_names=None, **kwargs):
         The value representing activation in the network. Default is 1.
     inhibitor_symbol : int, optional
         The value representing inhibition in the network. Default is -1.
+    logic : LogicBuilder, optional
+        An optional logic builder (see
+        `booldog.io.interaction_logic.LogicBuilder`) used to construct each
+        node's update rule from its regulators. Default is `SquadLogic`.
     **kwargs: dict
-        Additional keyword arguments (ignored).
+        Additional keyword arguments, forwarded to
+        `booldog.io.interaction_logic.interactions2rules`.
 
     Returns
     -------
@@ -167,20 +174,35 @@ def read_sif(file,
         Column index (if int) or column name (if str) of target node (default=1)
     interaction_col: int, optional
         Column index (if int) or column name (if str) of interaction type (symbol) (default=2)
-    activator_symbol: str, optional
-        Symbol of activation edges in `interaction_col` (default="1")
-    inhibitor_symbol: str, optional
-        Symbol of inhibition edges in `interaction_col` (default="-1")
+    activator_symbol: int or str, optional
+        Symbol of activation edges in `interaction_col`, compared against the
+        (string) values read from the file. Default is 1 (from
+        `interactions2rules`). **Known bug, not intentional behaviour:**
+        values parsed from the file are always strings, but this default is
+        an ``int``, so with the default left as-is, *no* interaction in a
+        standard SIF file (using the literal characters "1"/"-1") will ever
+        match — every edge gets silently dropped. You must explicitly pass
+        a matching string (e.g. ``"1"``) for this to work at all. See
+        ``KNOWN_BUGS.md``.
+    inhibitor_symbol: int or str, optional
+        Symbol of inhibition edges in `interaction_col`. Default is -1 (see
+        `activator_symbol`).
+    logic : LogicBuilder, optional
+        An optional logic builder (see
+        `booldog.io.interaction_logic.LogicBuilder`) used to construct each
+        node's update rule from its regulators. Default is `SquadLogic`.
     **kwargs: dict
-        Additional keyword arguments (ignored).
+        Additional keyword arguments, forwarded to
+        `booldog.io.interaction_logic.interactions2rules`.
 
     Returns
     -------
-
+    n: booldog.BoolDogModel
+        A BoolDogModel object representing the Boolean network.
 
     Notes
     -----
-    Uses SQUAD logic to obtain Boolean network.
+    Uses SQUAD logic by default (see `logic`) to obtain the Boolean network.
     '''
 
     interactions = []
@@ -231,27 +253,34 @@ def read_igraph(g,
     g: igraph.Graph
         The input graph object from the `igraph` library.
     node_id_key : str, optional
-        The vertex attribute key that contains the primary identifier to use for node names. Default is "name".
+        The vertex attribute key that contains the primary identifier used
+        for each node. Default is "name".
     node_name_key : str, optional
         The vertex attribute key that contains the node name (e.g. display label). Default is "name".
     edge_type_key : str, optional
         The edge attribute key to use for interaction values (e.g., weight, type). Default is "interaction".
-    activator_symbol: str, optional
-        Symbol or value of activation edges in `edge_type_key` of g (default="1")
-    inhibitor_symbol: str, optional
-        Symbol or value of inhibition edges in `edge_type_key` of g (default="-1")
-
+    activator_symbol: int or str, optional
+        Value of activation edges in `edge_type_key` of g, compared against
+        the raw attribute value. Default is 1 (int, from `interactions2rules`).
+    inhibitor_symbol: int or str, optional
+        Value of inhibition edges in `edge_type_key` of g. Default is -1 (see
+        `activator_symbol`).
+    logic : LogicBuilder, optional
+        An optional logic builder (see
+        `booldog.io.interaction_logic.LogicBuilder`) used to construct each
+        node's update rule from its regulators. Default is `SquadLogic`.
     **kwargs: dict
-        Additional keyword arguments (ignored).
+        Additional keyword arguments, forwarded to
+        `booldog.io.interaction_logic.interactions2rules`.
 
     Returns
     -------
-
-
+    n: booldog.BoolDogModel
+        A BoolDogModel object representing the Boolean network.
 
     Notes
     -----
-    Uses SQUAD logic to obtain Boolean network.
+    Uses SQUAD logic by default (see `logic`) to obtain the Boolean network.
     '''
 
     if not _IGRAPH_AVAILABLE:
@@ -288,15 +317,26 @@ def read_networkx(g,
         The input graph object from the `networkx` library.
     edge_type_key : str, optional
         The edge attribute key to use for interaction values (e.g., weight, type). Default is "interaction".
-    activator_symbol: str, optional
-        Symbol or value of activation edges in `edge_type_key` of g (default="1")
-    inhibitor_symbol: str, optional
-        Symbol or value of inhibition edges in `edge_type_key` of g (default="-1")
+    activator_symbol: int or str, optional
+        Value of activation edges in `edge_type_key` of g, compared against
+        the raw attribute value. Default is 1 (int, from `interactions2rules`).
+    inhibitor_symbol: int or str, optional
+        Value of inhibition edges in `edge_type_key` of g. Default is -1 (see
+        `activator_symbol`).
     node_name_key : str, optional
-        The vertex attribute key that contains the node name (display label). Default is "name".
-
+        Intended to be the node attribute key that contains the node name
+        (display label); default is "name". **Known bug, not intentional
+        behaviour**: the current implementation does not actually use this
+        parameter's value and always reads the literal "name" node
+        attribute instead. See ``KNOWN_BUGS.md``.
+    logic : LogicBuilder, optional
+        An optional logic builder (see
+        `booldog.io.interaction_logic.LogicBuilder`) used to construct each
+        node's update rule from its regulators. Default is `SquadLogic`.
     **kwargs: dict
-        Additional keyword arguments (ignored).
+        Additional keyword arguments, forwarded to both `networkx2interactions`
+        (which ignores unrecognized keys) and
+        `booldog.io.interaction_logic.interactions2rules`.
 
     Returns
     -------
@@ -305,7 +345,7 @@ def read_networkx(g,
 
     Notes
     -----
-    Uses SQUAD logic to obtain Boolean network.
+    Uses SQUAD logic by default (see `logic`) to obtain the Boolean network.
     '''
     interactions = networkx2interactions(g, **kwargs)
 
@@ -332,7 +372,7 @@ def read_graphml(file,
                  yEd_arrow_head=False,
                  use_labels=True,
                  **kwargs):
-    ''' Extract relavent parts for a Boolean network from a graphml file.
+    ''' Extract relevant parts for a Boolean network from a graphml file.
 
     Since graphml is not well defined for Boolean networks (or even standard for
     interaction networks), this read functionality has limited support.
@@ -343,21 +383,40 @@ def read_graphml(file,
         Path to the graphml file
     edge_type_key: str, optional
         The edge attribute key to use for interaction type (e.g., weight, type). Default is "interaction".
-        Only if yEd=False (yEd uses the arrow head symbol).
+        Only used if `yEd_arrow_head` is False (yEd uses the arrow head symbol instead).
     node_id_key : str, optional
-        The vertex attribute key that contains the primary identifier to use for node names. Default is "name".
+        The vertex attribute key that contains the primary identifier used
+        for each node. Default is "name". If this attribute is missing from
+        the file, the igraph-assigned "id" attribute is used instead (with a
+        warning logged).
     node_name_key : str, optional
-        The vertex attribute key that contains the node name (e.g. display label). Default is "name".
+        The vertex attribute key that contains the node name (e.g. display
+        label). Default is "name". If this attribute is missing (and differs
+        from `node_id_key`), node names fall back to `node_id_key` (with a
+        warning logged).
     yEd_labels: bool, optional
         If graphml file originates as a yEd export, the node attribute
         "y:NodeLabel" is used to determine node names (default=False)
     yEd_arrow_head: bool, optional
         If graphml file originates as a yEd export, the edge attribute
         "y:Arrows" is used to determine interaction type (default=False)
+    use_labels : bool, optional
+        Accepted for future use but currently unused by this function.
+        Default is True.
     activator_symbol: int or str, optional
-        Symbol or value of activation edges. If yEd=True, default="standard", else default is `1`.
+        Symbol or value of activation edges. If `yEd_arrow_head` is True,
+        default is "standard" (the yEd arrow-head symbol for a plain arrow),
+        else default is `1`.
     inhibitor_symbol: int or str, optional
-        Symbol or value of inhibition edges. If yEd=True, default="t_shape", else default is `-1`.
+        Symbol or value of inhibition edges. If `yEd_arrow_head` is True,
+        default is "t_shape" (the yEd arrow-head symbol for a T-bar), else
+        default is `-1`.
+    **kwargs: dict
+        Additional keyword arguments. Only `activator_symbol` and
+        `inhibitor_symbol` are read from this dict (see above); any other
+        keys (e.g. a custom `logic` builder) are ignored, since, unlike the
+        other `read_*` functions, `read_graphml` does not forward `**kwargs`
+        on to `interactions2rules`.
 
     Returns
     -------
@@ -367,7 +426,8 @@ def read_graphml(file,
     Notes
     -----
     Uses igraph to parse the graphml file, and extracts node and edge
-    attributes to determine interactions.
+    attributes to determine interactions. Always uses the default SQUAD
+    logic (`booldog.io.interaction_logic.SquadLogic`) to build rules.
 
     If `yEd_label=True`, it also parses the yEd-specific attributes to
     extract node labels (y:NodeLabel) for node names.
