@@ -29,29 +29,6 @@ class BoolDogNode():
         return f"BoolDogNode(name='{self.name}', rule='{self.rule}')"
 
 
-# class BoolDogRule():
-#     '''A class to represent a Boolean rule in a Boolean network.
-
-#     Attributes
-#     ----------
-#     target : str
-#         The target node of the rule.
-
-#     factors : list of str
-#         The list of factor nodes in the rule.
-
-#     operator : str
-#         The logical operator of the rule (e.g., "AND", "OR", "NOT").
-
-#     '''
-#     def __init__(self, target, factors, operator):
-#         self.target = target
-#         self.factors = factors
-#         self.operator = operator
-
-#     def __repr__(self):
-#         return f"BoolDogRule(target='{self.target}', operator='{self.operator}')"
-
 @dataclass
 class BoolDogModelInfo():
     '''A dataclass to represent metadata about a Boolean network model.'''

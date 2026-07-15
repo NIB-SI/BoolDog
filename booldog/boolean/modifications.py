@@ -102,18 +102,6 @@ class BooleanNetworkModificationMixin():
         None
             The network is modified in place.
 
-        Raises
-        ------
-        AttributeError
-            **Known bug, not intentional behaviour**: this method reads
-            ``modification.modification_type``, but `Modification` only
-            ever sets ``self.type`` (see its `__init__`) — so calling
-            `modify_network` with any non-empty list currently raises
-            `AttributeError` immediately, regardless of modification type.
-            Separately, its "update" branch calls a nonexistent
-            ``self.update_rule(...)`` (the real method is `update_node`).
-            See ``KNOWN_BUGS.md``.
-
         Notes
         -----
 
@@ -148,16 +136,16 @@ class BooleanNetworkModificationMixin():
             raise ValueError("All modifications must be Modification objects.")
 
         for modification in modifications:
-            match modification.modification_type:
+            match modification.type:
                 case ModificationTypes.ADD:
                     self.add_node(modification.node_id, modification.rule)
                 case ModificationTypes.REMOVE:
                     self.remove_nodes(modification.node_id)
                 case ModificationTypes.UPDATE:
-                    self.update_rule(modification.node_id, modification.rule)
+                    self.update_node(modification.node_id, modification.rule)
                 case _:
                     raise ValueError(
-                        f"Modification type has to be one of {', '.join(ModificationTypes.values())}, not {modification.modification_type}."
+                        f"Modification type has to be one of {', '.join(ModificationTypes.values())}, not {modification.type}."
                     )
 
     def remove_node(self, node_id):
@@ -309,7 +297,7 @@ class BooleanNetworkModificationMixin():
         This is a wrapper for pyboolnet.prime_implicants.create_variables.
         '''
         if node_id in self.nodes:
-            raise ValueError("f{node} is already present in Network.")
+            raise ValueError(f"{node_id} is already present in Network.")
 
         self.nodes[node_id] = BoolDogNode(identifier=node_id, rule=rule)
 

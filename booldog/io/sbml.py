@@ -252,9 +252,9 @@ class TransitionParser:
 
         For outputs, an unrecognised species, an unsupported transition
         effect (i.e. not "assignmentLevel"), or a set output level are all
-        logged as warnings, but also stop collection of any further
-        outputs for this transition (the loop uses ``break`` rather than
-        skipping just the offending output).
+        logged as warnings and skipped (excluded from the returned
+        `outputs` list), without affecting collection of any other
+        outputs for this transition.
         '''
 
         inputs = {}
@@ -304,19 +304,19 @@ class TransitionParser:
             if not (d["species"] in all_species):
                 logger.warning("Species '%s' not defined in model",
                                d["species"])
-                break
+                continue
 
             if d["transition_effect"] != libsbml.OUTPUT_TRANSITION_EFFECT_ASSIGNMENT_LEVEL:
                 logger.warning(
                     "Transition effect '%s' not defined for Boolean model",
                     d["transition_effect"])
-                break
+                continue
 
             if d["output_level"] is not None:
                 logger.warning(
                     "Output level '%s' not supported for Boolean model",
                     d["output_level"])
-                break
+                continue
             outputs.append(d)
 
         return inputs, outputs
@@ -591,8 +591,7 @@ class MathMLParser:
             operands:
 
             * if both operands are int: the Python comparison's Boolean
-              result, as the string ``"True"``/``"False"`` (via
-              ``str(bool_result)``, not bnet's own ``"1"``/``"0"``);
+              result, as bnet's ``"1"``/``"0"``;
             * if exactly one operand is an int (0 or 1): a simplified
               bnet-format expression referencing only the variable
               operand (e.g. ``x >= 1`` is just ``x``; ``x >= 0`` is
@@ -613,14 +612,15 @@ class MathMLParser:
 
         if all(is_const):
             children = [int(child) for child in children]
-            return str({
+            bool_result = {
                 "eq": lambda x, y: x == y,
                 "neq": lambda x, y: x != y,
                 "gt": lambda x, y: x > y,
                 "lt": lambda x, y: x < y,
                 "geq": lambda x, y: x >= y,
                 "leq": lambda x, y: x <= y,
-            }[operator](children[0], children[1]))
+            }[operator](children[0], children[1])
+            return "1" if bool_result else "0"
 
         if any(is_const):
             const_child = int(children[is_const.index(True)])

@@ -92,17 +92,10 @@ def ode_factory(network, transform, **kwargs):
             - k : Hill dissociation constant
     '''
     transform = transform.lower()
-    if transform == 'placeholder':
-        class_ = BooleCubeODE
-    elif not transform in ode_classes:
+    if transform not in ode_classes:
         raise ValueError(f"transform' argument must be one of"\
                          f"{list(ode_classes.keys())}")
-    else:
-        class_ = ode_classes[transform]
-
-    # for sphinx documentation
-    # ODE_factory.ex_class = ODE
-    # ODE_factory.ex_class.__bases__ = tuple(set(ode_classes.values()))
+    class_ = ode_classes[transform]
 
     return class_(network, transform, **kwargs)
 
@@ -134,19 +127,7 @@ class ODE():
         transform : str
             Name of the transform being constructed (e.g. ``'squad'``,
             ``'boolecube'``); stored as-is on `self.transform`.
-
-        Notes
-        -----
-        If `transform` is ``'placeholder'`` this returns immediately
-        without setting any attributes.
         '''
-        if transform == 'placeholder':
-            return
-
-        # if not isinstance(network, RegulatoryNetwork):
-        #     raise TypeError(f"'network' argument must be a RegulatoryNetwork object."\
-        #                     f"not {type(network)}. ")
-
         self.n = len(network)
         '''int : number of nodes in the network.'''
         self.boolean_network = network
@@ -577,8 +558,14 @@ class SquadODE(ODE):
         self.param_h = parameter_to_array(h, self.boolean_network.index)
         '''arraylike : sigmoidal gain'''
 
-        # print(self.param_gamma)
-        # print(self.param_h)
+        self.param_dict = {
+            "gamma": self.param_gamma,
+            "h": self.param_h,
+        }
+        '''dict : track parameters (same purpose as
+        `BooleCubeODE.param_dict`; used e.g. by
+        `booldog.simulation_result.continuous_result.ContinuousSimulationResult.export`).'''
+
         # matrices
         self.activations, self.inhibitions = self.boolean_network.primes_to_matrices()
 
@@ -635,7 +622,7 @@ class SquadODE(ODE):
               ((1-np.exp(0.5*self.param_h))*(1+np.exp(-self.param_h*(w-0.5))))\
                 - self.param_gamma*x
 
-    def _get_system(self, off_nodes=[]):
+    def _get_system(self, off_nodes=None):
         '''Build the `dxdt(t, x_array, *args)` right-hand-side function.
 
         Parameters
@@ -652,6 +639,8 @@ class SquadODE(ODE):
             `x_array` to [0, 1]; suitable as the `fun` argument of
             `scipy.integrate.solve_ivp`.
         '''
+        if off_nodes is None:
+            off_nodes = []
 
         def dxdt(t, x_array, *args):
             x_array[x_array < 0] = 0

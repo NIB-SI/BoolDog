@@ -376,7 +376,6 @@ class BooleanNetworkMixin():
         interactions = defaultdict(dict)
         intgraph = primes2igraph(self.primes)
 
-        # TODO this is wrong?
         if direction == 'out':
             for node, d in intgraph.adjacency():  #nx 2.x
                 for other_node, sub_d in d.items():

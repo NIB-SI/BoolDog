@@ -156,11 +156,6 @@ class BoolDogModelIOToMixin:
 
         This constructor presents a consistent interface for exporting models
         to various formats, and centralizes any common logic needed.
-
-        Notes
-        -----
-        None of the ``to_XXX`` methods below currently call this helper; they
-        call their writer function directly instead.
         """
 
         logger.debug(
@@ -181,15 +176,15 @@ class BoolDogModelIOToMixin:
 
     def to_bnet(self, *args, **kwargs):
         """Export model to BoolNet .bnet format."""
-        return write_bnet(self, *args, **kwargs)
+        return self._to_writer(write_bnet, self, *args, **kwargs)
 
     def to_primes(self, *args, **kwargs):
         """Export model to prime implicants format."""
-        return write_primes(self, *args, **kwargs)
+        return self._to_writer(write_primes, self, *args, **kwargs)
 
     def to_sbmlqual(self, *args, **kwargs):
         """Export model to SBML-qual file."""
-        return write_sbmlqual(self, *args, **kwargs)
+        return self._to_writer(write_sbmlqual, self, *args, **kwargs)
 
     # ---- Object conversions -------------------------------------------------
 

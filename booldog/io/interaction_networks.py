@@ -157,6 +157,8 @@ def read_sif(file,
              target_col=1,
              interaction_col=2,
              header=True,
+             activator_symbol="1",
+             inhibitor_symbol="-1",
              **kwargs):
     '''Reads in a SIF file of interactions
 
@@ -175,18 +177,13 @@ def read_sif(file,
     interaction_col: int, optional
         Column index (if int) or column name (if str) of interaction type (symbol) (default=2)
     activator_symbol: int or str, optional
-        Symbol of activation edges in `interaction_col`, compared against the
-        (string) values read from the file. Default is 1 (from
-        `interactions2rules`). **Known bug, not intentional behaviour:**
-        values parsed from the file are always strings, but this default is
-        an ``int``, so with the default left as-is, *no* interaction in a
-        standard SIF file (using the literal characters "1"/"-1") will ever
-        match — every edge gets silently dropped. You must explicitly pass
-        a matching string (e.g. ``"1"``) for this to work at all. See
-        ``KNOWN_BUGS.md``.
+        Symbol of activation edges in `interaction_col`, compared against
+        the (string) values read from the file. Default is ``"1"`` (a
+        string, matching the fact that values parsed from the file are
+        always strings).
     inhibitor_symbol: int or str, optional
-        Symbol of inhibition edges in `interaction_col`. Default is -1 (see
-        `activator_symbol`).
+        Symbol of inhibition edges in `interaction_col`. Default is
+        ``"-1"`` (see `activator_symbol`).
     logic : LogicBuilder, optional
         An optional logic builder (see
         `booldog.io.interaction_logic.LogicBuilder`) used to construct each
@@ -222,7 +219,10 @@ def read_sif(file,
                 target_col], cols[interaction_col]
             interactions.append((source, target, interaction))
 
-    rules = interactions2rules(interactions, **kwargs)
+    rules = interactions2rules(interactions,
+                               activator_symbol=activator_symbol,
+                               inhibitor_symbol=inhibitor_symbol,
+                               **kwargs)
 
     # all nodes (can be regulator or source)
     all_nodes = [n for e in interactions for n in e[:2]]
@@ -324,11 +324,8 @@ def read_networkx(g,
         Value of inhibition edges in `edge_type_key` of g. Default is -1 (see
         `activator_symbol`).
     node_name_key : str, optional
-        Intended to be the node attribute key that contains the node name
-        (display label); default is "name". **Known bug, not intentional
-        behaviour**: the current implementation does not actually use this
-        parameter's value and always reads the literal "name" node
-        attribute instead. See ``KNOWN_BUGS.md``.
+        The node attribute key that contains the node name (display
+        label). Default is "name".
     logic : LogicBuilder, optional
         An optional logic builder (see
         `booldog.io.interaction_logic.LogicBuilder`) used to construct each
@@ -354,7 +351,7 @@ def read_networkx(g,
     nodes = [
         BoolDogNode(identifier=node_id,
                     rule=rules.get(node_id, None),
-                    name=data.get("name", None))
+                    name=data.get(node_name_key, None))
         for node_id, data in g.nodes(data=True)
     ]
 

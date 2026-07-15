@@ -110,16 +110,10 @@ class ContinuousSimulationResult():
 
             df = pd.read_csv(outfile, sep="\\t")
 
-        Raises
-        ------
-        AttributeError
-            **Known bug**, not intentional behaviour: the "ODE parameters"
-            line(s) are written from ``ode_system.param_dict``, an
-            attribute that only exists on
-            :class:`~booldog.continuous.ode_factory.BooleCubeODE`.
-            Exporting a :class:`~booldog.continuous.ode_factory.SquadODE`-based
-            result currently raises `AttributeError` instead of exporting.
-            See ``KNOWN_BUGS.md``.
+        The "ODE parameters" line(s) are written from
+        ``ode_system.param_dict``, which both
+        :class:`~booldog.continuous.ode_factory.BooleCubeODE` and
+        :class:`~booldog.continuous.ode_factory.SquadODE` provide.
         '''
 
         # check if export path is "writeable" if is not False:

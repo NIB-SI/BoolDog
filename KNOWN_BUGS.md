@@ -1,156 +1,140 @@
 # Known bugs
 
-Found while doing a full documentation pass over `booldog/` (2026-07-14). Not
-fixed — flagged here for follow-up since they were out of scope for a
-docs-only change.
+Originally found while doing a full documentation pass over `booldog/`
+(2026-07-14). All fixed on 2026-07-15 except the items in the last section,
+which were investigated and are not actually bugs.
 
-## Serious — likely broken features
+## Fixed
 
-- **`booldog/boolean/modifications.py`: `modify_network()` appears
-  completely non-functional.** `Modification.__init__` only sets
-  `self.type` (not `self.modification_type`), but `modify_network` reads
-  `modification.modification_type` — this raises `AttributeError` before
-  reaching any `case` branch. Separately, its `UPDATE` branch calls
-  `self.update_rule(...)`, which doesn't exist anywhere in the codebase
-  (the real method is `update_node`).
+- `booldog/utils/misc.py`, `file_writable`: opened the target file in
+  `'wb'` mode to check writability, which truncated (or created) it as a
+  side effect *before* the real write. This was actively harmful in two
+  call sites: `BooleanSimulationResult.export()` (an unimplemented stub)
+  called it and did nothing else, silently destroying any pre-existing
+  file at that path for no benefit; and `_to_writer` (used by
+  `to_bnet`/`to_primes`/`to_sbmlqual`) called it before a writer function
+  that can fail partway through building its output (e.g. `write_sbmlqual`
+  building an SBML document), permanently losing the original file's
+  content even though the export never actually completed. Fixed by: (1)
+  removing the stub's call entirely (it isn't implemented yet, so nothing
+  needs to write there), and (2) changing `file_writable` to open an
+  already-existing path in `'r+b'` mode (read+write, no truncation)
+  instead of `'wb'`, so a successful check no longer destroys existing
+  content; the not-yet-existing-path case is unchanged.
 
-- **`booldog/simulation_result/boolean_result.py`:
-  `BooleanStateSpace.plot_state_space` raises `NameError`.** When
-  `plot_nodes` is truthy, it does
-  `nodes = [node_id for node_id in nodes if node_id in self.network.node_ids]`
-  — referencing `nodes` before it's ever assigned.
+- `booldog/boolean/modifications.py`: `modify_network()` read
+  `modification.modification_type` (nonexistent attribute — `Modification`
+  only sets `self.type`) and called a nonexistent `self.update_rule(...)`
+  for the "update" case. Fixed to read `.type` and call `update_node`.
 
-- **`booldog/network.py`: `BoolDogModel.__init__` never sets
-  `self.modelinfo`** if `modelinfo=None` is passed (no fallback default).
-  Downstream code dereferences `.modelinfo` unconditionally with no guard:
-  `booldog/io/cytoscape.py` (`model.modelinfo.identifier`) and
-  `booldog/simulation_result/continuous_result.py`
-  (`self.network.modelinfo.source`) — both would raise `AttributeError`
-  for a model constructed without `modelinfo=`.
+- `booldog/simulation_result/boolean_result.py`:
+  `BooleanStateSpace.plot_state_space` raised `NameError` whenever
+  `plot_nodes` was given, because it filtered the undefined name `nodes`
+  instead of the `plot_nodes` parameter. Fixed.
 
-- **`booldog/simulation_result/continuous_result.py`:
-  `ContinuousSimulationResult.export()` unconditionally accesses
-  `self.ode_system.param_dict`**, which only exists on `BooleCubeODE`, not
-  `SquadODE` — breaks exporting any SQUAD-based simulation result.
+- `booldog/network.py`: `BoolDogModel.__init__` never set `self.modelinfo`
+  when `modelinfo=None`. Now defaults to a plain `BoolDogModelInfo()`
+  instance, so code that dereferences `.modelinfo` unconditionally
+  (`booldog/io/cytoscape.py`, `booldog/simulation_result/continuous_result.py`)
+  no longer raises `AttributeError`.
 
-## Smaller bugs
+- `booldog/simulation_result/continuous_result.py`:
+  `ContinuousSimulationResult.export()` unconditionally read
+  `self.ode_system.param_dict`, which only existed on `BooleCubeODE`. Fixed
+  by giving `SquadODE` its own `param_dict` (`{"gamma": ..., "h": ...}`),
+  matching `BooleCubeODE`'s.
 
-- `booldog/boolean/modifications.py:300` —
-  `raise ValueError("f{node} is already present in Network.")`: the `f`
-  prefix is typed *inside* the string literal, so it's never an f-string;
-  the message literally reads `f{node} is already present...` instead of
-  interpolating the node id.
+- `booldog/boolean/modifications.py:300` — `f"{node}` typo (the `f` was
+  inside the string literal). Fixed to a real f-string, and to reference
+  the correct variable (`node_id`).
 
-- `booldog/continuous/semi_quantitative.py:~243` — same class of bug:
-  `s += "        {node} -> released\n"` is a plain string, not an
-  f-string, so `{node}` is never interpolated in that log message (the
-  "starting a perturbation" branch just below it correctly uses an
-  f-string).
+- `booldog/continuous/semi_quantitative.py` — same class of bug:
+  `"        {node} -> released\n"` wasn't an f-string. Fixed.
 
-- `booldog/io/interaction_networks.py`, `read_networkx`: the
-  `node_name_key` parameter is accepted but never used — the code
-  hardcodes `data.get("name", None)` instead of
-  `data.get(node_name_key, None)`.
-
-- `booldog/io/interaction_networks.py`, `read_graphml`: the
-  `use_labels=True` parameter is accepted but never referenced anywhere in
-  the function body — appears dead/unused.
+- `booldog/io/interaction_networks.py`, `read_networkx`: `node_name_key`
+  was accepted but ignored (hardcoded `"name"`). Fixed to use the
+  parameter.
 
 - `booldog/io/interaction_networks.py`, `read_sif`: default
-  `activator_symbol=1`/`inhibitor_symbol=-1` are ints, but SIF file values
-  are always parsed as strings — the defaults likely never match unless
-  the caller explicitly passes string symbols.
+  `activator_symbol`/`inhibitor_symbol` were ints (`1`/`-1`), but SIF
+  values are always parsed as strings, so the defaults never matched
+  anything. `read_sif` now has its own string defaults (`"1"`/`"-1"`),
+  verified against the SIF test fixture with no explicit override needed.
 
-- `booldog/io/sbml.py`: `SBMLQualWriter.write(self, outfile)` doesn't
-  accept `**kwargs`, but `write_sbmlqual` calls
-  `writer.write(outfile, **kwargs)` — passing any kwargs raises
-  `TypeError`.
+- `booldog/io/sbml.py`, `MathMLParser._handle_comparison`: constant/constant
+  comparisons returned Python's `str(bool)` (`"True"`/`"False"`) instead of
+  bnet's `"1"`/`"0"`. Fixed.
 
-- `booldog/io/sbml.py`, `MathMLParser._handle_comparison`: when both
-  operands are constant ints, the result is `str(bool)`
-  (`"True"`/`"False"`) rather than bnet's `"1"`/`"0"` — if joined into an
-  `and`/`or` expression later, this would produce invalid bnet syntax.
+- `booldog/io/sbml.py`, `TransitionParser.parse_io`: an unrecognised
+  species / unsupported transition effect / set output level on one
+  output used `break`, dropping all subsequent outputs for that
+  transition. Changed to `continue`, so only the offending output is
+  skipped.
 
-- `booldog/io/sbml.py`, `TransitionParser.parse_io`: for a transition's
-  outputs, an unrecognised species / unsupported transition effect / set
-  output level all `break` out of the whole outputs loop rather than
-  `continue`-ing past just that one output — a single malformed output
-  silently drops any subsequent valid outputs for that transition.
-
-- `booldog/io/bnet.py`: `write_bnet(model, outfile=None, from_primes=True)`
-  always returns `None`, discarding the string
-  `pyboolnet.file_exchange.primes2bnet` would otherwise return — this
-  contradicts the "returns bnet string if outfile is None" contract that
-  holds for `from_primes=False`.
-
-- `booldog/io/biomodels.py`, `fetch_model`: the `sbml_file` parameter is
-  unconditionally overwritten and has no effect.
-
-- `booldog/io/biomodels.py`: the "first matching file" claim in the old
-  docstring was wrong — the loop has no `break`, so it's actually the
-  *last* matching file that's used.
-
-- `booldog/io/biomodels.py`: `BIOMODELS_BASE_URL = "https://www.biomodels.org/"`
-  combined with `f"{BIOMODELS_BASE_URL}/{model_id}..."` produces a double
-  slash in the constructed request URL. Not verified against the live API
-  — may or may not actually break requests.
+- `booldog/io/bnet.py`: `write_bnet(from_primes=True)` always returned
+  `None`, discarding the string `pyboolnet.file_exchange.primes2bnet`
+  returns when `outfile=None`. Fixed to return it, matching the
+  `from_primes=False` contract.
 
 - `booldog/io/interaction_logic.py`: `interactions2rules`'s return type
-  hint is `Dict[str, Callable]`, but it actually returns
-  `Dict[str, str]` (bnet-format rule strings, not callables).
+  hint was `Dict[str, Callable]`; fixed to `Dict[str, str]` (it returns
+  bnet-format rule strings).
 
-- `booldog/io/circuit.py`, `booldog2circuit`: docstring claimed it returns
-  `BooleanDiGraph`, but it actually returns a plain `nx.DiGraph(graph)`.
+- `booldog/__init__.py`: `assert sys.version_info >= (3, 10)` didn't match
+  the project's actual `>=3.12` requirement. Fixed.
 
-- `booldog/io/igraph.py` / `booldog/io/networkx.py`: both had a stale
-  `as_logic_circuit` default in the docstring ("Default is False"); the
-  actual signature default is `True`.
-
-## Lower priority / worth a look
-
-- `booldog/__init__.py:14` — `assert sys.version_info >= (3, 10)`, but
-  `CLAUDE.md`/`pyproject.toml` both require Python `>=3.12`. Stale check.
-
-- `booldog/continuous/ode_factory.py`: the `'placeholder'` transform path
-  (`ode_factory(model, 'placeholder')`) looks dead/broken —
-  `ODE.__init__` returns immediately without setting `self.boolean_network`
-  when `transform == 'placeholder'`, so `BooleCubeODE.__init__` would
-  crash on its next line. Only referenced from commented-out code.
+- `booldog/continuous/ode_factory.py`: removed the dead `'placeholder'`
+  transform code path (`ODE.__init__` returned before setting
+  `self.boolean_network`, so using it would have crashed one line later;
+  it was only reachable from already-commented-out code, itself now also
+  removed from `docs/source/conf.py`).
 
 - `booldog/continuous/ode_factory.py`, `SquadODE._get_system`:
-  `off_nodes=[]` is a mutable default argument (classic Python gotcha) —
-  currently only read, never mutated in place, so benign today.
+  `off_nodes=[]` mutable default argument. Changed to `off_nodes=None`
+  with the list built inside the function, matching `BooleCubeODE`'s
+  existing pattern.
 
-- `booldog/io/__init__.py`: `_to_writer` is defined as the writer-side
-  counterpart to `_from_reader`, but appears to be dead code — every
-  `to_x` method calls its writer function directly instead of going
-  through `_to_writer`.
+- `booldog/io/__init__.py`: `_to_writer` was dead code — every `to_x`
+  method called its writer directly. `to_bnet`/`to_primes`/`to_sbmlqual`
+  now route through it (verified with both positional and keyword
+  `outfile` for all three).
 
-- `booldog/io/cytoscape.py`, `silence_p4c_loggers`: the logger name
-  strings passed look like truncated/placeholder text (e.g. `"py4..."`)
-  rather than real py4cytoscape logger names — likely non-functional as
-  written.
+- `booldog/classes.py`: removed the commented-out, fully unused
+  `BoolDogRule` class.
 
-- `booldog/boolean/boolean.py`, `get_interactions`: has its own
-  `# TODO this is wrong?` comment. Traced through `primes2igraph`'s edge
-  semantics and the `direction='out'`/`'in'` branches appear to correctly
-  implement the documented behavior, but this wasn't confirmed against
-  any test coverage — worth a second look before removing the TODO.
+## Investigated, not bugs
 
-- `booldog/utils/misc.py`, `parameter_to_array`: any `parameter` that
-  isn't an int/float/dict/matching-length ndarray (including a
-  wrong-length ndarray) silently falls through to a logged warning and
-  returns an all-ones array, discarding the caller's value with no
-  exception raised.
+- `booldog/io/biomodels.py`'s double-slash URL
+  (`f"{BIOMODELS_BASE_URL}/{model_id}..."` where `BIOMODELS_BASE_URL`
+  already ends in `/`): the recorded VCR cassettes in `tests/cassettes/`
+  show this exact double-slash URL was sent to the *real* BioModels API
+  and got a successful response — the server tolerates it. Left as-is;
+  "fixing" it would only risk breaking cassette matching for no benefit.
 
-- `booldog/utils/misc.py`, `file_writable`: the writability "check" opens
-  the target file in `'wb'` mode, which creates it (or truncates existing
-  contents) as a side effect merely to test writability.
+- `booldog/io/cytoscape.py`, `silence_p4c_loggers`: the logger names
+  `"py4..."` and `"py4...S"` looked like truncated placeholder text, but
+  checking py4cytoscape's own source
+  (`py4cytoscape/py4cytoscape_logger.py`) confirms these are its actual,
+  if oddly-chosen, real logger names (`detail_logger`/`summary_logger`).
+  Verified `logging.getLogger("py4...")` returns the exact same `Logger`
+  instance py4cytoscape logs through. Not a bug.
 
-- `booldog/utils/logger.py`, `setup_logger`: `# ch.setLevel(level)` is
-  commented out — unclear whether leaving the handler at `NOTSET`
-  (deferring entirely to the logger's own level) is intentional or
-  leftover debugging.
+- `booldog/boolean/boolean.py`, `get_interactions`'s `# TODO this is
+  wrong?` comment: independently re-verified both `direction='out'` and
+  `direction='in'` against a network with a known regulator relationship
+  (`node_C = node_A & node_B`) — both directions produce exactly the
+  documented semantics. Comment removed.
 
-- `booldog/classes.py`: a commented-out `BoolDogRule` class — confirmed
-  (via repo-wide grep) to be completely unused/dead code.
+- `booldog/utils/logger.py`, `setup_logger`: the commented-out
+  `ch.setLevel(level)` is redundant, not missing — the logger's own level
+  is already set (`logger.setLevel(level)`), and with a single handler
+  left at `NOTSET`, that alone is sufficient to control verbosity.
+  Removed the dead comment; no behaviour change.
+
+- `booldog/utils/misc.py`, `parameter_to_array`: silently falls back to an
+  all-ones array (with a logged warning) for input that isn't an
+  int/float/dict/matching-length ndarray, rather than raising. Left
+  as-is — this reads as a deliberate permissive-with-warning design
+  choice for a parameter-coercion helper, not a bug, and changing it to
+  raise would be a behaviour change rather than a fix.
+

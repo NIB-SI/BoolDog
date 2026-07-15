@@ -187,15 +187,9 @@ def write_bnet(model, outfile=None, from_primes=False, header=True, minimize=Fal
     Returns
     -------
     str or None
-        If ``from_primes`` is False: returns the bnet string if ``outfile``
-        is None, otherwise writes it to ``outfile`` and returns None.
-        If ``from_primes`` is True: always returns None, **even when**
-        ``outfile`` **is None** — this is a known bug/inconsistency, not
-        intentional: the bnet text produced by
-        ``pyboolnet.file_exchange.primes2bnet`` is only written out when
-        ``outfile`` is given, and is silently discarded (not returned as a
-        string, and not written anywhere) if ``outfile`` is None. See
-        ``KNOWN_BUGS.md``.
+        Returns the bnet string if ``outfile`` is None, otherwise writes it
+        to ``outfile`` and returns None. This holds for both
+        ``from_primes`` values.
 
     Notes
     -----
@@ -205,13 +199,13 @@ def write_bnet(model, outfile=None, from_primes=False, header=True, minimize=Fal
     :doc:`pyboolnet:modules/file_exchange`.
     '''
     if from_primes:
-        file_exchange.primes2bnet(
+        text_bnet = file_exchange.primes2bnet(
             model.primes,
             fname_bnet=outfile,
             header=header,
             minimize=minimize,
         )
-        return None
+        return text_bnet if outfile is None else None
 
     if outfile is not None:
         f = open(outfile, "w", encoding="utf-8")

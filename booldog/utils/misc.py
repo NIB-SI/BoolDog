@@ -148,23 +148,24 @@ def file_writable(path):
 
     Notes
     -----
-    A warning is logged (but no exception raised) if *path* already
-    exists, since it will be overwritten.
+    A warning is logged (but no exception raised) if *path* already exists,
+    since it will be overwritten.
 
-    The writability check itself is performed by opening *path* for
-    writing (``open(path, 'wb')``) and immediately closing it again
-    without writing any data. As a side effect, if *path* did not exist
-    it is created as an empty file, and if it did exist its contents are
-    truncated. Callers that need the existing content of *path*
-    preserved should read/copy it before calling this function.
+    If *path* already exists, the check opens it in ``'r+b'`` mode (read
+    and write, no truncation) so its existing content is left untouched —
+    only if *path* does not yet exist is it created via ``open(path, 'wb')``
+    as an empty file.
     '''
     path = Path(path)
 
     if path.exists():
         logger.warning('%s already exists and will be overwritten!', path)
+        mode = 'r+b'
+    else:
+        mode = 'wb'
 
     try:
-        with open(path, 'wb'):
+        with open(path, mode):
             pass
     except IOError as e:
         if e.errno == errno.EACCES:

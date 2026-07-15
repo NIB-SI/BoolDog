@@ -19,7 +19,6 @@ from matplotlib.colors import ListedColormap
 import networkx as nx
 from pyboolnet.state_transition_graphs import stg2image
 
-from booldog.utils import file_writable
 
 # path to style files
 from booldog.resources import cytoscape_style_xml
@@ -157,14 +156,6 @@ class BooleanStateSpace():
             Displays the heatmap directly via ``plt.show()``; the figure is
             not returned or saved to file.
 
-        Raises
-        ------
-        NameError
-            **Known bug, not intentional behaviour**: when `plot_nodes` is
-            given (truthy), the implementation references a variable
-            named ``nodes`` before it is ever assigned, so this currently
-            raises `NameError` on every call with `plot_nodes` set. Only
-            ``plot_nodes=None`` (the default) works. See ``KNOWN_BUGS.md``.
         """
 
         # Default binary colormap: green for 1, grey for 0
@@ -173,7 +164,7 @@ class BooleanStateSpace():
 
         # Extract node names and states
         if plot_nodes:
-            nodes = [node_id for node_id in nodes if node_id in self.network.node_ids]
+            nodes = [node_id for node_id in plot_nodes if node_id in self.network.node_ids]
         else:
             nodes = self.network.node_ids
 
@@ -373,17 +364,13 @@ class BooleanSimulationResult():
 
         Notes
         -----
-        Not yet implemented: this currently only checks that `file` is a
-        writable path (via :func:`~booldog.utils.misc.file_writable`) and
-        does not write any content.
+        Not yet implemented: this currently does nothing.
 
         Parameters
         ----------
         file : str or Path
             Path to the output file.
         '''
-
-        file_writable(file)
         #TODO
 
     def make_animation(self,

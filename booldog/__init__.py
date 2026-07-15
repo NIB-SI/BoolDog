@@ -17,7 +17,7 @@ from booldog.utils.logger import setup_logger
 from booldog.network import BoolDogModel
 from booldog.simulation_result import BooleanStateSpace
 
-assert sys.version_info >= (3, 10)
+assert sys.version_info >= (3, 12)
 
 __version__ = get_pkg_version()
 

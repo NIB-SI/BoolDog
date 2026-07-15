@@ -35,9 +35,8 @@ def setup_logger(level=logging.INFO):
     logger = logging.getLogger('booldog')
     logger.setLevel(level)
 
-    # create console handler and set level to debug
+    # create console handler
     ch = logging.StreamHandler()
-    # ch.setLevel(level)
 
     # create formatter
     formatter = logging.Formatter('%(levelname)s %(asctime)s %(name)s:%(funcName)s %(message)s')

@@ -12,7 +12,6 @@
 #
 import os
 import sys
-import re
 
 # -- Project information -----------------------------------------------------
 
@@ -93,36 +92,6 @@ html_favicon = '../figures/icon.ico'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 #html_static_path = ['_static']
-
-# def autodoc_skip_member(app, what, name, obj, skip, options):
-
-#     # print(app, what, name, obj, skip, options)
-#     print("HELLLO", name, obj)
-
-#     excludes = ['booldog.io.read']
-
-#     exclude = None
-#     for ex in excludes:
-#         this_exclude = re.findall(f'.*{ex}.*', str(obj))
-#         if this_exclude:
-#             exclude = True
-#             print("SKIP ME!!!", str(obj))
-#             break
-
-#     return exclude
-
-# def setup(app):
-
-#     app.connect('autodoc-skip-member', autodoc_skip_member)
-
-#     # i.o.t add ODE class (inside a function) to the documentation
-#     # import booldog
-#     # example = booldog.ode_factory.ode_factory(
-#     #             '',
-#     #             transform='placeholder')
-#     # booldog.ode_factory.ODE = booldog.ode_factory.ode_factory.ex_class
-#     # booldog.ode_factory.ODE.__name__ = 'ODE'
-#     # booldog.ode_factory.ODE.__module__ = 'booldog.ode'
 
 
 def ensure_extra_media_dirs_exist(_):

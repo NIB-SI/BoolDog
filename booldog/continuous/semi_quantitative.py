@@ -241,7 +241,7 @@ class ContinuousMixin:
             for node, perturb in events_d[event_t].items():
                 if perturb["reset"]:
                     # ending a perturbation (put back dx/dt of this node)
-                    s += "        {node} -> released\n"
+                    s += f"        {node} -> released\n"
                     off_nodes.remove(self.index[node])
                     ode_system.update(off_nodes=off_nodes)
 

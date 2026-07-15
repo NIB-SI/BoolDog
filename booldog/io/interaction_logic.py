@@ -3,7 +3,7 @@
 
 import logging
 from collections import defaultdict
-from typing import Callable, Dict, Mapping
+from typing import Dict, Mapping
 
 logger = logging.getLogger(__name__)
 
@@ -15,7 +15,7 @@ def interactions2rules(
     logic: "LogicBuilder" = None,
     activator_symbol: int | str = 1,
     inhibitor_symbol: int | str = -1,
-) -> Dict[str, Callable]:
+) -> Dict[str, str]:
     '''Convert a list of signed interactions into Boolean update rules.
 
     Interactions are first grouped by target node (see

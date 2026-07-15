@@ -10,7 +10,7 @@ import logging
 
 from pyboolnet import file_exchange
 
-from booldog.classes import BoolDogNode
+from booldog.classes import BoolDogNode, BoolDogModelInfo
 from booldog.boolean import BooleanNetworkMixin, BooleanNetworkModificationMixin
 from booldog.continuous import ContinuousMixin
 from booldog.io import BoolDogModelIOFromMixin, BoolDogModelIOToMixin
@@ -52,13 +52,8 @@ class BoolDogModel(BooleanNetworkMixin, BooleanNetworkModificationMixin, Continu
             the prime implicants are computed from the node rules (see `get_primes`).
         modelinfo : BoolDogModelInfo, optional
             Model metadata. See `booldog.classes.BoolDogModelInfo` for more
-            information. If not given, `self.modelinfo` is not set at all (there
-            is no default `BoolDogModelInfo` instance created). **Known bug:**
-            some code elsewhere (e.g. `booldog.io.cytoscape`,
-            `booldog.simulation_result.continuous_result`) accesses
-            `self.modelinfo` unconditionally, so constructing a model
-            without `modelinfo` and later hitting one of those code paths
-            raises `AttributeError`. See ``KNOWN_BUGS.md``.
+            information. If not given, a default `BoolDogModelInfo` instance
+            is created instead (all fields left at their defaults).
 
         Notes
         -----
@@ -94,9 +89,9 @@ class BoolDogModel(BooleanNetworkMixin, BooleanNetworkModificationMixin, Continu
 
         self._set_node_ids_and_index()
 
-        if modelinfo is not None:
-            self.modelinfo = modelinfo
-            '''BoolDogModelInfo : model metadata, only set if `modelinfo` was provided.'''
+        self.modelinfo = modelinfo if modelinfo is not None else BoolDogModelInfo()
+        '''BoolDogModelInfo : model metadata; a default instance if `modelinfo`
+        was not provided.'''
 
         self.modifications = []
         '''list of Modification : audit trail of structural modifications (see
