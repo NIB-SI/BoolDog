@@ -23,3 +23,6 @@ dev*
 # coverage
 .coverage
 htmlcov/
+
+# benchmarks: third-party model files are fetched on demand, not redistributed
+benchmarks/data/
