@@ -85,6 +85,20 @@ To remove:
 pip uninstall booldog
 ```
 
+## Docker
+
+A standalone [`Dockerfile`](Dockerfile) at the repo root builds a container
+with BoolDog and its `all` extras installed. For a container that instead
+extends the [CoLoMoTo Docker](https://github.com/colomoto/colomoto-docker)
+image (bundled with its own tools and a Jupyter notebook environment), see
+[colomoto/README.md](colomoto/README.md).
+
+## Benchmarks
+
+Performance/scalability characterisation of BoolDog runtime against model
+size and regulatory in-degree is in
+[benchmarks/README.md](benchmarks/README.md).
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
