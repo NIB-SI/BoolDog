@@ -102,6 +102,30 @@ which were investigated and are not actually bugs.
 - `booldog/classes.py`: removed the commented-out, fully unused
   `BoolDogRule` class.
 
+- `booldog/io/bnet.py`: `BnetParser` skipped the bnet header line via an
+  exact whole-line string match against `BNET_HEADER = "targets, factors"`
+  (with a space after the comma). Real-world bnet files without that exact
+  spacing (e.g. throughout
+  [biodivine-boolean-models](https://github.com/sybila/biodivine-boolean-models),
+  which uses `"targets,factors"` with no space) fell through to being
+  parsed as a real rule line, creating two bogus nodes (`targets`,
+  `factors`). `"targets, factors"` (with space) is in fact the documented,
+  canonical convention — originated by BoolNet (the R package the bnet
+  format comes from, per its own vignette), and used throughout
+  pyboolnet's own bundled example networks, its `file_exchange.py` writer,
+  and its `BNetToPrime` binary's own README. Both of those reference
+  implementations already tolerate either spacing, just via different
+  mechanisms: pyboolnet's C++ binary strips all whitespace from a line
+  before comparing (so the no-space literal in its source is incidental,
+  not a distinct convention), while BoolNet's own `loadNetwork()` splits
+  the header on `,` and `trim()`/`tolower()`-s each field. BoolDog's
+  naive whole-line exact-match was the only one of the three that was
+  actually strict. Fixed by replacing it with a `_is_bnet_header()` helper
+  that mirrors BoolNet's per-field tolerant check (also recognising
+  BoolNet's optional 3-field `"targets, factors, probabilities"` variant,
+  used for probabilistic Boolean networks, which BoolDog does not
+  otherwise support parsing rules for).
+
 ## Investigated, not bugs
 
 - `booldog/io/biomodels.py`'s double-slash URL

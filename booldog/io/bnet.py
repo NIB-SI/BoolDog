@@ -24,6 +24,33 @@ BNET_REGULATORS_REGEX = r"\b[A-Za-z_][A-Za-z0-9_]*\b"
 
 BNET_HEADER = "targets, factors"
 
+
+def _is_bnet_header(line):
+    '''Check whether a line is a bnet header line.
+
+    Mirrors BoolNet's own tolerant ``loadNetwork()`` check (per-field,
+    whitespace- and case-insensitive), rather than an exact match against
+    :data:`BNET_HEADER`: real bnet files vary in header spacing (e.g.
+    ``"targets,factors"`` with no space, as used throughout the
+    biodivine-boolean-models repository, versus BoolNet's own documented
+    ``"targets, factors"``). Only the first two fields are checked;
+    BoolNet also allows an optional third ``probabilities`` field for
+    probabilistic Boolean networks, which is simply ignored here since
+    BoolDog does not otherwise support parsing rules for those.
+
+    Parameters
+    ----------
+    line : str
+        A single, already-stripped line of bnet text.
+
+    Returns
+    -------
+    bool
+    '''
+    fields = [f.strip().lower() for f in line.split(",")]
+    return len(fields) >= 2 and fields[0] == "targets" and fields[1] in ("functions", "factors")
+
+
 class BnetParser:
     '''Parse the body of a bnet-format string into per-node Boolean rules.
 
@@ -31,8 +58,9 @@ class BnetParser:
     ----------
     bnet : str
         Text in bnet format (one ``target, rule`` line per node; blank
-        lines, a ``"targets, factors"`` header line, and lines starting
-        with ``#`` are ignored).
+        lines, a header line such as ``"targets, factors"`` (see
+        :func:`_is_bnet_header` for the accepted variants), and lines
+        starting with ``#`` are ignored).
     '''
 
     def __init__(self, bnet):
@@ -75,7 +103,7 @@ class BnetParser:
 
         for line in bnet_str.splitlines():
             line = line.strip()
-            if (not line) or (line == BNET_HEADER) or line.startswith("#"):
+            if (not line) or _is_bnet_header(line) or line.startswith("#"):
                 continue
 
             if not re.match(BNET_LINE_REGEX, line):

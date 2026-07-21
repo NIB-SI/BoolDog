@@ -21,6 +21,16 @@ class TestBoolDogModelFrom(unittest.TestCase):
         bn = BoolDogModel.from_bnet(BooleanNetworkExamples.BNET)
         self.assertDictEqual(bn.primes, BooleanNetworkExamples.PRIMES)
 
+    def test_from_bnet_header_without_space(self):
+        # "targets,factors" (no space) is what pyboolnet's own bundled
+        # binary and real-world bnet files (e.g. biodivine-boolean-models)
+        # use; BoolNet's documented "targets, factors" (with space) must
+        # also still work (see KNOWN_BUGS.md).
+        bnet_no_space = BooleanNetworkExamples.BNET.replace(
+            "targets, factors", "targets,factors")
+        bn = BoolDogModel.from_bnet(bnet_no_space)
+        self.assertDictEqual(bn.primes, BooleanNetworkExamples.PRIMES)
+
     def test_from_primes(self):
         bn = BoolDogModel.from_primes(BooleanNetworkExamples.PRIMES)
         self.assertDictEqual(bn.primes, BooleanNetworkExamples.PRIMES)

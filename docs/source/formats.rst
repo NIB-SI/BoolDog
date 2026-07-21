@@ -17,7 +17,12 @@ The following is an example of a boolnet file:
     B, !A
     C, A | D & !B
 
-The header of ``targets, factors`` is optional. In addition, comments start with a hash (``#``).
+The header of ``targets, factors`` is optional. If present, it is recognised
+regardless of whitespace or case (e.g. ``targets,factors`` also works), with
+``functions`` accepted in place of ``factors``, and an optional third
+``probabilities`` field (used by BoolNet for probabilistic Boolean networks,
+which BoolDog does not otherwise support), matching BoolNet's own tolerant
+handling of this header. In addition, comments start with a hash (``#``).
 
 There should only be one line per target variable.
 
