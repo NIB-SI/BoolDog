@@ -7,7 +7,7 @@ name = "BoolDog"
 authors = [
   { name="Carissa Bleker", email="carissa.bleker@nib.si" },
 ]
-description = "A Python package for analyses of Boolean and semi-quantitative Boolean networks."
+description = "A Python package for integrated Boolean and semi-quantitative network modelling."
 keywords = ["boolean networks", "systems biology", "computational biology", "network analysis"]
 readme = "README.md"
 classifiers = [
