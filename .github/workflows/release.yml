@@ -1,0 +1,89 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: 'Version part to bump'
+        required: true
+        type: choice
+        options: [patch, minor, major]
+        default: patch
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install BoolDog with test extras
+        run: pip install .[networks,sbml,biomodels,test]
+
+      - name: Run tests
+        run: python -m unittest discover .
+        working-directory: tests
+
+  release:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Bump version in pyproject.toml
+        id: bump
+        run: |
+          python3 - "$BUMP" <<'EOF'
+          import re, os, sys
+          bump = sys.argv[1]
+          path = "pyproject.toml"
+          text = open(path).read()
+          match = re.search(r'^version = "(\d+)\.(\d+)\.(\d+)"', text, re.MULTILINE)
+          if not match:
+              raise SystemExit("Could not find a version = \"X.Y.Z\" line in pyproject.toml")
+          major, minor, patch = map(int, match.groups())
+          if bump == "major":
+              major, minor, patch = major + 1, 0, 0
+          elif bump == "minor":
+              minor, patch = minor + 1, 0
+          else:
+              patch += 1
+          new_version = f"{major}.{minor}.{patch}"
+          new_text = text[:match.start()] + f'version = "{new_version}"' + text[match.end():]
+          open(path, "w").write(new_text)
+          with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+              f.write(f"version={new_version}\n")
+          print(f"Bumped {match.group(0)!r} -> version = \"{new_version}\"")
+          EOF
+        env:
+          BUMP: ${{ inputs.bump }}
+
+      - name: Commit, tag, and push
+        env:
+          VERSION: ${{ steps.bump.outputs.version }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add pyproject.toml
+          git commit -m "Bump version to $VERSION"
+          # Matches the existing 0.1.0 tag's convention: bare version, no "v" prefix.
+          git tag "$VERSION"
+          git push origin HEAD:main
+          git push origin "$VERSION"
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.bump.outputs.version }}
+        run: |
+          # NOTE: release name is the bare version (no "v" prefix), matching
+          # python-publish.yml's `url: .../BoolDog/${{ github.event.release.name }}`.
+          gh release create "$VERSION" --title "$VERSION" --generate-notes
