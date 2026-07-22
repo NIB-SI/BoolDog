@@ -6,7 +6,11 @@ This benchmarks BoolDog runtime (model load and instantiation, Boolean simulatio
 - **Node count:** models sampled across a wide size
   range (4-853 nodes) from
   [biodivine-boolean-models](https://github.com/sybila/biodivine-boolean-models),
-  a curated repository of real-world Boolean network models.
+  a curated repository of real-world Boolean network models. Note that
+  `n_nodes` here (and in `results/nodecount.tsv`) is `variables + inputs`
+  from biodivine's own `models/summary.csv` -- BoolDog counts all nodes
+  uniformly (input/free nodes get a trivial self-referencing rule), while
+  biodivine tracks them as a separate `inputs` count alongside `variables`.
 - **In-degree:** a controlled synthetic single node with increasing
   in-degree, reproducing the exact clause pattern from a known pyboolnet
   performance issue

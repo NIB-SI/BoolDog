@@ -234,24 +234,37 @@ def plot_combined():
         loc="center left",
     )
 
-    # Commit-provenance box, placed directly below the marker legend
+    # Commit provenance + average runtimes, in a single box below the
+    # marker legend, styled to match the legend frame exactly. (Two
+    # separately-positioned boxes stacked via successive get_window_extent
+    # calls drifted out of alignment -- a rendering quirk of this
+    # colorbar + out-of-axes-legend layout across repeated canvas draws --
+    # so this is one fig.text() call, one positioning step, done.)
     biodivine_commit = (RESULTS_DIR / "biodivine_commit.txt").read_text().strip()
     booldog_commit = (RESULTS_DIR / "booldog_commit.txt").read_text().strip()
-    commit_text = (
+
+    all_runtimes = pd.concat([nodecount[list(METRIC_LABELS)], indegree[list(METRIC_LABELS)]],
+                              ignore_index=True)
+    means = all_runtimes.mean()
+
+    info_text = (
         f"biodivine-boolean-models @ {biodivine_commit[:10]}\n"
-        f"BoolDog @ {booldog_commit[:10]}"
+        f"BoolDog @ {booldog_commit[:10]}\n"
+        "\n"
+        "Average runtime (s):\n" + "\n".join(
+            f"  {label}: {means[col]:.3g}" for col, label in METRIC_LABELS.items()
+        ) + f"\n  Total: {means.sum():.3g}"
     )
+
     fig.canvas.draw()
     legend_bbox_fig = metric_legend.get_window_extent(fig.canvas.get_renderer()) \
         .transformed(fig.transFigure.inverted())
     legend_frame = metric_legend.get_frame()
     fontsize = metric_legend.get_texts()[0].get_fontsize()
-
-    # Match the legend frame's own boxstyle exactly
     borderpad = plt.rcParams["legend.borderpad"]
     pad_fig_x = (borderpad * fontsize / 72.0) / fig.get_figwidth()
-    fig.text(
-        legend_bbox_fig.x0 + pad_fig_x, legend_bbox_fig.y0 - 0.03, commit_text,
+    info_box = fig.text(
+        legend_bbox_fig.x0 + pad_fig_x, legend_bbox_fig.y0 - 0.03, info_text,
         va="top", ha="left", fontsize=fontsize,
         family=metric_legend.get_texts()[0].get_fontfamily(),
         bbox=dict(boxstyle=f"round,pad={borderpad},rounding_size=0.2",
@@ -261,7 +274,7 @@ def plot_combined():
 
     FIGURES_DIR.mkdir(parents=True, exist_ok=True)
     fig.savefig(FIGURES_DIR / "scaling.png", dpi=150, bbox_inches="tight",
-                bbox_extra_artists=[metric_legend])
+                bbox_extra_artists=[metric_legend, info_box])
     print(f"wrote {FIGURES_DIR / 'scaling.png'}")
 
 
