@@ -5,6 +5,7 @@
 [![License: GPL-3.0](https://img.shields.io/github/license/NIB-SI/BoolDog)](LICENSE)
 [![Docs](https://img.shields.io/github/actions/workflow/status/NIB-SI/BoolDog/deploy-docs.yml?label=docs)](https://nib-si.github.io/BoolDog)
 [![Tests](https://img.shields.io/github/actions/workflow/status/NIB-SI/BoolDog/tests.yml?label=tests)](https://github.com/NIB-SI/BoolDog/actions/workflows/tests.yml)
+[![bio.tools](https://img.shields.io/badge/bio.tools-booldog-blue)](https://bio.tools/booldog)
 
 A Python package for integrated Boolean and semi-quantitative network modelling.
 
