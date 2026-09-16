@@ -9,15 +9,15 @@
 Docs are built with Sphinx (sphinx-rtd-theme, sphinx-autoapi, nbsphinx). These are
 declared as the `docs` optional dependency group in the project's `pyproject.toml`,
 alongside the other optional extras (`sbml`, `networks`, `graphviz`, `biomodels`).
-Install them into a virtual environment of your choice, e.g. with Poetry:
+Install them into a virtual environment of your choice, e.g. with uv:
 
-    poetry install --extras docs
+    uv sync --extra docs
 
 or with pip:
 
     pip install .[docs]
 
-Then build the HTML docs (prefix commands with `poetry run` if using Poetry):
+Then build the HTML docs (prefix commands with `uv run` if using uv):
 
     cd docs
     make clean

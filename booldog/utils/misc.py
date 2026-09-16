@@ -186,7 +186,7 @@ def get_pkg_version():
     -----
     Reads the version from the installed ``BoolDog`` distribution's
     metadata via `importlib.metadata.version`. This requires the package
-    to be installed (e.g. via `pip`/`poetry`) with its distribution
+    to be installed (e.g. via `pip`/`uv`) with its distribution
     metadata available; it will raise
     `importlib.metadata.PackageNotFoundError` if ``booldog`` has no
     installed distribution metadata to read.

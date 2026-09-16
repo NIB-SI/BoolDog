@@ -28,15 +28,13 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-# igraph is pinned here too (not just in `networks`) because `tabularqual`
-# transitively depends on `py4cytoscape`, which requires an unconstrained
-# `igraph`. Without this pin, Poetry's resolver can non-deterministically
-# select igraph>=1.0.0 instead of our pin when `sbml` and `networks` are
-# installed together, due to a Poetry lock-file bug:
-# https://github.com/python-poetry/poetry/issues/10971
 # igraph>=1.0.0 has a GraphML edge-id import regression we rely on avoiding:
 # https://github.com/igraph/igraph/issues/2892
-sbml = ["python-libsbml>=5.19", "tabularqual", "igraph==0.11.9"]
+# (`sbml` no longer needs its own igraph pin: tabularqual -> sbmlutils used to
+# transitively pull in py4cytoscape, which requires an unconstrained igraph,
+# but sbmlutils>=0.10 moved py4cytoscape to an extra it no longer installs by
+# default; see https://github.com/matthiaskoenig/sbmlutils/issues/461.)
+sbml = ["python-libsbml>=5.19", "tabularqual"]
 networks = ["networkx", "igraph==0.11.9"]
 graphviz = ["pygraphviz"]
 biomodels = ["requests>=2.25"]
