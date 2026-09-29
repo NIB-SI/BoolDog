@@ -44,6 +44,22 @@ class TestBoolDogModelFrom(unittest.TestCase):
             BooleanNetworkExamples.TABULARQUAL_FILE)
         self.assertDictEqual(bn.primes, BooleanNetworkExamples.PRIMES)
 
+    def test_from_tabularqual_without_validation(self):
+        bn = BoolDogModel.from_tabularqual(
+            BooleanNetworkExamples.TABULARQUAL_FILE, validate=False)
+        self.assertDictEqual(bn.primes, BooleanNetworkExamples.PRIMES)
+
+    def test_from_tabularqual_passes_validate_on(self):
+        from unittest import mock
+        import booldog.io.tabularqual as tq
+
+        for validate in (True, False):
+            with mock.patch.object(tq, "convert_spreadsheet_to_sbml",
+                                   wraps=tq.convert_spreadsheet_to_sbml) as convert:
+                BoolDogModel.from_tabularqual(
+                    BooleanNetworkExamples.TABULARQUAL_FILE, validate=validate)
+            self.assertEqual(convert.call_args.kwargs["validate"], validate)
+
     # ---- Interaction / graph formats --------------------------------
 
     def test_from_interactions(self):
