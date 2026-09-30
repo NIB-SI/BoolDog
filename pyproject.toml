@@ -34,11 +34,11 @@ dependencies = [
 # transitively pull in py4cytoscape, which requires an unconstrained igraph,
 # but sbmlutils>=0.10 moved py4cytoscape to an extra it no longer installs by
 # default; see https://github.com/matthiaskoenig/sbmlutils/issues/461.)
-sbml = ["python-libsbml>=5.19", "tabularqual"]
+sbml = ["python-libsbml>=5.19", "tabularqual>=0.1.4"]
 networks = ["networkx", "igraph==0.11.9"]
 graphviz = ["pygraphviz"]
 biomodels = ["requests>=2.25"]
-all = ["python-libsbml>=5.19", "tabularqual", "networkx", "igraph==0.11.9", "pygraphviz", "requests>=2.25"]
+all = ["python-libsbml>=5.19", "tabularqual>=0.1.4", "networkx", "igraph==0.11.9", "pygraphviz", "requests>=2.25"]
 
 # for development
 docs = ["sphinx", "sphinx-rtd-theme", "sphinx-autoapi", "nbsphinx", "nbsphinx-link", "ipython"]

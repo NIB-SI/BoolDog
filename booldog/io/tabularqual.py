@@ -31,12 +31,17 @@ class TabularQualReader:
     ----------
     model_path : str
         Path to the TabularQual spreadsheet file.
+    validate : bool, optional
+        Whether ``tabularqual`` validates the annotations while converting
+        (default True).
     '''
 
-    def __init__(self, model_path):
+    def __init__(self, model_path, validate=True):
         self.model_path = model_path
         '''str: Path to the TabularQual spreadsheet file, as given at
         construction.'''
+        self.validate = validate
+        '''bool: Whether the annotations are validated while converting.'''
 
     def read(self):
         '''Convert the TabularQual file to SBML-qual (in a temporary file)
@@ -53,7 +58,7 @@ class TabularQualReader:
         '''
 
         with NamedTemporaryFile(delete_on_close=False, suffix=".sbml") as fp:
-            convert_spreadsheet_to_sbml(self.model_path, fp.name)
+            convert_spreadsheet_to_sbml(self.model_path, fp.name, validate=self.validate)
             bn = read_sbmlqual(fp.name)
 
         return bn
@@ -62,7 +67,7 @@ class TabularQualReader:
 # In
 ###############################
 
-def read_tabularqual(model_path):
+def read_tabularqual(model_path, validate=True):
     '''Parse a TabularQual file into the data needed to construct a
     :py:class:`BoolDogModel`.
 
@@ -70,6 +75,11 @@ def read_tabularqual(model_path):
     ----------
     model_path : str
         Path to the TabularQual spreadsheet file.
+    validate : bool, optional
+        Whether ``tabularqual`` validates the annotations (identifiers.org
+        namespaces and patterns, via ``sbmlutils``) while converting; invalid
+        annotations are reported but don't stop the conversion. False skips
+        the validation (faster, no messages). Default True.
 
     Returns
     -------
@@ -88,5 +98,5 @@ def read_tabularqual(model_path):
     if not _TABULARQUAL_AVAILABLE:
         raise ImportError("tabularqual is not available.")
 
-    reader = TabularQualReader(model_path)
+    reader = TabularQualReader(model_path, validate=validate)
     return reader.read()
