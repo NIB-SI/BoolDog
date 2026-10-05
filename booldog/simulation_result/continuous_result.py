@@ -159,7 +159,12 @@ class ContinuousSimulationResult():
         # z z1 z2 z3
 
 
-    def plot(self, file=None, plot_nodes=None, title=None, figsize=(20, 10)):
+    def plot(self,
+             file=None,
+             plot_nodes=None,
+             title=None,
+             figsize=(20, 10),
+             **kwargs):
         """Plot the simulated time-series for each node.
 
         Each requested node (or group of nodes, see `plot_nodes`) is plotted
@@ -191,6 +196,12 @@ class ContinuousSimulationResult():
         figsize : (float, float), optional
             Width, height in inches, passed to ``plt.subplots``. Default
             ``(20, 10)``.
+        **kwargs : dict
+            Additional keyword arguments passed to ``ax.plot`` for the
+            time-series lines, i.e. `matplotlib.lines.Line2D` properties
+            such as ``linewidth``, ``linestyle``, ``alpha`` or ``marker``.
+            These override the defaults of the BoolDog style sheet (e.g. a
+            line width of 3).
 
         Returns
         -------
@@ -239,7 +250,8 @@ class ContinuousSimulationResult():
                                   self.y,
                                   legend_labels,
                                   vlines=vlines,
-                                  title=title)
+                                  title=title,
+                                  **kwargs)
             # case (2) and (3)
             else:
                 if not isinstance(plot_nodes[0], list):
@@ -289,7 +301,8 @@ class ContinuousSimulationResult():
                                       this_y,
                                       legend_labels,
                                       vlines=vlines,
-                                      title=subtitle)
+                                      title=subtitle,
+                                      **kwargs)
 
             fig.supxlabel('Time', fontsize=18, fontweight='bold')
             fig.supylabel("Relative concentration",
@@ -315,7 +328,14 @@ class ContinuousSimulationResult():
 
         return fig, axes
 
-    def _plot_one_ax(self, ax, x, y, legend_labels, vlines=None, title=None):
+    def _plot_one_ax(self,
+                     ax,
+                     x,
+                     y,
+                     legend_labels,
+                     vlines=None,
+                     title=None,
+                     **kwargs):
         '''Helper method that draws one subplot of :py:meth:`plot`: plots
         `y` against `x` as lines with a legend, fixed y-limits of (0, 1),
         offset spines, and optional vertical event markers.
@@ -336,6 +356,9 @@ class ContinuousSimulationResult():
             event times). Default `None` (no lines).
         title : str or None, optional
             If given, set as this axes' title.
+        **kwargs : dict
+            Additional keyword arguments passed to ``ax.plot`` (Line2D
+            properties, e.g. ``linewidth``).
 
         Returns
         -------
@@ -362,7 +385,7 @@ class ContinuousSimulationResult():
                       ls='--',
                       alpha=0.5)
 
-        lines = ax.plot(x, y)
+        lines = ax.plot(x, y, **kwargs)
         legend = ax.legend(lines,
                            legend_labels,
                            bbox_to_anchor=(1.01, 0.5),
