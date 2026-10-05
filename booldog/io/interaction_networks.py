@@ -368,6 +368,7 @@ def read_graphml(file,
                  yEd_labels=False,
                  yEd_arrow_head=False,
                  use_labels=True,
+                 logic=None,
                  **kwargs):
     ''' Extract relevant parts for a Boolean network from a graphml file.
 
@@ -408,12 +409,16 @@ def read_graphml(file,
         Symbol or value of inhibition edges. If `yEd_arrow_head` is True,
         default is "t_shape" (the yEd arrow-head symbol for a T-bar), else
         default is `-1`.
+    logic : LogicBuilder, optional
+        An optional logic builder (see
+        `booldog.io.interaction_logic.LogicBuilder`) used to construct each
+        node's update rule from its regulators. Default is `SquadLogic`.
     **kwargs: dict
         Additional keyword arguments. Only `activator_symbol` and
         `inhibitor_symbol` are read from this dict (see above); any other
-        keys (e.g. a custom `logic` builder) are ignored, since, unlike the
-        other `read_*` functions, `read_graphml` does not forward `**kwargs`
-        on to `interactions2rules`.
+        keys are ignored, since, unlike the other `read_*` functions,
+        `read_graphml` does not forward `**kwargs` on to
+        `interactions2rules`.
 
     Returns
     -------
@@ -423,8 +428,17 @@ def read_graphml(file,
     Notes
     -----
     Uses igraph to parse the graphml file, and extracts node and edge
-    attributes to determine interactions. Always uses the default SQUAD
-    logic (`booldog.io.interaction_logic.SquadLogic`) to build rules.
+    attributes to determine interactions. Uses SQUAD logic by default (see
+    `logic`) to build rules.
+
+    Edges whose interaction value is missing or matches neither
+    `activator_symbol` nor `inhibitor_symbol` are dropped with a logged
+    warning, except with `yEd_arrow_head=True`, where an edge with no arrow
+    symbol at all raises a ``ValueError``. Note that igraph converts values
+    according to the GraphML ``attr.type`` of the key: a ``double``/``int``
+    key yields numbers (matching the default ``1``/``-1``), whereas a
+    ``string`` key yields e.g. ``"1"``, requiring
+    ``activator_symbol="1"``/``inhibitor_symbol="-1"``.
 
     If `yEd_label=True`, it also parses the yEd-specific attributes to
     extract node labels (y:NodeLabel) for node names.
@@ -546,6 +560,7 @@ def read_graphml(file,
                                        edge_type_key=edge_type_key)
 
     rules = interactions2rules(interactions,
+                               logic=logic,
                                activator_symbol=activator_symbol,
                                inhibitor_symbol=inhibitor_symbol)
 

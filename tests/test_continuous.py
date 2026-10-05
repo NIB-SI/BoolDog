@@ -6,6 +6,8 @@ import os
 import tempfile
 import unittest
 
+import matplotlib
+import matplotlib.pyplot
 import numpy as np
 
 from examples import BooleanNetworkExamples
@@ -424,6 +426,24 @@ class TestContinuousSimulation(unittest.TestCase):
                 content = f.read()
         self.assertIn("#transform\tboolecube", content)
         self.assertIn("#nodelist\t", content)
+
+    def test_plot_line_kwargs(self):
+        '''Extra keyword arguments to plot() are passed on to the time-series
+        lines, overriding the style sheet's line width.'''
+        result = self.model.continuous_simulation(
+            t_min=0, t_max=1, initial_state=0.2, transform="boolecube")
+        nodes = list(self.model.node_ids[:2])
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            for plot_nodes in (None, nodes, [nodes[:1], nodes[1:]]):
+                fig, axes = result.plot(file=os.path.join(tmp_dir, "p.png"),
+                                        plot_nodes=plot_nodes,
+                                        linewidth=1.5,
+                                        linestyle=":")
+                for ax in axes.flatten():
+                    for line in ax.lines:
+                        self.assertEqual(line.get_linewidth(), 1.5)
+                        self.assertEqual(line.get_linestyle(), ":")
+                matplotlib.pyplot.close(fig)
 
 
 if __name__ == '__main__':

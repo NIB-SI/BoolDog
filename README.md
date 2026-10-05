@@ -74,7 +74,7 @@ cd BoolDoG
 pip install .
 ```
 
-To install with all optional extras (networks, SBML-qual, BioModels):
+To install with all optional extras (networks, SBML-qual, BioModels, Cytoscape):
 
 ```bash
 pip install .[all]

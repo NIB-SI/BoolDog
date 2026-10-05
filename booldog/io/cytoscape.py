@@ -57,7 +57,8 @@ def test_cytoscape_connection():
         raise ImportError(
             'py4cytoscape (https://py4cytoscape.readthedocs.io/) '
             'is needed to interact with Cytoscape. '
-            'We suggest you install it using pip. ')
+            'Install it with the "cytoscape" extra, '
+            'e.g. `pip install booldog[cytoscape]`.')
     try:
         p4c.cytoscape_ping()
         return True

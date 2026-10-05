@@ -127,6 +127,51 @@ Pairwise interactions between entities can be imported from:
 * List of interactions (tuples of source, target, and sign)
 
 These can be used to construct a Boolean network by assigning update rules to
-each target variable. The rules are based on the interactions as:
+each target variable. By default the rules follow the SQUAD convention
+(:class:`booldog.io.interaction_logic.SquadLogic`), where the rule of a node
+depends on which kinds of regulators it has:
 
-`(any activator is active) AND (no inhibitor is active).`
+* **no regulators**: constant ``0``
+* **activators only**: OR of the activators, e.g. ``A | B``
+* **inhibitors only**: AND of the negated inhibitors, e.g. ``!C & !D``
+  (the node is on unless an inhibitor is active)
+* **both**: the activators OR-ed, AND the negated inhibitors AND-ed, e.g.
+  ``(A | B) & (!C & !D)``
+
+This logic can be replaced by passing a custom
+:class:`booldog.io.interaction_logic.LogicBuilder` via the ``logic`` argument,
+which is accepted by all of the import functions above
+(``from_graphml``, ``from_sif``, ``from_networkx``, ``from_igraph`` and
+``from_interactions``).
+
+Signs
+-----
+
+Every interaction must be signed, i.e. be either an activation or an
+inhibition (set via ``activator_symbol`` / ``inhibitor_symbol``); edges of
+unknown or dual monotonicity are not supported. Interactions whose sign is
+missing or not recognised are handled as follows:
+
+* **Unrecognised sign** (a value matching neither ``activator_symbol`` nor
+  ``inhibitor_symbol``, including missing values that igraph fills in as
+  ``None``/``NaN``): the interaction is dropped and a warning is logged.
+  This applies to all entry points.
+* **Missing sign attribute**: an error is raised when the sign cannot be read
+  at all, namely when the ``edge_type_key`` attribute is absent from a
+  NetworkX edge (``KeyError``), absent from all edges of an igraph/GraphML
+  graph (``KeyError``), when a yEd GraphML edge has no arrow head
+  (``ValueError``, with ``yEd_arrow_head=True``), or when a SIF line has too
+  few columns (``IndexError``).
+
+Note that the sign values are compared as-is: SIF values are always strings
+(defaults ``"1"``/``"-1"``), and GraphML values are typed by the ``attr.type``
+of their key (e.g. a ``string``-typed key requires
+``activator_symbol="1"``, ``inhibitor_symbol="-1"``).
+
+Duplicate interactions
+----------------------
+
+If the same (source, target) pair occurs more than once, only the last
+occurrence (with a recognised sign) is kept and a warning is logged, stating
+whether the signs conflict. In particular, an edge that is both activating
+and inhibiting cannot be represented.

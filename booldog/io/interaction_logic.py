@@ -38,10 +38,9 @@ def interactions2rules(
 
     logic : LogicBuilder, optional
         An optional logic builder to use for constructing the update functions.
-        If not provided, the default is `SquadLogic`, which implements the SQUAD logic:
-        A node is active iff::
-
-            (any activator is active) AND (no inhibitor is active)
+        If not provided, the default is `SquadLogic`, which implements the
+        SQUAD convention (see `SquadLogic` for the rule built in each case:
+        no regulators, activators only, inhibitors only, or both).
 
 
     Returns
@@ -50,6 +49,15 @@ def interactions2rules(
         A dictionary mapping each target node identifier to its Boolean
         update rule, as a bnet-format rule string (not a prime-implicant
         object) produced by ``logic.build``.
+
+    Notes
+    -----
+    Every interaction must be signed (activation or inhibition); edges of
+    unknown monotonicity are not supported. Interactions whose sign matches
+    neither `activator_symbol` nor `inhibitor_symbol` are dropped and a
+    warning is logged. If the same (source, target) pair appears more than
+    once, the last occurrence wins and a warning is logged (noting whether
+    the signs conflict).
 
     '''
 
@@ -89,7 +97,9 @@ def _normalise_and_collect_regulators(interactions, activator_symbol, inhibitor_
         Interactions whose `sign` matches neither `activator_symbol` nor
         `inhibitor_symbol` are dropped (a warning is logged) rather than
         included in the result. If the same (source, target) pair appears
-        more than once, only the last occurrence is kept.
+        more than once (with a recognized sign), only the last occurrence is
+        kept and a warning is logged, stating whether the signs conflict
+        (an edge cannot be both activating and inhibiting).
     """
     translate = {
         activator_symbol: 1,
@@ -108,6 +118,25 @@ def _normalise_and_collect_regulators(interactions, activator_symbol, inhibitor_
                 sign,
             )
             continue
+        previous = regulators_per_target[target].get(source)
+        if previous is not None:
+            if previous != norm:
+                logger.warning(
+                    "Conflicting signs for repeated edge %s → %s "
+                    "(%+d, then %+d); keeping the last one (%+d)",
+                    source,
+                    target,
+                    previous,
+                    norm,
+                    norm,
+                )
+            else:
+                logger.warning(
+                    "Repeated edge %s → %s (sign %+d); keeping the last one",
+                    source,
+                    target,
+                    norm,
+                )
         regulators_per_target[target][source] = norm
 
     return dict(regulators_per_target)
@@ -141,11 +170,16 @@ class LogicBuilder:
         raise NotImplementedError
 
 class SquadLogic(LogicBuilder):
-    """SQUAD logic:
+    """SQUAD logic (the default `LogicBuilder` of `interactions2rules`).
 
-    A node is active iff::
+    The rule for a node depends on which kinds of regulators it has:
 
-        (any activator is active) AND (no inhibitor is active)
+    - no regulators: constant ``0``
+    - activators only: OR of the activators, e.g. ``A | B``
+    - inhibitors only: AND of the negated inhibitors, e.g. ``!C & !D``
+      (the node is on unless an inhibitor is active)
+    - both: ``(activators OR-ed) & (negated inhibitors AND-ed)``,
+      e.g. ``(A | B) & (!C & !D)``
     """
 
     def build(self, node: str, regulators: Mapping[str, int]) -> str:

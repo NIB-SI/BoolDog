@@ -11,6 +11,7 @@ from examples import BooleanNetworkExamples, InteractionNetworkExamples
 
 # sys.path.append("../")
 from booldog import BoolDogModel
+from booldog.io import interaction_logic
 
 
 class TestBoolDogModelFrom(unittest.TestCase):
@@ -112,6 +113,20 @@ class TestBoolDogModelFrom(unittest.TestCase):
             yEd_labels=True, yEd_arrow_head=True)
         self.assertDictEqual(bn.primes,
                              InteractionNetworkExamples.PRIMES_SQUAD)
+
+    def test_from_graphml_custom_logic(self):
+
+        class ConstantLogic(interaction_logic.LogicBuilder):
+
+            def build(self, node, regulators):
+                return "1"
+
+        bn = BoolDogModel.from_graphml(InteractionNetworkExamples.GRAPHML_FILE,
+                                       edge_type_key="weight",
+                                       logic=ConstantLogic())
+        # every node in the example network is the target of some edge
+        self.assertDictEqual(bn.primes,
+                             {n: [[], [{}]] for n in bn.node_ids})
 
 if __name__ == '__main__':
     unittest.main()
