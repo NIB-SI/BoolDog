@@ -25,6 +25,8 @@ Some tests and modules need optional extras that are not part of the base `uv sy
   (`requests`), needed to run `tests/test_biomodels.py`.
 - `tests/test_io.py` exercises the `networks` extra (`igraph`).
 - SBML-qual support (`booldog/io/sbml.py`) needs the `sbml` extra (`python-libsbml`, `tabularqual`).
+- Cytoscape export (`booldog/io/cytoscape.py`, `booldog/utils/cytoscape_utils.py`) needs the
+  `cytoscape` extra (`py4cytoscape`).
 
 Install everything needed for the full test run with:
 ```bash
