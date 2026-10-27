@@ -24,7 +24,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install BoolDog with test extras
-        run: pip install .[networks,sbml,biomodels,test]
+        run: pip install .[networks,sbml,biomodels,cytoscape,test]
 
       - name: Run tests
         run: python -m unittest discover .
