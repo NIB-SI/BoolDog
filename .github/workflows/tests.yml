@@ -44,9 +44,12 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Install BoolDog with test extras
-        run: pip install .[networks,sbml,biomodels,test]
+        run: pip install .[networks,sbml,biomodels,cytoscape,test]
 
       - name: Run tests with coverage
+        # bash, so a failing unittest also fails the step on Windows
+        # (PowerShell only reports the exit code of the last command)
+        shell: bash
         run: |
           coverage run --source=booldog -m unittest discover .
           coverage report -m --fail-under=45
